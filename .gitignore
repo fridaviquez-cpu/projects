@@ -53,3 +53,12 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+# Credentials and local-only exports must never be pushed.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+/attached_assets/
+/generated-artifacts/
