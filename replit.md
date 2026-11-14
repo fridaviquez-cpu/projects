@@ -22,7 +22,7 @@ A no-login career workspace adapted from the user's original Orvyn screens.
 
 ## Where things live
 
-- `artifacts/orvyn/src/pages/`: original screens adapted for guest use.
+- `artifacts/orvyn/src/pages/`: original screens adapted for use without login.
 - `artifacts/orvyn/src/lib/career-client.ts`: local persistence, validation, CRUD, summaries, AI adapter.
 - `artifacts/orvyn/src/lib/resume-drafts.tsx`: recoverable editor drafts.
 - `artifacts/orvyn/src/index.css`: original theme.
@@ -42,7 +42,7 @@ Dashboard, opportunities pipeline, experience vault, resume editor/import/export
 
 ## User preferences
 
-See `.agents/memory/orvyn-guest-workspace.md` for the user's standing product requirements.
+See `.agents/memory/orvyn-requirements.md` for the user's standing product requirements.
 
 ## Gotchas
 

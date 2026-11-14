@@ -1,2 +1,2 @@
-- [Orvyn guest workspace](orvyn-guest-workspace.md) — preserve the original app’s functions and style without requiring login; return visits must retain work.
+- [Orvyn requirements](orvyn-requirements.md) — use only Orvyn as the name; public website, private source code, no login, and persistent work.
 - [GitHub access](github-access.md) — the native GitHub CLI can be authorized even when the source-control connector exposes no sandbox connection.
