@@ -1,5 +1,16 @@
 # Replit Projects — Orvyn
 
+## PortfolioIQ
+
+PortfolioIQ has been added as a separate, self-contained project in
+[`portfolio-iq/`](portfolio-iq/). It provides a no-login investing workspace with
+holdings screenshot imports, receipt scanning, budgeting, learning, a thesis
+journal, and optional personalization.
+
+See its [setup instructions](portfolio-iq/README.md). It has its own pnpm workspace
+and lockfile; run its commands from `portfolio-iq/`. The existing Orvyn application
+below and its root workspace are unchanged.
+
 Orvyn is a career workspace that does not require an account. It includes an
 opportunities pipeline, an experience vault, resume editing and tailoring,
 interview practice, Career DNA self-reflection, and career insights.

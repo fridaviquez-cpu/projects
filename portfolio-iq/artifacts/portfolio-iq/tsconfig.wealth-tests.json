@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/lib/__tests__/wealth-prefill.test.ts",
+    "src/pages/__tests__/wealth.test.tsx",
+    "vitest.config.ts"
+  ],
+  "exclude": [],
+  "compilerOptions": { "incremental": false }
+}

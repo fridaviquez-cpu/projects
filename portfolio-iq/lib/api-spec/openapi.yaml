@@ -1,0 +1,667 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 1.0.0
+  description: PortfolioIQ private guest workspace API. Prices are manual USD snapshots.
+servers:
+  - url: /api
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/HealthStatus" }
+  /workspace:
+    get:
+      operationId: getWorkspace
+      summary: Resume or create a private guest workspace and set its HttpOnly cookie
+      responses:
+        "200":
+          description: Workspace
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Workspace" }
+    patch:
+      operationId: updatePreferences
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/PreferencesInput" }
+      responses:
+        "200":
+          description: Updated workspace
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Workspace" }
+  /workspace/personalization:
+    get:
+      operationId: getPersonalization
+      summary: Read optional guest-owned setup answers; never requires login
+      responses:
+        "200":
+          description: Saved setup answers, or unanswered defaults for an existing workspace
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Preferences" }
+    put:
+      operationId: savePersonalization
+      summary: Save optional setup answers without changing holdings or other records
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/PersonalizationInput" }
+      responses:
+        "200":
+          description: Saved setup answers
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Preferences" }
+        "400":
+          description: Invalid answers; nothing saved
+        "401":
+          description: Open a guest workspace first
+  /workspace/recovery:
+    post:
+      operationId: createRecoveryKey
+      summary: Create or replace a secret recovery key; returned only once
+      responses:
+        "200":
+          description: Keep this key private
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/RecoveryKey" }
+  /workspace/restore:
+    post:
+      operationId: restoreWorkspace
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/RecoveryInput" }
+      responses:
+        "200":
+          description: Resumed workspace; current browser switches to this workspace
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Workspace" }
+  /workspace/sample:
+    post:
+      operationId: loadSampleData
+      summary: Add clearly labeled illustrative holdings to an empty portfolio only
+      responses:
+        "200":
+          description: Workspace
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Workspace" }
+  /overview:
+    get:
+      operationId: getOverview
+      responses:
+        "200":
+          description: Calculated portfolio summary
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Overview" }
+  /holdings:
+    post:
+      operationId: createHolding
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/HoldingInput" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Holding" }
+  /holdings/import:
+    post:
+      operationId: importHoldings
+      summary: Atomically import guest-owned holdings; a repeated importId replays the original result
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/HoldingsImportInput" }
+      responses:
+        "200":
+          description: Imported or safely replayed; samples are never matched or replaced
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/HoldingsImportResult" }
+        "400":
+          description: Invalid batch; nothing saved
+        "409":
+          description: Duplicate rejected or importId reused with different content; nothing saved
+  /holdings/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string, format: uuid } }
+    put:
+      operationId: updateHolding
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/HoldingInput" }
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Holding" }
+    delete:
+      operationId: deleteHolding
+      responses:
+        "204": { description: Deleted }
+  /theses:
+    post:
+      operationId: createThesis
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ThesisInput" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Thesis" }
+  /theses/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string, format: uuid } }
+    put:
+      operationId: updateThesis
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ThesisInput" }
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Thesis" }
+    delete:
+      operationId: deleteThesis
+      responses:
+        "204": { description: Deleted }
+  /budget:
+    get:
+      operationId: getBudgetSummary
+      parameters:
+        - name: month
+          in: query
+          required: true
+          schema: { type: string, pattern: '^\d{4}-(0[1-9]|1[0-2])$' }
+      responses:
+        "200":
+          description: Monthly totals
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/BudgetSummary" }
+  /budget/entries:
+    post:
+      operationId: createBudgetEntry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/BudgetEntryInput" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/BudgetEntry" }
+  /budget/entries/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string, format: uuid } }
+    put:
+      operationId: updateBudgetEntry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/BudgetEntryInput" }
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/BudgetEntry" }
+    delete:
+      operationId: deleteBudgetEntry
+      responses:
+        "204": { description: Deleted }
+  /budget/limit:
+    put:
+      operationId: setBudgetLimit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/BudgetLimitInput" }
+      responses:
+        "200":
+          description: Updated workspace
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Workspace" }
+  /learning:
+    get:
+      operationId: getLearningTopics
+      responses:
+        "200":
+          description: Evidence-led reading and quizzes with guest progress
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/LearningTopic" }
+  /learning/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    put:
+      operationId: updateLearningProgress
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/LearningProgressInput" }
+      responses:
+        "200":
+          description: Updated topic; completion requires a correct quiz answer
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/LearningTopic" }
+  /assistant:
+    post:
+      operationId: askAssistant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/QuestionInput" }
+      responses:
+        "200":
+          description: Educational explanation
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/AssistantAnswer" }
+  /image-imports/extract:
+    post:
+      operationId: extractImageImport
+      summary: Read a holdings screenshot or receipt into an unsaved, editable draft
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ImageImportInput" }
+      responses:
+        "200":
+          description: Unsaved extracted details; source image is not retained by PortfolioIQ
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ImageImportDraft" }
+  /image-imports/confirm:
+    post:
+      operationId: confirmImageImport
+      summary: Atomically save reviewed details with retry-safe import identification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ImageImportConfirmation" }
+      responses:
+        "200":
+          description: Import result
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ImageImportResult" }
+components:
+  schemas:
+    ImageImportInput:
+      type: object
+      required: [kind, imageDataUrl]
+      properties:
+        kind: { type: string, enum: [holdings, receipt] }
+        imageDataUrl: { type: string, minLength: 50, maxLength: 7500000 }
+    DetectedHolding:
+      type: object
+      required: [symbol, name, type, quantity, priceCents, costBasisCents, priceDate, notes, warnings]
+      properties:
+        symbol: { type: [string, "null"], maxLength: 16 }
+        name: { type: [string, "null"], maxLength: 120 }
+        type: { type: [string, "null"], enum: [ETF, Stock, Bond, Cash, Crypto, Other, null] }
+        quantity: { type: [number, "null"], minimum: 0, maximum: 100000000 }
+        priceCents: { type: [integer, "null"], minimum: 0, maximum: 100000000000 }
+        costBasisCents: { type: [integer, "null"], minimum: 0, maximum: 100000000000000 }
+        priceDate: { type: [string, "null"], maxLength: 10 }
+        notes: { type: string, maxLength: 2000 }
+        warnings:
+          type: array
+          maxItems: 15
+          items: { type: string, maxLength: 500 }
+    DetectedReceipt:
+      type: object
+      required: [description, category, amountCents, date, notes, warnings]
+      properties:
+        description: { type: [string, "null"], maxLength: 160 }
+        category: { type: [string, "null"], maxLength: 50 }
+        amountCents: { type: [integer, "null"], minimum: 0, maximum: 100000000000 }
+        date: { type: [string, "null"], maxLength: 10 }
+        notes: { type: string, maxLength: 2000 }
+        warnings:
+          type: array
+          maxItems: 15
+          items: { type: string, maxLength: 500 }
+    ImageImportDraft:
+      type: object
+      required: [kind, currency, holdings, receipt, warnings]
+      properties:
+        kind: { type: string, enum: [holdings, receipt] }
+        currency: { type: [string, "null"], maxLength: 10 }
+        holdings:
+          type: array
+          maxItems: 100
+          items: { $ref: "#/components/schemas/DetectedHolding" }
+        receipt:
+          oneOf:
+            - { $ref: "#/components/schemas/DetectedReceipt" }
+            - { type: "null" }
+        warnings:
+          type: array
+          maxItems: 20
+          items: { type: string, maxLength: 500 }
+    ImageImportConfirmation:
+      type: object
+      required: [requestId, kind, holdings, entries, allowDuplicates]
+      properties:
+        requestId: { type: string, format: uuid }
+        kind: { type: string, enum: [holdings, receipt] }
+        allowDuplicates: { type: boolean }
+        holdings:
+          type: array
+          maxItems: 100
+          items: { $ref: "#/components/schemas/HoldingInput" }
+        entries:
+          type: array
+          maxItems: 1
+          items: { $ref: "#/components/schemas/BudgetEntryInput" }
+    ImageImportResult:
+      type: object
+      required: [holdingCount, entryCount, skippedCount, alreadySaved]
+      properties:
+        holdingCount: { type: integer, minimum: 0 }
+        entryCount: { type: integer, minimum: 0 }
+        skippedCount: { type: integer, minimum: 0 }
+        alreadySaved: { type: boolean }
+    HealthStatus:
+      type: object
+      required: [status]
+      properties:
+        status: { type: string }
+    PreferencesInput:
+      type: object
+      required: [name, experience, goal]
+      properties:
+        name: { type: string, maxLength: 60 }
+        experience: { type: string, enum: [Beginner, Intermediate, Advanced] }
+        goal: { type: string, maxLength: 300 }
+    HoldingInput:
+      type: object
+      required: [symbol, name, type, quantity, priceCents, costBasisCents, notes, priceDate]
+      properties:
+        symbol: { type: string, minLength: 1, maxLength: 16, pattern: '^[A-Za-z0-9.^/-]+$' }
+        name: { type: string, minLength: 1, maxLength: 120 }
+        type: { type: string, enum: [ETF, Stock, Bond, Cash, Crypto, Other] }
+        quantity: { type: number, exclusiveMinimum: 0, maximum: 100000000 }
+        priceCents: { type: integer, minimum: 0, maximum: 100000000000 }
+        costBasisCents: { type: [integer, "null"], minimum: 0, maximum: 100000000000000 }
+        notes: { type: string, maxLength: 2000 }
+        priceDate: { type: string, pattern: '^\d{4}-\d{2}-\d{2}$' }
+    HoldingsImportInput:
+      type: object
+      required: [importId, duplicateBehavior, holdings]
+      properties:
+        importId: { type: string, format: uuid }
+        duplicateBehavior:
+          type: string
+          enum: [skip, add, reject]
+          description: Matches symbol and asset type, ignoring samples. Applies to existing holdings and earlier rows. Never replaces records.
+        holdings:
+          type: array
+          minItems: 1
+          maxItems: 200
+          items: { $ref: "#/components/schemas/HoldingInput" }
+    HoldingsImportResult:
+      type: object
+      required: [importId, imported, skipped]
+      properties:
+        importId: { type: string, format: uuid }
+        imported: { type: integer, minimum: 0 }
+        skipped: { type: integer, minimum: 0 }
+    Holding:
+      allOf:
+        - { $ref: "#/components/schemas/HoldingInput" }
+        - type: object
+          required: [id, isSample, updatedAt]
+          properties:
+            id: { type: string }
+            isSample: { type: boolean }
+            updatedAt: { type: string }
+    ThesisInput:
+      type: object
+      required: [symbol, title, reasoning, risks, status]
+      properties:
+        symbol: { type: string, maxLength: 16 }
+        title: { type: string, minLength: 1, maxLength: 160 }
+        reasoning: { type: string, maxLength: 8000 }
+        risks: { type: string, maxLength: 4000 }
+        status: { type: string, enum: [Researching, Invested, Reviewing, Archived] }
+    Thesis:
+      allOf:
+        - { $ref: "#/components/schemas/ThesisInput" }
+        - type: object
+          required: [id, createdAt, updatedAt]
+          properties:
+            id: { type: string }
+            createdAt: { type: string }
+            updatedAt: { type: string }
+    BudgetEntryInput:
+      type: object
+      required: [description, category, type, amountCents, date, notes]
+      properties:
+        description: { type: string, minLength: 1, maxLength: 160 }
+        category: { type: string, minLength: 1, maxLength: 50 }
+        type: { type: string, enum: [Income, Expense] }
+        amountCents: { type: integer, minimum: 1, maximum: 100000000000 }
+        date: { type: string, pattern: '^\d{4}-\d{2}-\d{2}$' }
+        notes: { type: string, maxLength: 2000 }
+    BudgetEntry:
+      allOf:
+        - { $ref: "#/components/schemas/BudgetEntryInput" }
+        - type: object
+          required: [id, createdAt]
+          properties:
+            id: { type: string }
+            createdAt: { type: string }
+    BudgetLimitInput:
+      type: object
+      required: [month, limitCents]
+      properties:
+        month: { type: string, pattern: '^\d{4}-(0[1-9]|1[0-2])$' }
+        limitCents: { type: integer, minimum: 0, maximum: 100000000000 }
+    Workspace:
+      type: object
+      required: [id, name, experience, goal, holdings, theses, entries, budgetLimits, hasRecoveryKey, createdAt, updatedAt]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        experience: { type: string, enum: [Beginner, Intermediate, Advanced] }
+        goal: { type: string }
+        holdings:
+          type: array
+          items: { $ref: "#/components/schemas/Holding" }
+        theses:
+          type: array
+          items: { $ref: "#/components/schemas/Thesis" }
+        entries:
+          type: array
+          items: { $ref: "#/components/schemas/BudgetEntry" }
+        budgetLimits:
+          type: object
+          additionalProperties: { type: integer }
+        hasRecoveryKey: { type: boolean }
+        createdAt: { type: string }
+        updatedAt: { type: string }
+    RecoveryKey:
+      type: object
+      required: [key]
+      properties:
+        key: { type: string }
+    RecoveryInput:
+      type: object
+      required: [key]
+      properties:
+        key: { type: string, minLength: 20, maxLength: 100 }
+    Allocation:
+      type: object
+      required: [type, valueCents, percent]
+      properties:
+        type: { type: string }
+        valueCents: { type: number }
+        percent: { type: number }
+    Insight:
+      type: object
+      required: [title, description, tone]
+      properties:
+        title: { type: string }
+        description: { type: string }
+        tone: { type: string, enum: [info, caution, positive] }
+    Overview:
+      type: object
+      required: [totalValueCents, totalCostBasisCents, gainCents, gainPercent, cashValueCents, holdingCount, knownCostCount, allocation, insights, lastPriceDate, hasSampleData]
+      properties:
+        totalValueCents: { type: number }
+        totalCostBasisCents: { type: number }
+        gainCents: { type: [number, "null"] }
+        gainPercent: { type: [number, "null"] }
+        cashValueCents: { type: number }
+        holdingCount: { type: integer }
+        knownCostCount: { type: integer }
+        allocation:
+          type: array
+          items: { $ref: "#/components/schemas/Allocation" }
+        insights:
+          type: array
+          items: { $ref: "#/components/schemas/Insight" }
+        lastPriceDate: { type: [string, "null"] }
+        hasSampleData: { type: boolean }
+    BudgetCategory:
+      type: object
+      required: [category, amountCents]
+      properties:
+        category: { type: string }
+        amountCents: { type: integer }
+    BudgetSummary:
+      type: object
+      required: [month, incomeCents, expenseCents, balanceCents, limitCents, categories]
+      properties:
+        month: { type: string }
+        incomeCents: { type: integer }
+        expenseCents: { type: integer }
+        balanceCents: { type: integer }
+        limitCents: { type: integer }
+        categories:
+          type: array
+          items: { $ref: "#/components/schemas/BudgetCategory" }
+    LearningSource:
+      type: object
+      required: [title, publisher, url]
+      properties:
+        title: { type: string }
+        publisher: { type: string }
+        url: { type: string }
+    LearningTopic:
+      type: object
+      required: [id, title, description, content, risk, level, track, evidence, minutes, question, options, completed, bookmarked, sources]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        description: { type: string }
+        content: { type: string }
+        risk: { type: string }
+        level: { type: string, enum: [Beginner, Intermediate, Advanced] }
+        track: { type: string }
+        evidence: { type: string }
+        minutes: { type: integer }
+        question: { type: string }
+        options: { type: array, items: { type: string } }
+        completed: { type: boolean }
+        bookmarked: { type: boolean }
+        sources:
+          type: array
+          items: { $ref: "#/components/schemas/LearningSource" }
+    LearningProgressInput:
+      type: object
+      properties:
+        bookmarked: { type: boolean }
+        answer: { type: integer, minimum: 0, maximum: 3 }
+    Preferences:
+      type: object
+      required: [status, experience, objectives, brokerages, accountTypes, goals, horizon, learning]
+      properties:
+        status: { type: string, enum: [new, completed, skipped] }
+        experience: { type: ["string", "null"], enum: [new, basics, regular, experienced, null] }
+        objectives:
+          type: array
+          uniqueItems: true
+          maxItems: 8
+          items: { type: string, enum: [understand, learn, wealth, diversification, decisions, retirement, home-business, practice] }
+        brokerages:
+          type: array
+          uniqueItems: true
+          maxItems: 6
+          items: { type: string, enum: [Fidelity, Vanguard, Robinhood, Charles Schwab, Other, None] }
+        accountTypes:
+          type: array
+          uniqueItems: true
+          maxItems: 6
+          items: { type: string, enum: [Roth IRA, Traditional IRA, Brokerage, "401(k)", Savings, Not sure] }
+        goals:
+          type: array
+          uniqueItems: true
+          maxItems: 5
+          items: { type: string, enum: [Retirement, Homeownership, Business, Financial independence, Learning] }
+        horizon: { type: ["string", "null"], enum: [under-3, 3-5, 5-10, over-10, unsure, null] }
+        learning:
+          type: array
+          uniqueItems: true
+          maxItems: 5
+          items: { type: string, enum: [simple, detailed, interactive, visual, quizzes] }
+    PersonalizationInput:
+      $ref: "#/components/schemas/Preferences"
+    QuestionInput:
+      type: object
+      required: [question, includePortfolio]
+      properties:
+        question: { type: string, minLength: 1, maxLength: 2000 }
+        includePortfolio: { type: boolean }
+        mode: { type: string, enum: [Portfolio, Learn, Thesis, Wealth] }
+    AssistantAnswer:
+      type: object
+      required: [answer]
+      properties:
+        answer: { type: string }

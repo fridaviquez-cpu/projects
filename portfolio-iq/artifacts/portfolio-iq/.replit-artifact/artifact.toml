@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "PortfolioIQ"
+description = "A personal investing workspace with immediate guest access, automatic private saving, portfolio snapshots, a thesis journal, monthly budgeting, and evidence-led learning resources."
+version = "1.0.0"
+id = "artifacts/portfolio-iq"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 26161
+
+[services.development]
+run = "pnpm --filter @workspace/portfolio-iq run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/portfolio-iq", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/portfolio-iq/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "26161"
+BASE_PATH = "/"

@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/lib/__tests__/personalize.test.ts",
+    "src/components/__tests__/personalize-question.test.tsx",
+    "src/components/__tests__/personalize-settings-persistence.test.tsx",
+    "src/pages/__tests__/personalize-onboarding-persistence.test.tsx",
+    "src/pages/__tests__/learn.test.tsx",
+    "vitest.config.ts"
+  ],
+  "exclude": [],
+  "compilerOptions": { "incremental": false }
+}
