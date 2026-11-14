@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Orvyn"
+description = "A no-login career workspace with persistent browser storage, opportunities, experience vault, resumes, interview coaching, Career DNA and insights."
+version = "1.0.0"
+id = "artifacts/orvyn"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21014
+
+[services.development]
+run = "pnpm --filter @workspace/orvyn run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/orvyn", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/orvyn/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21014"
+BASE_PATH = "/"

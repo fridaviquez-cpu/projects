@@ -1,44 +1,54 @@
-# [Project name]
+# Orvyn
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A no-login career workspace adapted from the user's original Orvyn screens.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- Start the managed `artifacts/orvyn: web` and `artifacts/api-server: API Server` workflows for preview.
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- AI configuration is provisioned through Replit AI Integrations. Never expose credentials in the frontend.
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
 - API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
+- User data: versioned browser-local storage, no server-side career records
+- Validation: Zod generated from OpenAPI
 - API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- Build: Vite frontend, esbuild ESM API bundle
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/orvyn/src/pages/`: original screens adapted for guest use.
+- `artifacts/orvyn/src/lib/career-client.ts`: local persistence, validation, CRUD, summaries, AI adapter.
+- `artifacts/orvyn/src/lib/resume-drafts.tsx`: recoverable editor drafts.
+- `artifacts/orvyn/src/index.css`: original theme.
+- `lib/api-spec/openapi.yaml`: AI and text-extraction contracts.
+- `artifacts/api-server/src/routes/career.ts`: stateless AI and transient file extraction.
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- Do not add account requirements: returning visitors use their browser-local workspace.
+- Importing a resume does not retain the source file on the server. Only extracted text is saved locally.
+- AI processes explicitly submitted context; it must not invent accomplishments or claim evidence has been verified.
+- The original shared DNA scoring package was not supplied. The replacement is a transparently described three-dimension self-reflection, not a validated assessment.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+Dashboard, opportunities pipeline, experience vault, resume editor/import/export/tailoring, interview questions and STAR feedback, Career DNA, insights/goals, and workspace export/restore.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+See `.agents/memory/orvyn-guest-workspace.md` for the user's standing product requirements.
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Browser clearing, private browsing, and device/browser changes affect local persistence. Keep these limits visible in Settings.
+- PDF extraction uses package-relative worker assets: keep `pdf-parse` external in the API bundle.
+- Resume tailoring supports either a tracked opportunity or a pasted job description.
 
 ## Pointers
 

@@ -11,6 +11,50 @@ tags:
   - name: health
     description: Health operations
 paths:
+  /career/assist:
+    post:
+      operationId: assistCareer
+      tags: [career]
+      summary: Generate grounded career coaching or a resume draft
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CareerAssistInput"
+      responses:
+        "200":
+          description: Generated draft for review
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CareerAssistResult"
+        "400":
+          description: Invalid input
+        "429":
+          description: Please wait before trying again
+        "503":
+          description: AI temporarily unavailable
+  /career/import:
+    post:
+      operationId: extractResume
+      tags: [career]
+      summary: Extract text from a PDF, DOCX or TXT resume without retaining the uploaded file
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResumeFileInput"
+      responses:
+        "200":
+          description: Extracted resume text
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResumeText"
+        "400":
+          description: Unsupported or unreadable file
   /healthz:
     get:
       operationId: healthCheck
@@ -26,6 +70,63 @@ paths:
                 $ref: "#/components/schemas/HealthStatus"
 components:
   schemas:
+    CareerEvidence:
+      type: object
+      required: [id, kind, title]
+      properties:
+        id: { type: string, maxLength: 100 }
+        kind: { type: string, maxLength: 30 }
+        title: { type: string, maxLength: 500 }
+        company: { type: string, maxLength: 500 }
+        category: { type: string, maxLength: 100 }
+        description: { type: string, maxLength: 20000 }
+        results: { type: string, maxLength: 10000 }
+        skills: { type: string, maxLength: 10000 }
+        content: { type: string, maxLength: 80000 }
+        notes: { type: string, maxLength: 10000 }
+        startDate: { type: string, maxLength: 50 }
+        endDate: { type: string, maxLength: 50 }
+    CareerAssistInput:
+      type: object
+      required: [mode, records]
+      properties:
+        mode:
+          type: string
+          enum: [questions, feedback, resume, insights]
+        records:
+          type: array
+          maxItems: 50
+          items:
+            $ref: "#/components/schemas/CareerEvidence"
+        opportunityId: { type: string, maxLength: 100 }
+        sourceResumeId: { type: string, maxLength: 100 }
+        selectedExperienceIds:
+          type: array
+          maxItems: 40
+          items: { type: string, maxLength: 100 }
+        question: { type: string, maxLength: 10000 }
+        answer: { type: string, maxLength: 20000 }
+        instructions: { type: string, maxLength: 10000 }
+    CareerAssistResult:
+      type: object
+      required: [title, content]
+      properties:
+        title: { type: string }
+        content: { type: string }
+    ResumeFileInput:
+      type: object
+      required: [fileName, contentType, dataBase64]
+      properties:
+        fileName: { type: string, minLength: 1, maxLength: 250 }
+        contentType:
+          type: string
+          enum: [application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain]
+        dataBase64: { type: string, minLength: 1, maxLength: 14000000 }
+    ResumeText:
+      type: object
+      required: [content]
+      properties:
+        content: { type: string }
     HealthStatus:
       type: object
       properties:
