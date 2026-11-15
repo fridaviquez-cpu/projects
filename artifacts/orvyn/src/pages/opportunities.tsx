@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { ScreenshotBatchDialog } from '@/components/screenshot-batch';
 import { PageHeader, EmptyState, ErrorState, ListSkeleton, RecordDialog, ConfirmDelete, type FieldDef } from '@/components/kit';
 import { daysUntil, fmtDate, relLabel, toInput, useRecordMutations, useRecords, useSession } from '@/lib/orvyn';
 import { useToast } from '@/hooks/use-toast';
@@ -84,7 +85,8 @@ export default function Opportunities() {
   const q = useRecords('opportunity');
   const { update } = useRecordMutations();
   const { toast } = useToast();
-  const [dialog, setDialog] = useState<{ open: boolean; record?: CareerRecord | null; status?: string; shots?: boolean }>({ open: false });
+  const [dialog, setDialog] = useState<{ open: boolean; record?: CareerRecord | null; status?: string }>({ open: false });
+  const [batch, setBatch] = useState(false);
   const [del, setDel] = useState<CareerRecord | null>(null);
   const [over, setOver] = useState<string | null>(null);
   const [search, setSearch] = useState('');
@@ -110,7 +112,7 @@ export default function Opportunities() {
         title="Your pipeline"
         sub="Drag cards between stages, or use the card menu on touch devices."
         actions={<>
-          <Button variant="outline" onClick={() => setDialog({ open: true, record: null, status: 'saved', shots: true })} data-testid="button-upload-screenshots"><ImageUp className="mr-1.5 h-4 w-4" />Upload screenshots</Button>
+          <Button variant="outline" onClick={() => setBatch(true)} data-testid="button-upload-screenshots"><ImageUp className="mr-1.5 h-4 w-4" />Upload screenshots</Button>
           <Button onClick={() => setDialog({ open: true, record: null, status: 'saved' })} data-testid="button-add-opportunity"><Plus className="mr-1.5 h-4 w-4" />Add opportunity</Button>
         </>}
       />
@@ -166,9 +168,10 @@ export default function Opportunities() {
         heading={dialog.record ? 'Edit opportunity' : 'New opportunity'}
         fields={OPP_FIELDS}
         record={dialog.record}
-        screenshotFirst={dialog.shots}
+       
         defaults={{ status: (dialog.status ?? 'saved') as RecordInputStatus }}
       />
+      <ScreenshotBatchDialog open={batch} onOpenChange={setBatch} target="opportunity" fields={OPP_FIELDS} defaults={{ status: 'saved' }} />
       <ConfirmDelete record={del} onOpenChange={(o) => !o && setDel(null)} what="opportunity" />
     </div>
   );

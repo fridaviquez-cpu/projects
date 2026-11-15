@@ -11,6 +11,30 @@ tags:
   - name: health
     description: Health operations
 paths:
+  /career/screenshots/batch:
+    post:
+      operationId: readCareerScreenshotBatch
+      tags: [career]
+      summary: Extract one independent career draft per screenshot, preserving individual failures
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScreenshotBatchInput"
+      responses:
+        "200":
+          description: One result per uploaded screenshot in its original order
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScreenshotBatchResult"
+        "400":
+          description: Invalid batch or upload limits exceeded
+        "429":
+          description: Please wait before trying again
+        "503":
+          description: Image processing temporarily unavailable
   /career/screenshots:
     post:
       operationId: readCareerScreenshots
@@ -96,6 +120,41 @@ paths:
                 $ref: "#/components/schemas/HealthStatus"
 components:
   schemas:
+    ScreenshotBatchInput:
+      type: object
+      required: [target, images]
+      properties:
+        target:
+          type: string
+          enum: [opportunity, experience, goal]
+        images:
+          type: array
+          minItems: 1
+          maxItems: 5
+          items:
+            $ref: "#/components/schemas/ScreenshotImage"
+    ScreenshotBatchItem:
+      type: object
+      required: [index, fileName, status]
+      properties:
+        index: { type: integer, minimum: 0, maximum: 4 }
+        fileName: { type: string, minLength: 1, maxLength: 250 }
+        status:
+          type: string
+          enum: [ready, error]
+        draft:
+          $ref: "#/components/schemas/ScreenshotDraft"
+        error: { type: string, maxLength: 500 }
+    ScreenshotBatchResult:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          minItems: 1
+          maxItems: 5
+          items:
+            $ref: "#/components/schemas/ScreenshotBatchItem"
     ScreenshotImage:
       type: object
       required: [fileName, contentType, dataBase64]

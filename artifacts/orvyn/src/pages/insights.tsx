@@ -3,6 +3,7 @@ import { Plus, ImageUp, Target, Pencil, Trash2, Check, Sparkles } from 'lucide-r
 import { useRunCoach, useGetSummary, getGetSummaryQueryKey, type CareerRecord, type RecordInputStatus } from '@/lib/career-client';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { ScreenshotBatchDialog } from '@/components/screenshot-batch';
 import { PageHeader, AiNotice, InlineError, EmptyState, ErrorState, ListSkeleton, RecordDialog, ConfirmDelete, Panel, type FieldDef } from '@/components/kit';
 import { daysUntil, fmtDate, relLabel, toInput, useRecordMutations, useRecords, useSession } from '@/lib/orvyn';
 import { cn } from '@/lib/utils';
@@ -25,7 +26,8 @@ export default function Insights() {
   const reads = useRecords('insight');
   const ai = useRunCoach();
   const { toast } = useToast();
-  const [dialog, setDialog] = useState<{ open: boolean; record?: CareerRecord | null; shots?: boolean }>({ open: false });
+  const [dialog, setDialog] = useState<{ open: boolean; record?: CareerRecord | null }>({ open: false });
+  const [batch, setBatch] = useState(false);
   const [del, setDel] = useState<CareerRecord | null>(null);
 
   const stageCounts = useMemo(() => STAGES.map((st) => ({ st, n: opps.items.filter((o) => (o.status ?? 'saved') === st).length })), [opps.items]);
@@ -40,7 +42,7 @@ export default function Insights() {
   return (
     <div>
       <PageHeader eyebrow="Insights" title="Where you stand" sub="Calculated only from records you have saved." actions={<>
-        <Button variant="outline" onClick={() => setDialog({ open: true, record: null, shots: true })} data-testid="button-upload-screenshots"><ImageUp className="mr-1.5 h-4 w-4" />Upload screenshots</Button>
+        <Button variant="outline" onClick={() => setBatch(true)} data-testid="button-upload-screenshots"><ImageUp className="mr-1.5 h-4 w-4" />Upload screenshots</Button>
         <Button onClick={() => setDialog({ open: true, record: null })} data-testid="button-add-goal"><Plus className="mr-1.5 h-4 w-4" />New goal</Button>
       </>} />
       {s.isError ? <ErrorState error={s.error} onRetry={() => s.refetch()} /> : (
@@ -128,7 +130,8 @@ export default function Insights() {
           </div>
         )}
       </div>
-      <RecordDialog open={dialog.open} onOpenChange={(o) => setDialog((x) => ({ ...x, open: o }))} kind="goal" heading={dialog.record ? 'Edit goal' : 'New goal'} fields={GOAL_FIELDS} record={dialog.record} screenshotFirst={dialog.shots} defaults={{ status: 'active' }} />
+      <RecordDialog open={dialog.open} onOpenChange={(o) => setDialog((x) => ({ ...x, open: o }))} kind="goal" heading={dialog.record ? 'Edit goal' : 'New goal'} fields={GOAL_FIELDS} record={dialog.record} defaults={{ status: 'active' }} />
+      <ScreenshotBatchDialog open={batch} onOpenChange={setBatch} target="goal" fields={GOAL_FIELDS} defaults={{ status: 'active' }} />
       <ConfirmDelete record={del} onOpenChange={(o) => !o && setDel(null)} what={del?.kind === 'insight' ? 'read' : 'goal'} />
     </div>
   );

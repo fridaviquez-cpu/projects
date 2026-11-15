@@ -9,6 +9,56 @@ import {
 import { toInput, WorkspaceProvider } from './orvyn';
 import { workspace } from '../test/fixtures';
 
+describe('saving screenshot batches', () => {
+  it.each([1, 4, 5])('saves %s independent opportunities with one storage write', (count) => {
+    const existing = store.create({ kind: 'experience', title: 'Existing experience' });
+    const writes = vi.spyOn(Storage.prototype, 'setItem');
+    const created = store.createMany(Array.from({ length: count }, (_, index) => ({
+      kind: 'opportunity', title: `Role ${index}`, company: `Company ${index}`, status: 'applied',
+    })));
+    expect(created).toHaveLength(count);
+    expect(new Set(created.map(record => record.id)).size).toBe(count);
+    expect(created.map(record => record.company)).toEqual(Array.from({ length: count }, (_, index) => `Company ${index}`));
+    expect(writes).toHaveBeenCalledTimes(1);
+    expect(readWorkspace().records).toEqual([...created, existing]);
+  });
+
+  it('rejects the whole batch if any draft is invalid, without writing a partial batch', () => {
+    const before = writeWorkspace(workspace());
+    const writes = vi.spyOn(Storage.prototype, 'setItem');
+    expect(() => store.createMany([
+      { kind: 'opportunity', title: 'Good role' },
+      { kind: 'opportunity', title: ' ' },
+    ])).toThrow('title');
+    expect(writes).not.toHaveBeenCalled();
+    expect(readWorkspace()).toEqual(before);
+    expect(() => store.createMany([
+      { kind: 'opportunity', title: 'Good role' },
+      { kind: 'opportunity', title: 'Bad date', deadline: 'invalid-date' },
+    ])).toThrow('date');
+    expect(writes).not.toHaveBeenCalled();
+    expect(readWorkspace()).toEqual(before);
+  });
+
+  it('keeps all previously saved records if a batch exceeds storage quota', () => {
+    writeWorkspace(workspace());
+    const before = localStorage.getItem(STORAGE_KEY);
+    vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+      throw new DOMException('Full', 'QuotaExceededError');
+    });
+    expect(() => store.createMany([
+      { kind: 'opportunity', title: 'Role A' }, { kind: 'opportunity', title: 'Role B' },
+    ])).toThrow('Browser storage is full');
+    expect(localStorage.getItem(STORAGE_KEY)).toBe(before);
+  });
+
+  it('rejects empty batches and batches larger than five', () => {
+    expect(() => store.createMany([])).toThrow('one and five');
+    expect(() => store.createMany(Array.from({ length: 6 }, () => ({ kind: 'opportunity', title: 'Role' })))).toThrow('one and five');
+    expect(store.list()).toEqual([]);
+  });
+});
+
 describe('guest saved records', () => {
   it.each(KINDS)('creates, edits, deletes and undoes a %s without losing fields', (kind) => {
     vi.useFakeTimers();

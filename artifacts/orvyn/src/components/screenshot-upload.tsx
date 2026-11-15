@@ -33,7 +33,7 @@ function readBase64(f: File) {
  * Results arriving after unmount, cancel, or a newer request are ignored.
  */
 export function ScreenshotUpload({
-  target, onResult, label = 'Screenshots', hint, disabled, className, testId = 'screenshot-upload',
+  target, onResult, label = 'Screenshots', hint, disabled, className, testId = 'screenshot-upload', maxFiles = MAX_FILES,
 }: {
   target: ScreenshotInputTarget;
   onResult: (draft: ScreenshotDraft) => void;
@@ -42,7 +42,10 @@ export function ScreenshotUpload({
   disabled?: boolean;
   className?: string;
   testId?: string;
+  /** Most images accepted for this one draft (1 to 5). */
+  maxFiles?: number;
 }) {
+  const limit = Math.max(1, Math.min(MAX_FILES, maxFiles));
   const read = useReadCareerScreenshots();
   const [items, setItems] = useState<Item[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -80,11 +83,14 @@ export function ScreenshotUpload({
     if (empty) return setError(`${empty.name || 'That image'} is empty.`);
     const big = list.find((f) => f.size > MAX_EACH);
     if (big) return setError(`${big.name} is ${mb(big.size)}. Each screenshot must be 5 MB or less.`);
-    if (cur.length + list.length > MAX_FILES) return setError(`Choose up to ${MAX_FILES} screenshots at a time.`);
+    if (cur.length + list.length > limit) return setError(limit === 1 ? 'Choose one screenshot here.' : `Choose up to ${limit} screenshots at a time.`);
     const total = [...cur.map((i) => i.file), ...list].reduce((n, f) => n + f.size, 0);
     if (total > MAX_TOTAL) return setError(`These screenshots add up to ${mb(total)}. The limit is 10 MB in total.`);
     const next = list.map((file, i) => ({ id: `${Date.now()}-${i}-${file.name}`, file, url: URL.createObjectURL(file) }));
-    setItems([...cur, ...next]);
+    const all = [...cur, ...next];
+    itemsRef.current = all;
+    setItems(all);
+    void run(all);
   };
 
   const remove = (id: string) => {
@@ -107,14 +113,14 @@ export function ScreenshotUpload({
     setError(null);
   };
 
-  const run = async () => {
-    if (!items.length || pending || disabled) return;
+  const run = async (list: Item[] = itemsRef.current) => {
+    if (!list.length || disabled) return;
     const my = ++reqId.current;
     setPending(true);
     setError(null);
     setWarnings([]);
     try {
-      const images: ScreenshotImage[] = await Promise.all(items.map(async (i) => ({
+      const images: ScreenshotImage[] = await Promise.all(list.map(async (i) => ({
         fileName: (i.file.name || 'screenshot').slice(0, 250),
         contentType: i.file.type as ScreenshotImageContentType,
         dataBase64: await readBase64(i.file),
@@ -126,6 +132,7 @@ export function ScreenshotUpload({
       setWarnings(w);
       onResultRef.current(out);
       itemsRef.current.forEach((i) => URL.revokeObjectURL(i.url));
+      itemsRef.current = [];
       setItems([]);
     } catch (e) {
       if (!mounted.current || my !== reqId.current) return;
@@ -142,10 +149,10 @@ export function ScreenshotUpload({
     <div className={cn('space-y-3', className)} data-testid={testId}>
       <div className="flex items-center justify-between">
         <span id={`${uid}-label`} className="text-[12px] text-muted-foreground">{label}</span>
-        {items.length > 0 && <span className="font-mono text-[11px] text-muted-foreground">{items.length}/{MAX_FILES} / {mb(total)}</span>}
+        {items.length > 0 && <span className="font-mono text-[11px] text-muted-foreground">{items.length}/{limit} / {mb(total)}</span>}
       </div>
       <input
-        ref={inputRef} type="file" multiple accept="image/png,image/jpeg,image/webp" className="hidden" tabIndex={-1}
+        ref={inputRef} type="file" multiple={limit > 1} accept="image/png,image/jpeg,image/webp" className="hidden" tabIndex={-1}
         onChange={(e) => { const fs = Array.from(e.target.files ?? []); e.target.value = ''; add(fs); }}
         data-testid={`${testId}-input`}
       />
@@ -171,12 +178,12 @@ export function ScreenshotUpload({
         data-testid={`${testId}-dropzone`}
       >
         <ImageUp aria-hidden="true" className="h-5 w-5 text-muted-foreground" />
-        <span className="text-[13px]">{dragging ? 'Drop screenshots here' : 'Drop, paste or click to choose screenshots'}</span>
-        <span id={`${uid}-help`} className="text-[11.5px] text-muted-foreground">{hint ?? 'PNG, JPEG or WebP. 1 to 5 images of the same item, 5 MB each, 10 MB total.'}</span>
+        <span className="text-[13px]">{dragging ? 'Drop screenshots here' : 'Drop, paste or click to choose screenshots. Reading starts right away.'}</span>
+        <span id={`${uid}-help`} className="text-[11.5px] text-muted-foreground">{hint ?? `PNG, JPEG or WebP. ${limit === 1 ? 'One image' : `1 to ${limit} images of the same item`}, 5 MB each, 10 MB total.`}</span>
       </div>
       <p id={`${uid}-privacy`} className="flex items-start gap-1.5 text-[11.5px] leading-relaxed text-muted-foreground" data-testid={`${testId}-privacy`}>
         <ShieldCheck aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-        <span>When you choose Read screenshots, these images are sent to AI for reading. Orvyn does not save copies of the images. Crop or hide private details first. Review the extracted text, then choose Save to keep it in this browser.</span>
+        <span>Choosing images sends them to AI for reading right away. Orvyn does not keep copies of the images. Crop or hide private details first. Only the extracted text is kept, and only after you review it and choose Save.</span>
       </p>
       {items.length > 0 && (
         <ul className="grid grid-cols-3 gap-2 sm:grid-cols-5" aria-label="Selected screenshots">
@@ -196,7 +203,7 @@ export function ScreenshotUpload({
         {error && (
           <div className="space-y-2">
             <InlineError error={new Error(error)} />
-            {items.length > 0 && !pending && <Button type="button" size="sm" variant="outline" onClick={run} data-testid={`${testId}-retry`}><RotateCw className="mr-1.5 h-3.5 w-3.5" />Try again</Button>}
+            {items.length > 0 && !pending && <Button type="button" size="sm" variant="outline" onClick={() => void run()} data-testid={`${testId}-retry`}><RotateCw className="mr-1.5 h-3.5 w-3.5" />Try again</Button>}
           </div>
         )}
         {pending && <p className="text-[12.5px] text-muted-foreground">Reading {items.length} {items.length === 1 ? 'screenshot' : 'screenshots'}...</p>}
@@ -208,7 +215,6 @@ export function ScreenshotUpload({
       </div>
       {items.length > 0 && (
         <div className="flex flex-wrap gap-2">
-          <Button type="button" size="sm" onClick={run} disabled={off} aria-busy={pending} data-testid={`${testId}-read`}>{pending ? 'Reading...' : 'Read screenshots'}</Button>
           {pending
             ? <Button type="button" size="sm" variant="ghost" onClick={cancel} data-testid={`${testId}-cancel`}>Stop</Button>
             : <Button type="button" size="sm" variant="ghost" onClick={clear} data-testid={`${testId}-clear`}>Clear</Button>}

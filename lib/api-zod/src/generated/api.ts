@@ -9,6 +9,116 @@ import * as zod from 'zod';
 
 
 /**
+ * @summary Extract one independent career draft per screenshot, preserving individual failures
+ */
+export const readCareerScreenshotBatchBodyImagesItemFileNameMax = 250;
+
+export const readCareerScreenshotBatchBodyImagesItemDataBase64Min = 4;
+export const readCareerScreenshotBatchBodyImagesItemDataBase64Max = 7000000;
+
+export const readCareerScreenshotBatchBodyImagesMax = 5;
+
+
+
+export const ReadCareerScreenshotBatchBody = zod.object({
+  "target": zod.enum(['opportunity', 'experience', 'goal']),
+  "images": zod.array(zod.object({
+  "fileName": zod.string().min(1).max(readCareerScreenshotBatchBodyImagesItemFileNameMax),
+  "contentType": zod.enum(['image/png', 'image/jpeg', 'image/webp']),
+  "dataBase64": zod.string().min(readCareerScreenshotBatchBodyImagesItemDataBase64Min).max(readCareerScreenshotBatchBodyImagesItemDataBase64Max)
+})).min(1).max(readCareerScreenshotBatchBodyImagesMax)
+})
+
+export const readCareerScreenshotBatchResponseItemsItemIndexMin = 0;
+export const readCareerScreenshotBatchResponseItemsItemIndexMax = 4;
+
+export const readCareerScreenshotBatchResponseItemsItemFileNameMax = 250;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftFieldsTitleMax = 500;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftFieldsCompanyMax = 500;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftFieldsLocationMax = 500;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftFieldsSalaryMax = 500;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftFieldsContactMax = 500;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftFieldsUrlMax = 2000;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftFieldsDeadlineMax = 10;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftFieldsInterviewAtMax = 30;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftFieldsStartDateMax = 10;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftFieldsEndDateMax = 10;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftFieldsDescriptionMax = 10000;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftFieldsResultsMax = 10000;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftFieldsSkillsMax = 10000;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftFieldsNotesMax = 10000;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftFieldsContentMax = 50000;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftFieldsQuestionMax = 10000;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftFieldsAnswerMax = 20000;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftFieldsOfficialStrengthsMax = 10000;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftExtractedTextMax = 30000;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftWarningsItemMax = 500;
+
+export const readCareerScreenshotBatchResponseItemsItemDraftWarningsMax = 8;
+
+export const readCareerScreenshotBatchResponseItemsItemErrorMax = 500;
+
+export const readCareerScreenshotBatchResponseItemsMax = 5;
+
+
+
+export const ReadCareerScreenshotBatchResponse = zod.object({
+  "items": zod.array(zod.object({
+  "index": zod.number().int().min(readCareerScreenshotBatchResponseItemsItemIndexMin).max(readCareerScreenshotBatchResponseItemsItemIndexMax),
+  "fileName": zod.string().min(1).max(readCareerScreenshotBatchResponseItemsItemFileNameMax),
+  "status": zod.enum(['ready', 'error']),
+  "draft": zod.object({
+  "fields": zod.object({
+  "title": zod.string().max(readCareerScreenshotBatchResponseItemsItemDraftFieldsTitleMax).optional(),
+  "company": zod.string().max(readCareerScreenshotBatchResponseItemsItemDraftFieldsCompanyMax).optional(),
+  "status": zod.enum(['saved', 'applied', 'assessment', 'interview', 'offer', 'rejected', 'withdrawn', 'active', 'completed']).optional(),
+  "category": zod.enum(['experience', 'education', 'internship', 'project', 'leadership', 'accomplishment', 'skill']).optional(),
+  "location": zod.string().max(readCareerScreenshotBatchResponseItemsItemDraftFieldsLocationMax).optional(),
+  "salary": zod.string().max(readCareerScreenshotBatchResponseItemsItemDraftFieldsSalaryMax).optional(),
+  "contact": zod.string().max(readCareerScreenshotBatchResponseItemsItemDraftFieldsContactMax).optional(),
+  "url": zod.string().max(readCareerScreenshotBatchResponseItemsItemDraftFieldsUrlMax).optional(),
+  "deadline": zod.string().max(readCareerScreenshotBatchResponseItemsItemDraftFieldsDeadlineMax).optional(),
+  "interviewAt": zod.string().max(readCareerScreenshotBatchResponseItemsItemDraftFieldsInterviewAtMax).optional(),
+  "startDate": zod.string().max(readCareerScreenshotBatchResponseItemsItemDraftFieldsStartDateMax).optional(),
+  "endDate": zod.string().max(readCareerScreenshotBatchResponseItemsItemDraftFieldsEndDateMax).optional(),
+  "description": zod.string().max(readCareerScreenshotBatchResponseItemsItemDraftFieldsDescriptionMax).optional(),
+  "results": zod.string().max(readCareerScreenshotBatchResponseItemsItemDraftFieldsResultsMax).optional(),
+  "skills": zod.string().max(readCareerScreenshotBatchResponseItemsItemDraftFieldsSkillsMax).optional(),
+  "notes": zod.string().max(readCareerScreenshotBatchResponseItemsItemDraftFieldsNotesMax).optional(),
+  "content": zod.string().max(readCareerScreenshotBatchResponseItemsItemDraftFieldsContentMax).optional(),
+  "question": zod.string().max(readCareerScreenshotBatchResponseItemsItemDraftFieldsQuestionMax).optional(),
+  "answer": zod.string().max(readCareerScreenshotBatchResponseItemsItemDraftFieldsAnswerMax).optional(),
+  "officialStrengths": zod.string().max(readCareerScreenshotBatchResponseItemsItemDraftFieldsOfficialStrengthsMax).optional()
+}),
+  "extractedText": zod.string().max(readCareerScreenshotBatchResponseItemsItemDraftExtractedTextMax),
+  "warnings": zod.array(zod.string().max(readCareerScreenshotBatchResponseItemsItemDraftWarningsItemMax)).max(readCareerScreenshotBatchResponseItemsItemDraftWarningsMax)
+}).optional(),
+  "error": zod.string().max(readCareerScreenshotBatchResponseItemsItemErrorMax).optional()
+})).min(1).max(readCareerScreenshotBatchResponseItemsMax)
+})
+
+
+/**
  * @summary Read screenshots into an editable draft without saving the images or records
  */
 export const readCareerScreenshotsBodyImagesItemFileNameMax = 250;

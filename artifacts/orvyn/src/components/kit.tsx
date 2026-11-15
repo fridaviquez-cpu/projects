@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { AlertCircle, RotateCw, ImageUp } from 'lucide-react';
 import type { ScreenshotDraft, ScreenshotFields } from '@workspace/api-client-react';
 import { ScreenshotUpload, ReplaceOffers } from '@/components/screenshot-upload';
+import { ScreenshotBatchDialog } from '@/components/screenshot-batch';
 import { ToastAction } from '@/components/ui/toast';
 import type { CareerRecord, RecordInput, RecordInputKind } from '@/lib/career-client';
 import { Button } from '@/components/ui/button';
@@ -135,7 +136,7 @@ type ScreenshotKind = typeof SCREENSHOT_KINDS[number];
 const IMPORTED_TITLE: Record<ScreenshotKind, string> = { opportunity: 'Imported opportunity', experience: 'Imported experience', goal: 'Imported goal' };
 
 /** Normalise an extracted value for a field, or return '' when it does not fit. */
-function fitValue(f: FieldDef, raw: unknown): string {
+export function fitValue(f: FieldDef, raw: unknown): string {
   if (typeof raw !== 'string') return '';
   const v = raw.trim();
   if (!v) return '';
@@ -155,7 +156,7 @@ function fitValue(f: FieldDef, raw: unknown): string {
 }
 
 export function RecordDialog({
-  open, onOpenChange, kind, heading, description, fields, record, defaults, onSaved, screenshotFirst,
+  open, onOpenChange, kind, heading, description, fields, record, defaults, onSaved,
 }: {
   open: boolean;
   onOpenChange: (o: boolean) => void;
@@ -166,8 +167,6 @@ export function RecordDialog({
   record?: CareerRecord | null;
   defaults?: Partial<RecordInput>;
   onSaved?: (r: CareerRecord) => void;
-  /** Open with the screenshot reader expanded (new records of supported kinds). */
-  screenshotFirst?: boolean;
 }) {
   const { create, update } = useRecordMutations();
   const { toast } = useToast();
@@ -176,10 +175,12 @@ export function RecordDialog({
   const returnFocus = useRef<HTMLElement | null>(null);
   const canScreenshot = (SCREENSHOT_KINDS as readonly string[]).includes(kind);
   const [shotOpen, setShotOpen] = useState(false);
+  const [batchOpen, setBatchOpen] = useState(false);
   const [edited, setEdited] = useState<Set<string>>(new Set());
   const [offers, setOffers] = useState<{ key: string; label: string; value: string }[]>([]);
   const [filled, setFilled] = useState<string | null>(null);
   const valsRef = useRef(vals);
+  const initialRef = useRef<Record<string, string>>({});
   valsRef.current = vals;
   const editedRef = useRef(edited);
   editedRef.current = edited;
@@ -196,11 +197,13 @@ export function RecordDialog({
       base[f.name as string] = s;
     }
     setVals(base);
+    initialRef.current = base;
     setTouched(false);
     setEdited(new Set());
     setOffers([]);
     setFilled(null);
-    setShotOpen(!!screenshotFirst && canScreenshot);
+    setShotOpen(false);
+    setBatchOpen(false);
     create.reset();
     update.reset();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -294,15 +297,22 @@ export function RecordDialog({
           <DialogTitle className="text-[19px] font-medium tracking-[-0.02em]">{heading}</DialogTitle>
           {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
-        {canScreenshot && (
+        {canScreenshot && !record && (
+          <div className="rounded-lg border bg-background/40 p-3">
+            <button type="button" onClick={() => setBatchOpen(true)} className="flex w-full items-center gap-2 text-left text-[13px] text-muted-foreground hover:text-foreground" data-testid="button-show-screenshots">
+              <ImageUp className="h-4 w-4" />Upload screenshots instead: up to 5, each becomes its own record
+            </button>
+          </div>
+        )}
+        {canScreenshot && record && (
           <div className="rounded-lg border bg-background/40 p-3">
             {!shotOpen ? (
               <button type="button" onClick={() => setShotOpen(true)} className="flex w-full items-center gap-2 text-left text-[13px] text-muted-foreground hover:text-foreground" data-testid="button-show-screenshots">
-                <ImageUp className="h-4 w-4" />Fill from screenshots
+                <ImageUp className="h-4 w-4" />Fill empty fields from one screenshot
               </button>
             ) : (
               <div className="space-y-3">
-                <ScreenshotUpload key={`${kind}-${record?.id ?? 'new'}`} target={kind as ScreenshotKind} onResult={applyDraft} label="Fill from screenshots" />
+                <ScreenshotUpload key={`${kind}-${record.id}`} target={kind as ScreenshotKind} onResult={applyDraft} maxFiles={1} label="Fill this record from one screenshot" hint="One PNG, JPEG or WebP image of this record, 5 MB or less. Values you already have are kept." />
                 <ReplaceOffers offers={offers} onUse={takeOffers} onDismiss={() => setOffers([])} />
                 {filled && <p role="status" className="text-[12.5px] text-signal" data-testid="text-screenshot-filled">{filled}</p>}
                 <Button type="button" size="sm" variant="ghost" className="h-7 px-2 text-[12px]" onClick={() => setShotOpen(false)}>Hide</Button>
@@ -342,6 +352,20 @@ export function RecordDialog({
           </DialogFooter>
         </form>
       </DialogContent>
+      {canScreenshot && !record && (
+        <ScreenshotBatchDialog
+          open={batchOpen}
+          onOpenChange={setBatchOpen}
+          target={kind as ScreenshotKind}
+          fields={fields}
+          defaults={defaults}
+          onSaved={() => {
+            // Typed form values stay if the person had started one; otherwise the batch replaced this form.
+            const typed = Object.entries(valsRef.current).some(([k, v]) => v.trim() !== (initialRef.current[k] ?? '').trim());
+            if (!typed) onOpenChange(false);
+          }}
+        />
+      )}
     </Dialog>
   );
 }

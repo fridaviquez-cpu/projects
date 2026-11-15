@@ -1,8 +1,9 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { ReadCareerScreenshotsBody, type ScreenshotImage } from "@workspace/api-zod";
+import { ReadCareerScreenshotBatchBody, ReadCareerScreenshotsBody, type ScreenshotImage } from "@workspace/api-zod";
 import { sanitizeScreenshotDraft, ScreenshotReadError, validateScreenshotImages } from "./career-screenshots";
 import { acquireCareerAiSlot } from "./career-ai-limits";
+import { readScreenshotBatch } from "./career-screenshot-batch";
 
 const png = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jX1EAAAAASUVORK5CYII=", "base64");
 function image(buffer = png, contentType: ScreenshotImage["contentType"] = "image/png"): ScreenshotImage {
@@ -98,4 +99,48 @@ test("fields from another tab are removed and unreadable results fail explicitly
   assert.equal(result.fields.question, "Tell me about yourself.");
   assert.equal(result.fields.answer, undefined);
   assert.throws(() => sanitizeScreenshotDraft("strengths", { fields: {}, extractedText: "", warnings: ["No results visible."] }), ScreenshotReadError);
+});
+
+for (const count of [1, 4, 5]) {
+  test(`${count} screenshots produce ${count} independent drafts in their original order`, async () => {
+    const images = Array.from({ length: count }, (_, n) => ({ ...image(), fileName: `Role ${n + 1}.png` }));
+    const seen: string[] = [];
+    const output = await readScreenshotBatch({ target: "opportunity", images }, async (input) => {
+      assert.equal(input.images.length, 1);
+      const name = input.images[0].fileName;
+      seen.push(name);
+      return { fields: { title: name, company: `Employer ${name}`, status: "applied" }, extractedText: name, warnings: [] };
+    });
+    assert.equal(seen.length, count);
+    assert.equal(output.items.length, count);
+    assert.deepEqual(output.items.map(item => item.draft?.fields.title), images.map(item => item.fileName));
+    assert.deepEqual(output.items.map(item => item.index), Array.from({ length: count }, (_, n) => n));
+    assert.ok(output.items.every(item => item.status === "ready"));
+  });
+}
+
+test("one unreadable image and one invalid image leave the other drafts intact", async () => {
+  const images = [
+    { ...image(), fileName: "Good 1.png" },
+    { ...image(), fileName: "Unreadable.png" },
+    { ...image(), fileName: "Invalid.png", dataBase64: Buffer.from("bad image").toString("base64") },
+    { ...image(), fileName: "Good 4.png" },
+  ];
+  const output = await readScreenshotBatch({ target: "opportunity", images }, async (input) => {
+    if (input.images[0].fileName === "Unreadable.png") throw new ScreenshotReadError(422, "No readable job information.");
+    return { fields: { title: input.images[0].fileName }, extractedText: "Role", warnings: [] };
+  });
+  assert.deepEqual(output.items.map(item => item.status), ["ready", "error", "error", "ready"]);
+  assert.equal(output.items[3].draft?.fields.title, "Good 4.png");
+  assert.equal(output.items[1].error, "No readable job information.");
+});
+
+test("same filenames are not merged and a sixth screenshot is rejected", async () => {
+  const images = Array.from({ length: 5 }, () => image());
+  assert.equal(ReadCareerScreenshotBatchBody.safeParse({ target: "opportunity", images }).success, true);
+  assert.equal(ReadCareerScreenshotBatchBody.safeParse({ target: "opportunity", images: [...images, image()] }).success, false);
+  const output = await readScreenshotBatch({ target: "experience", images }, async () => ({
+    fields: { title: "Project" }, extractedText: "Project evidence", warnings: [],
+  }));
+  assert.equal(output.items.length, 5);
 });

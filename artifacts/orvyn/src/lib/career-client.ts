@@ -158,6 +158,19 @@ function clean(input: Partial<RecordInput>) {
 
 export const store = {
   list(): CareerRecord[] { return readWorkspace().records; },
+  createMany(inputs: RecordInput[]): CareerRecord[] {
+    if (!inputs.length || inputs.length > 5) throw new Error('Save between one and five screenshot records at a time.');
+    const w = readWorkspace();
+    const now = new Date().toISOString();
+    const records = inputs.map((input): CareerRecord => {
+      if (!input.title?.trim()) throw new Error('Every imported record needs a title.');
+      return { ...clean(input), id: uid(), createdAt: now, updatedAt: now } as CareerRecord;
+    });
+    // Validate the entire batch before the single localStorage write. Never
+    // leave a partly saved batch if one draft is invalid or storage is full.
+    writeWorkspace({ ...w, records: [...records, ...w.records] });
+    return records;
+  },
   create(input: RecordInput): CareerRecord {
     const w = readWorkspace();
     if (!input.title?.trim()) throw new Error('A title is required.');

@@ -5,6 +5,15 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+export type ScreenshotBatchInputTarget = typeof ScreenshotBatchInputTarget[keyof typeof ScreenshotBatchInputTarget];
+
+
+export const ScreenshotBatchInputTarget = {
+  opportunity: 'opportunity',
+  experience: 'experience',
+  goal: 'goal',
+} as const;
+
 export type ScreenshotImageContentType = typeof ScreenshotImageContentType[keyof typeof ScreenshotImageContentType];
 
 
@@ -28,26 +37,22 @@ export interface ScreenshotImage {
   dataBase64: string;
 }
 
-export type ScreenshotInputTarget = typeof ScreenshotInputTarget[keyof typeof ScreenshotInputTarget];
-
-
-export const ScreenshotInputTarget = {
-  opportunity: 'opportunity',
-  experience: 'experience',
-  resume: 'resume',
-  goal: 'goal',
-  coach: 'coach',
-  strengths: 'strengths',
-} as const;
-
-export interface ScreenshotInput {
-  target: ScreenshotInputTarget;
+export interface ScreenshotBatchInput {
+  target: ScreenshotBatchInputTarget;
   /**
      * @minItems 1
      * @maxItems 5
      */
   images: ScreenshotImage[];
 }
+
+export type ScreenshotBatchItemStatus = typeof ScreenshotBatchItemStatus[keyof typeof ScreenshotBatchItemStatus];
+
+
+export const ScreenshotBatchItemStatus = {
+  ready: 'ready',
+  error: 'error',
+} as const;
 
 export type ScreenshotFieldsStatus = typeof ScreenshotFieldsStatus[keyof typeof ScreenshotFieldsStatus];
 
@@ -127,6 +132,52 @@ export interface ScreenshotDraft {
      * @items.maxLength 500
      */
   warnings: string[];
+}
+
+export interface ScreenshotBatchItem {
+  /**
+     * @minimum 0
+     * @maximum 4
+     */
+  index: number;
+  /**
+     * @minLength 1
+     * @maxLength 250
+     */
+  fileName: string;
+  status: ScreenshotBatchItemStatus;
+  draft?: ScreenshotDraft;
+  /** @maxLength 500 */
+  error?: string;
+}
+
+export interface ScreenshotBatchResult {
+  /**
+     * @minItems 1
+     * @maxItems 5
+     */
+  items: ScreenshotBatchItem[];
+}
+
+export type ScreenshotInputTarget = typeof ScreenshotInputTarget[keyof typeof ScreenshotInputTarget];
+
+
+export const ScreenshotInputTarget = {
+  opportunity: 'opportunity',
+  experience: 'experience',
+  resume: 'resume',
+  goal: 'goal',
+  coach: 'coach',
+  strengths: 'strengths',
+} as const;
+
+export interface ScreenshotInput {
+  target: ScreenshotInputTarget;
+  /**
+     * @minItems 1
+     * @maxItems 5
+     */
+  images: ScreenshotImage[];
 }
 
 export interface CareerEvidence {

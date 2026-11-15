@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Plus, ImageUp, Archive, Pencil, Trash2 } from 'lucide-react';
 import type { CareerRecord } from '@/lib/career-client';
 import { Button } from '@/components/ui/button';
+import { ScreenshotBatchDialog } from '@/components/screenshot-batch';
 import { PageHeader, EmptyState, ErrorState, ListSkeleton, RecordDialog, ConfirmDelete, Panel, type FieldDef } from '@/components/kit';
 import { fmtDate, useRecords, useSession } from '@/lib/orvyn';
 import { cn } from '@/lib/utils';
@@ -32,7 +33,8 @@ export default function Vault() {
   const { isLoading: authLoading } = useSession();
   const q = useRecords('experience');
   const [cat, setCat] = useState('all');
-  const [dialog, setDialog] = useState<{ open: boolean; record?: CareerRecord | null; shots?: boolean }>({ open: false });
+  const [dialog, setDialog] = useState<{ open: boolean; record?: CareerRecord | null }>({ open: false });
+  const [batch, setBatch] = useState(false);
   const [del, setDel] = useState<CareerRecord | null>(null);
 
 
@@ -46,7 +48,7 @@ export default function Vault() {
         title="Everything you have done"
         sub="Verified experience is the source for resumes, coaching and insights. Be specific: numbers carry weight."
         actions={<>
-          <Button variant="outline" onClick={() => setDialog({ open: true, record: null, shots: true })} data-testid="button-upload-screenshots"><ImageUp className="mr-1.5 h-4 w-4" />Upload screenshots</Button>
+          <Button variant="outline" onClick={() => setBatch(true)} data-testid="button-upload-screenshots"><ImageUp className="mr-1.5 h-4 w-4" />Upload screenshots</Button>
           <Button onClick={() => setDialog({ open: true, record: null })} data-testid="button-add-entry"><Plus className="mr-1.5 h-4 w-4" />Add entry</Button>
         </>}
       />
@@ -90,7 +92,8 @@ export default function Vault() {
           ))}
         </div>
       )}
-      <RecordDialog open={dialog.open} onOpenChange={(o) => setDialog((d) => ({ ...d, open: o }))} kind="experience" heading={dialog.record ? 'Edit entry' : 'New vault entry'} fields={FIELDS} record={dialog.record} screenshotFirst={dialog.shots} defaults={{ category: cat === 'all' ? 'experience' : cat }} />
+      <RecordDialog open={dialog.open} onOpenChange={(o) => setDialog((d) => ({ ...d, open: o }))} kind="experience" heading={dialog.record ? 'Edit entry' : 'New vault entry'} fields={FIELDS} record={dialog.record} defaults={{ category: cat === 'all' ? 'experience' : cat }} />
+      <ScreenshotBatchDialog open={batch} onOpenChange={setBatch} target="experience" fields={FIELDS} defaults={{ category: cat === 'all' ? 'experience' : cat }} />
       <ConfirmDelete record={del} onOpenChange={(o) => !o && setDel(null)} what="entry" />
     </div>
   );

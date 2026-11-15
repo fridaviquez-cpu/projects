@@ -30,6 +30,8 @@ import type {
   HealthStatus,
   ResumeFileInput,
   ResumeText,
+  ScreenshotBatchInput,
+  ScreenshotBatchResult,
   ScreenshotDraft,
   ScreenshotInput
 } from './api.schemas';
@@ -60,6 +62,94 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   }
   return result;
 };
+
+export const getReadCareerScreenshotBatchUrl = () => {
+
+
+
+
+  return `/api/career/screenshots/batch`
+}
+
+/**
+ * @summary Extract one independent career draft per screenshot, preserving individual failures
+ */
+export const readCareerScreenshotBatch = async (screenshotBatchInput: ScreenshotBatchInput, options?: Parameters<typeof customFetch>[1]): Promise<ScreenshotBatchResult> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<ScreenshotBatchResult>(getReadCareerScreenshotBatchUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(screenshotBatchInput)
+  }
+);}
+
+
+
+
+
+export const getReadCareerScreenshotBatchMutationKey = () => ['readCareerScreenshotBatch'] as const;
+
+export const getReadCareerScreenshotBatchMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof readCareerScreenshotBatch>>, TError,ReadCareerScreenshotBatchMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof readCareerScreenshotBatch>>, TError,ReadCareerScreenshotBatchMutationVariables, TContext> => {
+
+const mutationKey = getReadCareerScreenshotBatchMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof readCareerScreenshotBatch>>, ReadCareerScreenshotBatchMutationVariables> = (props) => {
+          const {data} = props ?? {};
+
+          return  readCareerScreenshotBatch(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ReadCareerScreenshotBatchMutationResult = NonNullable<Awaited<ReturnType<typeof readCareerScreenshotBatch>>>
+    export type ReadCareerScreenshotBatchMutationBody = BodyType<ScreenshotBatchInput>
+    export type ReadCareerScreenshotBatchMutationError = ErrorType<void>
+    export type ReadCareerScreenshotBatchMutationVariables = {data: BodyType<ScreenshotBatchInput>}
+
+    /**
+ * @summary Extract one independent career draft per screenshot, preserving individual failures
+ */
+export const useReadCareerScreenshotBatch = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof readCareerScreenshotBatch>>, TError,ReadCareerScreenshotBatchMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof readCareerScreenshotBatch>>,
+        TError,
+        ReadCareerScreenshotBatchMutationVariables,
+        TContext
+      > => {
+      return useMutation(getReadCareerScreenshotBatchMutationOptions(options), queryClient);
+    }
 
 export const getReadCareerScreenshotsUrl = () => {
 

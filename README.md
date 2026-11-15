@@ -93,9 +93,17 @@ in your hosting platform's secret manager, never in source control.
 
 People can upload screenshots instead of retyping job applications, work
 evidence, resumes, goals, interview practice, and official strengths results.
-Image reading uses the same AI service as the writing tools. Users review an
-editable draft before explicitly saving; reading an image never saves a record
-or replaces an existing one by itself.
+Image reading uses the same AI service as the writing tools and starts
+automatically when images are selected. For opportunities, experiences, and
+goals, each screenshot becomes its own prefilled draft: five job screenshots
+produce five opportunities, and four produce four. Users can review the
+extracted information and save the ready drafts together without retyping it.
+Reading an image never replaces an existing record. Manual entry stays optional.
+
+The batch API reads images independently, returns a result for each source
+image, and keeps successful drafts when another image cannot be read. Saving a
+selected batch validates all of its records and uses a single browser-storage
+write. Resume screenshots can still be combined as pages of the same resume.
 
 Choose 1–5 PNG, JPG, or WebP images, at most 5 MB each and 10 MB combined. The app
 does not retain the uploaded images; only the fields the user saves stay in
