@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Plus, Columns3, MoreHorizontal, MapPin, CalendarDays, Search, ExternalLink } from 'lucide-react';
+import { Plus, ImageUp, Columns3, MoreHorizontal, MapPin, CalendarDays, Search, ExternalLink } from 'lucide-react';
 import type { CareerRecord, RecordInputStatus } from '@/lib/career-client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -84,7 +84,7 @@ export default function Opportunities() {
   const q = useRecords('opportunity');
   const { update } = useRecordMutations();
   const { toast } = useToast();
-  const [dialog, setDialog] = useState<{ open: boolean; record?: CareerRecord | null; status?: string }>({ open: false });
+  const [dialog, setDialog] = useState<{ open: boolean; record?: CareerRecord | null; status?: string; shots?: boolean }>({ open: false });
   const [del, setDel] = useState<CareerRecord | null>(null);
   const [over, setOver] = useState<string | null>(null);
   const [search, setSearch] = useState('');
@@ -109,7 +109,10 @@ export default function Opportunities() {
         eyebrow="Opportunities"
         title="Your pipeline"
         sub="Drag cards between stages, or use the card menu on touch devices."
-        actions={<Button onClick={() => setDialog({ open: true, record: null, status: 'saved' })} data-testid="button-add-opportunity"><Plus className="mr-1.5 h-4 w-4" />Add opportunity</Button>}
+        actions={<>
+          <Button variant="outline" onClick={() => setDialog({ open: true, record: null, status: 'saved', shots: true })} data-testid="button-upload-screenshots"><ImageUp className="mr-1.5 h-4 w-4" />Upload screenshots</Button>
+          <Button onClick={() => setDialog({ open: true, record: null, status: 'saved' })} data-testid="button-add-opportunity"><Plus className="mr-1.5 h-4 w-4" />Add opportunity</Button>
+        </>}
       />
       {q.isLoading || authLoading ? <ListSkeleton rows={3} /> : q.isError ? <ErrorState error={q.error} onRetry={() => q.refetch()} /> : q.items.length === 0 ? (
         <EmptyState icon={<Columns3 className="h-4 w-4" />} title="No opportunities yet" body="Save a role you are considering. Add the job description so coach and resume tailoring can use it." action={<Button onClick={() => setDialog({ open: true, record: null, status: 'saved' })}>Add your first</Button>} />
@@ -163,6 +166,7 @@ export default function Opportunities() {
         heading={dialog.record ? 'Edit opportunity' : 'New opportunity'}
         fields={OPP_FIELDS}
         record={dialog.record}
+        screenshotFirst={dialog.shots}
         defaults={{ status: (dialog.status ?? 'saved') as RecordInputStatus }}
       />
       <ConfirmDelete record={del} onOpenChange={(o) => !o && setDel(null)} what="opportunity" />

@@ -29,7 +29,9 @@ import type {
   CareerAssistResult,
   HealthStatus,
   ResumeFileInput,
-  ResumeText
+  ResumeText,
+  ScreenshotDraft,
+  ScreenshotInput
 } from './api.schemas';
 
 import { customFetch } from '../custom-fetch';
@@ -58,6 +60,94 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   }
   return result;
 };
+
+export const getReadCareerScreenshotsUrl = () => {
+
+
+
+
+  return `/api/career/screenshots`
+}
+
+/**
+ * @summary Read screenshots into an editable draft without saving the images or records
+ */
+export const readCareerScreenshots = async (screenshotInput: ScreenshotInput, options?: Parameters<typeof customFetch>[1]): Promise<ScreenshotDraft> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<ScreenshotDraft>(getReadCareerScreenshotsUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(screenshotInput)
+  }
+);}
+
+
+
+
+
+export const getReadCareerScreenshotsMutationKey = () => ['readCareerScreenshots'] as const;
+
+export const getReadCareerScreenshotsMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof readCareerScreenshots>>, TError,ReadCareerScreenshotsMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof readCareerScreenshots>>, TError,ReadCareerScreenshotsMutationVariables, TContext> => {
+
+const mutationKey = getReadCareerScreenshotsMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof readCareerScreenshots>>, ReadCareerScreenshotsMutationVariables> = (props) => {
+          const {data} = props ?? {};
+
+          return  readCareerScreenshots(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ReadCareerScreenshotsMutationResult = NonNullable<Awaited<ReturnType<typeof readCareerScreenshots>>>
+    export type ReadCareerScreenshotsMutationBody = BodyType<ScreenshotInput>
+    export type ReadCareerScreenshotsMutationError = ErrorType<void>
+    export type ReadCareerScreenshotsMutationVariables = {data: BodyType<ScreenshotInput>}
+
+    /**
+ * @summary Read screenshots into an editable draft without saving the images or records
+ */
+export const useReadCareerScreenshots = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof readCareerScreenshots>>, TError,ReadCareerScreenshotsMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof readCareerScreenshots>>,
+        TError,
+        ReadCareerScreenshotsMutationVariables,
+        TContext
+      > => {
+      return useMutation(getReadCareerScreenshotsMutationOptions(options), queryClient);
+    }
 
 export const getAssistCareerUrl = () => {
 

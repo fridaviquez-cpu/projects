@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import type { ScreenshotDraft } from '@workspace/api-client-react';
+import { ScreenshotUpload, ReplaceOffers } from '@/components/screenshot-upload';
 import { VaultSourcePicker } from '@/components/vault-source-picker';
 import { MessageSquareText, Sparkles, Trash2 } from 'lucide-react';
 import { useRunCoach, type CareerRecord } from '@/lib/career-client';
@@ -32,6 +34,24 @@ export default function Coach() {
   const [answer, setAnswer] = useState('');
   const [openId, setOpenId] = useState<string | null>(null);
   const [del, setDel] = useState<CareerRecord | null>(null);
+  const [offers, setOffers] = useState<{ key: string; label: string; value: string }[]>([]);
+  const [shotNote, setShotNote] = useState<string | null>(null);
+
+  // Fills only empty fields; differing values become explicit offers. Never derives an answer from a question.
+  const applyShot = (d: ScreenshotDraft) => {
+    const qx = typeof d.fields?.question === 'string' ? d.fields.question.trim() : '';
+    const ax = typeof d.fields?.answer === 'string' ? d.fields.answer.trim() : '';
+    const next: { key: string; label: string; value: string }[] = [];
+    const filled: string[] = [];
+    if (qx) { if (!question.trim()) { setQuestion(qx); filled.push('question'); } else if (question.trim() !== qx) next.push({ key: 'question', label: 'Question', value: qx }); }
+    if (ax) { if (!answer.trim()) { setAnswer(ax); filled.push('answer'); } else if (answer.trim() !== ax) next.push({ key: 'answer', label: 'Answer', value: ax }); }
+    setOffers(next);
+    setShotNote(filled.length ? `Filled the ${filled.join(' and ')} from your screenshots. Review, then request feedback.` : !qx && !ax ? 'No interview question or answer was found in those screenshots.' : null);
+  };
+  const takeOffer = (keys: string[]) => {
+    for (const o of offers) if (keys.includes(o.key)) (o.key === 'question' ? setQuestion : setAnswer)(o.value);
+    setOffers((p) => p.filter((o) => !keys.includes(o.key)));
+  };
 
 
   const open = sessions.items.find((s) => s.id === openId);
@@ -61,6 +81,9 @@ export default function Coach() {
           <Panel className="rise rise-2 p-6">
             <div className="eyebrow mb-4">02 / Practice an answer</div>
             <div className="space-y-4">
+              <ScreenshotUpload target="coach" onResult={applyShot} label="Fill question and answer from screenshots" disabled={fb.isPending} testId="coach-screenshots" />
+              <ReplaceOffers offers={offers} onUse={takeOffer} onDismiss={() => setOffers([])} />
+              {shotNote && <p role="status" className="text-[12.5px] text-muted-foreground" data-testid="text-coach-screenshot">{shotNote}</p>}
               <div className="space-y-1.5">
                 <Label htmlFor="coach-question" className="text-[12px] font-normal text-muted-foreground">Question</Label>
                 <Textarea id="coach-question" rows={2} value={question} onChange={(e) => setQuestion(e.target.value)} placeholder="Tell me about a time you handled conflicting priorities." className="bg-background" data-testid="textarea-question" />

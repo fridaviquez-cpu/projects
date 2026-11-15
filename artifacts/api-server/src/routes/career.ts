@@ -4,22 +4,17 @@ import { PDFParse } from "pdf-parse";
 import mammoth from "mammoth";
 import { AssistCareerBody, AssistCareerResponse, ExtractResumeBody, ExtractResumeResponse } from "@workspace/api-zod";
 import { generateCareerDraft } from "../lib/career-ai";
+import { careerAiLimiter, acquireCareerAiSlot } from "../lib/career-ai-limits";
+import screenshotRouter from "./career-screenshots";
 
 const router: IRouter = Router();
-let activeAiRequests = 0;
-const aiLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000,
-  limit: 30,
-  standardHeaders: "draft-8",
-  legacyHeaders: false,
-  message: { error: "You have reached the hourly AI limit. Your saved work is safe; try again later." },
-});
+router.use(screenshotRouter);
 const importLimiter = rateLimit({
   windowMs: 10 * 60 * 1000, limit: 15, standardHeaders: "draft-8", legacyHeaders: false,
   message: { error: "Too many file imports. Please wait a few minutes and try again." },
 });
 
-router.post("/career/assist", aiLimiter, async (req, res): Promise<void> => {
+router.post("/career/assist", careerAiLimiter, async (req, res): Promise<void> => {
   res.setHeader("Cache-Control", "no-store");
   const parsed = AssistCareerBody.safeParse(req.body);
   if (!parsed.success) {
@@ -44,10 +39,10 @@ router.post("/career/assist", aiLimiter, async (req, res): Promise<void> => {
   if (input.selectedExperienceIds?.some(id => !input.records.some(r => r.kind === "experience" && r.id === id))) {
     res.status(400).json({ error: "A selected Vault source is no longer available. Clear the selection and choose again." }); return;
   }
-  if (activeAiRequests >= 4) {
+  const release = acquireCareerAiSlot();
+  if (!release) {
     res.status(429).json({ error: "The coach is busy right now. Please try again in a moment." }); return;
   }
-  activeAiRequests++;
   try {
     const result = await generateCareerDraft(input);
     res.json(AssistCareerResponse.parse(result));
@@ -59,7 +54,7 @@ router.post("/career/assist", aiLimiter, async (req, res): Promise<void> => {
       "The selected evidence is too long. Select fewer Vault entries or shorten the source resume." :
       "The AI service could not finish this draft. Your saved work has not changed. Please try again." });
   } finally {
-    activeAiRequests--;
+    release();
   }
 });
 

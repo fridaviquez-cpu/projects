@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
+import type { ScreenshotDraft } from '@workspace/api-client-react';
+import { ScreenshotUpload, ReplaceOffers } from '@/components/screenshot-upload';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { PageHeader, ErrorState, ListSkeleton, Panel, InlineError } from '@/components/kit';
@@ -36,6 +38,21 @@ export default function Dna() {
   const retakeButton = useRef<HTMLButtonElement>(null);
   const quizStart = useRef<HTMLDivElement>(null);
   const wasRetaking = useRef(false);
+  const [offers, setOffers] = useState<{ key: string; label: string; value: string }[]>([]);
+  const [shotNote, setShotNote] = useState<string | null>(null);
+  const officialRef = useRef(official);
+  officialRef.current = official;
+
+  // Fills official results only. The twelve reflection prompts are never answered from a screenshot.
+  const applyShot = (d: ScreenshotDraft) => {
+    const x = typeof d.fields?.officialStrengths === 'string' ? d.fields.officialStrengths.trim() : '';
+    setOffers([]);
+    if (!x) return setShotNote('No CliftonStrengths results were found in those screenshots.');
+    const cur = officialRef.current.trim();
+    if (!cur) { setOfficial(x); setShotNote('Filled from your screenshots. Review, then save strengths.'); }
+    else if (cur !== x) { setOffers([{ key: 'officialStrengths', label: 'Official strengths', value: x }]); setShotNote(null); }
+    else setShotNote('Your strengths already match the screenshot.');
+  };
 
   useEffect(() => {
     if (retake) quizStart.current?.focus();
@@ -55,7 +72,8 @@ export default function Dna() {
   const done = answers.filter(Boolean).length;
   const err = create.error || update.error;
   const pending = create.isPending || update.isPending;
-  const showQuiz = !rec || retake;
+  const hasAnswers = !!rec && validDnaAnswers(rec.answers);
+  const showQuiz = !hasAnswers || retake;
 
   const submit = () => {
     const patch = { answers, officialStrengths: official.trim(), content: describeDna(answers) };
@@ -63,7 +81,12 @@ export default function Dna() {
     if (rec) update.mutate({ id: rec.id, data: toInput(rec, patch) }, { onSuccess });
     else create.mutate({ data: { kind: 'dna', title: 'Career DNA reflection', ...patch } }, { onSuccess });
   };
-  const saveOfficial = () => rec && update.mutate({ id: rec.id, data: toInput(rec, { officialStrengths: official.trim() }) }, { onSuccess: () => toast({ title: 'Strengths saved' }) });
+  const saveOfficial = () => {
+    const onSuccess = () => { setShotNote(null); toast({ title: 'Strengths saved' }); };
+    if (rec) update.mutate({ id: rec.id, data: toInput(rec, { officialStrengths: official.trim() }) }, { onSuccess });
+    // Strengths-only record: reflection answers stay absent until the prompts are completed.
+    else create.mutate({ data: { kind: 'dna', title: 'Career DNA reflection', officialStrengths: official.trim() } }, { onSuccess });
+  };
 
   return (
     <div>
@@ -71,7 +94,7 @@ export default function Dna() {
       {q.isLoading || authLoading ? <ListSkeleton /> : q.isError ? <ErrorState error={q.error} onRetry={() => q.refetch()} /> : (
         <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
           <div>
-            {rec && !retake && (
+            {rec && hasAnswers && !retake && (
               <Panel className="rise p-6 md:p-8" data-testid="panel-profile">
                 <div className="flex items-start justify-between gap-3">
                   <div><div className="eyebrow mb-2">Your profile / {fmtDate(rec.updatedAt)}</div><h2 className="text-[20px] font-medium">Reflection results</h2></div>
@@ -95,7 +118,7 @@ export default function Dna() {
             )}
             {showQuiz && (
               <div ref={quizStart} tabIndex={-1} aria-label="Career DNA reflection questions" className="space-y-3">
-                <div className="flex items-center justify-between"><span className="eyebrow">{done} of 12 answered</span>{retake && <Button size="sm" variant="ghost" onClick={() => setRetake(false)}>Cancel</Button>}</div>
+                <div className="flex items-center justify-between"><span className="eyebrow">{done} of 12 answered</span>{retake && hasAnswers && <Button size="sm" variant="ghost" onClick={() => setRetake(false)}>Cancel</Button>}</div>
                 {QUESTIONS.map((qq, i) => (
                   <Panel key={i} className="rise p-5" style={{ animationDelay: `${i * 30}ms` }}>
                     <div className="flex gap-4"><span className="font-mono text-[11px] text-muted-foreground pt-0.5">{String(i + 1).padStart(2, '0')}</span><p id={`dna-question-${i}`} className="text-[14.5px]">{qq}</p></div>
@@ -118,9 +141,14 @@ export default function Dna() {
             <div className="eyebrow mb-2">Official CliftonStrengths</div>
             <p className="mb-4 text-[12.5px] leading-relaxed text-muted-foreground">If you have taken the official assessment, record your results here. Kept separate from the reflection above.</p>
             <Textarea rows={6} value={official} onChange={(e) => setOfficial(e.target.value)} placeholder={'1. Learner\n2. Achiever\n3. ...'} className="bg-background font-mono text-[12.5px]" data-testid="textarea-official-strengths" />
-            {rec ? (
-              <Button size="sm" className="mt-3" variant="outline" onClick={saveOfficial} disabled={update.isPending || official === (rec.officialStrengths ?? '')} data-testid="button-save-strengths">Save strengths</Button>
-            ) : <p className="mt-3 text-[11.5px] text-muted-foreground">Saved together with your reflection.</p>}
+            <Button size="sm" className="mt-3" variant="outline" onClick={saveOfficial} disabled={pending || official.trim() === (rec?.officialStrengths ?? '').trim()} data-testid="button-save-strengths">Save strengths</Button>
+            {!rec && <p className="mt-2 text-[11.5px] text-muted-foreground">You can save these now, before or without the reflection.</p>}
+            <div className="mt-3"><InlineError error={err} /></div>
+            <div className="mt-5 border-t pt-4 space-y-3">
+              <ScreenshotUpload target="strengths" onResult={applyShot} label="Read official results from screenshots" disabled={pending} testId="strengths-screenshots" />
+              <ReplaceOffers offers={offers} onUse={(keys) => { if (keys.length && offers[0]) setOfficial(offers[0].value); setOffers([]); }} onDismiss={() => setOffers([])} />
+              {shotNote && <p role="status" className="text-[12px] text-muted-foreground" data-testid="text-strengths-screenshot">{shotNote}</p>}
+            </div>
           </Panel>
         </div>
       )}

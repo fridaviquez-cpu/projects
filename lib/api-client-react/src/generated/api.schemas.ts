@@ -5,6 +5,130 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+export type ScreenshotImageContentType = typeof ScreenshotImageContentType[keyof typeof ScreenshotImageContentType];
+
+
+export const ScreenshotImageContentType = {
+  'image/png': 'image/png',
+  'image/jpeg': 'image/jpeg',
+  'image/webp': 'image/webp',
+} as const;
+
+export interface ScreenshotImage {
+  /**
+     * @minLength 1
+     * @maxLength 250
+     */
+  fileName: string;
+  contentType: ScreenshotImageContentType;
+  /**
+     * @minLength 4
+     * @maxLength 7000000
+     */
+  dataBase64: string;
+}
+
+export type ScreenshotInputTarget = typeof ScreenshotInputTarget[keyof typeof ScreenshotInputTarget];
+
+
+export const ScreenshotInputTarget = {
+  opportunity: 'opportunity',
+  experience: 'experience',
+  resume: 'resume',
+  goal: 'goal',
+  coach: 'coach',
+  strengths: 'strengths',
+} as const;
+
+export interface ScreenshotInput {
+  target: ScreenshotInputTarget;
+  /**
+     * @minItems 1
+     * @maxItems 5
+     */
+  images: ScreenshotImage[];
+}
+
+export type ScreenshotFieldsStatus = typeof ScreenshotFieldsStatus[keyof typeof ScreenshotFieldsStatus];
+
+
+export const ScreenshotFieldsStatus = {
+  saved: 'saved',
+  applied: 'applied',
+  assessment: 'assessment',
+  interview: 'interview',
+  offer: 'offer',
+  rejected: 'rejected',
+  withdrawn: 'withdrawn',
+  active: 'active',
+  completed: 'completed',
+} as const;
+
+export type ScreenshotFieldsCategory = typeof ScreenshotFieldsCategory[keyof typeof ScreenshotFieldsCategory];
+
+
+export const ScreenshotFieldsCategory = {
+  experience: 'experience',
+  education: 'education',
+  internship: 'internship',
+  project: 'project',
+  leadership: 'leadership',
+  accomplishment: 'accomplishment',
+  skill: 'skill',
+} as const;
+
+export interface ScreenshotFields {
+  /** @maxLength 500 */
+  title?: string;
+  /** @maxLength 500 */
+  company?: string;
+  status?: ScreenshotFieldsStatus;
+  category?: ScreenshotFieldsCategory;
+  /** @maxLength 500 */
+  location?: string;
+  /** @maxLength 500 */
+  salary?: string;
+  /** @maxLength 500 */
+  contact?: string;
+  /** @maxLength 2000 */
+  url?: string;
+  /** @maxLength 10 */
+  deadline?: string;
+  /** @maxLength 30 */
+  interviewAt?: string;
+  /** @maxLength 10 */
+  startDate?: string;
+  /** @maxLength 10 */
+  endDate?: string;
+  /** @maxLength 10000 */
+  description?: string;
+  /** @maxLength 10000 */
+  results?: string;
+  /** @maxLength 10000 */
+  skills?: string;
+  /** @maxLength 10000 */
+  notes?: string;
+  /** @maxLength 50000 */
+  content?: string;
+  /** @maxLength 10000 */
+  question?: string;
+  /** @maxLength 20000 */
+  answer?: string;
+  /** @maxLength 10000 */
+  officialStrengths?: string;
+}
+
+export interface ScreenshotDraft {
+  fields: ScreenshotFields;
+  /** @maxLength 30000 */
+  extractedText: string;
+  /**
+     * @maxItems 8
+     * @items.maxLength 500
+     */
+  warnings: string[];
+}
+
 export interface CareerEvidence {
   /** @maxLength 100 */
   id: string;

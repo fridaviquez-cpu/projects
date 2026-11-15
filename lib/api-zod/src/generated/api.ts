@@ -9,6 +9,99 @@ import * as zod from 'zod';
 
 
 /**
+ * @summary Read screenshots into an editable draft without saving the images or records
+ */
+export const readCareerScreenshotsBodyImagesItemFileNameMax = 250;
+
+export const readCareerScreenshotsBodyImagesItemDataBase64Min = 4;
+export const readCareerScreenshotsBodyImagesItemDataBase64Max = 7000000;
+
+export const readCareerScreenshotsBodyImagesMax = 5;
+
+
+
+export const ReadCareerScreenshotsBody = zod.object({
+  "target": zod.enum(['opportunity', 'experience', 'resume', 'goal', 'coach', 'strengths']),
+  "images": zod.array(zod.object({
+  "fileName": zod.string().min(1).max(readCareerScreenshotsBodyImagesItemFileNameMax),
+  "contentType": zod.enum(['image/png', 'image/jpeg', 'image/webp']),
+  "dataBase64": zod.string().min(readCareerScreenshotsBodyImagesItemDataBase64Min).max(readCareerScreenshotsBodyImagesItemDataBase64Max)
+})).min(1).max(readCareerScreenshotsBodyImagesMax)
+})
+
+export const readCareerScreenshotsResponseFieldsTitleMax = 500;
+
+export const readCareerScreenshotsResponseFieldsCompanyMax = 500;
+
+export const readCareerScreenshotsResponseFieldsLocationMax = 500;
+
+export const readCareerScreenshotsResponseFieldsSalaryMax = 500;
+
+export const readCareerScreenshotsResponseFieldsContactMax = 500;
+
+export const readCareerScreenshotsResponseFieldsUrlMax = 2000;
+
+export const readCareerScreenshotsResponseFieldsDeadlineMax = 10;
+
+export const readCareerScreenshotsResponseFieldsInterviewAtMax = 30;
+
+export const readCareerScreenshotsResponseFieldsStartDateMax = 10;
+
+export const readCareerScreenshotsResponseFieldsEndDateMax = 10;
+
+export const readCareerScreenshotsResponseFieldsDescriptionMax = 10000;
+
+export const readCareerScreenshotsResponseFieldsResultsMax = 10000;
+
+export const readCareerScreenshotsResponseFieldsSkillsMax = 10000;
+
+export const readCareerScreenshotsResponseFieldsNotesMax = 10000;
+
+export const readCareerScreenshotsResponseFieldsContentMax = 50000;
+
+export const readCareerScreenshotsResponseFieldsQuestionMax = 10000;
+
+export const readCareerScreenshotsResponseFieldsAnswerMax = 20000;
+
+export const readCareerScreenshotsResponseFieldsOfficialStrengthsMax = 10000;
+
+export const readCareerScreenshotsResponseExtractedTextMax = 30000;
+
+export const readCareerScreenshotsResponseWarningsItemMax = 500;
+
+export const readCareerScreenshotsResponseWarningsMax = 8;
+
+
+
+export const ReadCareerScreenshotsResponse = zod.object({
+  "fields": zod.object({
+  "title": zod.string().max(readCareerScreenshotsResponseFieldsTitleMax).optional(),
+  "company": zod.string().max(readCareerScreenshotsResponseFieldsCompanyMax).optional(),
+  "status": zod.enum(['saved', 'applied', 'assessment', 'interview', 'offer', 'rejected', 'withdrawn', 'active', 'completed']).optional(),
+  "category": zod.enum(['experience', 'education', 'internship', 'project', 'leadership', 'accomplishment', 'skill']).optional(),
+  "location": zod.string().max(readCareerScreenshotsResponseFieldsLocationMax).optional(),
+  "salary": zod.string().max(readCareerScreenshotsResponseFieldsSalaryMax).optional(),
+  "contact": zod.string().max(readCareerScreenshotsResponseFieldsContactMax).optional(),
+  "url": zod.string().max(readCareerScreenshotsResponseFieldsUrlMax).optional(),
+  "deadline": zod.string().max(readCareerScreenshotsResponseFieldsDeadlineMax).optional(),
+  "interviewAt": zod.string().max(readCareerScreenshotsResponseFieldsInterviewAtMax).optional(),
+  "startDate": zod.string().max(readCareerScreenshotsResponseFieldsStartDateMax).optional(),
+  "endDate": zod.string().max(readCareerScreenshotsResponseFieldsEndDateMax).optional(),
+  "description": zod.string().max(readCareerScreenshotsResponseFieldsDescriptionMax).optional(),
+  "results": zod.string().max(readCareerScreenshotsResponseFieldsResultsMax).optional(),
+  "skills": zod.string().max(readCareerScreenshotsResponseFieldsSkillsMax).optional(),
+  "notes": zod.string().max(readCareerScreenshotsResponseFieldsNotesMax).optional(),
+  "content": zod.string().max(readCareerScreenshotsResponseFieldsContentMax).optional(),
+  "question": zod.string().max(readCareerScreenshotsResponseFieldsQuestionMax).optional(),
+  "answer": zod.string().max(readCareerScreenshotsResponseFieldsAnswerMax).optional(),
+  "officialStrengths": zod.string().max(readCareerScreenshotsResponseFieldsOfficialStrengthsMax).optional()
+}),
+  "extractedText": zod.string().max(readCareerScreenshotsResponseExtractedTextMax),
+  "warnings": zod.array(zod.string().max(readCareerScreenshotsResponseWarningsItemMax)).max(readCareerScreenshotsResponseWarningsMax)
+})
+
+
+/**
  * @summary Generate grounded career coaching or a resume draft
  */
 export const assistCareerBodyRecordsItemIdMax = 100;

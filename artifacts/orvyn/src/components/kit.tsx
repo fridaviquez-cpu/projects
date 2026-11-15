@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { AlertCircle, RotateCw } from 'lucide-react';
+import { AlertCircle, RotateCw, ImageUp } from 'lucide-react';
+import type { ScreenshotDraft, ScreenshotFields } from '@workspace/api-client-react';
+import { ScreenshotUpload, ReplaceOffers } from '@/components/screenshot-upload';
 import { ToastAction } from '@/components/ui/toast';
 import type { CareerRecord, RecordInput, RecordInputKind } from '@/lib/career-client';
 import { Button } from '@/components/ui/button';
@@ -128,8 +130,32 @@ export type FieldDef = {
   rows?: number;
 };
 
+const SCREENSHOT_KINDS = ['opportunity', 'experience', 'goal'] as const;
+type ScreenshotKind = typeof SCREENSHOT_KINDS[number];
+const IMPORTED_TITLE: Record<ScreenshotKind, string> = { opportunity: 'Imported opportunity', experience: 'Imported experience', goal: 'Imported goal' };
+
+/** Normalise an extracted value for a field, or return '' when it does not fit. */
+function fitValue(f: FieldDef, raw: unknown): string {
+  if (typeof raw !== 'string') return '';
+  const v = raw.trim();
+  if (!v) return '';
+  if (f.type === 'select') return f.options?.some((o) => o.value === v) ? v : '';
+  if (f.type === 'date') {
+    const d = v.slice(0, 10);
+    return /^\d{4}-\d{2}-\d{2}$/.test(d) && Number.isFinite(Date.parse(d)) ? d : '';
+  }
+  if (f.type === 'datetime') {
+    const d = v.slice(0, 16);
+    return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(d) && Number.isFinite(Date.parse(d)) ? d : '';
+  }
+  if (f.type === 'url') {
+    try { return ['http:', 'https:'].includes(new URL(v).protocol) ? v : ''; } catch { return ''; }
+  }
+  return v;
+}
+
 export function RecordDialog({
-  open, onOpenChange, kind, heading, description, fields, record, defaults, onSaved,
+  open, onOpenChange, kind, heading, description, fields, record, defaults, onSaved, screenshotFirst,
 }: {
   open: boolean;
   onOpenChange: (o: boolean) => void;
@@ -140,12 +166,23 @@ export function RecordDialog({
   record?: CareerRecord | null;
   defaults?: Partial<RecordInput>;
   onSaved?: (r: CareerRecord) => void;
+  /** Open with the screenshot reader expanded (new records of supported kinds). */
+  screenshotFirst?: boolean;
 }) {
   const { create, update } = useRecordMutations();
   const { toast } = useToast();
   const [vals, setVals] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState(false);
   const returnFocus = useRef<HTMLElement | null>(null);
+  const canScreenshot = (SCREENSHOT_KINDS as readonly string[]).includes(kind);
+  const [shotOpen, setShotOpen] = useState(false);
+  const [edited, setEdited] = useState<Set<string>>(new Set());
+  const [offers, setOffers] = useState<{ key: string; label: string; value: string }[]>([]);
+  const [filled, setFilled] = useState<string | null>(null);
+  const valsRef = useRef(vals);
+  valsRef.current = vals;
+  const editedRef = useRef(edited);
+  editedRef.current = edited;
 
   useEffect(() => {
     if (!open) return;
@@ -160,6 +197,10 @@ export function RecordDialog({
     }
     setVals(base);
     setTouched(false);
+    setEdited(new Set());
+    setOffers([]);
+    setFilled(null);
+    setShotOpen(!!screenshotFirst && canScreenshot);
     create.reset();
     update.reset();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -168,6 +209,45 @@ export function RecordDialog({
   const pending = create.isPending || update.isPending;
   const err = create.error || update.error;
   const titleMissing = !vals.title?.trim();
+
+  const applyDraft = (draft: ScreenshotDraft) => {
+    const src = (draft.fields ?? {}) as ScreenshotFields & Record<string, unknown>;
+    const cur = valsRef.current;
+    const touchedFields = editedRef.current;
+    const next = { ...cur };
+    const conflicts: { key: string; label: string; value: string }[] = [];
+    const changed: string[] = [];
+    for (const f of fields) {
+      const key = f.name as string;
+      const x = fitValue(f, src[key]);
+      if (!x) continue;
+      const v = (cur[key] ?? '').trim();
+      if (!v) { next[key] = x; changed.push(f.label); continue; }
+      if (v === x) continue;
+      if (f.type === 'select' && !record && !touchedFields.has(key)) { next[key] = x; changed.push(f.label); continue; }
+      if (f.type === 'textarea') {
+        if (!v.includes(x)) { next[key] = `${cur[key]}\n\n${x}`; changed.push(`${f.label} (added below yours)`); }
+        continue;
+      }
+      conflicts.push({ key, label: f.label, value: x });
+    }
+    if (!next.title?.trim() && fields.some((f) => f.name === 'title')) {
+      next.title = IMPORTED_TITLE[kind as ScreenshotKind] ?? 'Imported record';
+      changed.push('Title (placeholder)');
+    }
+    setVals(next);
+    setOffers(conflicts);
+    setFilled(changed.length ? `Filled from screenshots: ${changed.join(', ')}. Review before saving.` : 'No new details were found to fill. Your entries are unchanged.');
+  };
+
+  const takeOffers = (keys: string[]) => {
+    setVals((p) => {
+      const n = { ...p };
+      for (const o of offers) if (keys.includes(o.key)) n[o.key] = o.value;
+      return n;
+    });
+    setOffers((p) => p.filter((o) => !keys.includes(o.key)));
+  };
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -214,11 +294,30 @@ export function RecordDialog({
           <DialogTitle className="text-[19px] font-medium tracking-[-0.02em]">{heading}</DialogTitle>
           {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
+        {canScreenshot && (
+          <div className="rounded-lg border bg-background/40 p-3">
+            {!shotOpen ? (
+              <button type="button" onClick={() => setShotOpen(true)} className="flex w-full items-center gap-2 text-left text-[13px] text-muted-foreground hover:text-foreground" data-testid="button-show-screenshots">
+                <ImageUp className="h-4 w-4" />Fill from screenshots
+              </button>
+            ) : (
+              <div className="space-y-3">
+                <ScreenshotUpload key={`${kind}-${record?.id ?? 'new'}`} target={kind as ScreenshotKind} onResult={applyDraft} label="Fill from screenshots" />
+                <ReplaceOffers offers={offers} onUse={takeOffers} onDismiss={() => setOffers([])} />
+                {filled && <p role="status" className="text-[12.5px] text-signal" data-testid="text-screenshot-filled">{filled}</p>}
+                <Button type="button" size="sm" variant="ghost" className="h-7 px-2 text-[12px]" onClick={() => setShotOpen(false)}>Hide</Button>
+              </div>
+            )}
+          </div>
+        )}
         <form onSubmit={submit} className="grid grid-cols-2 gap-x-4 gap-y-4 pt-2">
           {fields.map((f) => {
             const id = `field-${String(f.name)}`;
             const v = vals[f.name as string] ?? '';
-            const set = (nv: string) => setVals((p) => ({ ...p, [f.name as string]: nv }));
+            const set = (nv: string) => {
+              setVals((p) => ({ ...p, [f.name as string]: nv }));
+              setEdited((p) => (p.has(f.name as string) ? p : new Set(p).add(f.name as string)));
+            };
             return (
               <div key={String(f.name)} className={cn('space-y-1.5', f.half ? 'col-span-2 sm:col-span-1' : 'col-span-2')}>
                 <Label htmlFor={id} className="text-[12px] font-normal text-muted-foreground">{f.label}{f.required && ' *'}</Label>

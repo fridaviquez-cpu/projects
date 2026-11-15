@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { VaultSourcePicker } from '@/components/vault-source-picker';
-import { Plus, FileText, Upload, Download, Sparkles, Trash2, Save, Check } from 'lucide-react';
-import { useExtractResume, type ResumeFileInputContentType } from '@workspace/api-client-react';
+import { Plus, ImageUp, FileText, Upload, Download, Sparkles, Trash2, Save, Check } from 'lucide-react';
+import { useExtractResume, type ResumeFileInputContentType, type ScreenshotDraft } from '@workspace/api-client-react';
+import { ScreenshotUpload } from '@/components/screenshot-upload';
 import { store, useRunCoach, getListRecordsQueryKey, type CareerRecord } from '@/lib/career-client';
 import { useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
@@ -66,18 +67,23 @@ export default function Resumes() {
   const [tOpp, setTOpp] = useState('');
   const [tJd, setTJd] = useState('');
   const [selectedExperienceIds, setSelectedExperienceIds] = useState<string[]>();
+  const [shotOpen, setShotOpen] = useState(false);
+  const [shotDraft, setShotDraft] = useState<{ title: string; content: string } | null>(null);
+  const [shotErr, setShotErr] = useState<string | null>(null);
+  const [shotSaving, setShotSaving] = useState(false);
+  const [jdNote, setJdNote] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const loadedFor = useRef<string | null>(null);
   const latestEditor = useRef({ selId, title, content });
   latestEditor.current = { selId, title, content };
 
-  const selectSaved = async (record: CareerRecord) => {
+  const selectSaved = async (record: CareerRecord, keepCurrentDraft = false) => {
     // Make the returned record available before selection; otherwise the
     // missing-selection effect can switch back to an old draft during refetch.
     await queryClient.cancelQueries({ queryKey: getListRecordsQueryKey() });
     queryClient.setQueryData<CareerRecord[]>(getListRecordsQueryKey(), (records = []) =>
       [record, ...records.filter(r => r.id !== record.id)]);
-    if (selId) drafts.drafts.delete(selId);
+    if (selId && !keepCurrentDraft) drafts.drafts.delete(selId);
     drafts.selected = record.id;
     loadedFor.current = null;
     setSelId(record.id);
@@ -183,6 +189,52 @@ export default function Resumes() {
     }
   };
 
+  // Screenshot import: review in a separate draft, never touching the open editor until saved.
+  const applyResumeShot = (d: ScreenshotDraft) => {
+    const t = typeof d.fields?.title === 'string' ? d.fields.title.trim() : '';
+    const c = (typeof d.fields?.content === 'string' && d.fields.content.trim()) ? d.fields.content : (d.extractedText ?? '');
+    setShotErr(null);
+    setShotDraft((prev) => {
+      if (!prev) return { title: t.slice(0, 200) || 'Imported resume', content: c.slice(0, 50000) };
+      // Keep what is already in the review draft; add new text below it.
+      if (!c.trim() || prev.content.includes(c.trim())) return prev;
+      return { ...prev, content: `${prev.content}${prev.content.trim() ? '\n\n' : ''}${c}`.slice(0, 50000) };
+    });
+  };
+
+  const closeShots = () => { if (shotSaving) return; setShotOpen(false); setShotDraft(null); setShotErr(null); };
+
+  const saveShotResume = async () => {
+    if (!shotDraft || !shotDraft.title.trim() || shotSaving) return;
+    setShotSaving(true);
+    setShotErr(null);
+    try {
+      const rec = store.create({ kind: 'resume', title: shotDraft.title.trim().slice(0, 200), content: shotDraft.content.slice(0, 50000), notes: `Imported from screenshots on ${new Date().toLocaleDateString()}. The images were not kept.` });
+      invalidate();
+      setShotOpen(false);
+      setShotDraft(null);
+      const editing = latestEditor.current;
+      const hasUnsaved = dirty && editing.selId === selId;
+      if (hasUnsaved && !confirm(`Open the imported resume now? Your unsaved edits to "${sel?.title ?? 'this resume'}" stay as a draft on this device.`)) {
+        toast({ title: 'Resume saved', description: `"${rec.title}" is in your list.` });
+      } else {
+        await selectSaved(rec, true);
+        toast({ title: 'Resume saved', description: 'Imported from screenshots. Review formatting before sending.' });
+      }
+    } catch (e) {
+      setShotErr(errMsg(e));
+    } finally {
+      setShotSaving(false);
+    }
+  };
+
+  const applyJdShot = (d: ScreenshotDraft) => {
+    const x = ((typeof d.fields?.description === 'string' && d.fields.description.trim()) || d.extractedText || '').trim();
+    if (!x) { setJdNote('No job description text was found in those screenshots.'); return; }
+    setTJd((p) => (p.includes(x) ? p : p.trim() ? `${p}\n\n${x}` : x));
+    setJdNote(tJd.trim() ? 'Added below the description you already had. Review before generating.' : 'Filled from your screenshots. Review before generating.');
+  };
+
   const tailor = () => {
     if (!sel) return;
     if (dirty) { toast({title:'Save your changes first',description:'AI tailoring uses the last saved resume.',variant:'destructive'}); return; }
@@ -224,6 +276,7 @@ export default function Resumes() {
         sub="Single-column text survives applicant tracking systems. Keep headings simple and lead every line with a result."
         actions={<>
           <input ref={fileRef} type="file" accept=".pdf,.docx,.txt" className="hidden" onChange={(e) => { const file = e.target.files?.[0]; e.target.value = ''; void onFile(file); }} data-testid="input-file" />
+          <Button variant="outline" onClick={() => setShotOpen(true)} data-testid="button-import-screenshots"><ImageUp className="mr-1.5 h-4 w-4" />Import screenshots</Button>
           <Button variant="outline" onClick={() => fileRef.current?.click()} disabled={importing} data-testid="button-import"><Upload className="mr-1.5 h-4 w-4" />{importing ? 'Importing...' : 'Import'}</Button>
           <Button onClick={newResume} disabled={create.isPending} data-testid="button-new-resume"><Plus className="mr-1.5 h-4 w-4" />New resume</Button>
         </>}
@@ -312,7 +365,37 @@ export default function Resumes() {
 
       <div className="print-only">{content}</div>
 
-      <Dialog open={tailorOpen} onOpenChange={(o) => { setTailorOpen(o); if (!o) coach.reset(); }}>
+      <Dialog open={shotOpen} onOpenChange={(o) => { if (!o) closeShots(); }}>
+        <DialogContent className="max-h-[90dvh] overflow-y-auto bg-card sm:max-w-[640px]">
+          <DialogHeader>
+            <DialogTitle className="font-medium">Import resume from screenshots</DialogTitle>
+            <DialogDescription>Read the text, review it here, then save it as a new resume. The resume you have open is not changed.</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <ScreenshotUpload target="resume" onResult={applyResumeShot} label="Resume screenshots" disabled={shotSaving} testId="resume-screenshots" />
+            {shotDraft && (
+              <div className="space-y-3 border-t pt-4" data-testid="resume-screenshot-draft">
+                <div className="eyebrow">Review draft</div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="shot-title" className="text-[12px] font-normal text-muted-foreground">Title *</Label>
+                  <Input id="shot-title" value={shotDraft.title} onChange={(e) => setShotDraft((d) => d && { ...d, title: e.target.value })} className="bg-background" data-testid="input-screenshot-title" />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="shot-content" className="text-[12px] font-normal text-muted-foreground">Content</Label>
+                  <Textarea id="shot-content" rows={12} value={shotDraft.content} onChange={(e) => setShotDraft((d) => d && { ...d, content: e.target.value })} className="bg-background font-mono text-[12.5px] leading-[1.6]" data-testid="textarea-screenshot-content" />
+                </div>
+              </div>
+            )}
+            {shotErr && <InlineError error={new Error(shotErr)} />}
+          </div>
+          <DialogFooter>
+            <Button variant="ghost" onClick={closeShots} disabled={shotSaving}>Cancel</Button>
+            <Button onClick={saveShotResume} disabled={!shotDraft || !shotDraft.title.trim() || shotSaving} data-testid="button-save-screenshot-resume">{shotSaving ? 'Saving...' : 'Save as new resume'}</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={tailorOpen} onOpenChange={(o) => { setTailorOpen(o); if (!o) { coach.reset(); setJdNote(null); } }}>
         <DialogContent className="max-h-[90dvh] overflow-y-auto bg-card sm:max-w-[560px]">
           <DialogHeader>
             <DialogTitle className="font-medium">Tailor "{sel?.title}"</DialogTitle>
@@ -330,6 +413,8 @@ export default function Resumes() {
               <Label htmlFor="tailor-jd" className="text-[12px] font-normal text-muted-foreground">Or paste a job description</Label>
               <Textarea id="tailor-jd" rows={6} value={tJd} onChange={(e) => setTJd(e.target.value)} className="bg-background" data-testid="textarea-tailor-jd" />
             </div>
+            <ScreenshotUpload target="opportunity" onResult={applyJdShot} label="Or read the job description from screenshots" disabled={coach.isPending} testId="tailor-screenshots" />
+            {jdNote && <p role="status" className="text-[12px] text-muted-foreground" data-testid="text-jd-screenshot">{jdNote}</p>}
             <VaultSourcePicker value={selectedExperienceIds} onChange={setSelectedExperienceIds} disabled={coach.isPending} />
             <AiNotice />
             <InlineError error={coach.error} />

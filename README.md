@@ -89,6 +89,27 @@ in your hosting platform's secret manager, never in source control.
 
 ### Where user data lives
 
+### Screenshot entry
+
+People can upload screenshots instead of retyping job applications, work
+evidence, resumes, goals, interview practice, and official strengths results.
+Image reading uses the same AI service as the writing tools. Users review an
+editable draft before explicitly saving; reading an image never saves a record
+or replaces an existing one by itself.
+
+Choose 1–5 PNG, JPG, or WebP images, at most 5 MB each and 10 MB combined. The app
+does not retain the uploaded images; only the fields the user saves stay in
+their browser. Screenshots are sent to the AI provider for reading, so users
+should crop or redact information they do not want processed.
+
+Check upload validation and the shared AI request budget with:
+
+```sh
+pnpm --filter @workspace/api-server run test:screenshots
+```
+
+### Saved records
+
 Career records and resume drafts stay in the visitor's browser on that device,
 not in this repository or the API server. Clearing site data removes them.
 Settings provides JSON export and restore for saved records.
