@@ -6,6 +6,9 @@ A no-login career workspace adapted from the user's original Orvyn screens.
 
 - Start the managed `artifacts/orvyn: web` and `artifacts/api-server: API Server` workflows for preview.
 - `pnpm run typecheck` — full typecheck across all packages
+- `pnpm --filter @workspace/orvyn test` — guest persistence regression suite (isolated jsdom storage; no live data or AI calls)
+- `pnpm --filter @workspace/orvyn typecheck:tests` — typecheck application and regression tests together
+- `pnpm --filter @workspace/orvyn test:watch` — rerun regression checks while editing
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
