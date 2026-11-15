@@ -1,8 +1,22 @@
-# Replit Projects — Orvyn
+# Replit Projects
 
-## PortfolioIQ
+Apps I've built and shipped on Replit. Click into any project below for what it
+does and a link to the live demo.
 
-PortfolioIQ has been added as a separate, self-contained project in
+| Project | What it is | Live demo |
+| --- | --- | --- |
+| [Orvyn](projects/orvyn.md) | Career strategy workspace — resume tailoring, interview coaching, Career DNA | [Launch →](https://orvyn-guest-access.replit.app/) |
+| [PortfolioIQ](projects/portfolio-iq.md) | CSV-based investment portfolio importer and tracker | [Launch →](https://portfolio-iq-1.replit.app) |
+| [Vacancy](projects/vacancy.md) | Desk-finder and focus companion for a campus library | [Launch →](https://vacancy-interactive-desk-experience.replit.app/) |
+| [Tau Tactics](projects/tau-tactics.md) | Focus and study companion app | [Launch →](https://focus-tactics.replit.app) |
+| [BECE Bridge](projects/bece-bridge.md) | Course-grounded study support for UIUC ECE students | [Launch →](https://bece-bridge.replit.app) |
+| [EnviroWaste](projects/envirowaste.md) | Waste and environmental impact tracker | [Launch →](https://envirowaste.foundable.app/) |
+
+---
+
+## Developer notes: Orvyn & PortfolioIQ (source in this repo)
+
+PortfolioIQ is a separate, self-contained project in
 [`portfolio-iq/`](portfolio-iq/). It provides a no-login investing workspace with
 holdings screenshot imports, receipt scanning, budgeting, learning, a thesis
 journal, and optional personalization.
@@ -15,7 +29,7 @@ Orvyn is a career workspace that does not require an account. It includes an
 opportunities pipeline, an experience vault, resume editing and tailoring,
 interview practice, Career DNA self-reflection, and career insights.
 
-## Edit this project elsewhere
+### Edit this project elsewhere
 
 Clone the repository in your preferred editor:
 
@@ -41,7 +55,7 @@ git push
 Pull those changes into Replit before continuing work there. Changes pushed to
 GitHub do not automatically publish the running website.
 
-## Main folders
+### Main folders
 
 | Folder | Purpose |
 | --- | --- |
@@ -60,7 +74,7 @@ After changing the API contract, regenerate the client and validation schemas:
 pnpm --filter @workspace/api-spec run codegen
 ```
 
-## Running the app
+### Running the app
 
 In Replit, start the existing **Orvyn web** and **API Server** workflows. They
 provide the ports, routing, and AI configuration.
@@ -73,7 +87,7 @@ service also needs a valid OpenAI-compatible API configuration through
 AI access does not transfer simply by cloning this repository. Keep credentials
 in your hosting platform's secret manager, never in source control.
 
-## Where user data lives
+### Where user data lives
 
 Career records and resume drafts stay in the visitor's browser on that device,
 not in this repository or the API server. Clearing site data removes them.
