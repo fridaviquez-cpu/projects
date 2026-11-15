@@ -9,7 +9,7 @@ does and a link to the live demo.
 | [PortfolioIQ](projects/portfolio-iq.md) | CSV-based investment portfolio importer and tracker | [Launch →](https://portfolio-iq-1.replit.app) |
 | [Vacancy](projects/vacancy.md) | Desk-finder and focus companion for a campus library | [Launch →](https://vacancy-interactive-desk-experience.replit.app/) |
 | [Tau Tactics](projects/tau-tactics.md) | Focus and study companion app | [Launch →](https://focus-tactics.replit.app) |
-| [BECE Bridge](projects/bece-bridge.md) | Course-grounded study support for UIUC ECE students | [Launch →](https://bece-bridge.replit.app) |
+| [BECE Bridge](projects/bece-bridge.md) | Course-grounded study support for UIUC ECE students | [Launch →](https://guest-persistence-hub.replit.app/) |
 | [EnviroWaste](projects/envirowaste.md) | Waste and environmental impact tracker | [Launch →](https://envirowaste.foundable.app/) |
 
 ---

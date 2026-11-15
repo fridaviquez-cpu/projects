@@ -6,7 +6,7 @@ UIUC's electrical and computer engineering courses move fast, and most study too
 
 **Status:** strong prototype — the core loop (upload, ask grounded questions, generate study tools) works across 11 pilot course workspaces; passed 35 API/parser launch-readiness tests.
 
-- 🔗 **Live demo:** [bece-bridge.replit.app](https://bece-bridge.replit.app)
+- 🔗 **Live demo:** [guest-persistence-hub.replit.app](https://guest-persistence-hub.replit.app/)
 - 📂 **Source:** [github.com/tjppppppppp/bece-bridge](https://github.com/tjppppppppp/bece-bridge)
 
 [← back to all projects](../README.md)
