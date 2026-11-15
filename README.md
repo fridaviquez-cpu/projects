@@ -11,6 +11,7 @@ does and a link to the live demo.
 | [Tau Tactics](projects/tau-tactics.md) | Focus and study companion app | [Launch →](https://focus-tactics.replit.app) |
 | [BECE Bridge](projects/bece-bridge.md) | Course-grounded study support for UIUC ECE students | [Launch →](https://guest-persistence-hub.replit.app/) |
 | [EnviroWaste](projects/envirowaste.md) | Waste and environmental impact tracker | [Launch →](https://envirowaste.foundable.app/) |
+| [StrideLab](projects/stridelab.md) | Running log, progress charts, workout planner, and AI training journal | [Launch →](https://stride-lab.replit.app/) |
 
 ---
 
