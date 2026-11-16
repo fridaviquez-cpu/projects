@@ -4,7 +4,7 @@
 
 A waste intelligence platform built for the University of Illinois Urbana-Champaign (UIUC), developed by EnviroTrap as part of the IBM AI for Good Challenge.
 
-**Live site:** https://tjppppppppp.github.io/envirotrap-nexus/
+**Live site:** https://tjppppppppp.github.io/projects/envirotrap-nexus/
 
 ---
 

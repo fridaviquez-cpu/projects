@@ -12,7 +12,7 @@ below for what it does and a link to the live demo.
 | [BECE Bridge](projects/bece-bridge.md) | Course-grounded study support for UIUC ECE students | [Launch →](https://guest-persistence-hub.replit.app/) |
 | [EnviroWaste](projects/envirowaste.md) | Waste and environmental impact tracker | [Launch →](https://envirowaste.foundable.app/) |
 | [StrideLab](projects/stridelab.md) | Running log, progress charts, workout planner, and AI training journal | [Launch →](https://stride-lab.replit.app/) |
-| [EnviroTrap Nexus](projects/envirotrap-nexus.md) | UIUC waste intelligence platform | — |
+| [EnviroTrap Nexus](projects/envirotrap-nexus.md) | UIUC waste intelligence platform | [Launch →](https://tjppppppppp.github.io/projects/envirotrap-nexus/) |
 | [Life OS Prime](projects/life-os-prime.md) | Personal performance dashboard — not a Replit app | [Launch →](https://tjppppppppp.github.io/projects/life-os-prime/) |
 
 ---
