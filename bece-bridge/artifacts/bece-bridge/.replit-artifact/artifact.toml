@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "BECE Bridge"
+description = "UIUC ECE course discovery and a grounded ECE 210 learning pilot with diagnostics and personalized resources."
+version = "1.0.0"
+id = "artifacts/bece-bridge"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19715
+
+[services.development]
+run = "pnpm --filter @workspace/bece-bridge run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/bece-bridge", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/bece-bridge/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19715"
+BASE_PATH = "/"

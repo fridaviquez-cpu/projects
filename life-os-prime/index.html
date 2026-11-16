@@ -1,0 +1,1357 @@
+<title>Life OS Prime</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0b;
+    --surface:#141417;
+    --surface-2:#1b1b1f;
+    --surface-3:#232327;
+    --border:rgba(255,255,255,0.09);
+    --border-strong:rgba(255,255,255,0.16);
+    --text:#f3f1ec;
+    --text-soft:#bcb9b1;
+    --text-faint:#777469;
+    --gold:#4e9b78;
+    --gold-strong:#72c39b;
+    --gold-soft:rgba(78,155,120,0.14);
+    --good:#2fae5e;
+    --warning:#d79a1f;
+    --serious:#e0793f;
+    --critical:#d34a4a;
+    --radius-sm:8px;
+    --radius-md:12px;
+    --radius-lg:18px;
+    --font-display:'Fraunces', Georgia, serif;
+    --font-ui:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-ui);
+    margin:0;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--gold-soft); color:var(--text); }
+  button{ font-family:inherit; }
+  input,select,textarea{ font-family:inherit; color-scheme:dark; }
+  a{ color:var(--gold); }
+
+  .shell{ display:flex; min-height:100%; }
+  .sidebar{
+    width:232px; flex-shrink:0; background:var(--surface);
+    border-right:1px solid var(--border);
+    padding:20px 14px calc(20px + env(safe-area-inset-bottom,0px));
+    display:flex; flex-direction:column; gap:22px;
+    position:sticky; top:0; align-self:flex-start; height:100vh; overflow-y:auto;
+  }
+  .brand{ display:flex; align-items:center; gap:10px; padding:4px 8px 6px; }
+  .brand__mark{
+    width:30px; height:30px; border-radius:7px;
+    background:linear-gradient(155deg, var(--gold-strong), var(--gold) 60%, #1f4a38);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:700; color:#0a0a0b; font-size:15px;
+  }
+  .brand__text{ line-height:1.15; }
+  .brand__name{ font-family:var(--font-display); font-weight:600; font-size:15px; letter-spacing:0.01em; }
+  .brand__sub{ font-size:10.5px; color:var(--text-faint); letter-spacing:0.08em; text-transform:uppercase; }
+
+  .navgroup{ display:flex; flex-direction:column; gap:2px; }
+  .navgroup__label{ font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-faint); padding:10px 10px 4px; }
+  .navitem{
+    display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:var(--radius-sm);
+    color:var(--text-soft); font-size:13.5px; cursor:pointer; border:1px solid transparent; min-height:38px;
+    transition:background .12s, color .12s; text-decoration:none;
+  }
+  .navitem:hover{ background:var(--surface-2); color:var(--text); }
+  .navitem.active{ background:var(--gold-soft); color:var(--gold-strong); border-color:rgba(201,160,94,0.25); }
+  .navitem__dot{ width:6px; height:6px; border-radius:50%; background:currentColor; opacity:0.55; flex-shrink:0; }
+
+  .main{ flex:1; min-width:0; padding:26px 30px 60px; max-width:1180px; }
+  .topbar{ display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:22px; flex-wrap:wrap; }
+  .topbar__title{ font-family:var(--font-display); font-size:26px; font-weight:600; text-wrap:balance; }
+  .topbar__meta{ color:var(--text-faint); font-size:12.5px; margin-top:2px; }
+  .cmdk{
+    display:flex; align-items:center; gap:8px; background:var(--surface-2); border:1px solid var(--border);
+    border-radius:var(--radius-sm); padding:7px 11px; min-width:220px; color:var(--text-faint); font-size:13px;
+  }
+  .cmdk input{ background:none; border:none; outline:none; color:var(--text); font-size:13px; flex:1; min-width:0; }
+
+  .grid{ display:grid; gap:14px; }
+  .card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg);
+    padding:18px 20px; min-width:0;
+  }
+  .card__head{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+  .card__title{ font-family:var(--font-display); font-size:16px; font-weight:600; }
+  .card__hint{ font-size:12px; color:var(--text-faint); }
+
+  .pill{ display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:600; letter-spacing:0.03em; padding:3px 9px; border-radius:999px; white-space:nowrap; }
+  .pill--insufficient{ background:rgba(255,255,255,0.06); color:var(--text-faint); }
+  .pill--good{ background:rgba(47,174,94,0.15); color:var(--good); }
+  .pill--warning{ background:rgba(215,154,31,0.16); color:var(--warning); }
+  .pill--serious{ background:rgba(224,121,63,0.16); color:var(--serious); }
+  .pill--critical{ background:rgba(211,74,74,0.16); color:var(--critical); }
+  .pill--gold{ background:var(--gold-soft); color:var(--gold-strong); }
+
+  table{ width:100%; border-collapse:collapse; font-size:13px; }
+  th{ text-align:left; color:var(--text-faint); font-weight:500; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; padding:6px 10px; border-bottom:1px solid var(--border); }
+  td{ padding:9px 10px; border-bottom:1px solid var(--border); vertical-align:middle; }
+  tr:last-child td{ border-bottom:none; }
+  .tablewrap{ overflow-x:auto; max-width:100%; }
+  td input[type=text], td input[type=date], td select{ padding:6px 8px; font-size:12.5px; min-width:110px; }
+
+  .bar{ height:7px; border-radius:99px; background:var(--surface-3); overflow:hidden; }
+  .bar__fill{ height:100%; border-radius:99px; background:linear-gradient(90deg, var(--gold), var(--gold-strong)); }
+
+  .btn{
+    font-family:inherit; font-size:13px; font-weight:600; border-radius:var(--radius-sm); padding:8px 14px;
+    border:1px solid var(--border-strong); background:var(--surface-2); color:var(--text); cursor:pointer;
+    display:inline-flex; align-items:center; gap:7px; transition:border-color .12s, background .12s;
+  }
+  .btn:hover{ border-color:var(--gold); }
+  .btn:disabled{ opacity:0.5; cursor:default; }
+  .btn--primary{ background:linear-gradient(155deg, var(--gold-strong), var(--gold)); color:#07150f; border-color:transparent; }
+  .btn--primary:hover{ filter:brightness(1.06); }
+  .btn--ghost{ background:none; border-color:transparent; color:var(--text-soft); }
+  .btn--ghost:hover{ background:var(--surface-2); color:var(--text); }
+  .btn--danger{ color:var(--critical); border-color:rgba(211,74,74,0.4); background:none; }
+  .btn--sm{ padding:5px 10px; font-size:12px; }
+
+  label.field{ display:flex; flex-direction:column; gap:6px; font-size:12.5px; color:var(--text-soft); min-width:0; }
+  label.field > span{ font-weight:500; }
+  input[type=text], input[type=number], input[type=date], input[type=time], textarea, select{
+    background:var(--surface-2); border:1px solid var(--border-strong); border-radius:var(--radius-sm);
+    padding:9px 11px; color:var(--text); font-size:13.5px; width:100%; outline:none;
+  }
+  input:focus, textarea:focus, select:focus{ border-color:var(--gold); }
+  textarea{ resize:vertical; min-height:64px; font-family:inherit; }
+  input[type=range]{ width:100%; accent-color:var(--gold); }
+  .sliderrow{ display:flex; align-items:center; gap:10px; }
+  .sliderrow__val{ font-variant-numeric:tabular-nums; min-width:22px; text-align:right; font-weight:600; color:var(--gold-strong); }
+
+  .formgrid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; }
+  .checklist{ display:flex; flex-direction:column; gap:7px; }
+  .checkrow{ display:flex; align-items:center; gap:9px; font-size:13.5px; padding:7px 9px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--surface-2); }
+  .checkrow input[type=checkbox]{ width:16px; height:16px; accent-color:var(--gold); flex-shrink:0; }
+  .checkrow.done{ opacity:0.55; text-decoration:line-through; }
+
+  .emptystate{ color:var(--text-faint); font-size:13px; padding:16px 4px; }
+  .journalentry{ border-left:2px solid var(--gold); padding:4px 0 4px 12px; margin-bottom:10px; }
+  .journalentry__date{ font-size:11px; color:var(--text-faint); margin-bottom:3px; }
+
+  .insight{ background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-md); padding:14px 16px; font-size:13.5px; line-height:1.55; white-space:pre-wrap; }
+  .insight--loading{ color:var(--text-faint); font-style:italic; }
+
+  .wizard{ max-width:620px; margin:0 auto; padding:6vh 16px 40px; }
+  .wizard__progress{ display:flex; gap:5px; margin-bottom:22px; }
+  .wizard__step{ height:4px; flex:1; border-radius:99px; background:var(--surface-3); }
+  .wizard__step.done{ background:var(--gold); }
+  .wizard__step.current{ background:var(--gold-soft); border:1px solid var(--gold); }
+
+  .classpill{ font-size:10.5px; font-weight:700; letter-spacing:0.04em; padding:3px 8px; border-radius:6px; white-space:nowrap; }
+  .classpill--critical{ background:rgba(211,74,74,0.16); color:var(--critical); }
+  .classpill--primary{ background:var(--gold-soft); color:var(--gold-strong); }
+  .classpill--secondary{ background:rgba(255,255,255,0.08); color:var(--text-soft); }
+  .classpill--maintenance{ background:rgba(255,255,255,0.05); color:var(--text-faint); }
+  .classpill--exploration{ background:rgba(47,174,94,0.12); color:var(--good); }
+
+  .timer{ font-family:var(--font-display); font-size:52px; font-variant-numeric:tabular-nums; text-align:center; }
+
+  @media (max-width: 860px){
+    .shell{ flex-direction:column; }
+    .sidebar{ position:static; height:auto; width:100%; flex-direction:row; align-items:center; overflow-x:auto; padding:10px 16px; gap:10px; }
+    .sidebar .brand{ flex-shrink:0; }
+    .navgroup{ flex-direction:row; flex-shrink:0; }
+    .navgroup__label{ display:none; }
+    .main{ padding:18px 16px 70px; }
+    .cmdk{ display:none; }
+  }
+</style>
+
+<div id="app"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  var STORE_KEY = "lifeos_prime_v1";
+  var VENTURE_SEED = [
+    { name:"EnviroTrap", focus:"Sustainability analytics" },
+    { name:"Orvyn", focus:"Career technology" },
+    { name:"BECE Bridge", focus:"Engineering education" },
+    { name:"PortfolioIQ", focus:"Financial education" },
+    { name:"Engineering Learning System", focus:"AI-assisted learning" }
+  ];
+  var HABIT_SEED = [
+    "Wake up on time","Deep work completed","Workout done","Reading done",
+    "Healthy eating","Water target","Meditation / prayer","No procrastination",
+    "No excessive social media","Sleep target achieved"
+  ];
+
+  function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,8); }
+  function todayKey(){ return new Date().toISOString().slice(0,10); }
+  function keyDaysAgo(n){ var d = new Date(); d.setDate(d.getDate()-n); return d.toISOString().slice(0,10); }
+  function esc(s){
+    return String(s==null?"":s).replace(/[&<>"']/g, function(c){
+      return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c];
+    });
+  }
+  function clamp(n,min,max){ return Math.max(min, Math.min(max, n)); }
+  function fmtDateLong(key){
+    if(!key) return "";
+    var d = new Date(key + "T12:00:00");
+    return d.toLocaleDateString(undefined, { weekday:"short", month:"short", day:"numeric" });
+  }
+  function daysBetween(a,b){ return Math.round((new Date(b) - new Date(a)) / 86400000); }
+
+  function defaultState(){
+    return {
+      profile: { name:"", age:"", university:"University of Illinois Urbana-Champaign", major:"Electrical Engineering", onboarded:false, onboardPhase:1 },
+      phase1: { priorities:"", struggles:"", stress:6, satisfaction:6, discipline:6, deadlines:[] },
+      phase2: { sleepSchedule:"", classSchedule:"", workCommitments:"", studyHabits:"", exercise:"", distractions:"", focusHours:2 },
+      phase3: { graduation:"", careerAmbitions:"", businessPriority:"EnviroTrap", financialGoal:"", faithGoal:"", healthGoal:"" },
+      bigThree: {},
+      dayLogs: {},
+      habits: HABIT_SEED.map(function(label){ return { id: uid(), label: label }; }),
+      habitChecks: {},
+      ventures: VENTURE_SEED.map(function(v){ return { id: uid(), name:v.name, focus:v.focus, classification:"EXPLORATION", problem:"", evidence:"", milestone:"" }; }),
+      leadership: [
+        { id: uid(), org:"Alpha Phi Alpha — Tau Chapter", task:"", due:"", status:"open" },
+        { id: uid(), org:"NSBE", task:"", due:"", status:"open" }
+      ],
+      finance: { entries:[], emergencyFundTarget:"", emergencyFundCurrent:"" },
+      journals: { faith:[], relationships:[] },
+      weeklyReviews: [],
+      monthlyReviews: [],
+      priorityItems: [],
+      focusSessions: []
+    };
+  }
+
+  function loadState(){
+    try{
+      var raw = localStorage.getItem(STORE_KEY);
+      if(!raw) return defaultState();
+      var parsed = JSON.parse(raw);
+      var base = defaultState();
+      for(var k in base){ if(!(k in parsed)) parsed[k] = base[k]; }
+      return parsed;
+    }catch(e){ return defaultState(); }
+  }
+  function saveState(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} }
+
+  var state = loadState();
+  var activeAbort = null;
+
+  function render(){
+    saveState();
+    var app = document.getElementById("app");
+    if(!state.profile.onboarded){ app.innerHTML = renderOnboarding(); bindOnboarding(); return; }
+    app.innerHTML = renderShell();
+    bindShell();
+  }
+
+  function renderOnboarding(){
+    var phase = state.profile.onboardPhase || 1;
+    var body = "";
+    if(phase===1) body = onboardPhase1();
+    else if(phase===2) body = onboardPhase2();
+    else if(phase===3) body = onboardPhase3();
+    else body = onboardPhase4();
+    return (
+      '<div class="wizard">' +
+        '<div style="text-align:center; margin-bottom:28px;">' +
+          '<div style="font-family:var(--font-display); font-size:13px; letter-spacing:0.18em; color:var(--gold); text-transform:uppercase; margin-bottom:8px;">Welcome to</div>' +
+          '<div style="font-family:var(--font-display); font-size:34px; font-weight:600;">Life OS Prime</div>' +
+          '<div style="color:var(--text-faint); font-size:13px; margin-top:8px;">A personal performance system built around your academics, ventures, leadership, and faith. Four short phases — nothing here is scored until you give real data.</div>' +
+        '</div>' +
+        '<div class="wizard__progress">' +
+          [1,2,3,4].map(function(n){
+            var cls = n < phase ? "done" : (n===phase ? "current" : "");
+            return '<div class="wizard__step '+cls+'"></div>';
+          }).join("") +
+        '</div>' +
+        '<div class="card">' + body + '</div>' +
+      '</div>'
+    );
+  }
+
+  function onboardPhase1(){
+    var p = state.phase1;
+    return (
+      '<div class="card__head"><div class="card__title">Phase 1 — Current Reality</div><div class="card__hint">Step 1 of 4</div></div>' +
+      '<form id="f-onboard" class="grid" style="gap:14px;">' +
+        field('text','name','Your name', state.profile.name, 'TJ Pickett-Pinex') +
+        '<div class="formgrid">' +
+          field('text','age','Age', state.profile.age, '22') +
+          field('text','major','Major', state.profile.major, 'Electrical Engineering') +
+        '</div>' +
+        textarea('priorities','What are your biggest current priorities?', p.priorities) +
+        textarea('struggles','What are you struggling with most right now?', p.struggles) +
+        slider('stress','Stress level', p.stress) +
+        slider('satisfaction','Current life satisfaction', p.satisfaction) +
+        slider('discipline','Self-rated discipline', p.discipline) +
+        '<div style="display:flex; justify-content:flex-end;"><button class="btn btn--primary" type="submit">Continue →</button></div>' +
+      '</form>'
+    );
+  }
+
+  function onboardPhase2(){
+    var p = state.phase2;
+    return (
+      '<div class="card__head"><div class="card__title">Phase 2 — Daily Structure</div><div class="card__hint">Step 2 of 4</div></div>' +
+      '<form id="f-onboard" class="grid" style="gap:14px;">' +
+        '<div class="formgrid">' +
+          field('text','sleepSchedule','Sleep schedule', p.sleepSchedule, 'e.g. 1am–7:30am') +
+          field('text','focusHours','Realistic daily deep-work hours', p.focusHours, '2') +
+        '</div>' +
+        textarea('classSchedule','Class / work schedule this term', p.classSchedule) +
+        textarea('studyHabits','How do you currently study?', p.studyHabits) +
+        textarea('exercise','Exercise habits', p.exercise) +
+        textarea('distractions','Biggest daily distractions', p.distractions) +
+        '<div style="display:flex; justify-content:space-between;"><button class="btn btn--ghost" type="button" data-back="1">← Back</button><button class="btn btn--primary" type="submit">Continue →</button></div>' +
+      '</form>'
+    );
+  }
+
+  function onboardPhase3(){
+    var p = state.phase3;
+    return (
+      '<div class="card__head"><div class="card__title">Phase 3 — Goals</div><div class="card__hint">Step 3 of 4</div></div>' +
+      '<form id="f-onboard" class="grid" style="gap:14px;">' +
+        field('text','graduation','Graduation timeline', p.graduation, 'e.g. May 2028') +
+        textarea('careerAmbitions','Career ambitions', p.careerAmbitions) +
+        '<label class="field"><span>Which venture is your current priority?</span>' +
+          '<select name="businessPriority">' +
+            VENTURE_SEED.map(function(v){ return '<option '+(p.businessPriority===v.name?'selected':'')+'>'+esc(v.name)+'</option>'; }).join("") +
+          '</select></label>' +
+        textarea('financialGoal','Financial goal right now', p.financialGoal) +
+        textarea('faithGoal','A faith goal, if you have one', p.faithGoal) +
+        textarea('healthGoal','A health goal', p.healthGoal) +
+        '<div style="display:flex; justify-content:space-between;"><button class="btn btn--ghost" type="button" data-back="2">← Back</button><button class="btn btn--primary" type="submit">Continue →</button></div>' +
+      '</form>'
+    );
+  }
+
+  function onboardPhase4(){
+    return (
+      '<div class="card__head"><div class="card__title">Phase 4 — System Design</div><div class="card__hint">Step 4 of 4</div></div>' +
+      '<div class="grid" style="gap:16px;">' +
+        '<p style="color:var(--text-soft); font-size:13.5px; line-height:1.6;">Here’s what gets built from what you just told me. Nothing is pre-scored — every score in Life OS Prime comes from real check-ins you log going forward.</p>' +
+        '<div class="formgrid">' +
+          summaryCard('Default habit tracker', HABIT_SEED.length + ' daily habits, editable anytime from Habits.') +
+          summaryCard('Founder tracker', VENTURE_SEED.length + ' ventures pre-loaded: ' + VENTURE_SEED.map(function(v){return v.name;}).join(", ") + '.') +
+          summaryCard('Leadership tracker', 'Alpha Phi Alpha (Tau) and NSBE pre-loaded — add tasks as they come up.') +
+          summaryCard('Review cadence', 'Weekly review every 7 days of logs, monthly review every 30.') +
+        '</div>' +
+        '<div style="display:flex; justify-content:space-between;">' +
+          '<button class="btn btn--ghost" type="button" data-back="3">← Back</button>' +
+          '<button class="btn btn--primary" id="btn-finish-onboard">Enter Life OS Prime →</button>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function summaryCard(title, body){
+    return '<div style="background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-md); padding:12px 14px;">' +
+      '<div style="font-weight:600; font-size:13px; margin-bottom:4px;">'+esc(title)+'</div>' +
+      '<div style="font-size:12.5px; color:var(--text-faint); line-height:1.5;">'+esc(body)+'</div></div>';
+  }
+
+  function field(type, name, label, value, placeholder){
+    return '<label class="field"><span>'+esc(label)+'</span><input type="text" name="'+name+'" value="'+esc(value||"")+'" placeholder="'+esc(placeholder||"")+'"></label>';
+  }
+  function textarea(name, label, value){
+    return '<label class="field"><span>'+esc(label)+'</span><textarea name="'+name+'" placeholder="Be specific — this shapes everything else.">'+esc(value||"")+'</textarea></label>';
+  }
+  function slider(name, label, value){
+    return '<label class="field"><span>'+esc(label)+' (1–10)</span>' +
+      '<div class="sliderrow"><input type="range" min="1" max="10" name="'+name+'" value="'+(value||5)+'" oninput="this.nextElementSibling.textContent=this.value">' +
+      '<span class="sliderrow__val">'+(value||5)+'</span></div></label>';
+  }
+
+  function bindOnboarding(){
+    var f = document.getElementById("f-onboard");
+    var phase = state.profile.onboardPhase || 1;
+    document.querySelectorAll("[data-back]").forEach(function(b){
+      b.addEventListener("click", function(){ state.profile.onboardPhase = parseInt(b.dataset.back,10); render(); });
+    });
+    var finishBtn = document.getElementById("btn-finish-onboard");
+    if(finishBtn){ finishBtn.addEventListener("click", function(){ state.profile.onboarded = true; render(); }); }
+    if(!f) return;
+    f.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var data = Object.fromEntries(new FormData(f).entries());
+      if(phase===1){
+        state.profile.name = data.name||""; state.profile.age = data.age||""; state.profile.major = data.major||state.profile.major;
+        state.phase1.priorities = data.priorities||""; state.phase1.struggles = data.struggles||"";
+        state.phase1.stress = parseInt(data.stress,10); state.phase1.satisfaction = parseInt(data.satisfaction,10); state.phase1.discipline = parseInt(data.discipline,10);
+      } else if(phase===2){
+        state.phase2.sleepSchedule = data.sleepSchedule||""; state.phase2.focusHours = data.focusHours||"";
+        state.phase2.classSchedule = data.classSchedule||""; state.phase2.studyHabits = data.studyHabits||"";
+        state.phase2.exercise = data.exercise||""; state.phase2.distractions = data.distractions||"";
+      } else if(phase===3){
+        state.phase3.graduation = data.graduation||""; state.phase3.careerAmbitions = data.careerAmbitions||"";
+        state.phase3.businessPriority = data.businessPriority||state.phase3.businessPriority;
+        state.phase3.financialGoal = data.financialGoal||""; state.phase3.faithGoal = data.faithGoal||""; state.phase3.healthGoal = data.healthGoal||"";
+      }
+      state.profile.onboardPhase = phase + 1;
+      render();
+    });
+  }
+
+  var ROUTES = [
+    { group:"Execute", items:[
+      {id:"dashboard", label:"Dashboard"},
+      {id:"checkin", label:"Check-In"},
+      {id:"priorities", label:"Priorities"},
+      {id:"focus", label:"Focus Mode"}
+    ]},
+    { group:"Build", items:[
+      {id:"habits", label:"Habits"},
+      {id:"founder", label:"Founder Mode"},
+      {id:"wealth", label:"Career & Wealth"},
+      {id:"leadership", label:"Leadership"}
+    ]},
+    { group:"Reflect", items:[
+      {id:"reviews", label:"Reviews"},
+      {id:"faith", label:"Faith"}
+    ]},
+    { group:"System", items:[
+      {id:"settings", label:"Settings"}
+    ]}
+  ];
+  var ALL_ROUTE_IDS = ROUTES.reduce(function(acc,g){ return acc.concat(g.items.map(function(i){return i.id;})); }, []);
+
+  function currentRoute(){
+    var h = (location.hash||"").replace("#/","");
+    return ALL_ROUTE_IDS.indexOf(h) >= 0 ? h : "dashboard";
+  }
+
+  function renderShell(){
+    var route = currentRoute();
+    return (
+      '<div class="shell">' +
+        renderSidebar(route) +
+        '<div class="main">' + renderTopbar(route) + renderView(route) + '</div>' +
+      '</div>'
+    );
+  }
+
+  function renderSidebar(route){
+    return (
+      '<div class="sidebar">' +
+        '<div class="brand"><div class="brand__mark">L</div><div class="brand__text"><div class="brand__name">Life OS Prime</div><div class="brand__sub">'+esc((state.profile.name||"").split(" ")[0]||"Edition")+'</div></div></div>' +
+        ROUTES.map(function(g){
+          return '<div class="navgroup"><div class="navgroup__label">'+esc(g.group)+'</div>' +
+            g.items.map(function(it){
+              return '<a href="#/'+it.id+'" class="navitem '+(it.id===route?"active":"")+'"><span class="navitem__dot"></span>'+esc(it.label)+'</a>';
+            }).join("") +
+          '</div>';
+        }).join("") +
+      '</div>'
+    );
+  }
+
+  var ROUTE_TITLES = { dashboard:"Executive Command Center", checkin:"Daily Check-In", priorities:"Priority Mode", focus:"Focus Mode", habits:"Habit Tracker", founder:"Founder Mode", wealth:"Career & Wealth", leadership:"Leadership & Impact", reviews:"Weekly & Monthly Reviews", faith:"Faith & Character", settings:"Settings" };
+
+  function renderTopbar(route){
+    var now = new Date();
+    return (
+      '<div class="topbar">' +
+        '<div><div class="topbar__title">'+esc(ROUTE_TITLES[route]||"")+'</div><div class="topbar__meta">'+now.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"})+'</div></div>' +
+        '<div class="cmdk"><span>⌘K</span><input id="cmdk-input" placeholder="Jump to a mode…" autocomplete="off"></div>' +
+      '</div>'
+    );
+  }
+
+  function renderView(route){
+    switch(route){
+      case "dashboard": return viewDashboard();
+      case "checkin": return viewCheckin();
+      case "priorities": return viewPriorities();
+      case "focus": return viewFocus();
+      case "habits": return viewHabits();
+      case "founder": return viewFounder();
+      case "wealth": return viewWealth();
+      case "leadership": return viewLeadership();
+      case "reviews": return viewReviews();
+      case "faith": return viewFaith();
+      case "settings": return viewSettings();
+      default: return "";
+    }
+  }
+
+  function logsInRange(days){
+    var out = [];
+    for(var i=0;i<days;i++){
+      var k = keyDaysAgo(i);
+      if(state.dayLogs[k]) out.push({ key:k, log:state.dayLogs[k] });
+    }
+    return out;
+  }
+
+  function habitConsistency(days){
+    var logs = logsInRange(days);
+    if(logs.length===0 || state.habits.length===0) return null;
+    var done=0, total=0;
+    logs.forEach(function(l){
+      state.habits.forEach(function(h){
+        total++;
+        var checks = state.habitChecks[l.key];
+        if(checks && checks[h.id]) done++;
+      });
+    });
+    return total ? Math.round(done/total*100) : null;
+  }
+
+  function bigThreeCompletion(days){
+    var done=0, total=0;
+    for(var i=0;i<days;i++){
+      var k = keyDaysAgo(i);
+      var bt = state.bigThree[k];
+      if(bt && bt.items && bt.items.length){
+        total += bt.items.length;
+        done += bt.items.filter(function(it){return it.done;}).length;
+      }
+    }
+    return total ? Math.round(done/total*100) : null;
+  }
+
+  function avgSleep(days){
+    var logs = logsInRange(days).filter(function(l){ return l.log.morning && l.log.morning.sleepHours; });
+    if(!logs.length) return null;
+    var sum = logs.reduce(function(s,l){ return s + parseFloat(l.log.morning.sleepHours||0); }, 0);
+    return Math.round((sum/logs.length)*10)/10;
+  }
+
+  function avgEnergy(days){
+    var logs = logsInRange(days).filter(function(l){ return l.log.morning && l.log.morning.energy; });
+    if(!logs.length) return null;
+    var sum = logs.reduce(function(s,l){ return s + parseInt(l.log.morning.energy||0,10); }, 0);
+    return Math.round((sum/logs.length)*10)/10;
+  }
+
+  function deepWorkMinutes(days){
+    var mins = 0; var any=false;
+    for(var i=0;i<days;i++){
+      var k = keyDaysAgo(i);
+      if(state.dayLogs[k] && state.dayLogs[k].deepWorkMinutes){ mins += state.dayLogs[k].deepWorkMinutes; any=true; }
+    }
+    return any ? mins : null;
+  }
+
+  function systemStatus(key){
+    switch(key){
+      case "faith": {
+        var entries = state.journals.faith;
+        if(!entries.length) return { status:"insufficient", label:"INSUFFICIENT DATA" };
+        var last = entries[entries.length-1];
+        var age = daysBetween(last.date, todayKey());
+        if(age<=7) return { status:"good", label:"Active" };
+        if(age<=14) return { status:"warning", label:"Drifting" };
+        return { status:"serious", label:"Needs attention" };
+      }
+      case "academics": {
+        var acadItems = state.priorityItems.filter(function(p){ return p.area==="academic" && !p.done; });
+        if(!acadItems.length) return { status:"insufficient", label:"INSUFFICIENT DATA" };
+        var overdue = acadItems.filter(function(p){ return p.deadline && p.deadline < todayKey(); }).length;
+        if(overdue>0) return { status:"critical", label: overdue + " overdue" };
+        var soon = acadItems.filter(function(p){ return p.deadline && daysBetween(todayKey(), p.deadline) <= 3; }).length;
+        if(soon>0) return { status:"warning", label: soon + " due soon" };
+        return { status:"good", label:"On track" };
+      }
+      case "entrepreneurship": {
+        var primary = state.ventures.filter(function(v){ return v.classification==="PRIMARY"; });
+        if(!primary.length) return { status:"insufficient", label:"No primary venture set" };
+        var withMilestone = primary.filter(function(v){ return v.milestone && v.milestone.trim(); }).length;
+        if(withMilestone===primary.length) return { status:"good", label:"Milestone set" };
+        return { status:"warning", label:"Missing next milestone" };
+      }
+      case "career": {
+        var careerItems = state.priorityItems.filter(function(p){ return p.area==="career"; });
+        var finEntries = state.finance.entries.length;
+        if(!careerItems.length && !finEntries) return { status:"insufficient", label:"INSUFFICIENT DATA" };
+        var openCareer = careerItems.filter(function(p){ return !p.done; }).length;
+        return { status: openCareer>0 ? "warning" : "good", label: openCareer>0 ? openCareer+" open" : "Clear" };
+      }
+      case "leadership": {
+        var hasAny = state.leadership.some(function(l){return l.task && l.task.trim();});
+        if(!hasAny) return { status:"insufficient", label:"INSUFFICIENT DATA" };
+        var open = state.leadership.filter(function(l){ return l.status!=="done" && l.task && l.task.trim(); });
+        var overdueL = open.filter(function(l){ return l.due && l.due < todayKey(); }).length;
+        if(overdueL>0) return { status:"critical", label:overdueL+" overdue" };
+        return { status: open.length ? "warning" : "good", label: open.length ? open.length+" open" : "Clear" };
+      }
+      case "health": {
+        var sleep = avgSleep(7);
+        if(sleep===null) return { status:"insufficient", label:"INSUFFICIENT DATA" };
+        if(sleep < 5.5) return { status:"critical", label: sleep+"h avg sleep" };
+        if(sleep < 6.5) return { status:"warning", label: sleep+"h avg sleep" };
+        return { status:"good", label: sleep+"h avg sleep" };
+      }
+      case "productivity": {
+        var bt = bigThreeCompletion(7);
+        if(bt===null) return { status:"insufficient", label:"INSUFFICIENT DATA" };
+        if(bt<40) return { status:"critical", label:bt+"% Big 3" };
+        if(bt<70) return { status:"warning", label:bt+"% Big 3" };
+        return { status:"good", label:bt+"% Big 3" };
+      }
+      case "relationships": {
+        var rel = state.journals.relationships;
+        if(!rel.length) return { status:"insufficient", label:"INSUFFICIENT DATA" };
+        var lastR = rel[rel.length-1];
+        var ageR = daysBetween(lastR.date, todayKey());
+        return { status: ageR<=10 ? "good" : "warning", label: ageR<=10 ? "Noted" : "Drifting" };
+      }
+    }
+    return { status:"insufficient", label:"INSUFFICIENT DATA" };
+  }
+
+  function pillFor(status){
+    return '<span class="pill pill--'+status.status+'">'+esc(status.label)+'</span>';
+  }
+
+  function viewDashboard(){
+    var systems = [
+      ["Faith & Character","faith"],["Academics","academics"],["Entrepreneurship","entrepreneurship"],
+      ["Career & Wealth","career"],["Leadership","leadership"],["Health & Energy","health"],
+      ["Productivity","productivity"],["Relationships","relationships"]
+    ];
+    var todayBig3 = state.bigThree[todayKey()] || { items: [] };
+    var deadlines = state.priorityItems.filter(function(p){ return !p.done && p.deadline; })
+      .concat(state.leadership.filter(function(l){ return l.status!=="done" && l.due; }).map(function(l){ return {text: l.org+": "+l.task, deadline:l.due}; }))
+      .sort(function(a,b){ return (a.deadline||"").localeCompare(b.deadline||""); }).slice(0,6);
+
+    var attention = computeAttention();
+
+    return (
+      '<div class="grid">' +
+        '<div class="card">' +
+          '<div class="card__head"><div class="card__title">Performance Snapshot</div><div class="card__hint">Evidence-based — no score until logged</div></div>' +
+          '<div class="tablewrap"><table><thead><tr><th>System</th><th>Status</th></tr></thead><tbody>' +
+            systems.map(function(s){ return '<tr><td>'+esc(s[0])+'</td><td>'+pillFor(systemStatus(s[1]))+'</td></tr>'; }).join("") +
+          '</tbody></table></div>' +
+        '</div>' +
+
+        '<div class="formgrid">' +
+          '<div class="card">' +
+            '<div class="card__head"><div class="card__title">Today’s Big 3</div></div>' +
+            renderBig3Editor(todayBig3) +
+          '</div>' +
+          '<div class="card">' +
+            '<div class="card__head"><div class="card__title">Upcoming Obligations</div></div>' +
+            (deadlines.length ? '<div class="checklist">'+deadlines.map(function(d){
+              return '<div class="checkrow" style="justify-content:space-between;"><span>'+esc(d.text)+'</span><span class="pill pill--gold">'+esc(d.deadline)+'</span></div>';
+            }).join("")+'</div>' : '<div class="emptystate">No deadlines logged. Add them from Priorities or Leadership.</div>') +
+          '</div>' +
+        '</div>' +
+
+        '<div class="card">' +
+          '<div class="card__head"><div class="card__title">Attention Required</div></div>' +
+          (attention.length ? '<div class="checklist">'+attention.map(function(a){ return '<div class="checkrow" style="justify-content:space-between;"><span>'+esc(a.text)+'</span>'+pillFor({status:a.status,label:a.status.toUpperCase()})+'</div>'; }).join("")+'</div>' : '<div class="emptystate">Nothing flagged right now.</div>') +
+        '</div>' +
+
+        '<div class="card">' +
+          '<div class="card__head"><div class="card__title">Strategic Insight</div><button class="btn btn--sm" id="btn-insight">Ask Claude for a Strategic Insight</button></div>' +
+          '<div id="insight-box" class="insight">Pull a grounded observation and next action from exactly what you’ve logged — press the button.</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function computeAttention(){
+    var out = [];
+    if(state.phase1.stress >= 8) out.push({ text:"Self-reported stress is "+state.phase1.stress+"/10 from onboarding — watch for burnout risk.", status:"warning" });
+    var sleep = avgSleep(3);
+    if(sleep!==null && sleep < 6) out.push({ text:"Average sleep over the last 3 logged nights is "+sleep+"h.", status:"critical" });
+    var overdueItems = state.priorityItems.filter(function(p){ return !p.done && p.deadline && p.deadline < todayKey(); });
+    if(overdueItems.length) out.push({ text: overdueItems.length + " priority item(s) are past their deadline.", status:"critical" });
+    var noPrimary = !state.ventures.some(function(v){ return v.classification==="PRIMARY"; });
+    if(noPrimary) out.push({ text:"No venture is currently classified PRIMARY — founder focus is undefined.", status:"warning" });
+    return out;
+  }
+
+  function renderBig3Editor(bt){
+    var items = bt.items && bt.items.length ? bt.items : [{text:"",done:false},{text:"",done:false},{text:"",done:false}];
+    return '<form id="f-big3" class="checklist">' +
+      items.map(function(it,i){
+        return '<div class="checkrow '+(it.done?"done":"")+'"><input type="checkbox" data-big3-idx="'+i+'" '+(it.done?"checked":"")+'>' +
+          '<input type="text" name="item'+i+'" value="'+esc(it.text)+'" placeholder="Priority '+(i+1)+'" style="background:none;border:none;padding:0;flex:1;">' +
+        '</div>';
+      }).join("") +
+      '<button class="btn btn--sm btn--ghost" type="submit" style="align-self:flex-start;">Save</button>' +
+    '</form>';
+  }
+
+  function viewCheckin(){
+    var k = todayKey();
+    var log = state.dayLogs[k] || { morning:{}, evening:{}, deepWorkMinutes:0, exerciseDone:false };
+    return (
+      '<div class="formgrid">' +
+        '<div class="card">' +
+          '<div class="card__head"><div class="card__title">Morning Check-In</div><div class="card__hint">'+fmtDateLong(k)+'</div></div>' +
+          '<form id="f-morning" class="grid" style="gap:12px;">' +
+            '<div class="formgrid">' +
+              field('text','sleepHours','Hours slept', log.morning.sleepHours, '7') +
+              sliderSmall('energy','Energy (1–10)', log.morning.energy||6) +
+            '</div>' +
+            textarea('obligations','Biggest obligations today', log.morning.obligations) +
+            textarea('mustDo','The one thing you must accomplish', log.morning.mustDo) +
+            textarea('onMind','Anything weighing on your mind?', log.morning.onMind) +
+            '<button class="btn btn--primary" type="submit">Save Morning Check-In</button>' +
+          '</form>' +
+        '</div>' +
+        '<div class="card">' +
+          '<div class="card__head"><div class="card__title">Evening Check-In</div></div>' +
+          '<form id="f-evening" class="grid" style="gap:12px;">' +
+            textarea('accomplished','What did you accomplish?', log.evening.accomplished) +
+            textarea('notDone','What didn’t get done?', log.evening.notDone) +
+            textarea('distraction','Biggest distraction today', log.evening.distraction) +
+            textarea('changeTomorrow','What needs to change tomorrow?', log.evening.changeTomorrow) +
+            '<div class="formgrid">' +
+              field('text','deepWorkMinutes','Deep work minutes today', log.deepWorkMinutes, '90') +
+              '<label class="field"><span>Exercised today?</span><select name="exerciseDone"><option value="">—</option><option value="yes" '+(log.exerciseDone===true?"selected":"")+'>Yes</option><option value="no" '+(log.exerciseDone===false?"selected":"")+'>No</option></select></label>' +
+            '</div>' +
+            '<button class="btn btn--primary" type="submit">Save Evening Check-In</button>' +
+          '</form>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function sliderSmall(name,label,value){
+    return '<label class="field"><span>'+esc(label)+'</span><div class="sliderrow"><input type="range" min="1" max="10" name="'+name+'" value="'+value+'" oninput="this.nextElementSibling.textContent=this.value"><span class="sliderrow__val">'+value+'</span></div></label>';
+  }
+
+  function classify(item){
+    var urgent = item.deadline && daysBetween(todayKey(), item.deadline) <= 2;
+    var important = item.importance >= 4;
+    if(urgent && important) return "DO NOW";
+    if(!urgent && important) return "SCHEDULE";
+    if (!important && item.effort <= 2) return "DELEGATE";
+    if (!important && item.effort >= 4) return "ELIMINATE";
+    return "PAUSE";
+  }
+  var CLASS_CLASS = { "DO NOW":"critical", "SCHEDULE":"primary", "DELEGATE":"secondary", "ELIMINATE":"maintenance", "PAUSE":"exploration" };
+
+  function viewPriorities(){
+    var items = state.priorityItems.slice().sort(function(a,b){ return (a.done?1:0)-(b.done?1:0); });
+    return (
+      '<div class="grid">' +
+        '<div class="card">' +
+          '<div class="card__head"><div class="card__title">Add an item</div><div class="card__hint">Classified by deadline, strategic importance, and effort.</div></div>' +
+          '<form id="f-priority" class="formgrid" style="align-items:end;">' +
+            '<label class="field"><span>Task</span><input type="text" name="text" required></label>' +
+            '<label class="field"><span>Area</span><select name="area"><option value="academic">Academic</option><option value="venture">Venture</option><option value="career">Career</option><option value="leadership">Leadership</option><option value="personal">Personal</option></select></label>' +
+            '<label class="field"><span>Deadline</span><input type="date" name="deadline"></label>' +
+            '<label class="field"><span>Importance (1–5)</span><input type="number" name="importance" min="1" max="5" value="3"></label>' +
+            '<label class="field"><span>Effort (1–5)</span><input type="number" name="effort" min="1" max="5" value="3"></label>' +
+            '<button class="btn btn--primary" type="submit">Classify &amp; add</button>' +
+          '</form>' +
+          '<div class="card__hint" style="margin-top:10px;">Rule: urgent (≤2 days) + important → DO NOW. Important only → SCHEDULE. Low importance, low effort → DELEGATE. Low importance, high effort → ELIMINATE. Otherwise → PAUSE.</div>' +
+        '</div>' +
+        '<div class="card">' +
+          '<div class="card__head"><div class="card__title">Triage list</div></div>' +
+          (items.length ? '<div class="tablewrap"><table><thead><tr><th></th><th>Task</th><th>Area</th><th>Deadline</th><th>Class</th><th></th></tr></thead><tbody>' +
+            items.map(function(it){
+              return '<tr style="'+(it.done?"opacity:.45;":"")+'"><td><input type="checkbox" data-done="'+it.id+'" '+(it.done?"checked":"")+'></td>' +
+                '<td>'+esc(it.text)+'</td><td>'+esc(it.area)+'</td><td>'+esc(it.deadline||"—")+'</td>' +
+                '<td><span class="classpill classpill--'+CLASS_CLASS[it.classification]+'">'+esc(it.classification)+'</span></td>' +
+                '<td><button class="btn btn--sm btn--ghost" data-del="'+it.id+'">remove</button></td></tr>';
+            }).join("") + '</tbody></table></div>' : '<div class="emptystate">Nothing in triage.</div>') +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function viewFocus(){
+    return (
+      '<div class="formgrid">' +
+        '<div class="card">' +
+          '<div class="card__head"><div class="card__title">Start a session</div></div>' +
+          '<form id="f-focus" class="grid" style="gap:12px;">' +
+            '<label class="field"><span>Objective</span><input type="text" name="objective" required placeholder="What exactly are you producing?"></label>' +
+            '<div class="formgrid">' +
+              '<label class="field"><span>Duration (minutes)</span><input type="number" name="duration" value="50" min="5"></label>' +
+              '<label class="field"><span>Deliverable</span><input type="text" name="deliverable" placeholder="The observable result"></label>' +
+            '</div>' +
+            '<label class="field"><span>Likely distractions</span><input type="text" name="distractions" placeholder="Phone, Slack, hunger…"></label>' +
+            '<button class="btn btn--primary" type="submit">Build session</button>' +
+          '</form>' +
+        '</div>' +
+        '<div class="card" id="focus-session-card">' +
+          '<div class="card__head"><div class="card__title">Session</div></div>' +
+          '<div class="emptystate">Build a session to begin.</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function renderFocusSession(session){
+    return (
+      '<div><div style="font-size:12px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.05em;">Objective</div><div style="margin-bottom:10px; font-weight:600;">'+esc(session.objective)+'</div>' +
+      '<div style="font-size:12px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.05em;">Success Criteria</div><div style="margin-bottom:10px;">'+esc(session.deliverable||"Finish the objective above.")+'</div>' +
+      '<div style="font-size:12px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.05em;">Potential Distractions</div><div style="margin-bottom:16px;">'+esc(session.distractions||"None noted.")+'</div>' +
+      '<div class="timer" id="focus-timer">'+formatClock(session.remaining)+'</div>' +
+      '<div style="display:flex; gap:8px; justify-content:center; margin-top:14px;">' +
+        '<button class="btn" id="btn-focus-toggle">'+(session.running?"Pause":"Start")+'</button>' +
+        '<button class="btn btn--primary" id="btn-focus-done">Mark complete</button>' +
+      '</div></div>'
+    );
+  }
+
+  function formatClock(sec){
+    sec = Math.max(0, sec|0);
+    var m = Math.floor(sec/60), s = sec%60;
+    return (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
+  }
+
+  function viewHabits(){
+    var k = todayKey();
+    var checks = state.habitChecks[k] || {};
+    var streaks = state.habits.map(function(h){ return { h:h, streak: habitStreak(h.id) }; });
+    var cons = habitConsistency(7);
+    return (
+      '<div class="grid">' +
+        '<div class="card">' +
+          '<div class="card__head"><div class="card__title">Today</div><div class="card__hint">'+fmtDateLong(k)+' · '+(cons!==null? (cons+"% consistency, last 7 days") : "INSUFFICIENT DATA")+'</div></div>' +
+          '<div class="checklist">' +
+            streaks.map(function(s){
+              return '<div class="checkrow '+(checks[s.h.id]?"done":"")+'" style="justify-content:space-between;">' +
+                '<label style="display:flex;align-items:center;gap:9px;flex:1;cursor:pointer;"><input type="checkbox" data-habit="'+s.h.id+'" '+(checks[s.h.id]?"checked":"")+'>'+esc(s.h.label)+'</label>' +
+                '<span class="pill pill--gold">'+s.streak+'d streak</span>' +
+                '<button class="btn btn--sm btn--ghost" data-habit-del="'+s.h.id+'">×</button></div>';
+            }).join("") +
+          '</div>' +
+          '<form id="f-add-habit" style="display:flex; gap:8px; margin-top:12px;">' +
+            '<input type="text" name="label" placeholder="Add a custom habit" style="flex:1;">' +
+            '<button class="btn btn--sm" type="submit">Add</button>' +
+          '</form>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function habitStreak(habitId){
+    var streak = 0;
+    for(var i=0;i<365;i++){
+      var k = keyDaysAgo(i);
+      var checks = state.habitChecks[k];
+      if(checks && checks[habitId]) streak++;
+      else break;
+    }
+    return streak;
+  }
+
+  function viewFounder(){
+    return (
+      '<div class="grid">' +
+        '<div class="card">' +
+          '<div class="card__head"><div class="card__title">Venture Portfolio</div><button class="btn btn--sm" id="btn-founder-insight">Which venture deserves attention right now?</button></div>' +
+          '<div class="tablewrap"><table><thead><tr><th>Venture</th><th>Focus</th><th>Classification</th><th>Validated problem?</th><th>Customer evidence?</th><th>Next milestone</th></tr></thead><tbody>' +
+            state.ventures.map(function(v){
+              return '<tr><td style="font-weight:600; white-space:nowrap;">'+esc(v.name)+'</td><td style="color:var(--text-faint);">'+esc(v.focus)+'</td>' +
+                '<td><select data-venture-field="classification" data-venture="'+v.id+'">' +
+                  ["PRIMARY","SECONDARY","MAINTENANCE","EXPLORATION","PAUSED"].map(function(c){ return '<option '+(v.classification===c?"selected":"")+'>'+c+'</option>'; }).join("") +
+                '</select></td>' +
+                '<td><input type="text" data-venture-field="problem" data-venture="'+v.id+'" value="'+esc(v.problem)+'" placeholder="—"></td>' +
+                '<td><input type="text" data-venture-field="evidence" data-venture="'+v.id+'" value="'+esc(v.evidence)+'" placeholder="—"></td>' +
+                '<td><input type="text" data-venture-field="milestone" data-venture="'+v.id+'" value="'+esc(v.milestone)+'" placeholder="—"></td></tr>';
+            }).join("") +
+          '</tbody></table></div>' +
+        '</div>' +
+        '<div class="card">' +
+          '<div class="card__head"><div class="card__title">Founder Strategic Insight</div></div>' +
+          '<div id="founder-insight-box" class="insight">Press the button above once your ventures reflect reality.</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function viewWealth(){
+    var entries = state.finance.entries.slice().sort(function(a,b){ return b.date.localeCompare(a.date); });
+    var thisMonth = (new Date()).toISOString().slice(0,7);
+    var income = entries.filter(function(e){ return e.date.slice(0,7)===thisMonth && e.type==="income"; }).reduce(function(s,e){return s+parseFloat(e.amount||0);},0);
+    var expense = entries.filter(function(e){ return e.date.slice(0,7)===thisMonth && e.type==="expense"; }).reduce(function(s,e){return s+parseFloat(e.amount||0);},0);
+    var efTarget = parseFloat(state.finance.emergencyFundTarget||0);
+    var efCurrent = parseFloat(state.finance.emergencyFundCurrent||0);
+    var efPct = efTarget ? clamp(Math.round(efCurrent/efTarget*100),0,100) : null;
+    var careerItems = state.priorityItems.filter(function(p){ return p.area==="career"; });
+
+    return (
+      '<div class="grid">' +
+        '<div class="formgrid">' +
+          '<div class="card"><div class="card__head"><div class="card__title">This month</div></div>' +
+            '<div style="display:flex; gap:20px; flex-wrap:wrap;"><div><div class="card__hint">Income</div><div style="font-size:22px; font-weight:600;">$'+income.toFixed(0)+'</div></div>' +
+            '<div><div class="card__hint">Expenses</div><div style="font-size:22px; font-weight:600;">$'+expense.toFixed(0)+'</div></div>' +
+            '<div><div class="card__hint">Net</div><div style="font-size:22px; font-weight:600; color:'+(income-expense>=0?"var(--good)":"var(--critical)")+';">$'+(income-expense).toFixed(0)+'</div></div></div>' +
+          '</div>' +
+          '<div class="card"><div class="card__head"><div class="card__title">Emergency fund</div></div>' +
+            '<form id="f-ef" class="formgrid" style="margin-bottom:10px;">' +
+              '<label class="field"><span>Current</span><input type="number" name="current" value="'+esc(state.finance.emergencyFundCurrent)+'"></label>' +
+              '<label class="field"><span>Target</span><input type="number" name="target" value="'+esc(state.finance.emergencyFundTarget)+'"></label>' +
+              '<button class="btn btn--sm" type="submit" style="align-self:end;">Save</button>' +
+            '</form>' +
+            (efPct!==null ? '<div class="bar"><div class="bar__fill" style="width:'+efPct+'%;"></div></div><div class="card__hint" style="margin-top:6px;">'+efPct+'%</div>' : '<div class="emptystate">Set a target to track progress.</div>') +
+          '</div>' +
+        '</div>' +
+        '<div class="card"><div class="card__head"><div class="card__title">Log an entry</div></div>' +
+          '<form id="f-finance" class="formgrid" style="align-items:end;">' +
+            '<label class="field"><span>Date</span><input type="date" name="date" value="'+todayKey()+'"></label>' +
+            '<label class="field"><span>Type</span><select name="type"><option value="income">Income</option><option value="expense">Expense</option></select></label>' +
+            '<label class="field"><span>Category</span><input type="text" name="category" placeholder="e.g. internship, textbooks"></label>' +
+            '<label class="field"><span>Amount</span><input type="number" name="amount" required></label>' +
+            '<button class="btn btn--primary" type="submit">Add</button>' +
+          '</form>' +
+          (entries.length ? '<div class="tablewrap" style="margin-top:12px;"><table><thead><tr><th>Date</th><th>Type</th><th>Category</th><th>Amount</th></tr></thead><tbody>' +
+            entries.slice(0,10).map(function(e){ return '<tr><td>'+esc(e.date)+'</td><td>'+esc(e.type)+'</td><td>'+esc(e.category)+'</td><td>$'+parseFloat(e.amount).toFixed(2)+'</td></tr>'; }).join("") +
+          '</tbody></table></div>' : '') +
+        '</div>' +
+        '<div class="card"><div class="card__head"><div class="card__title">Career priorities</div><div class="card__hint">Added from Priorities with area = Career</div></div>' +
+          (careerItems.length ? '<div class="checklist">'+careerItems.map(function(p){ return '<div class="checkrow '+(p.done?"done":"")+'">'+esc(p.text)+'</div>'; }).join("")+'</div>' : '<div class="emptystate">None yet.</div>') +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function viewLeadership(){
+    return (
+      '<div class="grid">' +
+        '<div class="card">' +
+          '<div class="card__head"><div class="card__title">Commitments</div></div>' +
+          '<div class="tablewrap"><table><thead><tr><th>Organization</th><th>Task</th><th>Due</th><th>Status</th><th></th></tr></thead><tbody>' +
+            state.leadership.map(function(l){
+              return '<tr><td style="white-space:nowrap;">'+esc(l.org)+'</td>' +
+                '<td><input type="text" data-lead-field="task" data-lead="'+l.id+'" value="'+esc(l.task)+'" placeholder="What needs doing?"></td>' +
+                '<td><input type="date" data-lead-field="due" data-lead="'+l.id+'" value="'+esc(l.due)+'"></td>' +
+                '<td><select data-lead-field="status" data-lead="'+l.id+'"><option value="open" '+(l.status==="open"?"selected":"")+'>Open</option><option value="done" '+(l.status==="done"?"selected":"")+'>Done</option></select></td>' +
+                '<td><button class="btn btn--sm btn--ghost" data-lead-del="'+l.id+'">×</button></td></tr>';
+            }).join("") +
+          '</tbody></table></div>' +
+          '<form id="f-add-leadership" style="display:flex; gap:8px; margin-top:12px;">' +
+            '<input type="text" name="org" placeholder="Organization" style="max-width:200px;">' +
+            '<button class="btn btn--sm" type="submit">Add organization row</button>' +
+          '</form>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function viewFaith(){
+    return (
+      '<div class="formgrid">' +
+        journalCard("faith", "Weekly Reflection", "What did I learn about God, myself, and how I treated others this week?") +
+        journalCard("relationships", "Relationships", "Any note on family, friends, or mentorship worth keeping?") +
+      '</div>'
+    );
+  }
+
+  function journalCard(key, title, prompt){
+    var entries = state.journals[key].slice().reverse();
+    return (
+      '<div class="card">' +
+        '<div class="card__head"><div class="card__title">'+esc(title)+'</div></div>' +
+        '<form id="f-journal-'+key+'" class="grid" style="gap:10px; margin-bottom:14px;">' +
+          '<label class="field"><span>'+esc(prompt)+'</span><textarea name="text" required></textarea></label>' +
+          '<button class="btn btn--sm btn--primary" type="submit" style="align-self:flex-start;">Save entry</button>' +
+        '</form>' +
+        (entries.length ? entries.slice(0,8).map(function(e){ return '<div class="journalentry"><div class="journalentry__date">'+fmtDateLong(e.date)+'</div><div>'+esc(e.text)+'</div></div>'; }).join("") : '<div class="emptystate">No entries yet. This is never scored.</div>') +
+      '</div>'
+    );
+  }
+
+  function viewReviews(){
+    var weekBt = bigThreeCompletion(7), weekHabit = habitConsistency(7), weekSleep = avgSleep(7), weekDeep = deepWorkMinutes(7);
+    var monthBt = bigThreeCompletion(30), monthHabit = habitConsistency(30), monthSleep = avgSleep(30), monthDeep = deepWorkMinutes(30);
+    return (
+      '<div class="grid">' +
+        '<div class="formgrid">' +
+          reviewScorecard("Weekly Scorecard (7 days)", weekBt, weekHabit, weekSleep, weekDeep) +
+          reviewScorecard("Monthly Scorecard (30 days)", monthBt, monthHabit, monthSleep, monthDeep) +
+        '</div>' +
+        '<div class="card">' +
+          '<div class="card__head"><div class="card__title">Weekly Strategic Questions</div><button class="btn btn--sm" id="btn-weekly-insight">Get AI reflection on this week</button></div>' +
+          '<form id="f-weekly" class="formgrid">' +
+            reviewField("keep","KEEP — what created the most progress?") +
+            reviewField("improve","IMPROVE — what consumed time without value?") +
+            reviewField("eliminate","ELIMINATE — what should stop?") +
+            reviewField("prioritize","PRIORITIZE — what matters most next week?") +
+          '</form>' +
+          '<button class="btn btn--sm btn--primary" id="btn-save-weekly" style="margin-top:10px;">Save this week’s review</button>' +
+          '<div id="weekly-insight-box" class="insight" style="margin-top:12px; display:none;"></div>' +
+          (state.weeklyReviews.length ? '<div style="margin-top:16px;">'+state.weeklyReviews.slice().reverse().slice(0,5).map(function(r){
+            return '<div class="journalentry"><div class="journalentry__date">Week of '+fmtDateLong(r.date)+'</div><div><b>Keep:</b> '+esc(r.keep)+'<br><b>Improve:</b> '+esc(r.improve)+'</div></div>';
+          }).join("")+'</div>' : "") +
+        '</div>' +
+        '<div class="card">' +
+          '<div class="card__head"><div class="card__title">Monthly Strategic Assessment</div></div>' +
+          '<form id="f-monthly" class="grid" style="gap:10px;">' +
+            '<label class="field"><span>Is your current schedule actually aligned with the future you say you want?</span><textarea name="alignment" required></textarea></label>' +
+            '<button class="btn btn--sm btn--primary" type="submit" style="align-self:flex-start;">Save monthly reflection</button>' +
+          '</form>' +
+          (state.monthlyReviews.length ? '<div style="margin-top:14px;">'+state.monthlyReviews.slice().reverse().slice(0,3).map(function(r){
+            return '<div class="journalentry"><div class="journalentry__date">'+fmtDateLong(r.date)+'</div><div>'+esc(r.alignment)+'</div></div>';
+          }).join("")+'</div>' : "") +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function reviewScorecard(title, bt, habit, sleep, deep){
+    function row(label, val, unit){
+      return '<tr><td>'+esc(label)+'</td><td>'+(val===null?'<span class="pill pill--insufficient">INSUFFICIENT DATA</span>':val+unit)+'</td></tr>';
+    }
+    return '<div class="card"><div class="card__head"><div class="card__title">'+esc(title)+'</div></div>' +
+      '<table><tbody>' +
+        row("Big 3 completion", bt, "%") +
+        row("Habit consistency", habit, "%") +
+        row("Avg sleep", sleep, "h") +
+        row("Deep work logged", deep, " min") +
+      '</tbody></table></div>';
+  }
+
+  function reviewField(name, label){
+    return '<label class="field"><span>'+esc(label)+'</span><textarea name="'+name+'"></textarea></label>';
+  }
+
+  function viewSettings(){
+    return (
+      '<div class="grid">' +
+        '<div class="card"><div class="card__head"><div class="card__title">Your profile</div></div>' +
+          '<div class="card__hint">Name: '+esc(state.profile.name)+' · '+esc(state.profile.major)+' · '+esc(state.profile.university)+'</div>' +
+        '</div>' +
+        '<div class="card"><div class="card__head"><div class="card__title">Data</div></div>' +
+          '<div class="card__hint" style="margin-bottom:12px;">Everything in Life OS Prime is stored only in this browser — nothing is sent anywhere except the explicit “Ask Claude” insight calls, which send only the structured data shown on that screen.</div>' +
+          '<div style="display:flex; gap:10px; flex-wrap:wrap;">' +
+            '<button class="btn" id="btn-export">Export as JSON</button>' +
+            '<button class="btn btn--danger" id="btn-reset">Reset all data</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function withSample(cb){
+    if(!window.claude || !window.claude.use){ cb(null); return; }
+    window.claude.use("sample").then(cb).catch(function(){ cb(null); });
+  }
+
+  function errorCopy(code){
+    var map = {
+      not_granted:"Claude access isn’t allowed for this page.",
+      rate_limited:"Too many requests right now — try again shortly.",
+      refused:"Claude declined to answer that — try rephrasing what you logged.",
+      sampling_disabled:"Claude isn’t available on this account.",
+      upstream_error:"Something went wrong on Claude’s end — try again."
+    };
+    return map[code] || "Couldn’t get an answer right now.";
+  }
+
+  function askInsight(boxId, dataSummary, instruction){
+    var box = document.getElementById(boxId);
+    if(!box) return;
+    box.style.display = "block";
+    box.className = "insight insight--loading";
+    box.textContent = "Thinking…";
+    withSample(function(sample){
+      if(!sample){ box.className="insight"; box.textContent = "AI insight isn’t available in this view."; return; }
+      var prompt = instruction + "\n\nRules: never fabricate numbers. If a field is missing, say INSUFFICIENT DATA for that point instead of guessing. Distinguish VERIFIED, SELF-REPORTED, and ESTIMATED when relevant. Be direct, not generic — reference the actual data below. Keep it under 160 words.\n\nDATA:\n" + JSON.stringify(dataSummary, null, 2);
+      if(activeAbort) activeAbort.abort();
+      activeAbort = new AbortController();
+      sample(prompt, { modelTier:"default", signal: activeAbort.signal, onText: function(u){ box.className="insight"; box.textContent = u.text; } })
+        .then(function(res){ box.className="insight"; box.textContent = res.text; })
+        .catch(function(e){ if(e.code==="cancelled") return; box.className="insight"; box.textContent = (e && e.text) || errorCopy(e && e.code); });
+    });
+  }
+
+  function bindShell(){
+    bindCmdk();
+    var route = currentRoute();
+    if(route==="dashboard") bindDashboard();
+    else if(route==="checkin") bindCheckin();
+    else if(route==="priorities") bindPriorities();
+    else if(route==="focus") bindFocus();
+    else if(route==="habits") bindHabits();
+    else if(route==="founder") bindFounder();
+    else if(route==="wealth") bindWealth();
+    else if(route==="leadership") bindLeadership();
+    else if(route==="reviews") bindReviews();
+    else if(route==="faith"){ bindJournal("faith"); bindJournal("relationships"); }
+    else if(route==="settings") bindSettings();
+  }
+
+  function bindCmdk(){
+    var input = document.getElementById("cmdk-input");
+    if(!input) return;
+    input.addEventListener("keydown", function(ev){
+      if(ev.key !== "Enter") return;
+      var q = input.value.toLowerCase();
+      var all = ROUTES.reduce(function(acc,g){ return acc.concat(g.items); }, []);
+      var match = all.filter(function(it){ return it.label.toLowerCase().indexOf(q)>=0 || it.id.indexOf(q)>=0; })[0];
+      if(match) location.hash = "#/" + match.id;
+    });
+  }
+
+  function bindDashboard(){
+    var f = document.getElementById("f-big3");
+    if(f){
+      f.addEventListener("submit", function(ev){
+        ev.preventDefault();
+        var data = Object.fromEntries(new FormData(f).entries());
+        var items = [0,1,2].map(function(i){ return { text:data["item"+i]||"", done:false }; });
+        var existing = state.bigThree[todayKey()];
+        if(existing) items.forEach(function(it,i){ if(existing.items[i]) it.done = existing.items[i].done; });
+        state.bigThree[todayKey()] = { items: items };
+        render();
+      });
+      f.querySelectorAll("[data-big3-idx]").forEach(function(cb){
+        cb.addEventListener("change", function(){
+          var idx = parseInt(cb.dataset.big3Idx,10);
+          var bt = state.bigThree[todayKey()] || { items:[{text:"",done:false},{text:"",done:false},{text:"",done:false}] };
+          if(!bt.items[idx]) bt.items[idx] = {text:"",done:false};
+          bt.items[idx].done = cb.checked;
+          state.bigThree[todayKey()] = bt;
+          saveState();
+        });
+      });
+    }
+    var btn = document.getElementById("btn-insight");
+    if(btn) btn.addEventListener("click", function(){
+      askInsight("insight-box", {
+        profile: state.profile, phase1: state.phase1,
+        bigThreeToday: state.bigThree[todayKey()], recentSleepAvg: avgSleep(7), recentEnergyAvg: avgEnergy(7),
+        habitConsistency7d: habitConsistency(7), deepWorkMinutes7d: deepWorkMinutes(7),
+        overduePriorities: state.priorityItems.filter(function(p){return !p.done && p.deadline && p.deadline<todayKey();}),
+        ventures: state.ventures, attentionFlags: computeAttention()
+      }, "You are Life OS Prime's strategic insight engine for TJ, an electrical engineering student and founder at UIUC. Using ONLY the data below, give exactly one Strategic Insight (one sharp, specific observation) and one Next Best Action (one concrete next step).");
+    });
+  }
+
+  function bindCheckin(){
+    var fm = document.getElementById("f-morning");
+    fm.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var data = Object.fromEntries(new FormData(fm).entries());
+      var k = todayKey();
+      var log = state.dayLogs[k] || { morning:{}, evening:{}, deepWorkMinutes:0 };
+      log.morning = { sleepHours:data.sleepHours, energy:data.energy, obligations:data.obligations, mustDo:data.mustDo, onMind:data.onMind };
+      state.dayLogs[k] = log; render();
+    });
+    var fe = document.getElementById("f-evening");
+    fe.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var data = Object.fromEntries(new FormData(fe).entries());
+      var k = todayKey();
+      var log = state.dayLogs[k] || { morning:{}, evening:{}, deepWorkMinutes:0 };
+      log.evening = { accomplished:data.accomplished, notDone:data.notDone, distraction:data.distraction, changeTomorrow:data.changeTomorrow };
+      log.deepWorkMinutes = parseInt(data.deepWorkMinutes,10) || 0;
+      log.exerciseDone = data.exerciseDone === "yes" ? true : (data.exerciseDone === "no" ? false : undefined);
+      state.dayLogs[k] = log; render();
+    });
+  }
+
+  function bindPriorities(){
+    var f = document.getElementById("f-priority");
+    f.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var data = Object.fromEntries(new FormData(f).entries());
+      var item = { id:uid(), text:data.text, area:data.area, deadline:data.deadline, importance:parseInt(data.importance,10), effort:parseInt(data.effort,10), done:false, createdAt: todayKey() };
+      item.classification = classify(item);
+      state.priorityItems.push(item);
+      render();
+    });
+    document.querySelectorAll("[data-done]").forEach(function(cb){
+      cb.addEventListener("change", function(){
+        var it = state.priorityItems.find(function(p){ return p.id===cb.dataset.done; });
+        if(it) it.done = cb.checked;
+        saveState();
+      });
+    });
+    document.querySelectorAll("[data-del]").forEach(function(b){
+      b.addEventListener("click", function(){
+        state.priorityItems = state.priorityItems.filter(function(p){ return p.id!==b.dataset.del; });
+        render();
+      });
+    });
+  }
+
+  function bindFocus(){
+    var f = document.getElementById("f-focus");
+    var card = document.getElementById("focus-session-card");
+    var session = null, interval = null;
+    f.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var data = Object.fromEntries(new FormData(f).entries());
+      session = { objective:data.objective, deliverable:data.deliverable, distractions:data.distractions, remaining: (parseInt(data.duration,10)||50)*60, running:false, durationMin:parseInt(data.duration,10)||50 };
+      card.innerHTML = '<div class="card__head"><div class="card__title">Session</div></div>' + renderFocusSession(session);
+      wireFocusCard();
+    });
+    function wireFocusCard(){
+      document.getElementById("btn-focus-toggle").addEventListener("click", function(){
+        session.running = !session.running;
+        this.textContent = session.running ? "Pause" : "Start";
+        if(session.running){
+          interval = setInterval(function(){
+            session.remaining--;
+            var t = document.getElementById("focus-timer");
+            if(t) t.textContent = formatClock(session.remaining);
+            if(session.remaining<=0){ clearInterval(interval); session.running=false; }
+          }, 1000);
+        } else { clearInterval(interval); }
+      });
+      document.getElementById("btn-focus-done").addEventListener("click", function(){
+        clearInterval(interval);
+        var k = todayKey();
+        var log = state.dayLogs[k] || { morning:{}, evening:{}, deepWorkMinutes:0 };
+        log.deepWorkMinutes = (log.deepWorkMinutes||0) + session.durationMin;
+        state.dayLogs[k] = log;
+        state.focusSessions.push({ date:k, objective:session.objective, durationMin:session.durationMin, deliverable:session.deliverable, completed:true });
+        saveState();
+        card.innerHTML = '<div class="card__head"><div class="card__title">Session</div></div><div class="emptystate">Logged '+session.durationMin+' minutes of deep work. Build another session anytime.</div>';
+      });
+    }
+  }
+
+  function bindHabits(){
+    document.querySelectorAll("[data-habit]").forEach(function(cb){
+      cb.addEventListener("change", function(){
+        var k = todayKey();
+        if(!state.habitChecks[k]) state.habitChecks[k] = {};
+        state.habitChecks[k][cb.dataset.habit] = cb.checked;
+        render();
+      });
+    });
+    document.querySelectorAll("[data-habit-del]").forEach(function(b){
+      b.addEventListener("click", function(){
+        state.habits = state.habits.filter(function(h){ return h.id!==b.dataset.habitDel; });
+        render();
+      });
+    });
+    var f = document.getElementById("f-add-habit");
+    f.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var data = Object.fromEntries(new FormData(f).entries());
+      if(data.label && data.label.trim()) state.habits.push({ id:uid(), label:data.label.trim() });
+      render();
+    });
+  }
+
+  function bindFounder(){
+    document.querySelectorAll("[data-venture-field]").forEach(function(el){
+      el.addEventListener("change", function(){
+        var v = state.ventures.find(function(v){ return v.id===el.dataset.venture; });
+        if(v) v[el.dataset.ventureField] = el.value;
+        saveState();
+      });
+    });
+    var btn = document.getElementById("btn-founder-insight");
+    btn.addEventListener("click", function(){
+      askInsight("founder-insight-box", { ventures: state.ventures, businessPriorityFromOnboarding: state.phase3.businessPriority, academicLoad: systemStatus("academics") },
+        "You are Life OS Prime's founder strategy engine for TJ. Using ONLY the venture data below (classification, validated problem, customer evidence, next milestone) and his current academic status, answer: which venture deserves his attention right now, and why? Recommend one concrete experiment or milestone. Prioritize customer evidence over speculation, and do not let entrepreneurship override academics if academic status is critical or warning.");
+    });
+  }
+
+  function bindWealth(){
+    var f = document.getElementById("f-finance");
+    f.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var data = Object.fromEntries(new FormData(f).entries());
+      state.finance.entries.push({ date:data.date, type:data.type, category:data.category, amount:data.amount });
+      render();
+    });
+    var fe = document.getElementById("f-ef");
+    fe.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var data = Object.fromEntries(new FormData(fe).entries());
+      state.finance.emergencyFundCurrent = data.current; state.finance.emergencyFundTarget = data.target;
+      render();
+    });
+  }
+
+  function bindLeadership(){
+    document.querySelectorAll("[data-lead-field]").forEach(function(el){
+      el.addEventListener("change", function(){
+        var l = state.leadership.find(function(l){ return l.id===el.dataset.lead; });
+        if(l) l[el.dataset.leadField] = el.value;
+        saveState();
+      });
+    });
+    document.querySelectorAll("[data-lead-del]").forEach(function(b){
+      b.addEventListener("click", function(){
+        state.leadership = state.leadership.filter(function(l){ return l.id!==b.dataset.leadDel; });
+        render();
+      });
+    });
+    var f = document.getElementById("f-add-leadership");
+    f.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var data = Object.fromEntries(new FormData(f).entries());
+      if(data.org && data.org.trim()) state.leadership.push({ id:uid(), org:data.org.trim(), task:"", due:"", status:"open" });
+      render();
+    });
+  }
+
+  function bindJournal(key){
+    var f = document.getElementById("f-journal-"+key);
+    if(!f) return;
+    f.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var data = Object.fromEntries(new FormData(f).entries());
+      state.journals[key].push({ date: todayKey(), text: data.text });
+      render();
+    });
+  }
+
+  function bindReviews(){
+    var btnSave = document.getElementById("btn-save-weekly");
+    btnSave.addEventListener("click", function(){
+      var f = document.getElementById("f-weekly");
+      var data = Object.fromEntries(new FormData(f).entries());
+      state.weeklyReviews.push({ date: todayKey(), keep:data.keep, improve:data.improve, eliminate:data.eliminate, prioritize:data.prioritize });
+      render();
+    });
+    var btnInsight = document.getElementById("btn-weekly-insight");
+    btnInsight.addEventListener("click", function(){
+      askInsight("weekly-insight-box", {
+        bigThreeCompletion7d: bigThreeCompletion(7), habitConsistency7d: habitConsistency(7), avgSleep7d: avgSleep(7), deepWorkMinutes7d: deepWorkMinutes(7),
+        attentionFlags: computeAttention()
+      }, "You are Life OS Prime's weekly review engine for TJ. Using ONLY the metrics below, answer: what created the most meaningful progress this week, what consumed time without producing value, and what deserves priority next week? If a metric is INSUFFICIENT DATA, say so rather than guessing.");
+    });
+    var fMonthly = document.getElementById("f-monthly");
+    fMonthly.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var data = Object.fromEntries(new FormData(fMonthly).entries());
+      state.monthlyReviews.push({ date: todayKey(), alignment: data.alignment });
+      render();
+    });
+  }
+
+  function bindSettings(){
+    document.getElementById("btn-export").addEventListener("click", function(){
+      function fallbackCopy(){
+        try{ navigator.clipboard.writeText(JSON.stringify(state,null,2)); alert("Downloads aren’t available here — your data was copied to the clipboard instead."); }
+        catch(e){ alert("Couldn’t export — copy it manually from your browser’s dev tools localStorage."); }
+      }
+      if(window.claude && window.claude.use){
+        window.claude.use("downloads").then(function(d){
+          if(!d){ fallbackCopy(); return; }
+          var blob = new Blob([JSON.stringify(state,null,2)], { type:"application/json" });
+          d.save({ filename:"life-os-prime-export.json", data: blob }).catch(fallbackCopy);
+        }).catch(fallbackCopy);
+      } else fallbackCopy();
+    });
+    document.getElementById("btn-reset").addEventListener("click", function(){
+      if(confirm("This permanently deletes everything stored in Life OS Prime on this device. This cannot be undone. Continue?")){
+        state = defaultState();
+        saveState();
+        render();
+      }
+    });
+  }
+
+  window.addEventListener("hashchange", render);
+  render();
+})();
+</script>

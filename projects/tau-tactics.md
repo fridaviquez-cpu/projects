@@ -7,6 +7,6 @@ Most productivity apps reduce focus to a timer, or lean on gamification that end
 **Status:** limited beta — working custom timer, saved browser-local progress, Leo's progression system, learning reflections, and a mobile-ready Focus experience.
 
 - 🔗 **Live demo:** [focus-tactics.replit.app](https://focus-tactics.replit.app)
-- 📂 **Source:** [github.com/tjppppppppp/tau-tactics](https://github.com/tjppppppppp/tau-tactics)
+- 📂 **Source:** this repo — [`tau-tactics/`](../tau-tactics)
 
 [← back to all projects](../README.md)

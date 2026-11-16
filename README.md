@@ -1,17 +1,19 @@
-# Replit Projects
+# Projects
 
-Apps I've built and shipped on Replit. Click into any project below for what it
-does and a link to the live demo.
+Apps I've built — most on Replit, a couple elsewhere. Click into any project
+below for what it does and a link to the live demo.
 
 | Project | What it is | Live demo |
 | --- | --- | --- |
 | [Orvyn](projects/orvyn.md) | Career strategy workspace — resume tailoring, interview coaching, Career DNA | [Launch →](https://orvyn-guest-access.replit.app/) |
 | [PortfolioIQ](projects/portfolio-iq.md) | CSV-based investment portfolio importer and tracker | [Launch →](https://portfolio-iq-1.replit.app) |
-| [Vacancy](projects/vacancy.md) | Desk-finder and focus companion for a campus library | [Launch →](https://vacancy-interactive-desk-experience.replit.app/) |
+| [Vacancy](projects/vacancy.md) | Desk-finder and focus companion for a campus library — built for TE 230 | [Launch →](https://vacancy-interactive-desk-experience.replit.app/) |
 | [Tau Tactics](projects/tau-tactics.md) | Focus and study companion app | [Launch →](https://focus-tactics.replit.app) |
 | [BECE Bridge](projects/bece-bridge.md) | Course-grounded study support for UIUC ECE students | [Launch →](https://guest-persistence-hub.replit.app/) |
 | [EnviroWaste](projects/envirowaste.md) | Waste and environmental impact tracker | [Launch →](https://envirowaste.foundable.app/) |
 | [StrideLab](projects/stridelab.md) | Running log, progress charts, workout planner, and AI training journal | [Launch →](https://stride-lab.replit.app/) |
+| [EnviroTrap Nexus](projects/envirotrap-nexus.md) | UIUC waste intelligence platform | — |
+| [Life OS Prime](projects/life-os-prime.md) | Personal performance dashboard — not a Replit app | [Launch →](https://tjppppppppp.github.io/projects/life-os-prime/) |
 
 ---
 
@@ -35,8 +37,8 @@ interview practice, Career DNA self-reflection, and career insights.
 Clone the repository in your preferred editor:
 
 ```sh
-git clone https://github.com/tjppppppppp/replit-projects.git
-cd replit-projects
+git clone https://github.com/tjppppppppp/projects.git
+cd projects
 corepack enable
 pnpm install --frozen-lockfile
 ```

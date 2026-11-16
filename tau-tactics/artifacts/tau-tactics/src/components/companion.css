@@ -1,0 +1,11 @@
+.sc-breathe { transform-origin: 120px 200px; animation: sc-breathe 4.5s ease-in-out infinite; }
+.sc-rest .sc-breathe { animation-duration: 7s; }
+.sc-focus .sc-breathe { animation-duration: 3.2s; }
+@keyframes sc-breathe { 50% { transform: scale(1.018) translateY(-1px); } }
+.sc-glow { animation: sc-glow 5s ease-in-out infinite; }
+@keyframes sc-glow { 50% { opacity: .55; } }
+.sc-z { animation: sc-z 3s ease-in-out infinite; }
+@keyframes sc-z { 0% { opacity: 0; transform: translate(0,4px);} 40% {opacity:.9;} 100% { opacity: 0; transform: translate(6px,-10px);} }
+.sc-pop { animation: sc-pop .6s cubic-bezier(.2,.8,.2,1.2) both; }
+@keyframes sc-pop { from { opacity: 0; transform: scale(.94);} to { opacity:1; transform:none; } }
+@media (prefers-reduced-motion: reduce) { .sc-breathe, .sc-glow, .sc-z, .sc-pop { animation: none !important; } }

@@ -1,0 +1,29 @@
+kind = "video"
+videoAspectRatio = "16:9"
+previewPath = "/bece-bridge-film/"
+title = "BECE Bridge — Product Overview"
+description = "A 30-second animated introduction to BECE Bridge for Illinois ECE students, showing course discovery, private sources, contextual tutoring and adjustable engineering visuals."
+version = "1.0.0"
+id = "artifacts/bece-bridge-film"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/bece-bridge-film/" ]
+localPort = 18851
+
+[services.development]
+run = "pnpm --filter @workspace/bece-bridge-film run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/bece-bridge-film", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/bece-bridge-film/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18851"
+BASE_PATH = "/bece-bridge-film/"

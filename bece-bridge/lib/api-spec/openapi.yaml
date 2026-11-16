@@ -1,0 +1,996 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+paths:
+  /bridge/shared-study/{courseId}:
+    get:
+      operationId: getSharedStudy
+      parameters:
+        - name: courseId
+          in: path
+          required: true
+          schema: { type: string, enum: ["110", "120", "210", "220"] }
+      responses:
+        "200":
+          description: Shared instructional selections and explicit topic gaps
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SharedStudyCoverage"
+        "400":
+          description: Invalid course
+  /bridge/resources/{id}/conversation:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema: { type: string }
+    get:
+      operationId: getTutorConversation
+      responses:
+        "200":
+          description: Owner-scoped follow-up history
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/TutorConversation" }
+    delete:
+      operationId: deleteTutorConversation
+      responses:
+        "200":
+          description: Cleared owner-scoped history with an advanced revision
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/TutorConversation" }
+    post:
+      operationId: askTutor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/TutorQuestion" }
+      responses:
+        "200":
+          description: Updated conversation
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/TutorConversation" }
+        "500":
+          description: Evidence or persistence failure with a diagnostic reference
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/TutorFailure" }
+        "502":
+          description: Provider, response-format or citation failure with a diagnostic reference
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/TutorFailure" }
+  /bridge/visuals/saved:
+    get:
+      operationId: listSavedVisuals
+      responses:
+        "200":
+          description: Owner's saved visuals
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: "#/components/schemas/SavedVisual" } }
+  /bridge/visuals/saved/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    patch:
+      operationId: updateSavedVisual
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/VisualParameters" }
+      responses:
+        "200":
+          description: Saved parameters
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/SavedVisual" }
+        "409": { description: Model changed; regenerate the visual }
+        "404": { description: Not found }
+    delete:
+      operationId: deleteSavedVisual
+      responses:
+        "204": { description: Deleted }
+        "404": { description: Not found }
+  /bridge/visuals/models:
+    get:
+      operationId: listVisualModels
+      responses:
+        "200":
+          description: Course-independent supported visualization models
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/VisualModelInfo" }
+  /bridge/visuals:
+    post:
+      operationId: generateVisual
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/VisualRequest" }
+      responses:
+        "200":
+          description: Calculated visual selected from a supported model
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/VisualResult" }
+        "422": { description: Requested visual is outside supported models }
+  /bridge/visuals/compute:
+    post:
+      operationId: computeVisual
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/VisualCompute" }
+      responses:
+        "200":
+          description: Recomputed visual without an AI call
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/VisualResult" }
+  /bridge/feedback:
+    post:
+      operationId: submitFeedback
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/FeedbackInput" }
+      responses:
+        "201":
+          description: Report saved
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ContentReport" }
+  /review/feedback:
+    get:
+      operationId: listReviewFeedback
+      responses:
+        "200":
+          description: Reviewer-only feedback
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: "#/components/schemas/ContentReport" } }
+  /review/feedback/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    patch:
+      operationId: updateReviewFeedback
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/FeedbackUpdate" }
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ContentReport" }
+  /auth/user:
+    get:
+      operationId: getCurrentAuthUser
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/AuthUserEnvelope" }
+  /login:
+    get:
+      operationId: beginBrowserLogin
+      responses:
+        "302": { description: Sign in redirect }
+  /callback:
+    get:
+      operationId: handleBrowserLoginCallback
+      responses:
+        "302": { description: Callback redirect }
+  /logout:
+    get:
+      operationId: logoutBrowserSession
+      responses:
+        "302": { description: Sign out redirect }
+  /mobile-auth/token-exchange:
+    post:
+      operationId: exchangeMobileAuthorizationCode
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/MobileTokenExchangeRequest" }
+      responses:
+        "200":
+          description: Session
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MobileTokenExchangeSuccess" }
+  /mobile-auth/logout:
+    post:
+      operationId: logoutMobileSession
+      responses:
+        "200":
+          description: Signed out
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/LogoutSuccess" }
+  /materials:
+    get:
+      operationId: listMaterials
+      responses:
+        "200":
+          description: Private materials
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: "#/components/schemas/Material" } }
+    post:
+      operationId: uploadMaterial
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema: { $ref: "#/components/schemas/MaterialInput" }
+      responses:
+        "201":
+          description: Extracted material
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Material" }
+  /materials/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    get:
+      operationId: getMaterial
+      responses:
+        "200":
+          description: Extracted pages
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MaterialDetail" }
+    delete:
+      operationId: deleteMaterial
+      responses:
+        "204": { description: Deleted }
+  /bridge/session:
+    get:
+      operationId: checkGuestSession
+      responses:
+        "200":
+          description: Existing cookie is recognized
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/GuestSession" }
+        "428": { description: Browser session needs initialization }
+    post:
+      operationId: initializeGuest
+      responses:
+        "200":
+          description: Browser learning session ready
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/GuestSession" }
+  /bridge/resources/{id}/reports:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string, format: uuid } }
+    post:
+      operationId: createResourceReport
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ResourceReportInput" }
+      responses:
+        "201":
+          description: Report submitted
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ResourceReport" }
+  /bridge/reports:
+    get:
+      operationId: listMyReports
+      responses:
+        "200":
+          description: Reports for this browser
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/ResourceReport" }
+  /admin/reports:
+    get:
+      operationId: listAdminReports
+      responses:
+        "200":
+          description: Latest 200 reports, authorized administrators only
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/ResourceReport" }
+        "401": { description: Sign in required }
+        "403": { description: Administrator role required }
+  /admin/reports/{id}:
+    patch:
+      operationId: reviewResourceReport
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ReportReview" }
+      responses:
+        "200":
+          description: Review saved without modifying learning metadata
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ResourceReport" }
+        "409": { description: Report was changed by another reviewer }
+  /bridge/courses:
+    get:
+      operationId: listCourses
+      responses:
+        "200":
+          description: Verified course catalog
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Course" }
+  /bridge/summary:
+    get:
+      operationId: getBridgeSummary
+      responses:
+        "200":
+          description: Catalog and personal learning overview
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/BridgeSummary" }
+  /bridge/journey:
+    get:
+      operationId: getJourney
+      responses:
+        "200":
+          description: This browser's saved learning journey
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Journey" }
+    put:
+      operationId: updateJourney
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/JourneyInput" }
+      responses:
+        "200":
+          description: Updated journey
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Journey" }
+  /bridge/lessons:
+    get:
+      operationId: listLessons
+      responses:
+        "200":
+          description: ECE 210 pilot lessons
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Lesson" }
+  /bridge/assessment:
+    post:
+      operationId: startAssessment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/AssessmentInput" }
+      responses:
+        "200":
+          description: Fresh numerically checked problems
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Assessment" }
+  /bridge/assessment/{courseId}/{id}:
+    get:
+      operationId: getUnfinishedAssessment
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string, format: uuid } }
+        - { name: courseId, in: path, required: true, schema: { type: string, enum: ["110", "120", "210", "220"] } }
+      responses:
+        "200":
+          description: Unfinished check owned by this browser, without solutions
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Assessment" }
+        "400": { description: Invalid identifier or course }
+        "404": { description: Check not found for this browser and course }
+        "409": { description: Check already completed }
+    delete:
+      operationId: discardAssessment
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string, format: uuid } }
+        - { name: courseId, in: path, required: true, schema: { type: string, enum: ["110", "120", "210", "220"] } }
+      responses:
+        "204": { description: Unfinished check discarded or already absent }
+        "400": { description: Invalid identifier or course }
+  /bridge/assessment/submit:
+    post:
+      operationId: submitAssessment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/AnswersInput" }
+      responses:
+        "200":
+          description: Scored assessment and targeted next steps
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/AssessmentResult" }
+  /bridge/resources:
+    get:
+      operationId: listResources
+      responses:
+        "200":
+          description: Saved resources
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Resource" }
+    post:
+      operationId: generateResource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ResourceInput" }
+      responses:
+        "200":
+          description: Generated and saved resource
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Resource" }
+  /bridge/resources/{id}:
+    delete:
+      operationId: deleteResource
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses:
+        "204": { description: Deleted }
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+components:
+  schemas:
+    TutorFailure:
+      type: object
+      required: [error, code, requestId]
+      properties:
+        error: { type: string }
+        code: { type: string }
+        requestId: { type: string }
+    TutorQuestion:
+      type: object
+      required: [question, mode, revision, processingConsent]
+      properties:
+        question: { type: string, minLength: 1, maxLength: 2000 }
+        mode: { type: string, enum: [teach, guided, solution, challenge] }
+        revision: { type: integer, minimum: 0 }
+        processingConsent: { type: boolean }
+    TutorConversation:
+      type: object
+      required: [revision, turns]
+      properties:
+        revision: { type: integer }
+        turns:
+          type: array
+          items: { $ref: "#/components/schemas/TutorTurn" }
+    TutorTurn:
+      type: object
+      required: [question, answer, mode, supported, sources, createdAt]
+      properties:
+        question: { type: string }
+        answer: { type: string }
+        mode: { type: string, enum: [teach, guided, solution, challenge] }
+        supported: { type: boolean }
+        visualPrompt: { type: string }
+        sources:
+          type: array
+          items: { $ref: "#/components/schemas/Source" }
+        createdAt: { type: string }
+    VisualParameters:
+      type: object
+      required: [values]
+      properties:
+        values: { type: object, additionalProperties: { type: number } }
+    SavedVisual:
+      type: object
+      required: [id, prompt, modelVersion, compatible, result, createdAt, materialIds]
+      properties:
+        id: { type: string }
+        prompt: { type: string }
+        modelVersion: { type: string }
+        compatible: { type: boolean }
+        createdAt: { type: string }
+        materialIds: { type: array, items: { type: string } }
+        result: { $ref: "#/components/schemas/VisualResult" }
+    VisualRequest:
+      type: object
+      required: [courseId, prompt]
+      properties:
+        courseId: { type: string }
+        prompt: { type: string, minLength: 5, maxLength: 1200 }
+        materialIds: { type: array, maxItems: 5, items: { type: string } }
+        sourceMode: { type: string, enum: [library, materials, combined] }
+        processingConsent: { type: boolean }
+    VisualModelInfo:
+      type: object
+      required: [id, title, formula, assumptions]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        formula: { type: string }
+        assumptions: { type: string }
+    VisualCompute:
+      type: object
+      required: [courseId, model, values]
+      properties:
+        recipe: { $ref: "#/components/schemas/VisualRecipe" }
+        courseId: { type: string }
+        model: { type: string }
+        values: { type: object, additionalProperties: { type: number } }
+    VisualControl:
+      type: object
+      required: [key, label, unit, min, max, step, value]
+      properties:
+        key: { type: string }
+        label: { type: string }
+        unit: { type: string }
+        min: { type: number }
+        max: { type: number }
+        step: { type: number }
+        value: { type: number }
+    VisualPoint:
+      type: object
+      required: [x, y]
+      properties:
+        x: { type: number }
+        y: { type: number }
+    VisualSeries:
+      type: object
+      required: [name, points]
+      properties:
+        mode: { type: string, enum: [line, points] }
+        name: { type: string }
+        points: { type: array, items: { $ref: "#/components/schemas/VisualPoint" } }
+    VisualResult:
+      type: object
+      required: [courseId, model, title, formula, assumptions, xLabel, yLabel, controls, series]
+      properties:
+        recipe: { $ref: "#/components/schemas/VisualRecipe" }
+        explanation: { type: string }
+        panels: { type: array, items: { $ref: "#/components/schemas/VisualPanel" } }
+        diagram: { $ref: "#/components/schemas/EngineeringDiagram" }
+        savedId: { type: string }
+        grounding: { type: string }
+        sources: { type: array, items: { $ref: "#/components/schemas/Source" } }
+        courseId: { type: string }
+        model: { type: string }
+        title: { type: string }
+        formula: { type: string }
+        assumptions: { type: string }
+        xLabel: { type: string }
+        yLabel: { type: string }
+        controls: { type: array, items: { $ref: "#/components/schemas/VisualControl" } }
+        series: { type: array, items: { $ref: "#/components/schemas/VisualSeries" } }
+    VisualRecipe:
+      type: object
+      required: [title, explanation, assumptions, controls, plots]
+      properties:
+        title: { type: string, maxLength: 160 }
+        explanation: { type: string, maxLength: 4000 }
+        assumptions: { type: string, maxLength: 2000 }
+        controls: { type: array, maxItems: 8, items: { $ref: "#/components/schemas/VisualControl" } }
+        plots: { type: array, minItems: 1, maxItems: 4, items: { $ref: "#/components/schemas/VisualPlotRecipe" } }
+    VisualPlotRecipe:
+      type: object
+      required: [title, xLabel, yLabel, curves]
+      properties:
+        title: { type: string, maxLength: 160 }
+        xLabel: { type: string, maxLength: 100 }
+        yLabel: { type: string, maxLength: 100 }
+        curves: { type: array, minItems: 1, maxItems: 4, items: { $ref: "#/components/schemas/VisualCurveRecipe" } }
+    VisualCurveRecipe:
+      type: object
+      required: [name, expression, min, max, samples, mode]
+      properties:
+        name: { type: string, maxLength: 160 }
+        expression: { type: string, maxLength: 800 }
+        min: { type: string, maxLength: 200 }
+        max: { type: string, maxLength: 200 }
+        samples: { type: string, maxLength: 200 }
+        mode: { type: string, enum: [line, points] }
+    VisualPanel:
+      type: object
+      required: [title, xLabel, yLabel, series]
+      properties:
+        title: { type: string }
+        xLabel: { type: string }
+        yLabel: { type: string }
+        series: { type: array, items: { $ref: "#/components/schemas/VisualSeries" } }
+    DiagramNode:
+      type: object
+      additionalProperties: false
+      required: [id, label, kind, x, y]
+      properties:
+        id: { type: string, pattern: "^[a-z][a-z0-9-]{0,31}$" }
+        label: { type: string, maxLength: 100 }
+        kind: { type: string, enum: [junction, ground, input, output, sum, gain, state] }
+        x: { type: number, minimum: 40, maximum: 720 }
+        y: { type: number, minimum: 40, maximum: 440 }
+        initial: { type: boolean }
+    DiagramEdge:
+      type: object
+      additionalProperties: false
+      required: [id, from, to, kind, label]
+      properties:
+        id: { type: string, pattern: "^[a-z][a-z0-9-]{0,31}$" }
+        from: { type: string }
+        to: { type: string }
+        kind: { type: string, enum: [wire, resistor, voltage-source, signal, transition] }
+        label: { type: string, maxLength: 100 }
+        sign: { type: string, enum: [positive, negative] }
+        bend: { type: number, minimum: -100, maximum: 100 }
+    EngineeringDiagram:
+      type: object
+      additionalProperties: false
+      required: [kind, description, nodes, edges]
+      properties:
+        kind: { type: string, enum: [circuit, signal-flow, state-machine] }
+        description: { type: string, maxLength: 1000 }
+        nodes: { type: array, minItems: 2, maxItems: 12, items: { $ref: "#/components/schemas/DiagramNode" } }
+        edges: { type: array, minItems: 1, maxItems: 24, items: { $ref: "#/components/schemas/DiagramEdge" } }
+    FeedbackInput:
+      type: object
+      required: [resourceId, category, comment]
+      properties:
+        resourceId: { type: string }
+        category: { type: string, enum: [scope, equation, solution, missing, diagram, citation, too-basic, too-advanced] }
+        comment: { type: string, minLength: 1, maxLength: 2000 }
+    FeedbackUpdate:
+      type: object
+      required: [status]
+      properties:
+        status: { type: string, enum: [open, reviewing, resolved, dismissed] }
+    ContentReport:
+      type: object
+      required: [id, resourceId, courseId, topic, category, comment, status, createdAt]
+      properties:
+        id: { type: string }
+        resourceId: { type: string }
+        courseId: { type: string }
+        topic: { type: string }
+        category: { type: string }
+        comment: { type: string }
+        status: { type: string }
+        createdAt: { type: string }
+    AuthUser:
+      type: object
+      required: [id, email, firstName, lastName, profileImageUrl]
+      properties:
+        id: { type: string }
+        email: { type: [string, "null"] }
+        firstName: { type: [string, "null"] }
+        lastName: { type: [string, "null"] }
+        profileImageUrl: { type: [string, "null"] }
+    AuthUserEnvelope:
+      type: object
+      required: [user]
+      properties:
+        user:
+          oneOf:
+            - { $ref: "#/components/schemas/AuthUser" }
+            - { type: "null" }
+    MobileTokenExchangeRequest:
+      type: object
+      required: [code, code_verifier, redirect_uri, state]
+      properties:
+        code: { type: string, minLength: 1 }
+        code_verifier: { type: string, minLength: 1 }
+        redirect_uri: { type: string, minLength: 1 }
+        state: { type: string, minLength: 1 }
+        nonce: { type: string }
+    MobileTokenExchangeSuccess:
+      type: object
+      required: [token]
+      properties:
+        token: { type: string }
+    LogoutSuccess:
+      type: object
+      required: [success]
+      properties:
+        success: { type: boolean }
+    MaterialInput:
+      type: object
+      required: [file, courseId]
+      properties:
+        file: { type: string, format: binary }
+        courseId: { type: string }
+    Material:
+      type: object
+      required: [id, courseId, title, pageCount, createdAt]
+      properties:
+        id: { type: string }
+        courseId: { type: string }
+        title: { type: string }
+        pageCount: { type: integer }
+        createdAt: { type: string }
+    MaterialPage:
+      type: object
+      required: [page, text]
+      properties:
+        page: { type: integer }
+        text: { type: string }
+    MaterialDetail:
+      type: object
+      required: [id, title, pages]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        pages: { type: array, items: { $ref: "#/components/schemas/MaterialPage" } }
+    GuestSession:
+      type: object
+      required: [ready]
+      properties:
+        ready: { type: boolean }
+    ResourceReportInput:
+      type: object
+      required: [category, details]
+      properties:
+        category:
+          type: string
+          enum: [course-scope, equation, solution, missing-information, diagram, citation, too-basic, too-advanced]
+        details: { type: string, minLength: 10, maxLength: 4000 }
+    ReportReview:
+      type: object
+      required: [status, reviewNote, version]
+      properties:
+        status: { type: string, enum: [open, in-review, resolved, dismissed] }
+        reviewNote: { type: string, minLength: 1, maxLength: 2000 }
+        version: { type: integer, minimum: 0 }
+    ResourceReport:
+      type: object
+      required: [id, resourceId, generationId, courseId, topic, resourceTitle, category, details, status, reviewNote, version, createdAt, updatedAt]
+      properties:
+        id: { type: string }
+        resourceId: { type: string }
+        generationId: { type: string }
+        courseId: { type: string }
+        topic: { type: string }
+        resourceTitle: { type: string }
+        category: { type: string }
+        details: { type: string }
+        status: { type: string, enum: [open, in-review, resolved, dismissed] }
+        reviewNote: { type: string }
+        version: { type: integer }
+        createdAt: { type: string }
+        updatedAt: { type: string }
+    Source:
+      type: object
+      required: [title, url, kind, checkedAt]
+      properties:
+        title: { type: string }
+        url: { type: string }
+        kind: { type: string }
+        checkedAt: { type: string }
+    Course:
+      type: object
+      required: [id, code, title, description, credits, prerequisites, level, coverage, topics, sources, isPilot, instructionalCoverage]
+      properties:
+        assessedConcepts: { type: array, items: { type: string } }
+        id: { type: string }
+        code: { type: string }
+        title: { type: string }
+        description: { type: string }
+        credits: { type: string }
+        prerequisites: { type: string }
+        level: { type: integer }
+        coverage: { type: string, enum: [pilot, catalog] }
+        isPilot: { type: boolean }
+        instructionalCoverage: { type: string }
+        topics: { type: array, items: { type: string } }
+        sources: { type: array, items: { $ref: "#/components/schemas/Source" } }
+    BridgeSummary:
+      type: object
+      required: [courseCount, pilotCount, savedCount, assessmentCount, resourceCount, checkedAt]
+      properties:
+        courseCount: { type: integer }
+        pilotCount: { type: integer }
+        savedCount: { type: integer }
+        assessmentCount: { type: integer }
+        resourceCount: { type: integer }
+        checkedAt: { type: string }
+    JourneyInput:
+      type: object
+      required: [savedCourses, weeklyHours, goal]
+      properties:
+        savedCourses: { type: array, maxItems: 200, items: { type: string } }
+        weeklyHours: { type: integer, minimum: 1, maximum: 40 }
+        goal: { type: string, maxLength: 500 }
+    Journey:
+      allOf:
+        - { $ref: "#/components/schemas/JourneyInput" }
+        - type: object
+          required: [progress, attempts]
+          properties:
+            progress: { type: array, items: { $ref: "#/components/schemas/ConceptProgress" } }
+            attempts: { type: array, items: { $ref: "#/components/schemas/AssessmentResult" } }
+    ConceptProgress:
+      type: object
+      required: [concept, correct, total, status]
+      properties:
+        courseId: { type: string, default: "210" }
+        concept: { type: string }
+        correct: { type: integer }
+        total: { type: integer }
+        status: { type: string }
+    Lesson:
+      type: object
+      required: [id, title, concept, minutes, content, sources]
+      properties:
+        courseId: { type: string, default: "210" }
+        id: { type: string }
+        title: { type: string }
+        concept: { type: string }
+        minutes: { type: integer }
+        content: { type: string }
+        sources: { type: array, items: { $ref: "#/components/schemas/Source" } }
+    AssessmentInput:
+      type: object
+      required: [mode]
+      properties:
+        courseId: { type: string, enum: ["110", "120", "210", "220"], default: "210" }
+        mode: { type: string, enum: [diagnostic, practice, recheck] }
+    Assessment:
+      type: object
+      required: [id, mode, questions]
+      properties:
+        courseId: { type: string, default: "210" }
+        id: { type: string }
+        mode: { type: string }
+        questions: { type: array, items: { $ref: "#/components/schemas/Question" } }
+    Question:
+      type: object
+      required: [id, concept, prompt, unit, hint]
+      properties:
+        id: { type: string }
+        concept: { type: string }
+        prompt: { type: string }
+        unit: { type: string }
+        hint: { type: string }
+    AnswersInput:
+      type: object
+      required: [assessmentId, answers]
+      properties:
+        assessmentId: { type: string }
+        answers:
+          type: array
+          maxItems: 10
+          items: { $ref: "#/components/schemas/Answer" }
+    Answer:
+      type: object
+      required: [questionId, value]
+      properties:
+        questionId: { type: string }
+        value: { type: number }
+    AssessmentResult:
+      type: object
+      required: [id, mode, score, total, createdAt, feedback, recommendation]
+      properties:
+        courseId: { type: string, default: "210" }
+        id: { type: string }
+        mode: { type: string }
+        score: { type: integer }
+        total: { type: integer }
+        createdAt: { type: string }
+        feedback: { type: array, items: { $ref: "#/components/schemas/Feedback" } }
+        recommendation: { type: string }
+    Feedback:
+      type: object
+      required: [concept, correct, expected, submitted, explanation, lessonId]
+      properties:
+        concept: { type: string }
+        correct: { type: boolean }
+        expected: { type: number }
+        submitted: { type: number }
+        explanation: { type: string }
+        lessonId: { type: string }
+    ResourceInput:
+      type: object
+      required: [kind, topic]
+      properties:
+        materialIds: { type: array, maxItems: 5, items: { type: string } }
+        sourceMode: { type: string, enum: [library, materials, combined] }
+        processingConsent: { type: boolean }
+        courseId: { type: string }
+        kind: { type: string, enum: [module, study-plan, flashcards, practice-exam, cheat-sheet, explanation] }
+        topic: { type: string, minLength: 1, maxLength: 1200 }
+    Resource:
+      type: object
+      required: [id, kind, topic, title, content, createdAt, sources, disclaimer]
+      properties:
+        sourceMode: { type: string, enum: [library, materials, combined] }
+        materialIds: { type: array, items: { type: string } }
+        courseId: { type: string }
+        id: { type: string }
+        kind: { type: string }
+        topic: { type: string }
+        title: { type: string }
+        content: { type: string }
+        createdAt: { type: string }
+        sources: { type: array, items: { $ref: "#/components/schemas/Source" } }
+        disclaimer: { type: string }
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    SharedStudyCoverage:
+      type: object
+      required: [entries, uncoveredTopics]
+      properties:
+        uncoveredTopics: { type: array, items: { type: string } }
+        entries:
+          type: array
+          items: { $ref: "#/components/schemas/SharedStudyEntry" }
+    SharedStudyEntry:
+      type: object
+      required: [id, title, url, revisionUrl, locator, text, changes, topics, license, licenseUrl, permissionUrl, checkedAt, attribution]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        url: { type: string }
+        revisionUrl: { type: string }
+        locator: { type: string }
+        text: { type: string }
+        changes: { type: string }
+        topics: { type: array, items: { type: string } }
+        license: { type: string }
+        licenseUrl: { type: string }
+        permissionUrl: { type: string }
+        checkedAt: { type: string }
+        attribution: { type: string }
+

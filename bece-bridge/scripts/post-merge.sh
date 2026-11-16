@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+pnpm install --frozen-lockfile
+pnpm --filter @workspace/api-spec run codegen
+pnpm --filter @workspace/db run push
+pnpm --filter @workspace/scripts exec tsx ../artifacts/api-server/src/scripts/initialize-usage.ts

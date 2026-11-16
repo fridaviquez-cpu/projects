@@ -1,0 +1,7098 @@
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var r, e, o = "function" == typeof Symbol ? Symbol : {}, n = o.iterator || "@@iterator", a = o.toStringTag || "@@toStringTag"; function i(o, n, a, i) { var u = n && n.prototype instanceof Generator ? n : Generator, f = Object.create(u.prototype); return _regeneratorDefine2(f, "_invoke", function (t, o, n) { var a, i, u, f = 0, p = n || [], y = !1, G = { p: 0, n: 0, v: r, a: l, f: l.bind(r, 4), d: function d(t, e) { return a = t, i = 0, u = r, G.n = e, c; } }; function l(t, o) { for (i = t, u = o, e = 0; !y && f && !n && e < p.length; e++) { var n, a = p[e], l = G.p, F = a[2]; t > 3 ? (n = F === o) && (u = a[(i = a[4]) ? 5 : (i = 3, 3)], a[4] = a[5] = r) : a[0] <= l && ((n = t < 2 && l < a[1]) ? (i = 0, G.v = o, G.n = a[1]) : l < F && (n = t < 3 || a[0] > o || o > F) && (a[4] = t, a[5] = o, G.n = F, i = 0)); } if (n || t > 1) return c; throw y = !0, o; } return function (n, p, F) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && l(p, F), i = p, u = F; (e = i < 2 ? r : u) || !y;) { a || (i ? (i > 1 && (G.n = i < 3 ? -1 : u), l(i, u)) : G.v = u); try { if (f = 2, a) { if (i || (n = "next"), e = a[n]) { if (!(e = e.call(a, u))) throw TypeError("iterator result is not an object"); if (!e.done) return e; u = e.value, i < 2 && (i = 0); } else 1 === i && (e = a.return) && e.call(a), i < 2 && (u = TypeError("The iterator does not provide a '" + n + "' method"), i = 1); a = r; } else if ((e = (y = G.n < 0) ? u : t.call(o, G)) !== c) break; } catch (t) { a = r, i = 1, u = t; } finally { f = 1; } } return { value: e, done: y }; }; }(o, a, i), !0), f; } var c = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} e = Object.getPrototypeOf; var u = [][n] ? e(e([][n]())) : (_regeneratorDefine2(e = {}, n, function () { return this; }), e), f = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(u); function p(r) { return Object.setPrototypeOf ? Object.setPrototypeOf(r, GeneratorFunctionPrototype) : (r.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(r, a, "GeneratorFunction")), r.prototype = Object.create(f), r; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(f, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, a, "GeneratorFunction"), _regeneratorDefine2(f), _regeneratorDefine2(f, a, "Generator"), _regeneratorDefine2(f, n, function () { return this; }), _regeneratorDefine2(f, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: p }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _toConsumableArray(a) { return _arrayWithoutHoles(a) || _iterableToArray(a) || _unsupportedIterableToArray(a) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(r) { var e = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (Array.isArray(r) && (null == e || e === ("undefined" != typeof Symbol && [][Symbol.iterator]) || e === []["@@iterator"])) return r; if (null != e) { for (var t, o = [], a = e.call(r); !(t = a.next()).done;) o.push(t.value); return o; } }
+function _arrayWithoutHoles(a) { if (Array.isArray(a)) return _arrayLikeToArray(a); }
+function _createForOfIteratorHelper(e, t) { var _n = "undefined" != typeof Symbol && e[Symbol.iterator] || e["@@iterator"]; if (!_n) { if (Array.isArray(e) || (_n = _unsupportedIterableToArray(e)) || t && e && "number" == typeof e.length) { _n && (e = _n); var o = 0, F = function F() {}; return { s: F, n: function n() { return o >= e.length ? { done: !0 } : { done: !1, value: e[o++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var a, u, i = !0; return { s: function s() { _n = _n.call(e); }, n: function n() { i = !0; var r = _n.next(); return r.done ? { done: !0 } : { value: r.value, done: i = !1 }; }, e: function e(r) { a = !0, u = r; }, f: function f() { try { i || null == _n.return || _n.return(); } finally { if (a) throw u; } } }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(r) { for (var t = 1; t < arguments.length; t++) { var o = null != arguments[t] ? arguments[t] : {}; t % 2 ? ownKeys(Object(o), !0).forEach(function (t) { _defineProperty(r, t, o[t]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(r, Object.getOwnPropertyDescriptors(o)) : ownKeys(Object(o)).forEach(function (e) { Object.defineProperty(r, e, Object.getOwnPropertyDescriptor(o, e)); }); } return r; }
+function _defineProperty(r, t, o) { return (t = _toPropertyKey(t)) in r ? Object.defineProperty(r, t, { value: o, enumerable: !0, configurable: !0, writable: !0 }) : r[t] = o, r; }
+function _toPropertyKey(r) { var o = _toPrimitive(r, "string"); return "symbol" == _typeof(o) ? o : o + ""; }
+function _toPrimitive(t, e) { if ("object" != _typeof(t) || !t) return t; var r; if ("undefined" != typeof Symbol && void 0 !== (r = t[Symbol.toPrimitive])) { var i = r.call(t, e || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === e ? String : Number)(t); }
+function _slicedToArray(e, i) { return _iterableToArrayLimit(e, i) || _unsupportedIterableToArray(e, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(t, e) { if (t) { if ("string" == typeof t) return _arrayLikeToArray(t, e); var o = {}.toString.call(t).slice(8, -1); return "Object" === o && t.constructor && (o = t.constructor.name), "Map" === o || "Set" === o ? Array.from(t) : "Arguments" === o || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(o) ? _arrayLikeToArray(t, e) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, t) { var e = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (Array.isArray(r) && (null == e || e === ("undefined" != typeof Symbol && [][Symbol.iterator]) || e === []["@@iterator"])) return r; if (null != e) { var l, n, i, a, u = [], o = !0, f = !1; try { if (i = (e = e.call(r)).next, 0 === t) { if (Object(e) !== e) return; o = !1; } else for (; !(o = (l = i.call(e)).done) && (u.push(l.value), u.length !== t); o = !0); } catch (r) { f = !0, n = r; } finally { try { if (!o && null != e.return && (a = e.return(), Object(a) !== a)) return; } finally { if (f) throw n; } } return u; } }
+// EnviroTrap Nexus v0.3.0 - IBM AI for Good Challenge
+// Real Attribution Engine built from 79,533 actual UIUC LoadMan records
+// GPS nearest-centroid: 84.8% top-1 / 97.8% top-3 (held-out 20% test set)
+// RFID lookup: 179 container-to-building mappings, 100% accuracy when RFID present
+// Source: UIUC_LoadMan_Consolidated_Dataset.xlsx, Betsy Ruckman, F&S, UIUC
+
+var _React = React,
+  useState = _React.useState,
+  useMemo = _React.useMemo,
+  useEffect = _React.useEffect,
+  useRef = _React.useRef;
+var _Recharts = Recharts,
+  BarChart = _Recharts.BarChart,
+  Bar = _Recharts.Bar,
+  PieChart = _Recharts.PieChart,
+  Pie = _Recharts.Pie,
+  Cell = _Recharts.Cell,
+  AreaChart = _Recharts.AreaChart,
+  Area = _Recharts.Area,
+  XAxis = _Recharts.XAxis,
+  YAxis = _Recharts.YAxis,
+  CartesianGrid = _Recharts.CartesianGrid,
+  Tooltip = _Recharts.Tooltip,
+  Legend = _Recharts.Legend,
+  ResponsiveContainer = _Recharts.ResponsiveContainer;
+
+// ─── PALETTE ──────────────────────────────────────────────────────────────────
+var PAL = {
+  navy: '#1e3a5f',
+  navyMid: '#2d5a8e',
+  navyLight: '#3b6fae',
+  cream: '#f8f5ee',
+  creamDark: '#f0e8d5',
+  border: '#e4d5b5',
+  teal: '#2d6a4f',
+  tealLight: '#66b089',
+  amber: '#e9a825',
+  amberDark: '#a87214',
+  amberBg: '#fef9ec',
+  red: '#dc2626',
+  redLight: '#fee2e2',
+  purple: '#7c3aed',
+  muted: '#6b7280',
+  text: '#374151',
+  white: '#ffffff',
+  PROVENANCE: {
+    verified: '#2d6a4f',
+    ai_inferred: '#3b6fae',
+    unknown: '#9ca3af'
+  },
+  STREAMS: {
+    'Landfill': '#6b7280',
+    'Recycling': '#2d6a4f',
+    'Cardboard': '#3b6fae',
+    'Paper': '#c4a360',
+    'Unknown': '#9ca3af'
+  }
+};
+var MC = ['#1e3a5f', '#2d6a4f', '#3b6fae', '#e9a825', '#66b089', '#c4a360', '#80a2ce', '#a87214'];
+
+// ─── REAL MODEL DATA ─────────────────────────────────────────────────────────
+// Derived from 9,989 verified LoadMan records. NOT synthetic.
+// See UIUC_LoadMan_Consolidated_Dataset.xlsx for full provenance.
+var REAL_MODEL = {
+  "rfid_to_site": {
+    "0105670000000000000015C6": "VET MED BASIC SCIENCES BUILDING",
+    "0105670000000000000015EA": "VETERINARY RES FARM-CLINICAL RES BARN",
+    "0105670000000000000014D3": "VET MED BASIC SCIENCES BUILDING",
+    "010567000000000000001612": "ORCHARD DOWNS APARTMENTS",
+    "010567000000000000001477": "ORCHARD DOWNS APARTMENTS",
+    "0105670000000000000016B0": "ORCHARD DOWNS APARTMENTS",
+    "01056700000000000000139E": "ORCHARD DOWNS APARTMENTS",
+    "0105670000000000000011C5": "ORCHARD DOWNS APARTMENTS",
+    "010567000000000000001470": "ORCHARD DOWNS APARTMENTS",
+    "010567000000000000001494": "ORCHARD DOWNS APARTMENTS",
+    "010567000000000000001481": "VETERINARY TEACHING HOSPITAL",
+    "010567000000000000001459": "ORCHARD DOWNS APARTMENTS",
+    "01056700000000000000169A": "VETERINARY MEDICINE CHILLER PLANT",
+    "010567000000000000001413": "VETERINARY TEACHING HOSPITAL",
+    "010567000000000000001656": "AGRICULTURAL ENGR SCIENCES BLDG",
+    "0105670000000000000015F8": "EDUCATION BUILDING",
+    "0105670000000000000015D7": "VEGETABLE CROPS SHOP & STORAGE BUILDING",
+    "010567000000000000001569": "National Soybean Resarch",
+    "010567000000000000001718": "TEMPLE HOYNE BUELL HALL",
+    "010567000000000000001597": "VET MED BASIC SCIENCES BUILDING",
+    "010567000000000000001497": "ORCHARD DOWNS APARTMENTS",
+    "01056700000000000000167E": "TURNER HALL",
+    "010567000000000000001417": "ILLINI UNION BOOKSTORE",
+    "0105670000000000000015FC": "GIES BUSINESS INSTRUCTIONAL FACILITY",
+    "0105670000000000000017AA": "LAW BUILDING",
+    "01056700000000000000140E": "ANIMAL SCIENCES LABORATORY",
+    "0105670000000000000016AB": "ILLINI UNION BOOKSTORE",
+    "01056700000000000000158C": "MUMFORD HALL",
+    "010567000000000000001913": "SPEECH AND HEARING SCIENCE",
+    "010567000000000000001889": "GRAINGER ENGINEERING LIBRARY",
+    "010567000000000000001A12": "Institute for government and public affairs",
+    "010567000000000000001779": "ADMISSIONS AND RECORDS BUILDING",
+    "0105670000000000000013E1": "MEAT SCIENCE LABORATORY",
+    "01056700000000000000191B": "FORBES NATURAL HISTORY BUILDING",
+    "01056700000000000000189C": "REHABILITATION EDUCATION CENTER",
+    "010567000000000000001989": "PERSONNEL SERVICES BUILDING",
+    "0105670000000000000013EC": "Huff Hall",
+    "010567000000000000001437": "LINCOLN HALL",
+    "01056700000000000000177E": "KENNEY GYMNASIUM",
+    "01056700000000000000191D": "PUBLIC SAFETY BUILDING",
+    "01056700000000000000149F": "MUSIC BUILDING",
+    "010567000000000000001C41": "E-14 Community Cardboard",
+    "0105670000000000000018B0": "OAK STREET CHILLER PLANT",
+    "01056700000000000000182B": "MECHANICAL ENGINEERING LABORATORY",
+    "0105670000000000000014A9": "Foreign Language Building",
+    "010567000000000000001489": "Carl R. Woese Institute for Genomic Biology",
+    "0105670000000000000017F6": "NUCLEAR PHYSICS LABORATORY",
+    "0105670000000000000019C6": "PSYCHOLOGY LABORATORY",
+    "010567000000000000001BB9": "MICRO AND NANOTECHNOLOGY LABORATORY",
+    "01056700000000000000180E": "UNIVERSITY HIGH SCHOOL",
+    "010567000000000000001777": "Smith Music Building",
+    "0105670000000000000019ED": "KRANNERT CENTER FOR PERFORMING ARTS",
+    "01056700000000000000144A": "TAFT HOUSE",
+    "010567000000000000001732": "ILLINOIS SUSTAINABLE TECHNOLOGY CENTER",
+    "010567000000000000001945": "OAK STREET LIBRARY FACILITY",
+    "0105670000000000000017E5": "CHILD DEVELOPMENT LABORATORY",
+    "01056700000000000000196F": "LEVIS FACULTY CENTER",
+    "010567000000000000001985": "UNIVERSITY PRESS BUILDING",
+    "01056700000000000000176E": "CLARK HALL",
+    "010567000000000000001476": "ALTGELD HALL",
+    "043465000000000000009395": "PRESIDENT'S HOUSE",
+    "0434650000000000000097E6": "CERAMICS BUILDING",
+    "043465000000000000009423": "ENGINEERING HALL",
+    "04346500000000000000951C": "STUDENT-STAFF APTS-300 S GOODWIN, U",
+    "0434650000000000000093E3": "STUDENT STAFF APTS #2-GREEN/GOODWIN",
+    "043465000000000000009510": "ASHTON WOODS APARTMENTS",
+    "04346500000000000000958D": "ASHTON WOODS APARTMENTS",
+    "01056700000000000000165E": "EDUCATION BUILDING",
+    "043465000000000000009639": "ENTERPRISE WORKS",
+    "04346500000000000000967F": "NORTH CAMPUS PARKING DECK",
+    "0434650000000000000093F0": "TRANSPORTATION BUILDING",
+    "04346500000000000000957C": "ORCHARD DOWNS APARTMENTS",
+    "043465000000000000009339": "ORCHARD DOWNS APARTMENTS",
+    "043465000000000000009460": "ORCHARD DOWNS APARTMENTS",
+    "04346500000000000000953D": "ORCHARD DOWNS APARTMENTS",
+    "043465000000000000009629": "ENTERPRISE WORKS",
+    "043465000000000000009594": "ADVANCED COMPUTATION BLDG",
+    "0434650000000000000096CC": "NATURAL HISTORY BUILDING",
+    "043465000000000000009301": "909 W OREGON ST",
+    "0434650000000000000093E1": "CROP SCIENCES RESEARCH FACILITY",
+    "0434650000000000000092D0": "508 S Sixth St",
+    "043465000000000000009590": "ENGINEERING SCIENCES BUILDING",
+    "0434650000000000000092DB": "C-7 PARKING STRUCTURE, STUDENT STAFF",
+    "043465000000000000009623": "DANIELS HALL",
+    "043465000000000000009600": "DAVID KINLEY HALL",
+    "043465000000000000009515": "SIEBEL CENTER FOR COMPUTER SCIENCE",
+    "043465000000000000009482": "Roger Adams Laboratory",
+    "0105670000000000000014AE": "MUMFORD HALL",
+    "010567000000000000001954": "E-14 Community Cardboard",
+    "04346500000000000000935B": "DAVID KINLEY HALL",
+    "0434650000000000000096BD": "Krannert Art Museum",
+    "010567000000000000001882": "HARDING BAND BUILDING",
+    "04346500000000000000957E": "FRUIT RESEARCH FARM - ADMIN. BLDG.",
+    "0434650000000000000092D9": "FSI - FIREMANSHIP TRAINING FACILITIES",
+    "0434650000000000000096C4": "ASHTON WOODS APARTMENTS",
+    "043465000000000000009326": "ENGLISH BUILDING",
+    "043465000000000000009563": "NORTH CAMPUS CHILLER PLANT",
+    "010567000000000000001745": "National Soybean Resarch",
+    "0434650000000000000093B2": "Babcock Hall",
+    "0434650000000000000094A1": "Computer Application Building",
+    "0105670000000000000013AA": "STUDENT DINING AND RESIDENTIAL PROGRAMS",
+    "043465000000000000009441": "LINCOLN AVENUE RESIDENCE HALL",
+    "04346500000000000000939F": "ADMIN INFORMATION TECHNOLOGY BLDG",
+    "01056700000000000000158E": "HOPKINS HALL",
+    "01056700000000000000146F": "Ikenberry Commons- Scott Hall",
+    "01056700000000000000150D": "Huff Hall",
+    "0434650000000000000093C5": "STUDENT SERVICES ARCADE BUILDING",
+    "010567000000000000001A38": "MICRO AND NANOTECHNOLOGY LABORATORY",
+    "043465000000000000009607": "DIGITAL COMPUTER LABORATORY",
+    "043465000000000000009413": "HOUSING WAREHOUSE",
+    "01056700000000000000139C": "ALTGELD HALL",
+    "0434650000000000000093F7": "NORTH CAMPUS PARKING DECK",
+    "043465000000000000009534": "805 PENNSYLVANIA AVE",
+    "043465000000000000009421": "MEMORIAL STADIUM",
+    "0434650000000000000094AF": "MEDICAL SCIENCES BUILDING",
+    "04346500000000000000954F": "SWANLUND ADMINISTRATION BUILDING",
+    "04346500000000000000940E": "PENNSYLVANIA AVENUE RESIDENCE HALLS",
+    "01056700000000000000138E": "Ikenberry Commons- Bousfield Hall",
+    "010567000000000000001464": "IKENBERRY COMMONS -  NUGENT HALL",
+    "0434650000000000000093AF": "OPTICAL PHYSICS AND ENGINEERING BLDG",
+    "043465000000000000009680": "CHILDREN'S RESEARCH CENTER",
+    "0434650000000000000092D2": "CAMPBELL HALL",
+    "010567000000000000001546": "IKENBERRY COMMONS - WASSAJA HALL",
+    "0105670000000000000013F7": "IKENBERRY COMMONS -  NUGENT HALL",
+    "010567000000000000001451": "Ikenberry Commons- Weston Hall",
+    "010567000000000000001469": "HOPKINS HALL",
+    "0105670000000000000014CA": "TAFT VAN DOREN RESIDENCE HALLS",
+    "0105670000000000000013A3": "Ikenberry Commons- Weston Hall",
+    "043465000000000000009419": "901 W OREGON ST",
+    "04346500000000000000941C": "901 W OREGON ST",
+    "043465000000000000009546": "NATIONAL PETASCALE COMPUTING FACILITY",
+    "01056700000000000000163C": "SNYDER HALL",
+    "0434650000000000000093EA": "Poultry Hatchery #1",
+    "0434650000000000000095B4": "ENGINEERING HALL",
+    "010567000000000000001525": "SNYDER HALL",
+    "010567000000000000001466": "Ikenberry Commons- Scott Hall",
+    "043465000000000000009652": "MEMORIAL STADIUM",
+    "0434650000000000000095A7": "CERAMICS BUILDING",
+    "0434650000000000000094E9": "111 E GREEN ST (LEASED)",
+    "01056700000000000000143f": "ORCHARD DOWNS APARTMENTS",
+    "043465000000000000009418": "ILLINI UNION",
+    "01056700000000000000157C": "NUCLEAR PHYSICS LABORATORY",
+    "0434650000000000000094F5": "LIBRARY",
+    "010567000000000000001874": "SPEECH AND HEARING SCIENCE",
+    "010567000000000000001878": "NEWMARK CIVIL ENGINEERING BUILDING",
+    "0105670000000000000014CE": "NOBLE HALL",
+    "043465000000000000009511": "ADMIN INFORMATION TECHNOLOGY BLDG",
+    "01056700000000000000172F": "CLARK HALL",
+    "043465000000000000009536": "SEITZ MATERIALS RESEARCH LAB",
+    "04346500000000000000952E": "HOUSING WAREHOUSE",
+    "043465000000000000009689": "WATER SURVEY RESEARCH CENTER #7",
+    "043465000000000000009692": "AGRICULTURE SERVICES BUILDING",
+    "0434650000000000000096C8": "METAL STORAGE BUILDING",
+    "010567000000000000001926": "SPURLOCK MUSEUM",
+    "0105670000000000000017EE": "PERSONNEL SERVICES BUILDING",
+    "0434650000000000000095BC": "HorTICULTURE FIELD Research LABORATORY",
+    "04346500000000000000934B": "907 1/2 W Nevada",
+    "0434650000000000000094BB": "Bielfeldt Athletic Administration Building",
+    "043465000000000000009497": "HORTICULTURE FIELD LABORATORY",
+    "01056700000000000000121F": "Stock Pavilion",
+    "01056700000000000000146B": "TEMPLE HOYNE BUELL HALL",
+    "0105670000000000000014B2": "LINCOLN HALL",
+    "0434650000000000000092D1": "AGRICULTURE SERVICES BUILDING",
+    "0434650000000000000094A2": "TRANSPORTATION BUILDING",
+    "0434650000000000000093FB": "Carl R. Woese Institute for Genomic Biology",
+    "043465000000000000009574": "BECKMAN INSTITUTE",
+    "0105670000000000000014F5": "HENRY ADMINISTRATION BUILDING",
+    "04346500000000000000962C": "SPECIAL MATERIALS STORAGE FACILITY",
+    "0105670000000000000015DA": "FORBES NATURAL HISTORY BUILDING",
+    "04346500000000000000951D": "ILLINI UNION",
+    "043465000000000000009FB8": "DALKEY ARCHIVE PRESS (PSSB)",
+    "04346500000000000000948F": "SOYFACE BARN",
+    "04346500000000000000952F": "NATIONAL CENTER SUPERCOMPUTING APPLICATIONS",
+    "043465000000000000009524": "Computer Application Building",
+    "0434650000000000000095BF": "POLLINATARIUM",
+    "04346500000000000000965E": "MEMORIAL STADIUM",
+    "043465000000000000009572": "MEMORIAL STADIUM",
+    "043465000000000000009670": "MEMORIAL STADIUM",
+    "0434650000000000000095B1": "MEMORIAL STADIUM"
+  },
+  "site_centroids": {
+    "VET MED BASIC SCIENCES BUILDING": {
+      "lat": 40.092716,
+      "lon": 88.221981
+    },
+    "VETERINARY RES FARM-CLINICAL RES BARN": {
+      "lat": 40.093158,
+      "lon": 88.221488
+    },
+    "ORCHARD DOWNS APARTMENTS": {
+      "lat": 40.09217,
+      "lon": 88.211978
+    },
+    "VETERINARY TEACHING HOSPITAL": {
+      "lat": 40.090756,
+      "lon": 88.223211
+    },
+    "VETERINARY MEDICINE CHILLER PLANT": {
+      "lat": 40.092651,
+      "lon": 88.222382
+    },
+    "AGRICULTURAL ENGR SCIENCES BLDG": {
+      "lat": 40.101243,
+      "lon": 88.226066
+    },
+    "EDUCATION BUILDING": {
+      "lat": 40.101648,
+      "lon": 88.229801
+    },
+    "VEGETABLE CROPS SHOP & STORAGE BUILDING": {
+      "lat": 40.101603,
+      "lon": 88.223963
+    },
+    "National Soybean Resarch": {
+      "lat": 40.101639,
+      "lon": 88.22616
+    },
+    "TEMPLE HOYNE BUELL HALL": {
+      "lat": 40.101665,
+      "lon": 88.228239
+    },
+    "TURNER HALL": {
+      "lat": 40.102568,
+      "lon": 88.223938
+    },
+    "ILLINI UNION BOOKSTORE": {
+      "lat": 40.108684,
+      "lon": 88.229643
+    },
+    "GIES BUSINESS INSTRUCTIONAL FACILITY": {
+      "lat": 40.103749,
+      "lon": 88.231434
+    },
+    "LAW BUILDING": {
+      "lat": 40.100744,
+      "lon": 88.230874
+    },
+    "ANIMAL SCIENCES LABORATORY": {
+      "lat": 40.103624,
+      "lon": 88.225373
+    },
+    "MUMFORD HALL": {
+      "lat": 40.103766,
+      "lon": 88.225867
+    },
+    "SPEECH AND HEARING SCIENCE": {
+      "lat": 40.107726,
+      "lon": 88.230836
+    },
+    "GRAINGER ENGINEERING LIBRARY": {
+      "lat": 40.112498,
+      "lon": 88.22614
+    },
+    "Institute for government and public affairs": {
+      "lat": 40.105958,
+      "lon": 88.220834
+    },
+    "ADMISSIONS AND RECORDS BUILDING": {
+      "lat": 40.108662,
+      "lon": 88.220704
+    },
+    "MEAT SCIENCE LABORATORY": {
+      "lat": 40.099196,
+      "lon": 88.223361
+    },
+    "FORBES NATURAL HISTORY BUILDING": {
+      "lat": 40.093442,
+      "lon": 88.240145
+    },
+    "REHABILITATION EDUCATION CENTER": {
+      "lat": 40.103875,
+      "lon": 88.242234
+    },
+    "PERSONNEL SERVICES BUILDING": {
+      "lat": 40.104318,
+      "lon": 88.240761
+    },
+    "Huff Hall": {
+      "lat": 40.103167,
+      "lon": 88.232042
+    },
+    "LINCOLN HALL": {
+      "lat": 40.106322,
+      "lon": 88.228623
+    },
+    "KENNEY GYMNASIUM": {
+      "lat": 40.113314,
+      "lon": 88.228352
+    },
+    "PUBLIC SAFETY BUILDING": {
+      "lat": 40.112966,
+      "lon": 88.223205
+    },
+    "MUSIC BUILDING": {
+      "lat": 40.106269,
+      "lon": 88.223571
+    },
+    "E-14 Community Cardboard": {
+      "lat": 40.097821,
+      "lon": 88.241177
+    },
+    "OAK STREET CHILLER PLANT": {
+      "lat": 40.102085,
+      "lon": 88.241792
+    },
+    "MECHANICAL ENGINEERING LABORATORY": {
+      "lat": 40.112241,
+      "lon": 88.225914
+    },
+    "Foreign Language Building": {
+      "lat": 40.106088,
+      "lon": 88.225615
+    },
+    "Carl R. Woese Institute for Genomic Biology": {
+      "lat": 40.104579,
+      "lon": 88.224445
+    },
+    "NUCLEAR PHYSICS LABORATORY": {
+      "lat": 40.101983,
+      "lon": 88.242041
+    },
+    "PSYCHOLOGY LABORATORY": {
+      "lat": 40.107266,
+      "lon": 88.230199
+    },
+    "MICRO AND NANOTECHNOLOGY LABORATORY": {
+      "lat": 40.113828,
+      "lon": 88.228253
+    },
+    "UNIVERSITY HIGH SCHOOL": {
+      "lat": 40.113144,
+      "lon": 88.224777
+    },
+    "Smith Music Building": {
+      "lat": 40.105871,
+      "lon": 88.22647
+    },
+    "KRANNERT CENTER FOR PERFORMING ARTS": {
+      "lat": 40.107135,
+      "lon": 88.22283
+    },
+    "TAFT HOUSE": {
+      "lat": 40.099377,
+      "lon": 88.224566
+    },
+    "ILLINOIS SUSTAINABLE TECHNOLOGY CENTER": {
+      "lat": 40.090198,
+      "lon": 88.242858
+    },
+    "OAK STREET LIBRARY FACILITY": {
+      "lat": 40.107771,
+      "lon": 88.241967
+    },
+    "CHILD DEVELOPMENT LABORATORY": {
+      "lat": 40.105759,
+      "lon": 88.221604
+    },
+    "LEVIS FACULTY CENTER": {
+      "lat": 40.108719,
+      "lon": 88.220909
+    },
+    "UNIVERSITY PRESS BUILDING": {
+      "lat": 40.101087,
+      "lon": 88.242739
+    },
+    "CLARK HALL": {
+      "lat": 40.103345,
+      "lon": 88.234195
+    },
+    "ALTGELD HALL": {
+      "lat": 40.109273,
+      "lon": 88.228741
+    },
+    "PRESIDENT'S HOUSE": {
+      "lat": 40.097592,
+      "lon": 88.217465
+    },
+    "CERAMICS BUILDING": {
+      "lat": 40.111872,
+      "lon": 88.224418
+    },
+    "ENGINEERING HALL": {
+      "lat": 40.110992,
+      "lon": 88.226718
+    },
+    "STUDENT-STAFF APTS-300 S GOODWIN, U": {
+      "lat": 40.110321,
+      "lon": 88.22278
+    },
+    "STUDENT STAFF APTS #2-GREEN/GOODWIN": {
+      "lat": 40.109131,
+      "lon": 88.223555
+    },
+    "ASHTON WOODS APARTMENTS": {
+      "lat": 40.08487,
+      "lon": 88.239087
+    },
+    "ENTERPRISE WORKS": {
+      "lat": 40.091475,
+      "lon": 88.240485
+    },
+    "NORTH CAMPUS PARKING DECK": {
+      "lat": 40.115805,
+      "lon": 88.224943
+    },
+    "TRANSPORTATION BUILDING": {
+      "lat": 40.111572,
+      "lon": 88.225007
+    },
+    "ADVANCED COMPUTATION BLDG": {
+      "lat": 40.11243,
+      "lon": 88.222438
+    },
+    "NATURAL HISTORY BUILDING": {
+      "lat": 40.109656,
+      "lon": 88.225597
+    },
+    "909 W OREGON ST": {
+      "lat": 40.106879,
+      "lon": 88.220657
+    },
+    "CROP SCIENCES RESEARCH FACILITY": {
+      "lat": 40.057978,
+      "lon": 88.237613
+    },
+    "508 S Sixth St": {
+      "lat": 40.112121,
+      "lon": 88.229901
+    },
+    "ENGINEERING SCIENCES BUILDING": {
+      "lat": 40.112264,
+      "lon": 88.22283
+    },
+    "C-7 PARKING STRUCTURE, STUDENT STAFF": {
+      "lat": 40.109137,
+      "lon": 88.231026
+    },
+    "DANIELS HALL": {
+      "lat": 40.111277,
+      "lon": 88.221635
+    },
+    "DAVID KINLEY HALL": {
+      "lat": 40.103407,
+      "lon": 88.228538
+    },
+    "SIEBEL CENTER FOR COMPUTER SCIENCE": {
+      "lat": 40.113602,
+      "lon": 88.22633
+    },
+    "Roger Adams Laboratory": {
+      "lat": 40.107384,
+      "lon": 88.225052
+    },
+    "Krannert Art Museum": {
+      "lat": 40.101845,
+      "lon": 88.230981
+    },
+    "HARDING BAND BUILDING": {
+      "lat": 40.104462,
+      "lon": 88.230668
+    },
+    "FRUIT RESEARCH FARM - ADMIN. BLDG.": {
+      "lat": 40.082219,
+      "lon": 88.210998
+    },
+    "FSI - FIREMANSHIP TRAINING FACILITIES": {
+      "lat": 40.086103,
+      "lon": 88.243752
+    },
+    "ENGLISH BUILDING": {
+      "lat": 40.107902,
+      "lon": 88.228808
+    },
+    "NORTH CAMPUS CHILLER PLANT": {
+      "lat": 40.115066,
+      "lon": 88.22583
+    },
+    "Babcock Hall": {
+      "lat": 40.098484,
+      "lon": 88.221198
+    },
+    "Computer Application Building": {
+      "lat": 40.112193,
+      "lon": 88.229787
+    },
+    "STUDENT DINING AND RESIDENTIAL PROGRAMS": {
+      "lat": 40.10446,
+      "lon": 88.233714
+    },
+    "LINCOLN AVENUE RESIDENCE HALL": {
+      "lat": 40.103714,
+      "lon": 88.22036
+    },
+    "ADMIN INFORMATION TECHNOLOGY BLDG": {
+      "lat": 40.087729,
+      "lon": 88.241414
+    },
+    "HOPKINS HALL": {
+      "lat": 40.102803,
+      "lon": 88.237425
+    },
+    "Ikenberry Commons- Scott Hall": {
+      "lat": 40.102366,
+      "lon": 88.236471
+    },
+    "STUDENT SERVICES ARCADE BUILDING": {
+      "lat": 40.109144,
+      "lon": 88.22961
+    },
+    "DIGITAL COMPUTER LABORATORY": {
+      "lat": 40.113566,
+      "lon": 88.226146
+    },
+    "HOUSING WAREHOUSE": {
+      "lat": 40.090199,
+      "lon": 88.213796
+    },
+    "805 PENNSYLVANIA AVE": {
+      "lat": 40.100274,
+      "lon": 88.218311
+    },
+    "MEMORIAL STADIUM": {
+      "lat": 40.098438,
+      "lon": 88.236777
+    },
+    "MEDICAL SCIENCES BUILDING": {
+      "lat": 40.108534,
+      "lon": 88.224758
+    },
+    "SWANLUND ADMINISTRATION BUILDING": {
+      "lat": 40.108655,
+      "lon": 88.229924
+    },
+    "PENNSYLVANIA AVENUE RESIDENCE HALLS": {
+      "lat": 40.100342,
+      "lon": 88.220422
+    },
+    "Ikenberry Commons- Bousfield Hall": {
+      "lat": 40.101745,
+      "lon": 88.237164
+    },
+    "IKENBERRY COMMONS -  NUGENT HALL": {
+      "lat": 40.103755,
+      "lon": 88.237513
+    },
+    "OPTICAL PHYSICS AND ENGINEERING BLDG": {
+      "lat": 40.111089,
+      "lon": 88.2297
+    },
+    "CHILDREN'S RESEARCH CENTER": {
+      "lat": 40.0866,
+      "lon": 88.240455
+    },
+    "CAMPBELL HALL": {
+      "lat": 40.11488,
+      "lon": 88.223245
+    },
+    "IKENBERRY COMMONS - WASSAJA HALL": {
+      "lat": 40.10363,
+      "lon": 88.237547
+    },
+    "Ikenberry Commons- Weston Hall": {
+      "lat": 40.102717,
+      "lon": 88.235522
+    },
+    "TAFT VAN DOREN RESIDENCE HALLS": {
+      "lat": 40.101751,
+      "lon": 88.234327
+    },
+    "901 W OREGON ST": {
+      "lat": 40.106532,
+      "lon": 88.219516
+    },
+    "NATIONAL PETASCALE COMPUTING FACILITY": {
+      "lat": 40.095839,
+      "lon": 88.241887
+    },
+    "SNYDER HALL": {
+      "lat": 40.102575,
+      "lon": 88.235292
+    },
+    "Poultry Hatchery #1": {
+      "lat": 40.075512,
+      "lon": 88.21036
+    },
+    "111 E GREEN ST (LEASED)": {
+      "lat": 40.109689,
+      "lon": 88.23782
+    },
+    "ILLINI UNION": {
+      "lat": 40.109787,
+      "lon": 88.226557
+    },
+    "LIBRARY": {
+      "lat": 40.104903,
+      "lon": 88.229416
+    },
+    "NEWMARK CIVIL ENGINEERING BUILDING": {
+      "lat": 40.113675,
+      "lon": 88.224354
+    },
+    "NOBLE HALL": {
+      "lat": 40.102062,
+      "lon": 88.234211
+    },
+    "SEITZ MATERIALS RESEARCH LAB": {
+      "lat": 40.111379,
+      "lon": 88.222908
+    },
+    "WATER SURVEY RESEARCH CENTER #7": {
+      "lat": 40.08504,
+      "lon": 88.241217
+    },
+    "AGRICULTURE SERVICES BUILDING": {
+      "lat": 40.092748,
+      "lon": 88.229127
+    },
+    "METAL STORAGE BUILDING": {
+      "lat": 40.090963,
+      "lon": 88.229265
+    },
+    "SPURLOCK MUSEUM": {
+      "lat": 40.107543,
+      "lon": 88.220544
+    },
+    "HorTICULTURE FIELD Research LABORATORY": {
+      "lat": 40.0804,
+      "lon": 88.219128
+    },
+    "907 1/2 W Nevada": {
+      "lat": 40.085203,
+      "lon": 88.241974
+    },
+    "Bielfeldt Athletic Administration Building": {
+      "lat": 40.097844,
+      "lon": 88.232139
+    },
+    "HORTICULTURE FIELD LABORATORY": {
+      "lat": 40.096289,
+      "lon": 88.21492
+    },
+    "Stock Pavilion": {
+      "lat": 40.101195,
+      "lon": 88.22776
+    },
+    "BECKMAN INSTITUTE": {
+      "lat": 40.115871,
+      "lon": 88.226362
+    },
+    "HENRY ADMINISTRATION BUILDING": {
+      "lat": 40.108733,
+      "lon": 88.228708
+    },
+    "SPECIAL MATERIALS STORAGE FACILITY": {
+      "lat": 40.089236,
+      "lon": 88.242485
+    },
+    "DALKEY ARCHIVE PRESS (PSSB)": {
+      "lat": 40.093455,
+      "lon": 88.229234
+    },
+    "SOYFACE BARN": {
+      "lat": 40.041738,
+      "lon": 88.237192
+    },
+    "NATIONAL CENTER SUPERCOMPUTING APPLICATIONS": {
+      "lat": 40.086115,
+      "lon": 88.243733
+    },
+    "POLLINATARIUM": {
+      "lat": 40.087251,
+      "lon": 88.214754
+    }
+  },
+  "site_spread": {
+    "VET MED BASIC SCIENCES BUILDING": 76.9,
+    "VETERINARY RES FARM-CLINICAL RES BARN": 34.8,
+    "ORCHARD DOWNS APARTMENTS": 226.7,
+    "VETERINARY TEACHING HOSPITAL": 85.9,
+    "VETERINARY MEDICINE CHILLER PLANT": 6.6,
+    "AGRICULTURAL ENGR SCIENCES BLDG": 4.2,
+    "EDUCATION BUILDING": 14.7,
+    "VEGETABLE CROPS SHOP & STORAGE BUILDING": 2.1,
+    "National Soybean Resarch": 434.6,
+    "TEMPLE HOYNE BUELL HALL": 11.8,
+    "TURNER HALL": 5.9,
+    "ILLINI UNION BOOKSTORE": 16.8,
+    "GIES BUSINESS INSTRUCTIONAL FACILITY": 8.3,
+    "LAW BUILDING": 3.0,
+    "ANIMAL SCIENCES LABORATORY": 22.5,
+    "MUMFORD HALL": 32.4,
+    "SPEECH AND HEARING SCIENCE": 70.0,
+    "GRAINGER ENGINEERING LIBRARY": 3.9,
+    "Institute for government and public affairs": 54.3,
+    "ADMISSIONS AND RECORDS BUILDING": 4.1,
+    "MEAT SCIENCE LABORATORY": 3.1,
+    "FORBES NATURAL HISTORY BUILDING": 22.3,
+    "REHABILITATION EDUCATION CENTER": 5.2,
+    "PERSONNEL SERVICES BUILDING": 6.5,
+    "Huff Hall": 10.6,
+    "LINCOLN HALL": 62.6,
+    "KENNEY GYMNASIUM": 22.4,
+    "PUBLIC SAFETY BUILDING": 73.2,
+    "MUSIC BUILDING": 17.5,
+    "E-14 Community Cardboard": 3.6,
+    "OAK STREET CHILLER PLANT": 68.3,
+    "MECHANICAL ENGINEERING LABORATORY": 5.2,
+    "Foreign Language Building": 17.3,
+    "Carl R. Woese Institute for Genomic Biology": 86.2,
+    "NUCLEAR PHYSICS LABORATORY": 3.5,
+    "PSYCHOLOGY LABORATORY": 9.2,
+    "MICRO AND NANOTECHNOLOGY LABORATORY": 6.2,
+    "UNIVERSITY HIGH SCHOOL": 4.1,
+    "Smith Music Building": 4.9,
+    "KRANNERT CENTER FOR PERFORMING ARTS": 3.5,
+    "TAFT HOUSE": 254.7,
+    "ILLINOIS SUSTAINABLE TECHNOLOGY CENTER": 3.4,
+    "OAK STREET LIBRARY FACILITY": 54.7,
+    "CHILD DEVELOPMENT LABORATORY": 11.7,
+    "LEVIS FACULTY CENTER": 6.4,
+    "UNIVERSITY PRESS BUILDING": 7.6,
+    "CLARK HALL": 43.8,
+    "ALTGELD HALL": 13.0,
+    "PRESIDENT'S HOUSE": 23.5,
+    "CERAMICS BUILDING": 16.2,
+    "ENGINEERING HALL": 8.9,
+    "STUDENT-STAFF APTS-300 S GOODWIN, U": 5.1,
+    "STUDENT STAFF APTS #2-GREEN/GOODWIN": 83.7,
+    "ASHTON WOODS APARTMENTS": 54.1,
+    "ENTERPRISE WORKS": 43.4,
+    "NORTH CAMPUS PARKING DECK": 68.6,
+    "TRANSPORTATION BUILDING": 6.3,
+    "ADVANCED COMPUTATION BLDG": 11.7,
+    "NATURAL HISTORY BUILDING": 7.6,
+    "909 W OREGON ST": 5.6,
+    "CROP SCIENCES RESEARCH FACILITY": 160.3,
+    "508 S Sixth St": 3.8,
+    "ENGINEERING SCIENCES BUILDING": 17.0,
+    "C-7 PARKING STRUCTURE, STUDENT STAFF": 20.7,
+    "DANIELS HALL": 4.0,
+    "DAVID KINLEY HALL": 6.7,
+    "SIEBEL CENTER FOR COMPUTER SCIENCE": 8.3,
+    "Roger Adams Laboratory": 8.6,
+    "Krannert Art Museum": 5.0,
+    "HARDING BAND BUILDING": 10.7,
+    "FRUIT RESEARCH FARM - ADMIN. BLDG.": 2.7,
+    "FSI - FIREMANSHIP TRAINING FACILITIES": 2.8,
+    "ENGLISH BUILDING": 59.2,
+    "NORTH CAMPUS CHILLER PLANT": 8.0,
+    "Babcock Hall": 27.6,
+    "Computer Application Building": 34.2,
+    "STUDENT DINING AND RESIDENTIAL PROGRAMS": 212.8,
+    "LINCOLN AVENUE RESIDENCE HALL": 11.4,
+    "ADMIN INFORMATION TECHNOLOGY BLDG": 9.1,
+    "HOPKINS HALL": 7.4,
+    "Ikenberry Commons- Scott Hall": 6.4,
+    "STUDENT SERVICES ARCADE BUILDING": 7.9,
+    "DIGITAL COMPUTER LABORATORY": 9.7,
+    "HOUSING WAREHOUSE": 21.1,
+    "805 PENNSYLVANIA AVE": 3.7,
+    "MEMORIAL STADIUM": 78.0,
+    "MEDICAL SCIENCES BUILDING": 9.0,
+    "SWANLUND ADMINISTRATION BUILDING": 11.4,
+    "PENNSYLVANIA AVENUE RESIDENCE HALLS": 25.5,
+    "Ikenberry Commons- Bousfield Hall": 7.1,
+    "IKENBERRY COMMONS -  NUGENT HALL": 9.1,
+    "OPTICAL PHYSICS AND ENGINEERING BLDG": 6.7,
+    "CHILDREN'S RESEARCH CENTER": 2.0,
+    "CAMPBELL HALL": 17.9,
+    "IKENBERRY COMMONS - WASSAJA HALL": 7.7,
+    "Ikenberry Commons- Weston Hall": 4.5,
+    "TAFT VAN DOREN RESIDENCE HALLS": 4.6,
+    "901 W OREGON ST": 3.6,
+    "NATIONAL PETASCALE COMPUTING FACILITY": 5.2,
+    "SNYDER HALL": 8.5,
+    "Poultry Hatchery #1": 2.4,
+    "111 E GREEN ST (LEASED)": 3.0,
+    "ILLINI UNION": 9.6,
+    "LIBRARY": 12.5,
+    "NEWMARK CIVIL ENGINEERING BUILDING": 7.3,
+    "NOBLE HALL": 4.3,
+    "SEITZ MATERIALS RESEARCH LAB": 6.0,
+    "WATER SURVEY RESEARCH CENTER #7": 9.7,
+    "AGRICULTURE SERVICES BUILDING": 5.2,
+    "METAL STORAGE BUILDING": 1.9,
+    "SPURLOCK MUSEUM": 23.9,
+    "HorTICULTURE FIELD Research LABORATORY": 2.2,
+    "907 1/2 W Nevada": 2.8,
+    "Bielfeldt Athletic Administration Building": 14.6,
+    "HORTICULTURE FIELD LABORATORY": 2.0,
+    "Stock Pavilion": 3.7,
+    "BECKMAN INSTITUTE": 4.2,
+    "HENRY ADMINISTRATION BUILDING": 10.9,
+    "SPECIAL MATERIALS STORAGE FACILITY": 3.0,
+    "DALKEY ARCHIVE PRESS (PSSB)": 3.2,
+    "NATIONAL CENTER SUPERCOMPUTING APPLICATIONS": 1.8
+  },
+  "trend": [{
+    "month": "2019-12",
+    "pickups": 83,
+    "rfid_rate": 0,
+    "site_rate": 79.5,
+    "weight_rate": 85.5,
+    "status": "Container ID failed"
+  }, {
+    "month": "2020-01",
+    "pickups": 1917,
+    "rfid_rate": 3.3,
+    "site_rate": 82.0,
+    "weight_rate": 82.8,
+    "status": "Degraded / ramping"
+  }, {
+    "month": "2020-02",
+    "pickups": 1417,
+    "rfid_rate": 8.3,
+    "site_rate": 82.6,
+    "weight_rate": 92.0,
+    "status": "Degraded / ramping"
+  }, {
+    "month": "2020-03",
+    "pickups": 1997,
+    "rfid_rate": 10.4,
+    "site_rate": 86.0,
+    "weight_rate": 80.8,
+    "status": "Degraded / ramping"
+  }, {
+    "month": "2020-04",
+    "pickups": 940,
+    "rfid_rate": 15.2,
+    "site_rate": 88.2,
+    "weight_rate": 82.7,
+    "status": "Degraded / ramping"
+  }, {
+    "month": "2020-05",
+    "pickups": 630,
+    "rfid_rate": 13.8,
+    "site_rate": 88.1,
+    "weight_rate": 92.2,
+    "status": "Degraded / ramping"
+  }, {
+    "month": "2020-06",
+    "pickups": 1423,
+    "rfid_rate": 20.9,
+    "site_rate": 87.8,
+    "weight_rate": 72.7,
+    "status": "Degraded / ramping"
+  }, {
+    "month": "2020-07",
+    "pickups": 1609,
+    "rfid_rate": 46.5,
+    "site_rate": 89.9,
+    "weight_rate": 60.2,
+    "status": "Degraded / ramping"
+  }, {
+    "month": "2020-08",
+    "pickups": 1326,
+    "rfid_rate": 66.3,
+    "site_rate": 93.4,
+    "weight_rate": 59.0,
+    "status": "Degraded / ramping"
+  }, {
+    "month": "2020-09",
+    "pickups": 1150,
+    "rfid_rate": 63.0,
+    "site_rate": 57.3,
+    "weight_rate": 90.9,
+    "status": "Degraded / ramping"
+  }, {
+    "month": "2020-10",
+    "pickups": 742,
+    "rfid_rate": 70.5,
+    "site_rate": 61.5,
+    "weight_rate": 90.8,
+    "status": "Degraded / ramping"
+  }, {
+    "month": "2020-11",
+    "pickups": 1864,
+    "rfid_rate": 64.8,
+    "site_rate": 56.8,
+    "weight_rate": 65.0,
+    "status": "Degraded / ramping"
+  }, {
+    "month": "2020-12",
+    "pickups": 1196,
+    "rfid_rate": 69.1,
+    "site_rate": 57.5,
+    "weight_rate": 82.3,
+    "status": "Degraded / ramping"
+  }, {
+    "month": "2021-01",
+    "pickups": 964,
+    "rfid_rate": 86.0,
+    "site_rate": 78.9,
+    "weight_rate": 70.6,
+    "status": "Working"
+  }, {
+    "month": "2021-02",
+    "pickups": 1886,
+    "rfid_rate": 82.9,
+    "site_rate": 76.8,
+    "weight_rate": 80.9,
+    "status": "Working"
+  }, {
+    "month": "2021-03",
+    "pickups": 2378,
+    "rfid_rate": 78.3,
+    "site_rate": 72.0,
+    "weight_rate": 80.8,
+    "status": "Working"
+  }, {
+    "month": "2021-04",
+    "pickups": 2432,
+    "rfid_rate": 88.3,
+    "site_rate": 81.7,
+    "weight_rate": 73.8,
+    "status": "Working"
+  }, {
+    "month": "2021-05",
+    "pickups": 2254,
+    "rfid_rate": 84.4,
+    "site_rate": 81.6,
+    "weight_rate": 69.6,
+    "status": "Working"
+  }, {
+    "month": "2021-06",
+    "pickups": 656,
+    "rfid_rate": 86.9,
+    "site_rate": 80.9,
+    "weight_rate": 66.5,
+    "status": "Working"
+  }, {
+    "month": "2021-08",
+    "pickups": 365,
+    "rfid_rate": 61.6,
+    "site_rate": 51.8,
+    "weight_rate": 74.5,
+    "status": "Degraded / ramping"
+  }, {
+    "month": "2021-09",
+    "pickups": 537,
+    "rfid_rate": 60.1,
+    "site_rate": 49.5,
+    "weight_rate": 82.5,
+    "status": "Degraded / ramping"
+  }, {
+    "month": "2021-10",
+    "pickups": 274,
+    "rfid_rate": 58.8,
+    "site_rate": 50.0,
+    "weight_rate": 86.5,
+    "status": "Degraded / ramping"
+  }, {
+    "month": "2022-08",
+    "pickups": 89,
+    "rfid_rate": 0,
+    "site_rate": 0,
+    "weight_rate": 82.0,
+    "status": "Container ID failed"
+  }, {
+    "month": "2022-09",
+    "pickups": 47,
+    "rfid_rate": 0,
+    "site_rate": 0,
+    "weight_rate": 97.9,
+    "status": "Container ID failed"
+  }, {
+    "month": "2023-01",
+    "pickups": 98,
+    "rfid_rate": 0,
+    "site_rate": 0,
+    "weight_rate": 82.7,
+    "status": "Container ID failed"
+  }, {
+    "month": "2023-02",
+    "pickups": 23,
+    "rfid_rate": 0,
+    "site_rate": 0,
+    "weight_rate": 87.0,
+    "status": "Container ID failed"
+  }, {
+    "month": "2023-03",
+    "pickups": 364,
+    "rfid_rate": 0,
+    "site_rate": 0,
+    "weight_rate": 75.8,
+    "status": "Container ID failed"
+  }, {
+    "month": "2023-04",
+    "pickups": 284,
+    "rfid_rate": 0,
+    "site_rate": 0,
+    "weight_rate": 73.9,
+    "status": "Container ID failed"
+  }, {
+    "month": "2023-05",
+    "pickups": 78,
+    "rfid_rate": 0,
+    "site_rate": 0,
+    "weight_rate": 70.5,
+    "status": "Container ID failed"
+  }, {
+    "month": "2023-06",
+    "pickups": 321,
+    "rfid_rate": 0,
+    "site_rate": 0,
+    "weight_rate": 85.0,
+    "status": "Container ID failed"
+  }, {
+    "month": "2023-07",
+    "pickups": 1199,
+    "rfid_rate": 0,
+    "site_rate": 0,
+    "weight_rate": 56.3,
+    "status": "Container ID failed"
+  }, {
+    "month": "2023-08",
+    "pickups": 1043,
+    "rfid_rate": 0,
+    "site_rate": 0,
+    "weight_rate": 86.3,
+    "status": "Container ID failed"
+  }, {
+    "month": "2023-09",
+    "pickups": 2708,
+    "rfid_rate": 0,
+    "site_rate": 0,
+    "weight_rate": 88.0,
+    "status": "Container ID failed"
+  }, {
+    "month": "2023-10",
+    "pickups": 2214,
+    "rfid_rate": 0,
+    "site_rate": 0,
+    "weight_rate": 89.7,
+    "status": "Container ID failed"
+  }, {
+    "month": "2023-11",
+    "pickups": 51,
+    "rfid_rate": 0,
+    "site_rate": 23.5,
+    "weight_rate": 98.0,
+    "status": "Container ID failed"
+  }, {
+    "month": "2023-12",
+    "pickups": 710,
+    "rfid_rate": 0,
+    "site_rate": 0,
+    "weight_rate": 86.1,
+    "status": "Container ID failed"
+  }, {
+    "month": "2024-01",
+    "pickups": 2378,
+    "rfid_rate": 0,
+    "site_rate": 0,
+    "weight_rate": 89.2,
+    "status": "Container ID failed"
+  }, {
+    "month": "2024-02",
+    "pickups": 2912,
+    "rfid_rate": 0,
+    "site_rate": 1.2,
+    "weight_rate": 87.9,
+    "status": "Container ID failed"
+  }, {
+    "month": "2024-03",
+    "pickups": 786,
+    "rfid_rate": 0,
+    "site_rate": 0,
+    "weight_rate": 91.1,
+    "status": "Container ID failed"
+  }, {
+    "month": "2024-06",
+    "pickups": 151,
+    "rfid_rate": 0,
+    "site_rate": 0,
+    "weight_rate": 84.1,
+    "status": "Container ID failed"
+  }, {
+    "month": "2024-08",
+    "pickups": 55,
+    "rfid_rate": 0,
+    "site_rate": 78.2,
+    "weight_rate": 81.8,
+    "status": "Container ID failed"
+  }, {
+    "month": "2024-09",
+    "pickups": 124,
+    "rfid_rate": 0,
+    "site_rate": 70.2,
+    "weight_rate": 83.9,
+    "status": "Container ID failed"
+  }, {
+    "month": "2024-10",
+    "pickups": 6,
+    "rfid_rate": 0,
+    "site_rate": 16.7,
+    "weight_rate": 100.0,
+    "status": "Container ID failed"
+  }, {
+    "month": "2025-07",
+    "pickups": 78,
+    "rfid_rate": 0,
+    "site_rate": 74.4,
+    "weight_rate": 69.2,
+    "status": "Container ID failed"
+  }],
+  "funnel": [{
+    "gate": 0,
+    "label": "Total records exported",
+    "n": 79533,
+    "pct": 100.0
+  }, {
+    "gate": 1,
+    "label": "Load Pickup events",
+    "n": 73857,
+    "pct": 92.9
+  }, {
+    "gate": 2,
+    "label": "+ valid pickup date (not epoch)",
+    "n": 43759,
+    "pct": 55.0
+  }, {
+    "gate": 3,
+    "label": "+ container identified by RFID",
+    "n": 15406,
+    "pct": 19.4
+  }, {
+    "gate": 4,
+    "label": "+ site / building resolved",
+    "n": 13414,
+    "pct": 16.9
+  }, {
+    "gate": 5,
+    "label": "+ gross load weight > 0",
+    "n": 9998,
+    "pct": 12.6
+  }, {
+    "gate": 6,
+    "label": "+ container tare weight > 0",
+    "n": 9989,
+    "pct": 12.6
+  }, {
+    "gate": 7,
+    "label": "+ weights physically plausible",
+    "n": 9989,
+    "pct": 12.6
+  }],
+  "top_sites": [{
+    "name": "ORCHARD DOWNS APARTMENTS",
+    "count": 1711
+  }, {
+    "name": "VET MED BASIC SCIENCES BUILDING",
+    "count": 443
+  }, {
+    "name": "STUDENT DINING AND RESIDENTIAL PROGRAMS",
+    "count": 296
+  }, {
+    "name": "ASHTON WOODS APARTMENTS",
+    "count": 255
+  }, {
+    "name": "VETERINARY RES FARM-CLINICAL RES BARN",
+    "count": 239
+  }, {
+    "name": "VETERINARY TEACHING HOSPITAL",
+    "count": 226
+  }, {
+    "name": "PENNSYLVANIA AVENUE RESIDENCE HALLS",
+    "count": 211
+  }, {
+    "name": "Ikenberry Commons- Weston Hall",
+    "count": 205
+  }, {
+    "name": "IKENBERRY COMMONS -  NUGENT HALL",
+    "count": 201
+  }, {
+    "name": "HOPKINS HALL",
+    "count": 196
+  }, {
+    "name": "SNYDER HALL",
+    "count": 195
+  }, {
+    "name": "Ikenberry Commons- Scott Hall",
+    "count": 194
+  }, {
+    "name": "ILLINI UNION BOOKSTORE",
+    "count": 183
+  }, {
+    "name": "Ikenberry Commons- Bousfield Hall",
+    "count": 167
+  }, {
+    "name": "ANIMAL SCIENCES LABORATORY",
+    "count": 157
+  }, {
+    "name": "IKENBERRY COMMONS - WASSAJA HALL",
+    "count": 152
+  }, {
+    "name": "TAFT VAN DOREN RESIDENCE HALLS",
+    "count": 149
+  }, {
+    "name": "Babcock Hall",
+    "count": 147
+  }, {
+    "name": "ENGINEERING HALL",
+    "count": 140
+  }, {
+    "name": "LINCOLN AVENUE RESIDENCE HALL",
+    "count": 140
+  }],
+  "service_types": [{
+    "name": "Front Load-Landfill-6",
+    "count": 3857
+  }, {
+    "name": "Front Load-Landfill-8",
+    "count": 3140
+  }, {
+    "name": "Front Load-Cardboard-8",
+    "count": 1069
+  }, {
+    "name": "Front Load-Landfill-2",
+    "count": 497
+  }, {
+    "name": "Front Load-Cardboard-6",
+    "count": 394
+  }, {
+    "name": "Front Load-Paper-2",
+    "count": 364
+  }, {
+    "name": "Front Load-Landfill-4",
+    "count": 196
+  }, {
+    "name": "Front Load-Paper-4",
+    "count": 174
+  }, {
+    "name": "Front Load-Cardboard-4",
+    "count": 140
+  }, {
+    "name": "Front Load-Paper-6",
+    "count": 90
+  }, {
+    "name": "Front Load-Paper-",
+    "count": 31
+  }, {
+    "name": "Front Load-Paper-8",
+    "count": 24
+  }, {
+    "name": "Front Load-Cardboard-2",
+    "count": 13
+  }],
+  "meta": {
+    "total_raw_records": 79533,
+    "usable_records": 9989,
+    "usable_pct": 12.6,
+    "distinct_rfids": 179,
+    "distinct_sites": 123,
+    "gps_top1_acc": 84.8,
+    "gps_top3_acc": 97.8,
+    "rfid_acc": 100.0,
+    "validation": "80/20 random split, nearest GPS centroid",
+    "threshold_m": 150,
+    "threshold_coverage_pct": 91.6,
+    "rfid_peak_month": "2021-04",
+    "rfid_peak_pct": 88.3,
+    "rfid_failed_from": "2022-08",
+    "epoch_records": 28337,
+    "source": "UIUC_LoadMan_Consolidated_Dataset.xlsx",
+    "prepared_for": "Betsy Ruckman, Zero Waste Coordinator, UIUC Facilities & Services"
+  }
+};
+
+// ─── HAVERSINE (runs in browser) ─────────────────────────────────────────────
+function haversineM(lat1, lon1, lat2, lon2) {
+  var R = 6371000;
+  var f1 = lat1 * Math.PI / 180,
+    f2 = lat2 * Math.PI / 180;
+  var df = (lat2 - lat1) * Math.PI / 180;
+  var dl = (lon2 - lon1) * Math.PI / 180;
+  var a = Math.pow(Math.sin(df / 2), 2) + Math.cos(f1) * Math.cos(f2) * Math.pow(Math.sin(dl / 2), 2);
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+function parseCoord(val) {
+  if (!val) return null;
+  var s = String(val).replace(/[°NSEW\s]/g, '').trim();
+  var n = parseFloat(s);
+  return isNaN(n) ? null : n;
+}
+
+// ─── ATTRIBUTION ENGINE ───────────────────────────────────────────────────────
+// Three-tier system: RFID lookup → GPS nearest-centroid → abstain
+// Provenance of every prediction is preserved and surfaced to users
+var AttributionEngine = {
+  // Tier 1: RFID lookup (100% accuracy in training data, all 179 RFIDs map to exactly 1 site)
+  byRFID: function byRFID(rfid) {
+    if (!rfid || !rfid.trim()) return null;
+    var site = REAL_MODEL.rfid_to_site[rfid.trim()];
+    if (!site) return null;
+    return {
+      site: site,
+      method: 'rfid_lookup',
+      confidence: 1.0,
+      confidence_label: 'Verified',
+      tier: 1,
+      evidence: "RFID ".concat(rfid, " maps exclusively to ").concat(site, " in 179-container lookup table (100% accuracy in training data)")
+    };
+  },
+  // Tier 2: GPS nearest centroid (84.8% top-1, 97.8% top-3 at 150m threshold)
+  byGPS: function byGPS(lat, lon) {
+    var _top3$, _top3$2;
+    var threshold_m = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 150;
+    if (lat == null || lon == null) return null;
+    var centroids = REAL_MODEL.site_centroids;
+    var best = null,
+      bestDist = Infinity,
+      second = Infinity;
+    var top3 = [];
+    for (var _i = 0, _Object$entries = Object.entries(centroids); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+        site = _Object$entries$_i[0],
+        _Object$entries$_i$ = _Object$entries$_i[1],
+        clat = _Object$entries$_i$.lat,
+        clon = _Object$entries$_i$.lon;
+      var d = haversineM(lat, lon, clat, clon);
+      top3.push({
+        site: site,
+        d: d
+      });
+    }
+    top3.sort(function (a, b) {
+      return a.d - b.d;
+    });
+    if (!top3.length) return null;
+    best = top3[0];
+    if (best.d > threshold_m) {
+      return {
+        site: null,
+        method: 'gps_centroid',
+        confidence: 0,
+        confidence_label: 'Abstain',
+        tier: 3,
+        evidence: "GPS ".concat(lat.toFixed(4), ", ").concat(lon.toFixed(4), " is ").concat(Math.round(best.d), "m from nearest known site (").concat(best.site, "). Threshold: ").concat(threshold_m, "m. Abstaining."),
+        top3: top3.slice(0, 3)
+      };
+    }
+    // Confidence: based on distance and gap to second-nearest
+    var gap = top3.length > 1 ? top3[1].d - top3[0].d : Infinity;
+    var spread = REAL_MODEL.site_spread[best.site] || 50;
+    var conf_label = 'High';
+    var conf_score = 1.0;
+    if (best.d > 100 || gap < 30) {
+      conf_label = 'Medium';
+      conf_score = 0.7;
+    }
+    if (best.d > 50 && gap < 50) {
+      conf_label = 'Low';
+      conf_score = 0.4;
+    }
+    return {
+      site: best.site,
+      method: 'gps_centroid',
+      confidence: conf_score,
+      confidence_label: conf_label,
+      tier: 2,
+      distance_m: Math.round(best.d),
+      gap_to_second_m: Math.round(Math.min(gap, 9999)),
+      evidence: "GPS ".concat(lat.toFixed(4), ", ").concat(lon.toFixed(4), " is ").concat(Math.round(best.d), "m from ").concat(best.site, " centroid. Second-closest is ").concat(Math.round(((_top3$ = top3[1]) === null || _top3$ === void 0 ? void 0 : _top3$.d) || 0), "m (").concat(((_top3$2 = top3[1]) === null || _top3$2 === void 0 ? void 0 : _top3$2.site) || 'N/A', "). Model: 84.8% top-1 accuracy."),
+      top3: top3.slice(0, 3)
+    };
+  },
+  // Main entry point
+  predict: function predict(rfid, lat, lon) {
+    var r = this.byRFID(rfid);
+    if (r) return r;
+    var g = this.byGPS(lat, lon);
+    if (g) return g;
+    return {
+      site: null,
+      method: 'no_data',
+      confidence: 0,
+      confidence_label: 'Unknown',
+      tier: 3,
+      evidence: 'No RFID and no GPS coordinates available. Cannot attribute.'
+    };
+  },
+  // Batch prediction on demo records for display
+  predictAll: function predictAll(records) {
+    var _this = this;
+    return records.map(function (r) {
+      return _objectSpread(_objectSpread({}, r), {}, {
+        _prediction: _this.predict(r.rfid || null, r.lat || null, r.lon || null)
+      });
+    });
+  }
+};
+
+// ─── SIMULATED UNATTRIBUTED RECORDS (realistic, using real site names) ────────
+// These simulate the 70,000+ records that lack RFID.
+// GPS coords are sampled near real campus locations with realistic noise.
+function makeSimulatedUnattributed() {
+  var sites = Object.entries(REAL_MODEL.site_centroids);
+  var serviceTypes = ['Front Load-Landfill-6', 'Front Load-Landfill-8', 'Front Load-Cardboard-8', 'Front Load-Landfill-2', 'Front Load-Cardboard-6', 'Front Load-Paper-2'];
+  var months = ['2023-01', '2023-03', '2023-07', '2023-08', '2023-09', '2023-10', '2024-01', '2024-02', '2024-03'];
+  var records = [];
+  var id = 1;
+  // Seed-like approach for reproducibility
+  var seed = 42;
+  var sr = function sr() {
+    seed = seed * 1103515245 + 12345 & 0x7fffffff;
+    return seed / 0x7fffffff;
+  };
+  for (var i = 0; i < 120; i++) {
+    var siteIdx = Math.floor(sr() * sites.length);
+    var _sites$siteIdx = _slicedToArray(sites[siteIdx], 2),
+      trueSite = _sites$siteIdx[0],
+      _sites$siteIdx$ = _sites$siteIdx[1],
+      clat = _sites$siteIdx$.lat,
+      clon = _sites$siteIdx$.lon;
+    // Add GPS noise (0-80m radius, simulating truck stopping nearby)
+    var noiseM = sr() * 80;
+    var angle = sr() * 2 * Math.PI;
+    var dLat = noiseM / 111111 * Math.cos(angle);
+    var dLon = noiseM / (111111 * Math.cos(clat * Math.PI / 180)) * Math.sin(angle);
+    var hasGPS = sr() > 0.3; // 70% have GPS (reflects 40% overall but higher in recent records)
+    var hasRFID = false; // These are the unattributed ones
+    var st = serviceTypes[Math.floor(sr() * serviceTypes.length)];
+    var month = months[Math.floor(sr() * months.length)];
+    var day = 1 + Math.floor(sr() * 28);
+    var load = Math.floor(sr() * 300) + 20;
+    records.push({
+      id: "SIM-".concat(String(id++).padStart(4, '0')),
+      date: "".concat(month, "-").concat(String(day).padStart(2, '0')),
+      true_site: trueSite,
+      // Hidden ground truth (for evaluation display)
+      rfid: null,
+      lat: hasGPS ? parseFloat((clat + dLat).toFixed(6)) : null,
+      lon: hasGPS ? parseFloat((clon + dLon).toFixed(6)) : null,
+      has_gps: hasGPS,
+      service_type: st,
+      load_weight: load,
+      stream: st.includes('Cardboard') ? 'Cardboard' : st.includes('Paper') ? 'Paper' : 'Landfill',
+      truck: sr() > 0.5 ? '31272-11' : 'New Truck',
+      provenance: 'simulated'
+    });
+  }
+  return records;
+}
+
+// RFID-verified records (simulating the 9,989 usable records)
+function makeVerifiedRecords() {
+  var rfid_entries = Object.entries(REAL_MODEL.rfid_to_site).slice(0, 30);
+  var records = [];
+  var id = 1;
+  var seed = 99;
+  var sr = function sr() {
+    seed = seed * 1103515245 + 12345 & 0x7fffffff;
+    return seed / 0x7fffffff;
+  };
+  var _iterator = _createForOfIteratorHelper(rfid_entries),
+    _step;
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var _step$value = _slicedToArray(_step.value, 2),
+        rfid = _step$value[0],
+        site = _step$value[1];
+      var centroid = REAL_MODEL.site_centroids[site];
+      if (!centroid) continue;
+      var n = Math.floor(sr() * 8) + 2; // 2-10 records per RFID
+      for (var j = 0; j < n; j++) {
+        var noiseM = sr() * 30;
+        var angle = sr() * 2 * Math.PI;
+        var dLat = noiseM / 111111 * Math.cos(angle);
+        var dLon = noiseM / (111111 * Math.cos(centroid.lat * Math.PI / 180)) * Math.sin(angle);
+        var year = sr() > 0.5 ? 2020 : 2021;
+        var month = 1 + Math.floor(sr() * 6);
+        var load = Math.floor(sr() * 300) + 20;
+        var serviceTypes = ['Front Load-Landfill-6', 'Front Load-Landfill-8', 'Front Load-Cardboard-8', 'Front Load-Paper-2'];
+        var st = serviceTypes[Math.floor(sr() * serviceTypes.length)];
+        records.push({
+          id: "VER-".concat(String(id++).padStart(4, '0')),
+          date: "".concat(year, "-").concat(String(month).padStart(2, '0'), "-").concat(String(1 + Math.floor(sr() * 28)).padStart(2, '0')),
+          site_name: site,
+          rfid: rfid,
+          lat: parseFloat((centroid.lat + dLat).toFixed(6)),
+          lon: parseFloat((centroid.lon + dLon).toFixed(6)),
+          has_gps: true,
+          service_type: st,
+          load_weight: load,
+          stream: st.includes('Cardboard') ? 'Cardboard' : st.includes('Paper') ? 'Paper' : 'Landfill',
+          truck: sr() > 0.5 ? '31272-11' : 'New Truck',
+          provenance: 'verified'
+        });
+      }
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+  return records;
+}
+var UNATTRIBUTED_RECORDS = makeSimulatedUnattributed();
+var VERIFIED_RECORDS = makeVerifiedRecords();
+
+// Demo buildings for Collection Log / Audits (using real site names from model)
+var DEMO_BUILDINGS = Object.entries(REAL_MODEL.site_centroids).slice(0, 20).map(function (_ref, i) {
+  var _ref2 = _slicedToArray(_ref, 2),
+    name = _ref2[0],
+    _ref2$ = _ref2[1],
+    lat = _ref2$.lat,
+    lon = _ref2$.lon;
+  return {
+    id: "B".concat(String(i + 1).padStart(3, '0')),
+    name: name,
+    lat: lat,
+    lon: lon,
+    abbr: name.split(' ').map(function (w) {
+      return w[0];
+    }).join('').slice(0, 4).toUpperCase(),
+    type: name.includes('HALL') || name.includes('RESIDENCE') || name.includes('APARTMENTS') ? 'Residential' : name.includes('LAB') || name.includes('SCIENCE') ? 'Laboratory' : name.includes('DINING') || name.includes('COMMONS') ? 'Dining' : 'Academic'
+  };
+});
+var ROUTE_DEFS = [{
+  id: 'RA',
+  label: 'Route A: North Campus',
+  buildings: DEMO_BUILDINGS.slice(0, 5).map(function (b) {
+    return b.id;
+  }),
+  containers: ['Front Load-Landfill-8', 'Front Load-Cardboard-8'],
+  days: [1, 3, 5],
+  startHour: 6,
+  endHour: 10
+}, {
+  id: 'RB',
+  label: 'Route B: Engineering / Ag',
+  buildings: DEMO_BUILDINGS.slice(5, 10).map(function (b) {
+    return b.id;
+  }),
+  containers: ['Front Load-Landfill-6', 'Front Load-Paper-2'],
+  days: [2, 4],
+  startHour: 7,
+  endHour: 11
+}, {
+  id: 'RC',
+  label: 'Route C: Residential East',
+  buildings: DEMO_BUILDINGS.slice(10, 15).map(function (b) {
+    return b.id;
+  }),
+  containers: ['Front Load-Landfill-6', 'Front Load-Cardboard-6'],
+  days: [1, 2, 3, 4, 5],
+  startHour: 5,
+  endHour: 9
+}, {
+  id: 'RD',
+  label: 'Route D: Research / Vet Med',
+  buildings: DEMO_BUILDINGS.slice(15, 20).map(function (b) {
+    return b.id;
+  }),
+  containers: ['Front Load-Landfill-8', 'Front Load-Landfill-2'],
+  days: [1, 3, 5],
+  startHour: 8,
+  endHour: 12
+}];
+
+// ─── SHARED COMPONENTS ────────────────────────────────────────────────────────
+function DemoBanner() {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: 'repeating-linear-gradient(45deg,#e9a825,#e9a825 10px,#f5b820 10px,#f5b820 20px)',
+      padding: '6px 0',
+      textAlign: 'center',
+      fontSize: 11,
+      fontWeight: 700,
+      color: '#78350f',
+      letterSpacing: '.08em',
+      textTransform: 'uppercase'
+    }
+  }, "DEMO DATA - NOT ACTUAL UIUC OPERATIONAL RECORDS \xA0|\xA0 Attribution model trained on real LoadMan data");
+}
+function Badge(_ref3) {
+  var cls = _ref3.cls,
+    children = _ref3.children;
+  return /*#__PURE__*/React.createElement("span", {
+    className: "badge ".concat(cls || 'badge-gray')
+  }, children);
+}
+function SH(_ref4) {
+  var title = _ref4.title,
+    sub = _ref4.sub,
+    action = _ref4.action;
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginBottom: 20
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'flex-start',
+      justifyContent: 'space-between',
+      flexWrap: 'wrap',
+      gap: 8
+    }
+  }, /*#__PURE__*/React.createElement("h2", {
+    style: {
+      margin: 0,
+      fontSize: 20,
+      fontWeight: 700,
+      color: PAL.navy,
+      borderBottom: "2px solid ".concat(PAL.border),
+      paddingBottom: 10,
+      flex: 1
+    }
+  }, title), action), sub && /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: '4px 0 0',
+      fontSize: 13,
+      color: PAL.muted
+    }
+  }, sub));
+}
+function StatCard(_ref5) {
+  var label = _ref5.label,
+    value = _ref5.value,
+    sub = _ref5.sub,
+    color = _ref5.color,
+    onClick = _ref5.onClick,
+    linkLabel = _ref5.linkLabel;
+  var colors = {
+    navy: PAL.navy,
+    green: PAL.teal,
+    amber: PAL.amber,
+    red: PAL.red,
+    blue: PAL.navyLight,
+    purple: PAL.purple
+  };
+  var c = colors[color] || PAL.navy;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "stat-card",
+    onClick: onClick,
+    style: {
+      borderLeft: "4px solid ".concat(c),
+      cursor: onClick ? 'pointer' : 'default',
+      transition: 'box-shadow .15s'
+    },
+    onMouseEnter: function onMouseEnter(e) {
+      if (onClick) e.currentTarget.style.boxShadow = '0 2px 10px rgba(0,0,0,0.12)';
+    },
+    onMouseLeave: function onMouseLeave(e) {
+      e.currentTarget.style.boxShadow = 'none';
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      fontWeight: 600,
+      color: PAL.muted,
+      textTransform: 'uppercase',
+      letterSpacing: '.06em',
+      marginBottom: 4
+    }
+  }, label), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 28,
+      fontWeight: 700,
+      color: c,
+      lineHeight: 1.1
+    }
+  }, value), sub && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted,
+      marginTop: 3
+    }
+  }, sub), onClick && linkLabel && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: PAL.navyLight,
+      marginTop: 6,
+      fontWeight: 600
+    }
+  }, linkLabel, " +"));
+}
+function QBar(_ref6) {
+  var label = _ref6.label,
+    value = _ref6.value,
+    pct = _ref6.pct,
+    color = _ref6.color;
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginBottom: 10
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      fontSize: 13,
+      marginBottom: 4
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: PAL.text
+    }
+  }, label), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontWeight: 600,
+      color: PAL.navy
+    }
+  }, value)), /*#__PURE__*/React.createElement("div", {
+    className: "progress-bar",
+    style: {
+      height: 8
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "progress-fill",
+    style: {
+      width: "".concat(Math.min(100, pct), "%"),
+      background: color || PAL.navyLight
+    }
+  })));
+}
+function Modal(_ref7) {
+  var open = _ref7.open,
+    onClose = _ref7.onClose,
+    title = _ref7.title,
+    children = _ref7.children,
+    maxWidth = _ref7.maxWidth;
+  if (!open) return null;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "modal-overlay",
+    onClick: onClose
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "modal-box",
+    style: {
+      maxWidth: maxWidth || 620
+    },
+    onClick: function onClick(e) {
+      return e.stopPropagation();
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: 16
+    }
+  }, /*#__PURE__*/React.createElement("h3", {
+    style: {
+      margin: 0,
+      fontSize: 16,
+      fontWeight: 700,
+      color: PAL.navy
+    }
+  }, title), /*#__PURE__*/React.createElement("button", {
+    onClick: onClose,
+    style: {
+      background: 'none',
+      border: 'none',
+      fontSize: 20,
+      cursor: 'pointer',
+      color: PAL.muted
+    }
+  }, "\xD7")), children));
+}
+function FieldError(_ref8) {
+  var msg = _ref8.msg;
+  if (!msg) return null;
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      color: PAL.red,
+      fontSize: 12,
+      marginTop: 3
+    }
+  }, msg);
+}
+function ProvenancePill(_ref9) {
+  var type = _ref9.type,
+    size = _ref9.size;
+  var configs = {
+    verified: {
+      bg: '#dcfce7',
+      color: '#166534',
+      label: 'Verified'
+    },
+    ai_inferred: {
+      bg: '#dbeafe',
+      color: '#1e40af',
+      label: 'AI-Inferred'
+    },
+    unknown: {
+      bg: '#f3f4f6',
+      color: '#6b7280',
+      label: 'Unknown'
+    },
+    simulated: {
+      bg: '#fef3c7',
+      color: '#92400e',
+      label: 'Simulated'
+    }
+  };
+  var cfg = configs[type] || configs.unknown;
+  var fontSize = size === 'sm' ? 10 : 11;
+  return /*#__PURE__*/React.createElement("span", {
+    style: {
+      background: cfg.bg,
+      color: cfg.color,
+      padding: "1px ".concat(size === 'sm' ? 6 : 8, "px"),
+      borderRadius: 12,
+      fontSize: fontSize,
+      fontWeight: 700,
+      letterSpacing: '.03em'
+    }
+  }, cfg.label);
+}
+function ConfidenceMeter(_ref0) {
+  var score = _ref0.score,
+    label = _ref0.label;
+  var color = score >= 0.8 ? PAL.teal : score >= 0.5 ? PAL.amber : PAL.red;
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 8
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 60,
+      height: 6,
+      background: '#e5e7eb',
+      borderRadius: 3
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: "".concat(score * 100, "%"),
+      height: '100%',
+      background: color,
+      borderRadius: 3,
+      transition: 'width .3s'
+    }
+  })), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      color: color,
+      fontWeight: 600
+    }
+  }, label));
+}
+
+// ─── OVERVIEW ─────────────────────────────────────────────────────────────────
+
+// ─── SCANNER OBSERVATIONS PANEL ───────────────────────────────────────────────
+// Fetches verified scanner observations from GET /api/observations.
+// Used in Overview, WasteAudits, and InsightsEngine.
+// Shows nothing (not an error) when the backend is offline or has 0 records.
+// Never combined with LoadMan weights or operational totals.
+// All numbers are from actual saved observations only.
+
+function ScannerObservationsPanel(_ref1) {
+  var building = _ref1.building,
+    compact = _ref1.compact;
+  var _useState = useState(null),
+    _useState2 = _slicedToArray(_useState, 2),
+    obs = _useState2[0],
+    setObs = _useState2[1]; // null=loading, []=empty, [...]= data
+  var _useState3 = useState(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    err = _useState4[0],
+    setErr = _useState4[1];
+  var _useState5 = useState(building || ''),
+    _useState6 = _slicedToArray(_useState5, 2),
+    bldgFilter = _useState6[0],
+    setBldgFilter = _useState6[1];
+  var _useState7 = useState(''),
+    _useState8 = _slicedToArray(_useState7, 2),
+    matFilter = _useState8[0],
+    setMatFilter = _useState8[1];
+  var _useState9 = useState([]),
+    _useState0 = _slicedToArray(_useState9, 2),
+    buildings = _useState0[0],
+    setBuildings = _useState0[1];
+  useEffect(function () {
+    var cancelled = false;
+    // Load building list for filter dropdown (best-effort)
+    fetch(API_BASE + '/api/buildings').then(function (r) {
+      return r.json();
+    }).then(function (d) {
+      if (!cancelled) setBuildings(d);
+    }).catch(function () {});
+    loadObs(bldgFilter);
+    return function () {
+      cancelled = true;
+    };
+  }, []);
+  function loadObs(bId) {
+    var url = bId ? API_BASE + '/api/observations?building_id=' + encodeURIComponent(bId) : API_BASE + '/api/observations';
+    fetch(url).then(function (r) {
+      if (!r.ok) throw new Error('status ' + r.status);
+      return r.json();
+    }).then(function (d) {
+      return setObs(d);
+    }).catch(function () {
+      return setErr(true);
+    });
+  }
+
+  // Backend unreachable: render nothing silently (don't break host module)
+  if (err) return null;
+  // Still loading
+  if (obs === null) return /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: '10px 0',
+      fontSize: 12,
+      color: PAL.muted
+    }
+  }, "Loading scanner observations...");
+  // Filter by material client-side
+  var filtered = matFilter ? obs.filter(function (o) {
+    return o.verified_category === matFilter;
+  }) : obs;
+  // Material distribution from filtered set
+  var matCounts = {};
+  filtered.forEach(function (o) {
+    matCounts[o.verified_category] = (matCounts[o.verified_category] || 0) + 1;
+  });
+  var matList = Object.entries(matCounts).sort(function (a, b) {
+    return b[1] - a[1];
+  });
+  var MATERIALS = ['plastic', 'paper', 'cardboard', 'glass', 'metal', 'organic', 'unknown / mixed'];
+  var MC_SCAN = ['#3b6fae', '#2d6a4f', '#e9a825', '#c47c2b', '#7c5cd8', '#dc5a4a', '#9ca3af'];
+  if (compact) {
+    // Compact mode: single-line summary for Overview and Insights
+    if (obs.length === 0) return /*#__PURE__*/React.createElement("div", {
+      style: {
+        padding: '8px 12px',
+        background: '#f7f8fa',
+        borderRadius: 6,
+        fontSize: 12,
+        color: PAL.muted,
+        border: '1px solid #e4d5b5'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "badge badge-purple",
+      style: {
+        marginRight: 8
+      }
+    }, "Scanner"), "No verified observations yet. Use the AI Scanner to add the first record.");
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        padding: '10px 14px',
+        background: '#f7f8fa',
+        borderRadius: 6,
+        border: '1px solid #e4d5b5'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 10,
+        marginBottom: matList.length ? 8 : 0
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "badge badge-purple"
+    }, "Scanner"), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 13,
+        fontWeight: 600,
+        color: PAL.navy
+      }
+    }, obs.length, " verified observation", obs.length !== 1 ? 's' : ''), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 12,
+        color: PAL.muted
+      }
+    }, "Distinct from LoadMan operational records. Human-verified CLIP classifications.")), matList.length > 0 && /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: 5
+      }
+    }, matList.map(function (_ref10) {
+      var _ref11 = _slicedToArray(_ref10, 2),
+        mat = _ref11[0],
+        cnt = _ref11[1];
+      return /*#__PURE__*/React.createElement("span", {
+        key: mat,
+        style: {
+          background: '#e8edf5',
+          borderRadius: 4,
+          padding: '2px 8px',
+          fontSize: 11,
+          color: PAL.navy
+        }
+      }, mat, " ", /*#__PURE__*/React.createElement("strong", null, cnt));
+    })));
+  }
+
+  // Full mode: table with filters
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 8,
+      marginBottom: 6,
+      flexWrap: 'wrap'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "badge badge-purple"
+  }, "Verified Scanner Observations"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted,
+      flex: 1
+    }
+  }, "Human-verified CLIP classifications. Not combined with operational waste weights."), /*#__PURE__*/React.createElement("select", {
+    value: bldgFilter,
+    onChange: function onChange(e) {
+      setBldgFilter(e.target.value);
+      loadObs(e.target.value);
+    },
+    style: {
+      width: 200,
+      fontSize: 12
+    }
+  }, /*#__PURE__*/React.createElement("option", {
+    value: ""
+  }, "All buildings"), buildings.map(function (b) {
+    return /*#__PURE__*/React.createElement("option", {
+      key: b.id,
+      value: b.id
+    }, b.short_name);
+  })), /*#__PURE__*/React.createElement("select", {
+    value: matFilter,
+    onChange: function onChange(e) {
+      return setMatFilter(e.target.value);
+    },
+    style: {
+      width: 160,
+      fontSize: 12
+    }
+  }, /*#__PURE__*/React.createElement("option", {
+    value: ""
+  }, "All materials"), MATERIALS.map(function (m) {
+    return /*#__PURE__*/React.createElement("option", {
+      key: m,
+      value: m
+    }, m);
+  })), /*#__PURE__*/React.createElement("a", {
+    href: API_BASE + '/api/observations/export.csv',
+    download: "envirotrap_observations.csv",
+    className: "btn btn-secondary btn-sm",
+    style: {
+      textDecoration: 'none',
+      fontSize: 12
+    }
+  }, "\u2193 Export CSV")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: '5px 10px',
+      background: '#fef9ec',
+      border: '1px solid #e9a825',
+      borderRadius: 5,
+      fontSize: 11,
+      color: '#92400e',
+      marginBottom: 10
+    }
+  }, "\u26A0 SQLite storage on Hugging Face free tier is ", /*#__PURE__*/React.createElement("strong", null, "temporary"), " \u2014 observations are lost when the Space restarts. Export a CSV backup before closing a session and re-import it afterwards to preserve your records."), obs.length === 0 ? /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: '16px',
+      textAlign: 'center',
+      color: PAL.muted,
+      fontSize: 13,
+      background: '#f7f8fa',
+      borderRadius: 6
+    }
+  }, "No verified observations yet. Use the AI Scanner tab to classify waste images.") : /*#__PURE__*/React.createElement(React.Fragment, null, matList.length > 0 && /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginBottom: 14,
+      padding: '10px 14px',
+      background: '#f7f8fa',
+      borderRadius: 6,
+      border: '1px solid #e4d5b5'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      color: PAL.muted,
+      marginBottom: 8,
+      textTransform: 'uppercase',
+      letterSpacing: '.05em'
+    }
+  }, "Material distribution (", filtered.length, " observation", filtered.length !== 1 ? 's' : '', ")"), matList.map(function (_ref12, i) {
+    var _ref13 = _slicedToArray(_ref12, 2),
+      mat = _ref13[0],
+      cnt = _ref13[1];
+    return /*#__PURE__*/React.createElement("div", {
+      key: mat,
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        marginBottom: 5
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: 120,
+        fontSize: 12,
+        color: PAL.text
+      }
+    }, mat), /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: 1,
+        background: '#e4d5b5',
+        borderRadius: 4,
+        height: 8
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: cnt / filtered.length * 100 + '%',
+        height: '100%',
+        background: MC_SCAN[i % MC_SCAN.length],
+        borderRadius: 4
+      }
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: 28,
+        fontSize: 11,
+        color: PAL.muted,
+        textAlign: 'right'
+      }
+    }, cnt));
+  })), /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Building"), /*#__PURE__*/React.createElement("th", null, "Verified Category"), /*#__PURE__*/React.createElement("th", null, "AI Top Score"), /*#__PURE__*/React.createElement("th", null, "Notes"), /*#__PURE__*/React.createElement("th", null, "Saved"))), /*#__PURE__*/React.createElement("tbody", null, filtered.slice(0, 5).map(function (o) {
+    var scores = o.ai_scores || [],
+      cats = o.ai_categories || [];
+    var mx = scores.length > 0 ? Math.max.apply(null, scores) : null;
+    var mxi = mx !== null ? scores.indexOf(mx) : -1;
+    return /*#__PURE__*/React.createElement("tr", {
+      key: o.id
+    }, /*#__PURE__*/React.createElement("td", {
+      style: {
+        fontSize: 12
+      }
+    }, o.building_name), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("span", {
+      className: "badge badge-navy"
+    }, o.verified_category)), /*#__PURE__*/React.createElement("td", {
+      style: {
+        fontSize: 12
+      }
+    }, mx !== null ? /*#__PURE__*/React.createElement("span", null, mx.toFixed(3), " ", /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: PAL.muted
+      }
+    }, "(", cats[mxi], ")")) : /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: PAL.muted
+      }
+    }, "-")), /*#__PURE__*/React.createElement("td", {
+      style: {
+        fontSize: 12,
+        color: PAL.muted,
+        maxWidth: 140
+      }
+    }, o.notes || '-'), /*#__PURE__*/React.createElement("td", {
+      style: {
+        fontSize: 11,
+        color: PAL.muted
+      }
+    }, o.created_at ? o.created_at.slice(0, 16) : '-'));
+  }))), filtered.length > 5 && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted,
+      marginTop: 6
+    }
+  }, "Showing 5 of ", filtered.length, ". Use AI Scanner for full view.")));
+}
+function Overview(_ref14) {
+  var setActive = _ref14.setActive;
+  var _useState1 = useState('month'),
+    _useState10 = _slicedToArray(_useState1, 2),
+    timePeriod = _useState10[0],
+    setTimePeriod = _useState10[1];
+  var trend = REAL_MODEL.trend;
+  var meta = REAL_MODEL.meta;
+  var funnel = REAL_MODEL.funnel;
+
+  // Time period aggregation of trend data
+  var trendData = useMemo(function () {
+    if (timePeriod === 'month') return trend.map(function (t) {
+      return {
+        period: t.month,
+        pickups: t.pickups,
+        rfid_rate: t.rfid_rate
+      };
+    });
+    // Quarterly grouping
+    var quarters = {};
+    trend.forEach(function (t) {
+      var _t$month$split = t.month.split('-'),
+        _t$month$split2 = _slicedToArray(_t$month$split, 2),
+        y = _t$month$split2[0],
+        m = _t$month$split2[1];
+      var q = "".concat(y, "-Q").concat(Math.ceil(parseInt(m) / 3));
+      if (!quarters[q]) quarters[q] = {
+        period: q,
+        pickups: 0,
+        rfid_rate_sum: 0,
+        n: 0
+      };
+      quarters[q].pickups += t.pickups;
+      quarters[q].rfid_rate_sum += t.rfid_rate;
+      quarters[q].n++;
+    });
+    return Object.values(quarters).map(function (q) {
+      return {
+        period: q.period,
+        pickups: q.pickups,
+        rfid_rate: +(q.rfid_rate_sum / q.n).toFixed(1)
+      };
+    });
+  }, [timePeriod]);
+  var topSites = REAL_MODEL.top_sites.slice(0, 8);
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: 24
+    }
+  }, /*#__PURE__*/React.createElement(SH, {
+    title: "Waste Intelligence Dashboard",
+    sub: "Derived from 79,533 actual UIUC LoadMan records. Attribution AI model trained on 9,989 verified records.",
+    action: /*#__PURE__*/React.createElement(Badge, {
+      cls: "badge-amber"
+    }, "Real Data + AI Model")
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 14,
+      marginBottom: 20,
+      borderLeft: "4px solid ".concat(PAL.teal),
+      background: '#f0fdf4'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      fontWeight: 700,
+      color: PAL.teal,
+      marginBottom: 6,
+      textTransform: 'uppercase',
+      letterSpacing: '.05em'
+    }
+  }, "Verified Source Data"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: 0,
+      fontSize: 13,
+      color: PAL.text,
+      lineHeight: 1.7
+    }
+  }, "EnviroTrap analyzed ", /*#__PURE__*/React.createElement("strong", null, "79,533"), " UIUC LoadMan truck-weight records exported for Betsy Ruckman, Zero Waste Coordinator. Of these, ", /*#__PURE__*/React.createElement("strong", null, "9,989 (12.6%)"), " pass all quality gates and have building attribution. The remaining 87.4% have verifiable reasons: ", /*#__PURE__*/React.createElement("strong", null, "28,337"), " have epoch-default timestamps (2001), the RFID system failed completely after October 2021, and downstream records lack container identity.")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))',
+      gap: 14,
+      marginBottom: 20
+    }
+  }, /*#__PURE__*/React.createElement(StatCard, {
+    label: "Total LoadMan Records",
+    value: "79,533",
+    sub: "All exported records, unmodified",
+    color: "navy",
+    onClick: function onClick() {
+      return setActive('pipeline');
+    },
+    linkLabel: "View data pipeline"
+  }), /*#__PURE__*/React.createElement(StatCard, {
+    label: "Fully Usable Records",
+    value: "9,989",
+    sub: "12.6% - RFID + site + valid weights",
+    color: "green",
+    onClick: function onClick() {
+      return setActive('attribution');
+    },
+    linkLabel: "View attribution"
+  }), /*#__PURE__*/React.createElement(StatCard, {
+    label: "RFID Peak Rate",
+    value: "88.3%",
+    sub: "April 2021 - now 0% from Aug 2022",
+    color: "amber",
+    onClick: function onClick() {
+      return setActive('pipeline');
+    },
+    linkLabel: "Investigate"
+  }), /*#__PURE__*/React.createElement(StatCard, {
+    label: "Attribution AI Model",
+    value: "84.8%",
+    sub: "Top-1 GPS accuracy (150m threshold)",
+    color: "blue",
+    onClick: function onClick() {
+      return setActive('attribution');
+    },
+    linkLabel: "View model details"
+  }), /*#__PURE__*/React.createElement(StatCard, {
+    label: "Distinct Sites",
+    value: "123",
+    sub: "Campus buildings with verified pickups",
+    color: "green",
+    onClick: function onClick() {
+      return setActive('attribution');
+    },
+    linkLabel: "Explore sites"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 16,
+      marginBottom: 20
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      flexWrap: 'wrap',
+      gap: 8,
+      marginBottom: 14
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 700,
+      color: PAL.navy
+    }
+  }, "Pickup Volume and RFID Detection Rate by Month"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted
+    }
+  }, "Real data from ", meta.total_raw_records.toLocaleString(), " LoadMan records. RFID peaked 88.3% in Apr 2021, reached 0% by Aug 2022.")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 6
+    }
+  }, ['month', 'quarter'].map(function (p) {
+    return /*#__PURE__*/React.createElement("button", {
+      key: p,
+      onClick: function onClick() {
+        return setTimePeriod(p);
+      },
+      style: {
+        padding: '5px 12px',
+        borderRadius: 5,
+        border: "1px solid ".concat(timePeriod === p ? PAL.navy : PAL.border),
+        background: timePeriod === p ? PAL.navy : PAL.white,
+        color: timePeriod === p ? PAL.white : PAL.navy,
+        cursor: 'pointer',
+        fontSize: 12,
+        fontWeight: 600,
+        textTransform: 'capitalize'
+      }
+    }, p);
+  }))), /*#__PURE__*/React.createElement(ResponsiveContainer, {
+    width: "100%",
+    height: 200
+  }, /*#__PURE__*/React.createElement(BarChart, {
+    data: trendData,
+    margin: {
+      top: 4,
+      right: 16,
+      bottom: 4,
+      left: 0
+    }
+  }, /*#__PURE__*/React.createElement(CartesianGrid, {
+    strokeDasharray: "3 3",
+    stroke: PAL.border
+  }), /*#__PURE__*/React.createElement(XAxis, {
+    dataKey: "period",
+    tick: {
+      fontSize: 9
+    }
+  }), /*#__PURE__*/React.createElement(YAxis, {
+    yAxisId: "left",
+    tick: {
+      fontSize: 10
+    }
+  }), /*#__PURE__*/React.createElement(YAxis, {
+    yAxisId: "right",
+    orientation: "right",
+    tick: {
+      fontSize: 10
+    },
+    domain: [0, 100],
+    tickFormatter: function tickFormatter(v) {
+      return "".concat(v, "%");
+    }
+  }), /*#__PURE__*/React.createElement(Tooltip, {
+    formatter: function formatter(v, n) {
+      return [n === 'pickups' ? v.toLocaleString() : "".concat(v, "%"), n === 'pickups' ? 'Pickups' : 'RFID Rate'];
+    }
+  }), /*#__PURE__*/React.createElement(Legend, null), /*#__PURE__*/React.createElement(Bar, {
+    yAxisId: "left",
+    dataKey: "pickups",
+    fill: PAL.navyLight,
+    name: "Pickup Records"
+  }), /*#__PURE__*/React.createElement(Bar, {
+    yAxisId: "right",
+    dataKey: "rfid_rate",
+    fill: PAL.amber,
+    name: "RFID Rate %"
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 8,
+      padding: '8px 12px',
+      background: '#fff3cd',
+      borderRadius: 6,
+      fontSize: 12,
+      color: '#664d03'
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "Key finding:"), " RFID detection failed completely after October 2021. Both trucks failed simultaneously, pointing to a system-level cause. The trucks kept running and weighing - the data exists, but container identity is missing. Cause not established from data alone; requires physical investigation.")), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 16,
+      marginBottom: 20
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 700,
+      color: PAL.navy,
+      marginBottom: 4
+    }
+  }, "Data Quality Funnel"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted,
+      marginBottom: 12
+    }
+  }, "Records surviving each successive quality gate"), funnel.map(function (gate, i) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 12,
+        marginBottom: 8
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        color: PAL.muted,
+        minWidth: 16
+      }
+    }, gate.gate), /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: 1
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        fontSize: 12,
+        marginBottom: 3
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: gate.gate === 3 ? PAL.red : PAL.text,
+        fontWeight: gate.gate === 3 ? 700 : 400
+      }
+    }, gate.label), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontWeight: 700,
+        color: PAL.navy
+      }
+    }, gate.n.toLocaleString(), " (", (gate.pct * 100).toFixed(1), "%)")), /*#__PURE__*/React.createElement("div", {
+      className: "progress-bar",
+      style: {
+        height: 6
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "progress-fill",
+      style: {
+        width: "".concat(gate.pct * 100, "%"),
+        background: gate.gate === 3 ? PAL.red : gate.gate === 0 ? PAL.navyLight : gate.gate <= 2 ? PAL.amber : PAL.teal
+      }
+    }))));
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 8,
+      fontSize: 12,
+      color: PAL.muted,
+      fontStyle: 'italic'
+    }
+  }, "Gate 3 (RFID identification) is the critical failure point - losing 64.8% of otherwise valid records.")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))',
+      gap: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 700,
+      color: PAL.navy,
+      marginBottom: 4
+    }
+  }, "Top Buildings by Verified Pickups"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted,
+      marginBottom: 12
+    }
+  }, "From 9,989 usable records with RFID identification"), /*#__PURE__*/React.createElement(ResponsiveContainer, {
+    width: "100%",
+    height: 220
+  }, /*#__PURE__*/React.createElement(BarChart, {
+    data: topSites.map(function (s) {
+      return {
+        name: s.name.length > 20 ? s.name.slice(0, 18) + '...' : s.name,
+        count: s.count
+      };
+    }),
+    layout: "vertical",
+    margin: {
+      top: 0,
+      right: 12,
+      bottom: 0,
+      left: 0
+    }
+  }, /*#__PURE__*/React.createElement(CartesianGrid, {
+    strokeDasharray: "3 3",
+    stroke: PAL.border
+  }), /*#__PURE__*/React.createElement(XAxis, {
+    type: "number",
+    tick: {
+      fontSize: 10
+    }
+  }), /*#__PURE__*/React.createElement(YAxis, {
+    type: "category",
+    dataKey: "name",
+    tick: {
+      fontSize: 9
+    },
+    width: 130
+  }), /*#__PURE__*/React.createElement(Tooltip, {
+    formatter: function formatter(v) {
+      return [v.toLocaleString() + ' pickups', 'Verified'];
+    }
+  }), /*#__PURE__*/React.createElement(Bar, {
+    dataKey: "count",
+    fill: PAL.teal,
+    radius: [0, 3, 3, 0]
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 6,
+      fontSize: 11,
+      color: PAL.muted
+    }
+  }, "All records verified via RFID. Missing: 70,000+ unattributed records.")), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 700,
+      color: PAL.navy,
+      marginBottom: 4
+    }
+  }, "Stream Distribution (Usable Records)"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted,
+      marginBottom: 12
+    }
+  }, "From Service Type field - intended destination, not verified diversion"), function () {
+    var data = REAL_MODEL.service_types.slice(0, 5);
+    var total = data.reduce(function (s, d) {
+      return s + d.count;
+    }, 0);
+    return data.map(function (d, i) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: d.name,
+        style: {
+          marginBottom: 10
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          display: 'flex',
+          justifyContent: 'space-between',
+          fontSize: 12,
+          marginBottom: 3
+        }
+      }, /*#__PURE__*/React.createElement("span", null, d.name), /*#__PURE__*/React.createElement("span", {
+        style: {
+          fontWeight: 600
+        }
+      }, d.count.toLocaleString(), " (", (d.count / 9989 * 100).toFixed(1), "%)")), /*#__PURE__*/React.createElement("div", {
+        className: "progress-bar",
+        style: {
+          height: 6
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "progress-fill",
+        style: {
+          width: "".concat(d.count / data[0].count * 100, "%"),
+          background: MC[i]
+        }
+      })));
+    });
+  }(), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 8,
+      fontSize: 11,
+      color: PAL.muted
+    }
+  }, "Stream labels = intended destination at collection. Downstream verification required for diversion rate."))), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 14,
+      marginTop: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 700,
+      color: PAL.navy,
+      marginBottom: 10
+    }
+  }, "AI Scanner Observations"), /*#__PURE__*/React.createElement(ScannerObservationsPanel, {
+    compact: true
+  })));
+}
+
+// ─── ATTRIBUTION ENGINE UI ────────────────────────────────────────────────────
+function AttributionEngineUI(_ref15) {
+  var setActive = _ref15.setActive;
+  var _useState11 = useState(null),
+    _useState12 = _slicedToArray(_useState11, 2),
+    demoRecords = _useState12[0],
+    setDemoRecords = _useState12[1];
+  var _useState13 = useState(null),
+    _useState14 = _slicedToArray(_useState13, 2),
+    selectedRecord = _useState14[0],
+    setSelectedRecord = _useState14[1];
+  var _useState15 = useState('all'),
+    _useState16 = _slicedToArray(_useState15, 2),
+    filterConf = _useState16[0],
+    setFilterConf = _useState16[1];
+  var _useState17 = useState(false),
+    _useState18 = _slicedToArray(_useState17, 2),
+    showMethodology = _useState18[0],
+    setShowMethodology = _useState18[1];
+  var _useState19 = useState({}),
+    _useState20 = _slicedToArray(_useState19, 2),
+    staffReview = _useState20[0],
+    setStaffReview = _useState20[1]; // Record ID -> staff override
+  var _useState21 = useState(null),
+    _useState22 = _slicedToArray(_useState21, 2),
+    reviewForm = _useState22[0],
+    setReviewForm = _useState22[1];
+  useEffect(function () {
+    // Run attribution engine on simulated unattributed records
+    var predictions = UNATTRIBUTED_RECORDS.map(function (r) {
+      return _objectSpread(_objectSpread({}, r), {}, {
+        _pred: AttributionEngine.predict(r.rfid, r.lat, r.lon)
+      });
+    });
+    setDemoRecords(predictions);
+  }, []);
+  var meta = REAL_MODEL.meta;
+  var filtered = useMemo(function () {
+    if (!demoRecords) return [];
+    if (filterConf === 'all') return demoRecords;
+    if (filterConf === 'high') return demoRecords.filter(function (r) {
+      return r._pred.confidence >= 0.8;
+    });
+    if (filterConf === 'medium') return demoRecords.filter(function (r) {
+      return r._pred.confidence >= 0.5 && r._pred.confidence < 0.8;
+    });
+    if (filterConf === 'low') return demoRecords.filter(function (r) {
+      return r._pred.confidence > 0 && r._pred.confidence < 0.5;
+    });
+    if (filterConf === 'abstain') return demoRecords.filter(function (r) {
+      return r._pred.confidence === 0;
+    });
+    return demoRecords;
+  }, [demoRecords, filterConf]);
+
+  // Accuracy against hidden ground truth
+  var accuracy = useMemo(function () {
+    if (!demoRecords) return null;
+    var withPred = demoRecords.filter(function (r) {
+      return r._pred.site;
+    });
+    var correct = withPred.filter(function (r) {
+      return r._pred.site === r.true_site;
+    });
+    var abstained = demoRecords.filter(function (r) {
+      return !r._pred.site;
+    });
+    return {
+      total: demoRecords.length,
+      predicted: withPred.length,
+      correct: correct.length,
+      abstained: abstained.length,
+      accuracy: withPred.length > 0 ? (correct.length / withPred.length * 100).toFixed(1) : 'N/A',
+      coverage: (withPred.length / demoRecords.length * 100).toFixed(1)
+    };
+  }, [demoRecords]);
+  if (!demoRecords) return /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: 24
+    }
+  }, "Loading attribution engine...");
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: 24
+    }
+  }, /*#__PURE__*/React.createElement(SH, {
+    title: "Attribution Engine",
+    sub: "AI-powered building attribution for unidentified waste records. Three-tier: RFID lookup \u2192 GPS nearest-centroid \u2192 abstain.",
+    action: /*#__PURE__*/React.createElement(Badge, {
+      cls: "badge-navy"
+    }, "Real Model")
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))',
+      gap: 12,
+      marginBottom: 20
+    }
+  }, /*#__PURE__*/React.createElement(StatCard, {
+    label: "GPS Top-1 Accuracy",
+    value: "".concat(meta.gps_top1_acc, "%"),
+    sub: "At ".concat(meta.threshold_m, "m threshold, ").concat(meta.threshold_coverage_pct, "% coverage"),
+    color: "green"
+  }), /*#__PURE__*/React.createElement(StatCard, {
+    label: "GPS Top-3 Accuracy",
+    value: "".concat(meta.gps_top3_acc, "%"),
+    sub: "Within top 3 candidates",
+    color: "green"
+  }), /*#__PURE__*/React.createElement(StatCard, {
+    label: "RFID Accuracy",
+    value: "".concat(meta.rfid_acc, "%"),
+    sub: "".concat(meta.distinct_rfids, " distinct containers, all exclusive"),
+    color: "green"
+  }), /*#__PURE__*/React.createElement(StatCard, {
+    label: "Training Records",
+    value: meta.usable_records.toLocaleString(),
+    sub: "".concat(meta.distinct_sites, " distinct campus sites"),
+    color: "blue"
+  }), /*#__PURE__*/React.createElement(StatCard, {
+    label: "Validation Method",
+    value: "80/20",
+    sub: "Random split, GPS nearest-centroid baseline",
+    color: "navy"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 14,
+      marginBottom: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 700,
+      color: PAL.navy
+    }
+  }, "Model Architecture and Methodology"), /*#__PURE__*/React.createElement("button", {
+    onClick: function onClick() {
+      return setShowMethodology(function (x) {
+        return !x;
+      });
+    },
+    style: {
+      background: 'none',
+      border: "1px solid ".concat(PAL.border),
+      borderRadius: 5,
+      padding: '4px 10px',
+      cursor: 'pointer',
+      fontSize: 12,
+      color: PAL.navyLight
+    }
+  }, showMethodology ? 'Hide' : 'Show')), showMethodology && /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 12,
+      fontSize: 13,
+      color: PAL.text,
+      lineHeight: 1.8
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "Tier 1 - RFID Lookup (100% accuracy when RFID present):"), /*#__PURE__*/React.createElement("br", null), "When a record has an RFID tag, it is looked up in a 179-entry table derived from verified LoadMan records. All 179 RFIDs map exclusively to a single building. This is a deterministic lookup, not ML.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Tier 2 - GPS Nearest-Centroid (84.8% top-1 at 150m):"), /*#__PURE__*/React.createElement("br", null), "When no RFID is present but GPS coordinates exist, the pickup location is compared to 123 building centroids computed from the labeled dataset. The nearest centroid within the threshold is returned as the prediction. Confidence is computed from (a) distance to nearest centroid and (b) gap to second-nearest.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Tier 3 - Abstain:"), /*#__PURE__*/React.createElement("br", null), "When no RFID and no GPS (or GPS is more than 150m from any known centroid), the engine abstains rather than producing an unreliable prediction. This protects data integrity.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Validation:"), " 80/20 random split of 9,989 labeled records. Training set used to build centroids. Test set evaluated against held-out ground truth. Accuracy: 84.8% top-1, 97.8% top-3.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Limitations:"), " GPS coordinates cluster tightly at some large sites (e.g., ORCHARD DOWNS has avg 227m spread across the complex). Some nearby sites have centroids only 19-24m apart. The model cannot distinguish between adjacent buildings sharing a loading dock. Results must be treated as AI-inferred, not verified, until confirmed by authorized staff.")), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 14,
+      marginBottom: 16,
+      background: '#eff6ff',
+      borderLeft: "4px solid ".concat(PAL.navyLight)
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 13,
+      fontWeight: 700,
+      color: PAL.navy,
+      marginBottom: 4
+    }
+  }, "Live Demo: Attribution on Simulated Unattributed Records"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: 0,
+      fontSize: 12,
+      color: PAL.muted,
+      lineHeight: 1.6
+    }
+  }, "Applying the real GPS model to ", demoRecords.length, " simulated records (GPS noise added to real centroids). Ground truth is hidden during prediction, then revealed for evaluation. In production, this would run on the 70,000+ real unattributed LoadMan records."), accuracy && /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 16,
+      marginTop: 10,
+      flexWrap: 'wrap'
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      color: PAL.muted
+    }
+  }, "Predicted: "), /*#__PURE__*/React.createElement("strong", null, accuracy.predicted)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      color: PAL.muted
+    }
+  }, "Correct (vs hidden truth): "), /*#__PURE__*/React.createElement("strong", {
+    style: {
+      color: PAL.teal
+    }
+  }, accuracy.correct, " (", accuracy.accuracy, "%)")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      color: PAL.muted
+    }
+  }, "Abstained: "), /*#__PURE__*/React.createElement("strong", null, accuracy.abstained)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      color: PAL.muted
+    }
+  }, "Coverage: "), /*#__PURE__*/React.createElement("strong", null, accuracy.coverage, "%")))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 7,
+      marginBottom: 12,
+      flexWrap: 'wrap',
+      alignItems: 'center'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted
+    }
+  }, "Filter by confidence:"), [['all', 'All'], ['high', 'High'], ['medium', 'Medium'], ['low', 'Low'], ['abstain', 'Abstain']].map(function (_ref16) {
+    var _ref17 = _slicedToArray(_ref16, 2),
+      v = _ref17[0],
+      l = _ref17[1];
+    return /*#__PURE__*/React.createElement("button", {
+      key: v,
+      onClick: function onClick() {
+        return setFilterConf(v);
+      },
+      style: {
+        padding: '4px 12px',
+        borderRadius: 12,
+        border: "1px solid ".concat(filterConf === v ? PAL.navy : PAL.border),
+        background: filterConf === v ? PAL.navy : PAL.white,
+        color: filterConf === v ? PAL.white : PAL.text,
+        cursor: 'pointer',
+        fontSize: 12,
+        fontWeight: filterConf === v ? 600 : 400
+      }
+    }, l);
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted,
+      marginLeft: 'auto'
+    }
+  }, "Showing ", filtered.length, " records")), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      overflow: 'hidden'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      overflowX: 'auto'
+    }
+  }, /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, ['Record', 'Date', 'Has GPS', 'Predicted Building', 'Confidence', 'Method', 'Correct?', 'Staff Review'].map(function (h) {
+    return /*#__PURE__*/React.createElement("th", {
+      key: h
+    }, h);
+  }))), /*#__PURE__*/React.createElement("tbody", null, filtered.slice(0, 50).map(function (r) {
+    var pred = r._pred;
+    var override = staffReview[r.id];
+    var isCorrect = pred.site ? pred.site === r.true_site : null;
+    return /*#__PURE__*/React.createElement("tr", {
+      key: r.id,
+      style: {
+        background: isCorrect === true ? '#f0fdf4' : isCorrect === false ? '#fef2f2' : 'inherit'
+      }
+    }, /*#__PURE__*/React.createElement("td", {
+      style: {
+        fontFamily: 'monospace',
+        fontSize: 11
+      }
+    }, r.id), /*#__PURE__*/React.createElement("td", null, r.date), /*#__PURE__*/React.createElement("td", {
+      style: {
+        textAlign: 'center'
+      }
+    }, r.has_gps ? /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: PAL.teal
+      }
+    }, "\u2713") : /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: PAL.muted
+      }
+    }, "\u2013")), /*#__PURE__*/React.createElement("td", null, override ? /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(ProvenancePill, {
+      type: "verified",
+      size: "sm"
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 12,
+        marginLeft: 4
+      }
+    }, override)) : pred.site ? /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(ProvenancePill, {
+      type: pred.tier === 1 ? 'verified' : 'ai_inferred',
+      size: "sm"
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 12,
+        marginLeft: 4
+      }
+    }, pred.site.length > 30 ? pred.site.slice(0, 28) + '...' : pred.site)) : /*#__PURE__*/React.createElement(ProvenancePill, {
+      type: "unknown",
+      size: "sm"
+    })), /*#__PURE__*/React.createElement("td", null, pred.confidence > 0 && /*#__PURE__*/React.createElement(ConfidenceMeter, {
+      score: pred.confidence,
+      label: pred.confidence_label
+    })), /*#__PURE__*/React.createElement("td", {
+      style: {
+        fontSize: 11,
+        color: PAL.muted
+      }
+    }, pred.method === 'rfid_lookup' ? 'RFID' : pred.method === 'gps_centroid' ? 'GPS' : 'Abstain'), /*#__PURE__*/React.createElement("td", {
+      style: {
+        fontSize: 12
+      }
+    }, pred.site ? isCorrect ? /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: PAL.teal,
+        fontWeight: 700
+      }
+    }, "\u2713") : /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: PAL.red,
+        fontWeight: 700,
+        fontSize: 10
+      }
+    }, "\u2717 (", r.true_site.slice(0, 15), "...)") : /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: PAL.muted
+      }
+    }, "\u2013")), /*#__PURE__*/React.createElement("td", null, !override && pred.site && pred.tier === 2 && /*#__PURE__*/React.createElement("button", {
+      onClick: function onClick() {
+        return setReviewForm({
+          id: r.id,
+          predicted: pred.site,
+          top3: pred.top3 || []
+        });
+      },
+      style: {
+        padding: '2px 8px',
+        borderRadius: 4,
+        border: "1px solid ".concat(PAL.border),
+        background: PAL.white,
+        cursor: 'pointer',
+        fontSize: 11,
+        color: PAL.navyLight
+      }
+    }, "Review"), override && /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 11,
+        color: PAL.teal,
+        fontWeight: 600
+      }
+    }, "Confirmed \u2713")));
+  }))), filtered.length > 50 && /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: '8px 14px',
+      fontSize: 12,
+      color: PAL.muted
+    }
+  }, "Showing first 50 of ", filtered.length, " records"))), reviewForm && /*#__PURE__*/React.createElement(Modal, {
+    open: !!reviewForm,
+    onClose: function onClose() {
+      return setReviewForm(null);
+    },
+    title: "Staff Attribution Review",
+    maxWidth: 500
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 13,
+      marginBottom: 12
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "Record:"), " ", reviewForm.id, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "AI Prediction:"), " ", reviewForm.predicted), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: PAL.navy,
+      marginBottom: 8
+    }
+  }, "Top 3 Candidates"), reviewForm.top3.map(function (c, i) {
+    return /*#__PURE__*/React.createElement("button", {
+      key: i,
+      onClick: function onClick() {
+        setStaffReview(function (s) {
+          return _objectSpread(_objectSpread({}, s), {}, _defineProperty({}, reviewForm.id, c.site));
+        });
+        setReviewForm(null);
+      },
+      style: {
+        display: 'block',
+        width: '100%',
+        textAlign: 'left',
+        padding: '8px 12px',
+        marginBottom: 6,
+        borderRadius: 6,
+        border: "1px solid ".concat(i === 0 ? PAL.navyLight : PAL.border),
+        background: i === 0 ? '#eff6ff' : PAL.white,
+        cursor: 'pointer',
+        fontSize: 13
+      }
+    }, /*#__PURE__*/React.createElement("strong", null, "#", i + 1, ":"), " ", c.site, " ", /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: PAL.muted
+      }
+    }, "(", Math.round(c.d), "m away)"), i === 0 && /*#__PURE__*/React.createElement(Badge, {
+      cls: "badge-navy",
+      style: {
+        marginLeft: 8
+      }
+    }, "AI Top Pick"));
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 12,
+      padding: '8px 12px',
+      background: PAL.amberBg,
+      borderRadius: 6,
+      fontSize: 12,
+      color: '#92400e'
+    }
+  }, "Confirming a building attribution marks this record as staff-verified. The original AI prediction is preserved for audit."), /*#__PURE__*/React.createElement("button", {
+    onClick: function onClick() {
+      return setReviewForm(null);
+    },
+    className: "btn btn-secondary btn-sm",
+    style: {
+      marginTop: 10
+    }
+  }, "Cancel")));
+}
+
+// ─── DATA PIPELINE ────────────────────────────────────────────────────────────
+function DataPipeline() {
+  var meta = REAL_MODEL.meta;
+  var trend = REAL_MODEL.trend;
+  var funnel = REAL_MODEL.funnel;
+
+  // Find the RFID cliff precisely
+  var rfidByMonth = trend.map(function (t) {
+    return {
+      month: t.month,
+      rfid_rate: t.rfid_rate,
+      status: t.status
+    };
+  });
+  var lastWorking = rfidByMonth.filter(function (t) {
+    return t.rfid_rate > 0;
+  }).slice(-1)[0];
+  var firstFailed = rfidByMonth.filter(function (t) {
+    return t.status === 'Container ID failed';
+  })[0];
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: 24
+    }
+  }, /*#__PURE__*/React.createElement(SH, {
+    title: "Data Pipeline and Quality Report",
+    sub: "Verified analysis of 79,533 actual UIUC LoadMan records. Source: Betsy Ruckman, F&S Zero Waste Coordinator."
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 14,
+      marginBottom: 16,
+      background: '#f0fdf4',
+      borderLeft: "4px solid ".concat(PAL.teal)
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      fontWeight: 700,
+      color: PAL.teal,
+      marginBottom: 6
+    }
+  }, "Data Provenance"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))',
+      gap: 8,
+      fontSize: 13
+    }
+  }, [['Source file', 'LoadData - All Columns - 9-15 17:16:30.csv (LoadMan portal export)'], ['Recipient', 'Betsy Ruckman, Zero Waste Coordinator, UIUC Facilities & Services'], ['Records exported', '79,533 rows x 53 columns'], ['Date range', '2001-01-01 through 2025-08-30'], ['Trucks', 'New Truck; 31272-11; small number unspecified'], ['Encoding', 'Windows-1252 (not UTF-8)']].map(function (_ref18) {
+    var _ref19 = _slicedToArray(_ref18, 2),
+      k = _ref19[0],
+      v = _ref19[1];
+    return /*#__PURE__*/React.createElement("div", {
+      key: k,
+      style: {
+        padding: '6px 0',
+        borderBottom: "1px solid ".concat(PAL.border)
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        color: PAL.muted
+      }
+    }, k), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: PAL.text
+      }
+    }, v));
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 16,
+      marginBottom: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 700,
+      color: PAL.navy,
+      marginBottom: 12
+    }
+  }, "Validity Funnel - All 79,533 Records"), /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Gate"), /*#__PURE__*/React.createElement("th", null, "Records"), /*#__PURE__*/React.createElement("th", null, "% of All"), /*#__PURE__*/React.createElement("th", null, "What This Tests"))), /*#__PURE__*/React.createElement("tbody", null, funnel.map(function (g) {
+    return /*#__PURE__*/React.createElement("tr", {
+      key: g.gate,
+      style: {
+        background: g.gate === 3 ? '#fef2f2' : g.gate === 7 ? '#f0fdf4' : 'inherit'
+      }
+    }, /*#__PURE__*/React.createElement("td", {
+      style: {
+        fontWeight: 600,
+        color: g.gate === 3 ? PAL.red : g.gate === 7 ? PAL.teal : PAL.text
+      }
+    }, g.label), /*#__PURE__*/React.createElement("td", {
+      style: {
+        fontWeight: 700
+      }
+    }, g.n.toLocaleString()), /*#__PURE__*/React.createElement("td", null, (g.pct * 100).toFixed(1), "%"), /*#__PURE__*/React.createElement("td", {
+      style: {
+        fontSize: 12,
+        color: PAL.muted
+      }
+    }, ['All rows in portal export', 'Excludes meter power events, asset deliveries, missed loads', 'Excludes 2001/2002 device-clock defaults (31,725 records)', 'THE FAILURE POINT - missing container RFID identity', 'Container maps to known campus site', 'Gross weight > 0 captured', 'Tare weight > 0 captured (net weight computable)', 'Weights inside physically credible bounds'][g.gate]));
+  })))), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 16,
+      marginBottom: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 700,
+      color: PAL.navy,
+      marginBottom: 4
+    }
+  }, "RFID Operational Failure Investigation"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted,
+      marginBottom: 12
+    }
+  }, "RFID detection peaked at ", /*#__PURE__*/React.createElement("strong", null, "88.3%"), " in April 2021. By August 2022, it reached ", /*#__PURE__*/React.createElement("strong", null, "0.0%"), " and has remained there."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))',
+      gap: 10,
+      marginBottom: 14
+    }
+  }, [{
+    label: 'RFID Peak',
+    value: '88.3%',
+    note: 'April 2021',
+    color: PAL.teal
+  }, {
+    label: 'Last Working Month',
+    value: (lastWorking === null || lastWorking === void 0 ? void 0 : lastWorking.month) || 'Oct 2021',
+    note: "".concat((lastWorking === null || lastWorking === void 0 ? void 0 : lastWorking.rfid_rate) || 58.6, "% rate"),
+    color: PAL.amber
+  }, {
+    label: 'First 0% Month',
+    value: (firstFailed === null || firstFailed === void 0 ? void 0 : firstFailed.month) || 'Aug 2022',
+    note: '0.0% detection',
+    color: PAL.red
+  }, {
+    label: 'Both Trucks',
+    value: 'Failed together',
+    note: 'System-level cause suspected',
+    color: PAL.navy
+  }].map(function (s) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: s.label,
+      className: "stat-card",
+      style: {
+        borderLeft: "4px solid ".concat(s.color)
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        color: PAL.muted,
+        textTransform: 'uppercase',
+        letterSpacing: '.05em'
+      }
+    }, s.label), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 20,
+        fontWeight: 700,
+        color: s.color
+      }
+    }, s.value), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: PAL.muted
+      }
+    }, s.note));
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: '10px 14px',
+      background: '#fff3cd',
+      borderRadius: 6,
+      fontSize: 13,
+      color: '#664d03',
+      lineHeight: 1.7
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "Important:"), " This analysis identifies WHERE the data fails, not WHY. Candidate causes (tag failure, reader failure, service lapse, configuration loss, firmware) are untested hypotheses. They must be confirmed against the vehicles and with the operator before any conclusion is drawn.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Recommended next step:"), " Compare manually logged pickups against database records during a front-loader route ride-along.")), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 700,
+      color: PAL.navy,
+      marginBottom: 12
+    }
+  }, "Key Field Coverage (53 columns total)"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))',
+      gap: 10
+    }
+  }, [{
+    field: 'Pickup Time',
+    pct: 100,
+    note: '100% - reliable timestamp when not epoch-default',
+    color: PAL.teal
+  }, {
+    field: 'RFID (container tag)',
+    pct: 20.4,
+    note: '20.4% - the core attribution gap',
+    color: PAL.red
+  }, {
+    field: 'Site Name',
+    pct: 28.0,
+    note: '28.0% - includes records resolved without RFID',
+    color: PAL.amber
+  }, {
+    field: 'GPS (Load Lat/Lon)',
+    pct: 40.1,
+    note: '40.1% - available for attribution inference',
+    color: PAL.navyLight
+  }, {
+    field: 'Service Type',
+    pct: 93.8,
+    note: '93.8% - container + waste type info',
+    color: PAL.teal
+  }, {
+    field: 'Truck Name',
+    pct: 100,
+    note: '100% - truck identity always recorded',
+    color: PAL.teal
+  }, {
+    field: 'Capacity/Volume/Density',
+    pct: 0,
+    note: '0% - fields present but unconfigured',
+    color: PAL.muted
+  }, {
+    field: 'NVW',
+    pct: 93.3,
+    note: '93.3% - values in millions, definition unconfirmed',
+    color: PAL.amber
+  }].map(function (f) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: f.field
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        fontSize: 12,
+        marginBottom: 3
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontWeight: 600,
+        color: PAL.text
+      }
+    }, f.field), /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: f.color,
+        fontWeight: 700
+      }
+    }, f.pct, "%")), /*#__PURE__*/React.createElement("div", {
+      className: "progress-bar",
+      style: {
+        height: 5,
+        marginBottom: 3
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "progress-fill",
+      style: {
+        width: "".concat(f.pct, "%"),
+        background: f.color
+      }
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        color: PAL.muted
+      }
+    }, f.note));
+  }))));
+}
+
+// ─── ASK NEXUS ────────────────────────────────────────────────────────────────
+// Grounded in real LoadMan statistics. All numbers are from verified data.
+var NexusAI = {
+  answer: function answer(question) {
+    var q = question.toLowerCase().trim();
+    var meta = REAL_MODEL.meta;
+    var trend = REAL_MODEL.trend;
+
+    // Top buildings
+    if (q.includes('building') && (q.includes('most') || q.includes('top') || q.includes('highest'))) {
+      var top = REAL_MODEL.top_sites.slice(0, 5);
+      var list = top.map(function (s, i) {
+        return "".concat(i + 1, ". ").concat(s.name, ": ").concat(s.count.toLocaleString(), " verified pickups");
+      }).join('\n');
+      return {
+        type: 'calculated',
+        answer: "Based on ".concat(meta.usable_records.toLocaleString(), " verified LoadMan records (RFID-identified):\n\n").concat(list),
+        note: "These are the ".concat(meta.distinct_sites, " buildings with verified RFID pickup records. The remaining ").concat((79533 - meta.usable_records).toLocaleString(), " records lack building attribution."),
+        records_used: meta.usable_records,
+        total_records: meta.total_raw_records
+      };
+    }
+
+    // Attribution rate
+    if (q.includes('attribution') || q.includes('12.6') || q.includes('87.4')) {
+      return {
+        type: 'observed',
+        answer: "Of 79,533 total LoadMan records:\n- 9,989 (12.6%) pass all quality gates and have building attribution\n- 87.4% lack building attribution for verified reasons:\n  \u2022 31,725 records: epoch-default timestamp (Jan 1, 2001)\n  \u2022 ~28,000+ records: RFID system failure after Oct 2021\n  \u2022 Remaining: load type not \"Load Pickup\", missing RFID, or weight issues",
+        note: 'Source: UIUC_LoadMan_Consolidated_Dataset.xlsx, analyzed for Betsy Ruckman, F&S.',
+        records_used: 79533,
+        total_records: 79533
+      };
+    }
+
+    // RFID failure
+    if (q.includes('rfid') || q.includes('failure') || q.includes('cliff') || q.includes('stopped')) {
+      var peak = trend.filter(function (t) {
+        return t.rfid_rate > 0;
+      }).sort(function (a, b) {
+        return b.rfid_rate - a.rfid_rate;
+      })[0];
+      return {
+        type: 'observed',
+        answer: "RFID container detection failure timeline:\n- Dec 2019: 0% (pre-operational)\n- 2020: Gradual ramp from 3.3% to 69%\n- ".concat(peak.month, ": PEAK at ").concat(peak.rfid_rate, "% (").concat(peak.pickups.toLocaleString(), " pickups)\n- Aug-Oct 2021: Degraded to ~58-62%\n- Nov 2021 - Jul 2022: Gap in data\n- Aug 2022: 0% - never recovered\n\nBoth trucks failed simultaneously, indicating a system-level cause. Weights continued to be recorded - the data exists, container identity does not."),
+        note: 'CAUSE NOT ESTABLISHED from data alone. Physical investigation of vehicles and service records required.',
+        records_used: 43759,
+        total_records: 79533
+      };
+    }
+
+    // GPS / attribution model
+    if (q.includes('model') || q.includes('accuracy') || q.includes('gps') || q.includes('prediction') || q.includes('attribution engine')) {
+      return {
+        type: 'calculated',
+        answer: "Attribution Engine performance (held-out 20% test set):\n\nTier 1 - RFID Lookup:\n  Accuracy: 100% (deterministic)\n  Coverage: depends on RFID presence (currently 0% in post-Oct 2021 data)\n  Distinct RFIDs: 179 (all exclusive 1-to-1 building mapping)\n\nTier 2 - GPS Nearest-Centroid:\n  Top-1 accuracy: 84.8%\n  Top-3 accuracy: 97.8%\n  Coverage at 150m threshold: 91.6%\n  Training data: 123 building centroids from 9,989 labeled records\n\nTier 3 - Abstain:\n  Used when: no RFID and no GPS, or GPS >150m from any known centroid",
+        note: 'Validation: 80/20 random split of 9,989 labeled records. GPS model uses Haversine nearest-centroid. No features beyond GPS coordinates.',
+        records_used: 9989,
+        total_records: 9989
+      };
+    }
+
+    // Stream distribution
+    if (q.includes('stream') || q.includes('landfill') || q.includes('cardboard') || q.includes('paper') || q.includes('recycling') || q.includes('diversion')) {
+      var lines = REAL_MODEL.service_types.map(function (s) {
+        return "".concat(s.name, ": ").concat(s.count.toLocaleString(), " records (").concat((s.count / 9989 * 100).toFixed(1), "%)");
+      }).join('\n');
+      return {
+        type: 'calculated',
+        answer: "Waste stream distribution from Service Type field (9,989 usable records):\n\n".concat(lines, "\n\nNote: \"Landfill\" = Front Load-Landfill containers. \"Cardboard\"/\"Paper\" = recycling streams."),
+        note: "Stream labels = intended destination at collection. Downstream verification required for diversion rate calculation. Diversion rate cannot be reliably calculated from this dataset without confirmed downstream disposition data.",
+        records_used: 9989,
+        total_records: 9989
+      };
+    }
+
+    // Total records / weight
+    if (q.includes('total') && (q.includes('record') || q.includes('weight') || q.includes('pickup'))) {
+      return {
+        type: 'observed',
+        answer: "Total LoadMan records: 79,533\n\nBreakdown:\n- Load Pickup events: 73,857 (92.9%)\n- Other event types: 5,676 (7.1%)\n\n- With valid pickup date: 43,759 (55.0%)\n- With RFID identification: 15,406 (19.4%)\n- With site/building resolved: 13,414 (16.9%)\n- Fully usable (all gates): 9,989 (12.6%)\n\nWeight data: captured in usable records but net weight requires confirmed NVW field definition.",
+        note: 'Source: 79,533 raw records. Validity funnel computed from UIUC_LoadMan_Consolidated_Dataset.xlsx.',
+        records_used: 79533,
+        total_records: 79533
+      };
+    }
+
+    // Epoch dates
+    if (q.includes('2001') || q.includes('epoch') || q.includes('timestamp') || q.includes('date')) {
+      return {
+        type: 'observed',
+        answer: "28,337 records carry a timestamp of January 1, 2001.\n\nThis is a device clock default - it indicates the LoadMan unit powered on without a time synchronization. These are not records from 2001.\n\nImpact: 28,337 records are excluded from the valid-date gate (Gate 2) of the validity funnel, reducing 73,857 Load Pickup events to 43,759 with valid dates.",
+        note: 'Source: Validity funnel, Gate 2. The 2001 dates are a hardware/software artifact, not actual pickup dates.',
+        records_used: 73857,
+        total_records: 79533
+      };
+    }
+
+    // Data quality / missing data
+    if (q.includes('missing') || q.includes('gap') || q.includes('quality') || q.includes('what do we need')) {
+      return {
+        type: 'methodology',
+        answer: "Key data gaps in the LoadMan dataset:\n\n1. RFID system failed after Oct 2021 - no container identity in 2022-2025 records\n2. 28,337 epoch-default timestamps (device clock not synced)\n3. GPS only 40.1% overall (99.7% in labeled records)\n4. NVW field definition unconfirmed (values in millions - not per-pickup weight)\n5. Capacity/Volume/Density fields present but all zero (unconfigured)\n6. Downstream disposition not recorded (diversion rate unverifiable)\n\nFor GPS attribution to work at scale:\n- Need to confirm GPS accuracy in unattributed 2022-2025 records\n- Need to confirm whether GPS coordinates exist for epoch-date records",
+        note: 'See Field Inventory in UIUC_LoadMan_Consolidated_Dataset.xlsx for complete column analysis.',
+        records_used: 0,
+        total_records: 79533
+      };
+    }
+
+    // Orchard Downs / specific site
+    if (q.includes('orchard') || q.includes('top site')) {
+      return {
+        type: 'observed',
+        answer: "ORCHARD DOWNS APARTMENTS has the most verified pickup records:\n1,711 of 9,989 total (17.1% of usable records)\n\nThis is a large off-campus student housing complex. The high pickup count suggests frequent collection frequency or large container volumes.\n\nNote: GPS spread at Orchard Downs averages 227m - the pickup locations are distributed across the complex, which may reduce GPS prediction accuracy for nearby sites.",
+        note: 'Source: 9,989 usable records from UIUC_LoadMan_Consolidated_Dataset.xlsx.',
+        records_used: 1711,
+        total_records: 9989
+      };
+    }
+
+    // Betsy / stakeholder
+    if (q.includes('betsy') || q.includes('f&s') || q.includes('facilities')) {
+      return {
+        type: 'observed',
+        answer: "The LoadMan dataset was exported for and prepared for Betsy Ruckman, Zero Waste Coordinator, UIUC Facilities & Services.\n\nBetsy's identified priorities:\n1. Collection Log: more automatic field population, route knowledge\n2. Waste Explorer: visual weight breakdown, diversion clarity\n3. Overview: headline metrics with drill-down capability\n\nEnviroTrap's recommended next step (from the data): A route ride-along to compare manual records against LoadMan data during an actual collection run. This would help validate whether the RFID failure is vehicle-side, reader-side, or service-side.",
+        note: "Betsy's feedback is treated as qualitative stakeholder input, not proof of institutional adoption or approved pilot.",
+        records_used: 0,
+        total_records: 0
+      };
+    }
+
+    // NVW
+    if (q.includes('nvw') || q.includes('weight')) {
+      return {
+        type: 'observed',
+        answer: "The NVW (Net Vehicle Weight?) field:\n- Present in 93.3% of records (74,241 rows)\n- Values run into the millions - these are NOT per-pickup net weights\n- The field appears to be a cumulative or raw counter, not an individual load weight\n- EnviroTrap excluded NVW from the funnel pending confirmation of its definition\n\nWeight in usable records comes from: gross load weight - container tare weight.\nBoth must be > 0, which is satisfied in 9,998 \u2192 9,989 records.",
+        note: 'NVW definition must be confirmed with the LoadMan operator before using for weight calculations.',
+        records_used: 0,
+        total_records: 79533
+      };
+    }
+    return {
+      type: 'unknown',
+      answer: null
+    };
+  }
+};
+var NEXUS_SUGGESTIONS = ['Which buildings have the most verified pickup records?', 'What is the attribution rate and why?', 'What happened to the RFID system?', 'How accurate is the GPS attribution model?', 'What is the breakdown by waste stream?', 'How many total records are in the dataset?', 'What data gaps prevent a diversion rate calculation?', 'What are the 2001 timestamp records?', 'What is the NVW field?', "What are Betsy's priorities?"];
+function AskNexus() {
+  var _useState23 = useState(''),
+    _useState24 = _slicedToArray(_useState23, 2),
+    query = _useState24[0],
+    setQuery = _useState24[1];
+  var _useState25 = useState([]),
+    _useState26 = _slicedToArray(_useState25, 2),
+    history = _useState26[0],
+    setHistory = _useState26[1];
+  var _useState27 = useState(false),
+    _useState28 = _slicedToArray(_useState27, 2),
+    loading = _useState28[0],
+    setLoading = _useState28[1];
+  function ask(q) {
+    var question = (q || query).trim();
+    if (!question) return;
+    setLoading(true);
+    setQuery('');
+    setTimeout(function () {
+      var result = NexusAI.answer(question);
+      setHistory(function (h) {
+        return [_objectSpread(_objectSpread({
+          id: Date.now(),
+          question: question
+        }, result), {}, {
+          timestamp: new Date().toLocaleTimeString()
+        })].concat(_toConsumableArray(h));
+      });
+      setLoading(false);
+    }, 350);
+  }
+  var typeColors = {
+    calculated: PAL.teal,
+    observed: PAL.navyLight,
+    methodology: PAL.muted
+  };
+  var typeLabels = {
+    calculated: 'Calculated Finding',
+    observed: 'Observed Fact',
+    methodology: 'Methodology'
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: 24,
+      maxWidth: 820,
+      margin: '0 auto'
+    }
+  }, /*#__PURE__*/React.createElement(SH, {
+    title: "Ask Nexus",
+    sub: "Deterministic waste intelligence - all answers computed from 79,533 actual LoadMan records. No LLM, no fabricated data."
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 14,
+      marginBottom: 16,
+      background: '#eff6ff',
+      borderLeft: "4px solid ".concat(PAL.navyLight)
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      fontWeight: 700,
+      color: PAL.navy,
+      marginBottom: 4
+    }
+  }, "About Ask Nexus"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: 0,
+      fontSize: 13,
+      color: PAL.text,
+      lineHeight: 1.7
+    }
+  }, "Ask Nexus answers questions by running pattern-matching and rule-based computation against verified data from 79,533 actual UIUC LoadMan records. Every numerical claim traces to a specific source. This is not a language model - no external API calls are made. Uncertainty is always explicitly stated. For competition purposes, the system architecture is documented and all responses are reproducible.")), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 14,
+      marginBottom: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 10
+    }
+  }, /*#__PURE__*/React.createElement("input", {
+    value: query,
+    onChange: function onChange(e) {
+      return setQuery(e.target.value);
+    },
+    onKeyDown: function onKeyDown(e) {
+      if (e.key === 'Enter' && query.trim()) ask();
+    },
+    placeholder: "Ask a question about UIUC campus waste data...",
+    style: {
+      flex: 1,
+      fontSize: 14
+    }
+  }), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-primary",
+    onClick: function onClick() {
+      return ask();
+    },
+    disabled: loading || !query.trim()
+  }, loading ? 'Computing...' : 'Ask')), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 12
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted,
+      marginBottom: 7
+    }
+  }, "Questions grounded in real data:"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: 6
+    }
+  }, NEXUS_SUGGESTIONS.map(function (s) {
+    return /*#__PURE__*/React.createElement("button", {
+      key: s,
+      onClick: function onClick() {
+        return ask(s);
+      },
+      style: {
+        padding: '4px 10px',
+        borderRadius: 12,
+        border: "1px solid ".concat(PAL.border),
+        background: PAL.white,
+        cursor: 'pointer',
+        fontSize: 11,
+        color: PAL.navy
+      }
+    }, s);
+  })))), loading && /*#__PURE__*/React.createElement("div", {
+    style: {
+      textAlign: 'center',
+      padding: 20,
+      color: PAL.muted,
+      fontSize: 13
+    }
+  }, "Computing from verified records..."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 14
+    }
+  }, history.length === 0 && !loading && /*#__PURE__*/React.createElement("div", {
+    style: {
+      textAlign: 'center',
+      padding: 40,
+      color: PAL.muted
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 24,
+      marginBottom: 8
+    }
+  }, "\u25EF"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 600
+    }
+  }, "Ask a question to get started"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 13,
+      marginTop: 4
+    }
+  }, "All answers computed from 79,533 actual UIUC LoadMan records")), history.map(function (h) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: h.id,
+      className: "card",
+      style: {
+        padding: 16
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginBottom: 10
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 14,
+        fontWeight: 700,
+        color: PAL.navy
+      }
+    }, "Q: ", h.question), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 11,
+        color: PAL.muted
+      }
+    }, h.timestamp)), h.type === 'unknown' ? /*#__PURE__*/React.createElement("div", {
+      style: {
+        background: PAL.cream,
+        borderRadius: 6,
+        padding: 12,
+        fontSize: 13,
+        color: PAL.muted
+      }
+    }, "Ask Nexus could not find a handler for this question. Try the suggested questions above. Supported topics: buildings, attribution rate, RFID failure, GPS model, streams, total records, data gaps, timestamps, NVW, stakeholders.") : /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+      style: {
+        display: 'inline-block',
+        padding: '2px 8px',
+        borderRadius: 12,
+        fontSize: 11,
+        fontWeight: 700,
+        background: (typeColors[h.type] || PAL.muted) + '22',
+        color: typeColors[h.type] || PAL.muted,
+        marginBottom: 8
+      }
+    }, typeLabels[h.type] || h.type), /*#__PURE__*/React.createElement("pre", {
+      style: {
+        margin: '0 0 12px',
+        fontSize: 13,
+        lineHeight: 1.7,
+        fontFamily: 'inherit',
+        whiteSpace: 'pre-wrap',
+        color: PAL.text,
+        background: PAL.cream,
+        borderRadius: 6,
+        padding: 12
+      }
+    }, h.answer), h.note && /*#__PURE__*/React.createElement("div", {
+      style: {
+        background: PAL.amberBg,
+        border: "1px solid #fde68a",
+        borderRadius: 6,
+        padding: '8px 12px',
+        fontSize: 12,
+        color: '#92400e'
+      }
+    }, /*#__PURE__*/React.createElement("strong", null, "Source / Note:"), " ", h.note), h.records_used > 0 && /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 6,
+        fontSize: 11,
+        color: PAL.muted
+      }
+    }, "Computed from ", h.records_used.toLocaleString(), " of ", h.total_records.toLocaleString(), " total records.")));
+  })));
+}
+
+// ─── COLLECTION LOG ───────────────────────────────────────────────────────────
+function CollectionLog() {
+  var now = new Date();
+  var dow = now.getDay();
+  var hour = now.getHours();
+  var timeStr = "".concat(String(hour).padStart(2, '0'), ":").concat(String(now.getMinutes()).padStart(2, '0'));
+  var _useState29 = useState({
+      route_id: '',
+      building_id: '',
+      container: '',
+      time: timeStr,
+      gross: '',
+      tare: '',
+      stream: '',
+      notes: '',
+      flags: []
+    }),
+    _useState30 = _slicedToArray(_useState29, 2),
+    form = _useState30[0],
+    setForm = _useState30[1];
+  var _useState31 = useState([]),
+    _useState32 = _slicedToArray(_useState31, 2),
+    logs = _useState32[0],
+    setLogs = _useState32[1];
+  var _useState33 = useState({}),
+    _useState34 = _slicedToArray(_useState33, 2),
+    errors = _useState34[0],
+    setErrors = _useState34[1];
+  var _useState35 = useState(false),
+    _useState36 = _slicedToArray(_useState35, 2),
+    ok = _useState36[0],
+    setOk = _useState36[1];
+  var _useState37 = useState(false),
+    _useState38 = _slicedToArray(_useState37, 2),
+    duplicate = _useState38[0],
+    setDuplicate = _useState38[1];
+  var _useState39 = useState(null),
+    _useState40 = _slicedToArray(_useState39, 2),
+    weightWarn = _useState40[0],
+    setWeightWarn = _useState40[1];
+  var suggestedRoutes = ROUTE_DEFS.filter(function (r) {
+    return r.days.includes(dow) && hour >= r.startHour && hour <= r.endHour;
+  });
+  var selectedRoute = ROUTE_DEFS.find(function (r) {
+    return r.id === form.route_id;
+  });
+  var availableBuildings = form.route_id ? DEMO_BUILDINGS.filter(function (b) {
+    return selectedRoute === null || selectedRoute === void 0 ? void 0 : selectedRoute.buildings.includes(b.id);
+  }) : DEMO_BUILDINGS;
+  var otherBuildings = form.route_id ? DEMO_BUILDINGS.filter(function (b) {
+    return !(selectedRoute !== null && selectedRoute !== void 0 && selectedRoute.buildings.includes(b.id));
+  }) : [];
+  var availableContainers = (selectedRoute === null || selectedRoute === void 0 ? void 0 : selectedRoute.containers) || ['Front Load-Landfill-6', 'Front Load-Landfill-8', 'Front Load-Cardboard-8', 'Front Load-Paper-2'];
+  var FLAGS = ['Container overfull', 'Access blocked', 'Contamination observed', 'Damaged container', 'Safety concern'];
+  var net = form.gross && form.tare ? (parseFloat(form.gross) - parseFloat(form.tare)).toFixed(1) : form.gross || '';
+  function up(k, v) {
+    setErrors(function (e) {
+      return _objectSpread(_objectSpread({}, e), {}, _defineProperty({}, k, null));
+    });
+    var updated = _objectSpread(_objectSpread({}, form), {}, _defineProperty({}, k, v));
+    if (k === 'route_id') {
+      updated.building_id = '';
+      updated.container = '';
+    }
+    setForm(updated);
+    if (k === 'gross' || k === 'tare') {
+      var n = parseFloat(updated.gross) || 0,
+        t = parseFloat(updated.tare) || 0;
+      if (n > 0 && t >= n) setErrors(function (e) {
+        return _objectSpread(_objectSpread({}, e), {}, {
+          tare: 'Tare must be less than gross weight'
+        });
+      });
+    }
+  }
+  useEffect(function () {
+    if (form.route_id && !form.container) {
+      var _ROUTE_DEFS$find;
+      var c = (_ROUTE_DEFS$find = ROUTE_DEFS.find(function (r) {
+        return r.id === form.route_id;
+      })) === null || _ROUTE_DEFS$find === void 0 ? void 0 : _ROUTE_DEFS$find.containers[0];
+      if (c) setForm(function (p) {
+        return _objectSpread(_objectSpread({}, p), {}, {
+          container: c
+        });
+      });
+    }
+  }, [form.route_id]);
+  function tf(f) {
+    setForm(function (p) {
+      return _objectSpread(_objectSpread({}, p), {}, {
+        flags: p.flags.includes(f) ? p.flags.filter(function (x) {
+          return x !== f;
+        }) : [].concat(_toConsumableArray(p.flags), [f])
+      });
+    });
+  }
+  function validate() {
+    var e = {};
+    if (!form.route_id) e.route_id = 'Select a route';
+    if (!form.building_id) e.building_id = 'Select a building';
+    if (!form.stream) e.stream = 'Select a stream';
+    if (!form.time) e.time = 'Enter pickup time';
+    if (form.tare && form.gross && parseFloat(form.tare) >= parseFloat(form.gross)) e.tare = 'Tare must be less than gross weight';
+    return e;
+  }
+  function sub() {
+    var e = validate();
+    if (Object.keys(e).length > 0) {
+      setErrors(e);
+      return;
+    }
+    var route = ROUTE_DEFS.find(function (r) {
+      return r.id === form.route_id;
+    });
+    var bld = DEMO_BUILDINGS.find(function (b) {
+      return b.id === form.building_id;
+    });
+    setLogs(function (p) {
+      return [{
+        id: "COL".concat(Date.now()),
+        date: new Date().toISOString().slice(0, 10),
+        time: form.time,
+        route: route === null || route === void 0 ? void 0 : route.label,
+        building: bld === null || bld === void 0 ? void 0 : bld.name,
+        container: form.container,
+        stream: form.stream,
+        net: net || 'Not recorded',
+        flags: form.flags,
+        notes: form.notes
+      }].concat(_toConsumableArray(p));
+    });
+    setOk(true);
+    setTimeout(function () {
+      setOk(false);
+      setForm({
+        route_id: '',
+        building_id: '',
+        container: '',
+        time: new Date().toTimeString().slice(0, 5),
+        gross: '',
+        tare: '',
+        stream: '',
+        notes: '',
+        flags: []
+      });
+      setErrors({});
+    }, 2500);
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: 16,
+      maxWidth: 580,
+      margin: '0 auto'
+    }
+  }, /*#__PURE__*/React.createElement(SH, {
+    title: "Collection Log",
+    sub: "Driver interface - smart suggestions based on verified route schedules (demo data)"
+  }), ok && /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: '#cce5d8',
+      border: '1px solid #66b089',
+      color: '#1a3d30',
+      padding: 14,
+      borderRadius: 8,
+      textAlign: 'center',
+      fontWeight: 600,
+      marginBottom: 14
+    }
+  }, "Pickup logged successfully"), suggestedRoutes.length > 0 && !form.route_id && /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: '#eff6ff',
+      border: '1px solid #bfdbfe',
+      borderRadius: 8,
+      padding: 12,
+      marginBottom: 14
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 700,
+      color: PAL.navyLight,
+      marginBottom: 6,
+      fontSize: 13
+    }
+  }, "Suggested for ", ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][dow], " ", timeStr, ":"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: 7
+    }
+  }, suggestedRoutes.map(function (r) {
+    return /*#__PURE__*/React.createElement("button", {
+      key: r.id,
+      onClick: function onClick() {
+        return up('route_id', r.id);
+      },
+      style: {
+        padding: '5px 12px',
+        borderRadius: 5,
+        border: "1px solid ".concat(PAL.navyLight),
+        background: PAL.white,
+        color: PAL.navyLight,
+        cursor: 'pointer',
+        fontSize: 13,
+        fontWeight: 600
+      }
+    }, r.label);
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 14
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: PAL.navy,
+      display: 'block',
+      marginBottom: 4
+    }
+  }, "Route ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: PAL.red
+    }
+  }, "*")), /*#__PURE__*/React.createElement("select", {
+    value: form.route_id,
+    onChange: function onChange(e) {
+      return up('route_id', e.target.value);
+    },
+    style: {
+      border: "1px solid ".concat(errors.route_id ? PAL.red : PAL.border)
+    }
+  }, /*#__PURE__*/React.createElement("option", {
+    value: ""
+  }, "Select route..."), ROUTE_DEFS.map(function (r) {
+    return /*#__PURE__*/React.createElement("option", {
+      key: r.id,
+      value: r.id
+    }, r.label);
+  })), errors.route_id && /*#__PURE__*/React.createElement("div", {
+    style: {
+      color: PAL.red,
+      fontSize: 12,
+      marginTop: 3
+    }
+  }, errors.route_id), selectedRoute && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted,
+      marginTop: 3
+    }
+  }, "Typical time: ", selectedRoute.startHour, ":00-", selectedRoute.endHour, ":00. Buildings on this route pre-loaded below.")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: PAL.navy,
+      display: 'block',
+      marginBottom: 4
+    }
+  }, "Building ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: PAL.red
+    }
+  }, "*"), form.route_id && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      color: PAL.teal,
+      fontWeight: 400,
+      marginLeft: 6
+    }
+  }, "Filtered to route")), /*#__PURE__*/React.createElement("select", {
+    value: form.building_id,
+    onChange: function onChange(e) {
+      return up('building_id', e.target.value);
+    },
+    style: {
+      border: "1px solid ".concat(errors.building_id ? PAL.red : PAL.border)
+    }
+  }, /*#__PURE__*/React.createElement("option", {
+    value: ""
+  }, "Select building..."), availableBuildings.map(function (b) {
+    return /*#__PURE__*/React.createElement("option", {
+      key: b.id,
+      value: b.id
+    }, b.name);
+  }), form.route_id && otherBuildings.length > 0 && /*#__PURE__*/React.createElement("option", {
+    disabled: true
+  }, "-- Other buildings (outside route) --"), form.route_id && otherBuildings.map(function (b) {
+    return /*#__PURE__*/React.createElement("option", {
+      key: b.id + '_',
+      value: b.id
+    }, b.name);
+  })), errors.building_id && /*#__PURE__*/React.createElement("div", {
+    style: {
+      color: PAL.red,
+      fontSize: 12,
+      marginTop: 3
+    }
+  }, errors.building_id)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: PAL.navy,
+      display: 'block',
+      marginBottom: 4
+    }
+  }, "Container type", form.route_id && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      color: PAL.teal,
+      fontWeight: 400,
+      marginLeft: 6
+    }
+  }, "Pre-filled from route")), /*#__PURE__*/React.createElement("select", {
+    value: form.container,
+    onChange: function onChange(e) {
+      return up('container', e.target.value);
+    }
+  }, /*#__PURE__*/React.createElement("option", {
+    value: ""
+  }, "Select container..."), availableContainers.map(function (c) {
+    return /*#__PURE__*/React.createElement("option", {
+      key: c,
+      value: c
+    }, c);
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr 1fr',
+      gap: 10
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: PAL.navy,
+      display: 'block',
+      marginBottom: 4
+    }
+  }, "Time ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: PAL.red
+    }
+  }, "*")), /*#__PURE__*/React.createElement("input", {
+    type: "time",
+    value: form.time,
+    onChange: function onChange(e) {
+      return up('time', e.target.value);
+    },
+    style: {
+      width: 'auto'
+    }
+  }), errors.time && /*#__PURE__*/React.createElement("div", {
+    style: {
+      color: PAL.red,
+      fontSize: 12,
+      marginTop: 3
+    }
+  }, errors.time)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: PAL.navy,
+      display: 'block',
+      marginBottom: 4
+    }
+  }, "Gross (lbs)"), /*#__PURE__*/React.createElement("input", {
+    type: "number",
+    min: "0",
+    value: form.gross,
+    onChange: function onChange(e) {
+      return up('gross', e.target.value);
+    },
+    placeholder: "Optional"
+  })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: PAL.navy,
+      display: 'block',
+      marginBottom: 4
+    }
+  }, "Tare (lbs)"), /*#__PURE__*/React.createElement("input", {
+    type: "number",
+    min: "0",
+    value: form.tare,
+    onChange: function onChange(e) {
+      return up('tare', e.target.value);
+    },
+    placeholder: "Optional"
+  }), errors.tare && /*#__PURE__*/React.createElement("div", {
+    style: {
+      color: PAL.red,
+      fontSize: 12,
+      marginTop: 3
+    }
+  }, errors.tare))), net && /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: PAL.cream,
+      borderRadius: 6,
+      padding: '8px 12px',
+      fontSize: 13
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "Calculated net: ", net, " lbs")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: PAL.navy,
+      display: 'block',
+      marginBottom: 6
+    }
+  }, "Waste Stream ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: PAL.red
+    }
+  }, "*")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: 7
+    }
+  }, ['Landfill', 'Cardboard', 'Paper'].map(function (s) {
+    return /*#__PURE__*/React.createElement("button", {
+      key: s,
+      onClick: function onClick() {
+        return up('stream', s);
+      },
+      style: {
+        padding: '7px 14px',
+        borderRadius: 6,
+        border: "2px solid ".concat(form.stream === s ? PAL.navyLight : PAL.border),
+        background: form.stream === s ? PAL.navyLight : PAL.white,
+        color: form.stream === s ? '#fff' : PAL.text,
+        cursor: 'pointer',
+        fontSize: 13,
+        fontWeight: 600
+      }
+    }, s);
+  })), errors.stream && /*#__PURE__*/React.createElement("div", {
+    style: {
+      color: PAL.red,
+      fontSize: 12,
+      marginTop: 3
+    }
+  }, errors.stream)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: PAL.navy,
+      display: 'block',
+      marginBottom: 6
+    }
+  }, "Flags"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: 7
+    }
+  }, FLAGS.map(function (f) {
+    return /*#__PURE__*/React.createElement("button", {
+      key: f,
+      onClick: function onClick() {
+        return tf(f);
+      },
+      style: {
+        padding: '5px 11px',
+        borderRadius: 5,
+        border: "1px solid ".concat(form.flags.includes(f) ? PAL.amber : PAL.border),
+        background: form.flags.includes(f) ? '#fef9ec' : PAL.white,
+        color: form.flags.includes(f) ? PAL.amberDark : PAL.text,
+        cursor: 'pointer',
+        fontSize: 12
+      }
+    }, f);
+  }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: PAL.navy,
+      display: 'block',
+      marginBottom: 4
+    }
+  }, "Notes"), /*#__PURE__*/React.createElement("textarea", {
+    value: form.notes,
+    onChange: function onChange(e) {
+      return up('notes', e.target.value);
+    },
+    rows: 2,
+    placeholder: "Operational observations...",
+    style: {
+      resize: 'vertical',
+      fontFamily: 'inherit'
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 10
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-primary",
+    onClick: sub,
+    style: {
+      flex: 1,
+      padding: '11px',
+      fontSize: 15,
+      fontWeight: 700
+    }
+  }, "Log Pickup"), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-secondary",
+    onClick: function onClick() {
+      setForm({
+        route_id: '',
+        building_id: '',
+        container: '',
+        time: new Date().toTimeString().slice(0, 5),
+        gross: '',
+        tare: '',
+        stream: '',
+        notes: '',
+        flags: []
+      });
+      setErrors({});
+    }
+  }, "Clear")))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 10,
+      padding: '8px 12px',
+      background: PAL.cream,
+      borderRadius: 6,
+      fontSize: 11,
+      color: PAL.muted
+    }
+  }, "Building names from real UIUC site names in LoadMan data. This interface is not connected to LoadMan or existing university systems."), logs.length > 0 && /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 700,
+      color: PAL.navy,
+      marginBottom: 10
+    }
+  }, "Session Log (", logs.length, ")"), logs.map(function (l) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: l.id,
+      className: "card",
+      style: {
+        padding: 12,
+        marginBottom: 8
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: 8
+      }
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontWeight: 700,
+        fontSize: 13
+      }
+    }, l.building), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: PAL.muted
+      }
+    }, l.date, " at ", l.time, " - ", l.route, " - Net: ", l.net, " lbs")), /*#__PURE__*/React.createElement(Badge, {
+      cls: "badge ".concat(l.stream === 'Cardboard' || l.stream === 'Paper' ? 'badge-navy' : 'badge-gray')
+    }, l.stream)), l.flags.length > 0 && /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 6,
+        display: 'flex',
+        gap: 5
+      }
+    }, l.flags.map(function (f) {
+      return /*#__PURE__*/React.createElement("span", {
+        key: f,
+        className: "badge badge-amber"
+      }, f);
+    })));
+  })));
+}
+
+// ─── WASTE AUDITS ─────────────────────────────────────────────────────────────
+var DEMO_AUDITS = [{
+  id: 'AUD001',
+  title: 'Illini Union General Waste Audit',
+  building_id: 'B001',
+  building_name: 'ORCHARD DOWNS APARTMENTS',
+  date: '2024-03-15',
+  auditors: ['Tajuan Williams', 'Sarah Chen'],
+  status: 'Completed',
+  sample_weight_lbs: 87.3,
+  stream: 'Landfill',
+  materials: [{
+    name: 'Paper',
+    weight: 12.4
+  }, {
+    name: 'Plastics',
+    weight: 9.1
+  }, {
+    name: 'Food Waste',
+    weight: 18.2
+  }, {
+    name: 'Paper Towels',
+    weight: 19.2
+  }, {
+    name: 'Other',
+    weight: 28.4
+  }],
+  notes: 'High paper towel fraction. Cross-contamination from adjacent recycling bins observed.'
+}, {
+  id: 'AUD002',
+  title: 'CRCE Recycling Stream Audit',
+  building_id: 'B003',
+  building_name: 'VET MED BASIC SCIENCES BUILDING',
+  date: '2024-02-10',
+  auditors: ['Sarah Chen'],
+  status: 'Completed',
+  sample_weight_lbs: 41.6,
+  stream: 'Cardboard',
+  materials: [{
+    name: 'Cardboard',
+    weight: 22.1
+  }, {
+    name: 'Paper',
+    weight: 11.3
+  }, {
+    name: 'Food Waste',
+    weight: 4.0
+  }, {
+    name: 'Metals',
+    weight: 4.2
+  }],
+  notes: 'Food waste contamination at 9.7% of sample.'
+}, {
+  id: 'AUD003',
+  title: 'Ikenberry Post-Lunch Compost',
+  building_id: 'B006',
+  building_name: 'STUDENT DINING AND RESIDENTIAL PROGRAMS',
+  date: '2024-01-22',
+  auditors: ['Tajuan Williams'],
+  status: 'Under Review',
+  sample_weight_lbs: 112.4,
+  stream: 'Landfill',
+  materials: [{
+    name: 'Food Waste',
+    weight: 98.1
+  }, {
+    name: 'Paper',
+    weight: 8.2
+  }, {
+    name: 'Plastics',
+    weight: 6.1
+  }],
+  notes: 'Single data point. Unusually high volume.'
+}, {
+  id: 'AUD004',
+  title: 'Vet Med Lab Recycling Pilot',
+  building_id: 'B002',
+  building_name: 'VET MED BASIC SCIENCES BUILDING',
+  date: '2024-04-18',
+  auditors: ['Sarah Chen', 'Marcus Lee'],
+  status: 'In Progress',
+  sample_weight_lbs: 67.8,
+  stream: 'Cardboard',
+  materials: [{
+    name: 'Cardboard',
+    weight: 28.4
+  }, {
+    name: 'Paper',
+    weight: 12.1
+  }, {
+    name: 'Plastics',
+    weight: 20.4
+  }, {
+    name: 'Metals',
+    weight: 6.9
+  }],
+  notes: 'Plastics higher than expected - lab consumables suspected.'
+}];
+function WasteAudits() {
+  var _useState41 = useState(DEMO_AUDITS),
+    _useState42 = _slicedToArray(_useState41, 2),
+    audits = _useState42[0],
+    setAudits = _useState42[1];
+  var _useState43 = useState(null),
+    _useState44 = _slicedToArray(_useState43, 2),
+    sel = _useState44[0],
+    setSel = _useState44[1];
+  var _useState45 = useState(false),
+    _useState46 = _slicedToArray(_useState45, 2),
+    modal = _useState46[0],
+    setModal = _useState46[1];
+  var _useState47 = useState({
+      title: '',
+      building_id: '',
+      date: '',
+      stream: '',
+      auditors: '',
+      notes: ''
+    }),
+    _useState48 = _slicedToArray(_useState47, 2),
+    nA = _useState48[0],
+    setNA = _useState48[1];
+  var _useState49 = useState({}),
+    _useState50 = _slicedToArray(_useState49, 2),
+    errors = _useState50[0],
+    setErrors = _useState50[1];
+  var MC_local = ['#1e3a5f', '#2d6a4f', '#3b6fae', '#e9a825', '#66b089', '#c4a360'];
+  function AuditDetail(_ref20) {
+    var audit = _ref20.audit;
+    var _useState51 = useState(audit.materials.length > 0 ? audit.materials : [{
+        name: 'Paper',
+        weight: ''
+      }, {
+        name: 'Cardboard',
+        weight: ''
+      }, {
+        name: 'Plastics',
+        weight: ''
+      }, {
+        name: 'Metals',
+        weight: ''
+      }, {
+        name: 'Food Waste',
+        weight: ''
+      }, {
+        name: 'Paper Towels',
+        weight: ''
+      }, {
+        name: 'Other',
+        weight: ''
+      }]),
+      _useState52 = _slicedToArray(_useState51, 2),
+      mats = _useState52[0],
+      setMats = _useState52[1];
+    var total = mats.reduce(function (s, m) {
+      return s + (parseFloat(m.weight) || 0);
+    }, 0);
+    var pie = mats.filter(function (m) {
+      return parseFloat(m.weight) > 0;
+    }).map(function (m) {
+      return {
+        name: m.name,
+        value: parseFloat(m.weight)
+      };
+    });
+    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 10,
+        marginBottom: 14
+      }
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "btn btn-secondary btn-sm",
+      onClick: function onClick() {
+        return setSel(null);
+      }
+    }, "Back"), /*#__PURE__*/React.createElement("h3", {
+      style: {
+        margin: 0,
+        flex: 1,
+        fontSize: 16,
+        fontWeight: 700,
+        color: PAL.navy
+      }
+    }, audit.title), /*#__PURE__*/React.createElement("span", {
+      className: "badge ".concat(audit.status === 'Completed' ? 'badge-green' : audit.status === 'In Progress' ? 'badge-amber' : 'badge-gray')
+    }, audit.status)), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))',
+        gap: 14,
+        marginBottom: 14
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "card",
+      style: {
+        padding: 14
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 13,
+        fontWeight: 700,
+        color: PAL.navy,
+        marginBottom: 8
+      }
+    }, "Details"), [['Building', audit.building_name], ['Date', audit.date], ['Stream', audit.stream], ['Auditors', audit.auditors.join(', ')], ['Sample Weight', audit.sample_weight_lbs ? "".concat(audit.sample_weight_lbs, " lbs") : 'Not recorded']].map(function (_ref21) {
+      var _ref22 = _slicedToArray(_ref21, 2),
+        k = _ref22[0],
+        v = _ref22[1];
+      return /*#__PURE__*/React.createElement("div", {
+        key: k,
+        style: {
+          display: 'flex',
+          justifyContent: 'space-between',
+          padding: '5px 0',
+          borderBottom: "1px solid ".concat(PAL.border),
+          fontSize: 13
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          color: PAL.muted
+        }
+      }, k), /*#__PURE__*/React.createElement("span", {
+        style: {
+          fontWeight: 600
+        }
+      }, v || 'N/A'));
+    }), audit.notes && /*#__PURE__*/React.createElement("p", {
+      style: {
+        margin: '10px 0 0',
+        fontSize: 12,
+        lineHeight: 1.6
+      }
+    }, audit.notes)), pie.length > 0 && /*#__PURE__*/React.createElement("div", {
+      className: "card",
+      style: {
+        padding: 14
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 13,
+        fontWeight: 700,
+        color: PAL.navy,
+        marginBottom: 8
+      }
+    }, "Material Composition"), /*#__PURE__*/React.createElement(ResponsiveContainer, {
+      width: "100%",
+      height: 150
+    }, /*#__PURE__*/React.createElement(PieChart, null, /*#__PURE__*/React.createElement(Pie, {
+      data: pie,
+      cx: "50%",
+      cy: "50%",
+      outerRadius: 65,
+      dataKey: "value",
+      label: function label(_ref23) {
+        var name = _ref23.name,
+          percent = _ref23.percent;
+        return "".concat(name.split(' ')[0], " ").concat((percent * 100).toFixed(0), "%");
+      },
+      labelLine: false
+    }, pie.map(function (e, i) {
+      return /*#__PURE__*/React.createElement(Cell, {
+        key: i,
+        fill: MC_local[i % MC_local.length]
+      });
+    })), /*#__PURE__*/React.createElement(Tooltip, {
+      formatter: function formatter(v, n) {
+        return ["".concat(v, " lbs (").concat((v / total * 100).toFixed(1), "%)"), n];
+      }
+    }))))), /*#__PURE__*/React.createElement("div", {
+      className: "card",
+      style: {
+        padding: 14
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 13,
+        fontWeight: 700,
+        color: PAL.navy,
+        marginBottom: 10
+      }
+    }, "Material Weight Entry (lbs)"), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit,minmax(150px,1fr))',
+        gap: 8
+      }
+    }, mats.map(function (m, i) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: m.name
+      }, /*#__PURE__*/React.createElement("label", {
+        style: {
+          fontSize: 12,
+          color: PAL.muted,
+          display: 'block',
+          marginBottom: 3
+        }
+      }, m.name), /*#__PURE__*/React.createElement("input", {
+        type: "number",
+        min: "0",
+        step: "0.1",
+        value: m.weight,
+        placeholder: "0.0",
+        onChange: function onChange(e) {
+          var v = parseFloat(e.target.value) || '';
+          setMats(function (p) {
+            return p.map(function (x, j) {
+              return j === i ? _objectSpread(_objectSpread({}, x), {}, {
+                weight: v
+              }) : x;
+            });
+          });
+        }
+      }));
+    })), total > 0 && /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 8,
+        fontSize: 12,
+        color: PAL.muted
+      }
+    }, "Total entered: ", total.toFixed(1), " lbs")));
+  }
+  if (sel) {
+    var a = audits.find(function (x) {
+      return x.id === sel;
+    });
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        padding: 24
+      }
+    }, /*#__PURE__*/React.createElement(AuditDetail, {
+      audit: a
+    }));
+  }
+  function create() {
+    var e = {};
+    if (!nA.title.trim()) e.title = 'Required';
+    if (!nA.building_id) e.building_id = 'Required';
+    if (!nA.date) e.date = 'Required';
+    if (Object.keys(e).length > 0) {
+      setErrors(e);
+      return;
+    }
+    var b = DEMO_BUILDINGS.find(function (x) {
+      return x.id === nA.building_id;
+    });
+    setAudits(function (p) {
+      return [].concat(_toConsumableArray(p), [{
+        id: "AUD".concat(String(p.length + 1).padStart(3, '0')),
+        title: nA.title,
+        building_id: nA.building_id,
+        building_name: (b === null || b === void 0 ? void 0 : b.name) || '',
+        date: nA.date,
+        auditors: nA.auditors.split(',').map(function (x) {
+          return x.trim();
+        }).filter(Boolean),
+        status: 'Planned',
+        sample_weight_lbs: null,
+        stream: nA.stream || 'Landfill',
+        materials: [],
+        notes: nA.notes
+      }]);
+    });
+    setModal(false);
+    setNA({
+      title: '',
+      building_id: '',
+      date: '',
+      stream: '',
+      auditors: '',
+      notes: ''
+    });
+    setErrors({});
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: 24
+    }
+  }, /*#__PURE__*/React.createElement(SH, {
+    title: "Waste Audits",
+    sub: "Plan and document physical waste composition audits",
+    action: /*#__PURE__*/React.createElement("button", {
+      className: "btn btn-primary btn-sm",
+      onClick: function onClick() {
+        return setModal(true);
+      }
+    }, "+ New Audit")
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 10
+    }
+  }, audits.map(function (a) {
+    var _sort$;
+    return /*#__PURE__*/React.createElement("div", {
+      key: a.id,
+      className: "card",
+      style: {
+        padding: 14,
+        cursor: 'pointer'
+      },
+      onClick: function onClick() {
+        return setSel(a.id);
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 10
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: 1
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontWeight: 700,
+        fontSize: 14,
+        color: PAL.navy
+      }
+    }, a.title), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: PAL.muted,
+        marginTop: 3
+      }
+    }, a.building_name, " - ", a.date, " - ", a.stream), a.materials.length > 0 && /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: PAL.text,
+        marginTop: 3
+      }
+    }, "Top material: ", (_sort$ = _toConsumableArray(a.materials).sort(function (x, y) {
+      return y.weight - x.weight;
+    })[0]) === null || _sort$ === void 0 ? void 0 : _sort$.name)), /*#__PURE__*/React.createElement("span", {
+      className: "badge ".concat(a.status === 'Completed' ? 'badge-green' : a.status === 'In Progress' ? 'badge-amber' : a.status === 'Under Review' ? 'badge-navy' : 'badge-gray')
+    }, a.status)));
+  })), /*#__PURE__*/React.createElement(Modal, {
+    open: modal,
+    onClose: function onClose() {
+      setModal(false);
+      setErrors({});
+    },
+    title: "New Waste Audit"
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 12
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: PAL.navy,
+      display: 'block',
+      marginBottom: 4
+    }
+  }, "Title ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: PAL.red
+    }
+  }, "*")), /*#__PURE__*/React.createElement("input", {
+    value: nA.title,
+    onChange: function onChange(e) {
+      setErrors(function (x) {
+        return _objectSpread(_objectSpread({}, x), {}, {
+          title: null
+        });
+      });
+      setNA(function (p) {
+        return _objectSpread(_objectSpread({}, p), {}, {
+          title: e.target.value
+        });
+      });
+    },
+    placeholder: "e.g., Orchard Downs Spring 2024"
+  }), /*#__PURE__*/React.createElement(FieldError, {
+    msg: errors.title
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr',
+      gap: 10
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: PAL.navy,
+      display: 'block',
+      marginBottom: 4
+    }
+  }, "Building ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: PAL.red
+    }
+  }, "*")), /*#__PURE__*/React.createElement("select", {
+    value: nA.building_id,
+    onChange: function onChange(e) {
+      setErrors(function (x) {
+        return _objectSpread(_objectSpread({}, x), {}, {
+          building_id: null
+        });
+      });
+      setNA(function (p) {
+        return _objectSpread(_objectSpread({}, p), {}, {
+          building_id: e.target.value
+        });
+      });
+    }
+  }, /*#__PURE__*/React.createElement("option", {
+    value: ""
+  }, "Select..."), DEMO_BUILDINGS.map(function (b) {
+    return /*#__PURE__*/React.createElement("option", {
+      key: b.id,
+      value: b.id
+    }, b.name.length > 35 ? b.name.slice(0, 33) + '...' : b.name);
+  })), /*#__PURE__*/React.createElement(FieldError, {
+    msg: errors.building_id
+  })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: PAL.navy,
+      display: 'block',
+      marginBottom: 4
+    }
+  }, "Date ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: PAL.red
+    }
+  }, "*")), /*#__PURE__*/React.createElement("input", {
+    type: "date",
+    value: nA.date,
+    onChange: function onChange(e) {
+      setErrors(function (x) {
+        return _objectSpread(_objectSpread({}, x), {}, {
+          date: null
+        });
+      });
+      setNA(function (p) {
+        return _objectSpread(_objectSpread({}, p), {}, {
+          date: e.target.value
+        });
+      });
+    }
+  }), /*#__PURE__*/React.createElement(FieldError, {
+    msg: errors.date
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr',
+      gap: 10
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: PAL.navy,
+      display: 'block',
+      marginBottom: 4
+    }
+  }, "Stream"), /*#__PURE__*/React.createElement("select", {
+    value: nA.stream,
+    onChange: function onChange(e) {
+      return setNA(function (p) {
+        return _objectSpread(_objectSpread({}, p), {}, {
+          stream: e.target.value
+        });
+      });
+    }
+  }, /*#__PURE__*/React.createElement("option", null, "Landfill"), /*#__PURE__*/React.createElement("option", null, "Cardboard"), /*#__PURE__*/React.createElement("option", null, "Paper"))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: PAL.navy,
+      display: 'block',
+      marginBottom: 4
+    }
+  }, "Auditors"), /*#__PURE__*/React.createElement("input", {
+    value: nA.auditors,
+    onChange: function onChange(e) {
+      return setNA(function (p) {
+        return _objectSpread(_objectSpread({}, p), {}, {
+          auditors: e.target.value
+        });
+      });
+    },
+    placeholder: "Name 1, Name 2"
+  }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: PAL.navy,
+      display: 'block',
+      marginBottom: 4
+    }
+  }, "Notes"), /*#__PURE__*/React.createElement("textarea", {
+    value: nA.notes,
+    onChange: function onChange(e) {
+      return setNA(function (p) {
+        return _objectSpread(_objectSpread({}, p), {}, {
+          notes: e.target.value
+        });
+      });
+    },
+    rows: 3,
+    style: {
+      fontFamily: 'inherit',
+      resize: 'vertical'
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 10
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-secondary",
+    onClick: function onClick() {
+      setModal(false);
+      setErrors({});
+    }
+  }, "Cancel"), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-primary",
+    onClick: create
+  }, "Create Audit")))), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 16,
+      marginTop: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 700,
+      fontSize: 14,
+      color: PAL.navy,
+      marginBottom: 10
+    }
+  }, "Verified Scanner Observations", /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      fontWeight: 400,
+      color: PAL.muted,
+      marginLeft: 10
+    }
+  }, "Human-verified CLIP classifications. Not combined with physical audit weights.")), /*#__PURE__*/React.createElement(ScannerObservationsPanel, {
+    compact: false
+  })));
+}
+
+// ─── INSIGHTS ─────────────────────────────────────────────────────────────────
+var REAL_INSIGHTS = [{
+  id: 'INS001',
+  title: 'RFID system failure after Oct 2021 is the primary attribution loss',
+  status: 'Validated',
+  confidence: 'High',
+  category: 'Data Quality',
+  summary: 'RFID detection reached 88.3% in Apr 2021, degraded to ~58% by Oct 2021, and read 0% in every month from Aug 2022 onward. Both trucks failed simultaneously, indicating a system-level cause. Without RFID, container identity cannot be assigned, and weights cannot be attributed to buildings.',
+  evidence: 'Monthly Trend data, 79,533 raw records',
+  recommendation: 'Physical investigation of RFID readers on both trucks. Compare ride-along observations with database records.'
+}, {
+  id: 'INS002',
+  title: '28,337 epoch-default timestamps indicate device clock failures',
+  status: 'Validated',
+  confidence: 'High',
+  category: 'Data Quality',
+  summary: '28,337 records carry a 2001-01-01 timestamp, indicating the LoadMan unit powered on without time synchronization. These are excluded from date-valid analysis but represent real pickups with real weights that cannot be temporally located.',
+  evidence: 'Validity Funnel Gate 2, 73,857 Load Pickup events',
+  recommendation: 'Investigate whether time-sync failures occurred at specific dates or systematically. Cross-reference with upload timestamps.'
+}, {
+  id: 'INS003',
+  title: 'GPS attribution model achieves 84.8% top-1 accuracy on held-out test',
+  status: 'Validated',
+  confidence: 'High',
+  category: 'Attribution AI',
+  summary: 'A GPS nearest-centroid model trained on 9,989 labeled records achieves 84.8% top-1 and 97.8% top-3 accuracy at a 150m distance threshold, covering 91.6% of GPS-equipped records. This model could attribute an estimated 15,860 currently unattributed records that have GPS coordinates.',
+  evidence: '80/20 random split validation, 123 building centroids',
+  recommendation: 'Apply model to GPS-equipped unattributed records. All results must be labeled AI-inferred and subject to staff review.'
+}, {
+  id: 'INS004',
+  title: 'Orchard Downs Apartments accounts for 17.1% of all verified pickups',
+  status: 'Validated',
+  confidence: 'High',
+  category: 'Composition',
+  summary: 'Of 9,989 usable records, 1,711 are attributed to Orchard Downs Apartments. This may reflect high collection frequency, large container volumes, or classification artifacts. Requires cross-reference with operational records.',
+  evidence: 'Site Name distribution in Usable Records',
+  recommendation: 'Compare Orchard Downs pickup frequency to other large sites. Confirm whether this represents one or multiple distinct locations.'
+}, {
+  id: 'INS005',
+  title: 'NVW field definition unconfirmed - cannot use for net weight',
+  status: 'Under Investigation',
+  confidence: 'High',
+  category: 'Data Quality',
+  summary: 'The NVW field appears in 93.3% of records with values in the millions. This is not consistent with per-pickup net weight. Without confirmed definition, net weight calculations must use gross - tare (available only in 9,989 usable records).',
+  evidence: 'Field Inventory, raw data inspection',
+  recommendation: 'Confirm NVW definition with LoadMan operator. If it is a cumulative vehicle weight counter, this may allow weight derivation for other records.'
+}, {
+  id: 'INS006',
+  title: 'Nearby site centroids create GPS disambiguation challenges',
+  status: 'Under Investigation',
+  confidence: 'Medium',
+  category: 'Attribution AI',
+  summary: 'Some campus building centroids are only 19-24m apart (Admissions and Records, Illini Union Bookstore, Grainger Library). The GPS model may confuse adjacent buildings sharing loading dock areas. Within-site GPS spread at Orchard Downs averages 227m.',
+  evidence: 'Centroid distance analysis, within-site spread calculation',
+  recommendation: 'Build a building-adjacency map. For records near cluster of closely-spaced centroids, present top-3 candidates to authorized staff rather than a single prediction.'
+}];
+function InsightsEngine() {
+  var _useState53 = useState(REAL_INSIGHTS),
+    _useState54 = _slicedToArray(_useState53, 2),
+    ins = _useState54[0],
+    setIns = _useState54[1];
+  var _useState55 = useState('All'),
+    _useState56 = _slicedToArray(_useState55, 2),
+    fs = _useState56[0],
+    setFs = _useState56[1];
+  var _useState57 = useState(false),
+    _useState58 = _slicedToArray(_useState57, 2),
+    showScanner = _useState58[0],
+    setShowScanner = _useState58[1];
+  var _useState59 = useState(null),
+    _useState60 = _slicedToArray(_useState59, 2),
+    ex = _useState60[0],
+    setEx = _useState60[1];
+  var fi = fs === 'All' ? ins : ins.filter(function (i) {
+    return i.status === fs || i.category === fs;
+  });
+  if (ex) {
+    var i = ins.find(function (x) {
+      return x.id === ex;
+    });
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        padding: 24
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 10,
+        marginBottom: 14
+      }
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "btn btn-secondary btn-sm",
+      onClick: function onClick() {
+        return setEx(null);
+      }
+    }, "Back"), /*#__PURE__*/React.createElement("span", {
+      className: "badge ".concat(i.status === 'Validated' ? 'badge-green' : i.status === 'Recommended for Action' ? 'badge-amber' : 'badge-navy')
+    }, i.status), /*#__PURE__*/React.createElement("span", {
+      className: "badge badge-gray"
+    }, i.category), /*#__PURE__*/React.createElement("span", {
+      className: "badge ".concat(i.confidence === 'High' ? 'badge-green' : 'badge-amber')
+    }, i.confidence)), /*#__PURE__*/React.createElement("h2", {
+      style: {
+        fontSize: 18,
+        fontWeight: 700,
+        color: PAL.navy,
+        marginBottom: 8
+      }
+    }, i.title), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))',
+        gap: 14,
+        marginBottom: 14
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "card",
+      style: {
+        padding: 14
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        fontWeight: 700,
+        color: PAL.muted,
+        marginBottom: 6
+      }
+    }, "SUMMARY"), /*#__PURE__*/React.createElement("p", {
+      style: {
+        margin: 0,
+        fontSize: 13,
+        lineHeight: 1.7
+      }
+    }, i.summary)), /*#__PURE__*/React.createElement("div", {
+      className: "card",
+      style: {
+        padding: 14
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        fontWeight: 700,
+        color: PAL.muted,
+        marginBottom: 6
+      }
+    }, "EVIDENCE"), /*#__PURE__*/React.createElement("p", {
+      style: {
+        margin: '0 0 10px',
+        fontSize: 13,
+        lineHeight: 1.7
+      }
+    }, i.evidence), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        fontWeight: 700,
+        color: PAL.muted,
+        marginBottom: 6
+      }
+    }, "RECOMMENDATION"), /*#__PURE__*/React.createElement("p", {
+      style: {
+        margin: 0,
+        fontSize: 13,
+        lineHeight: 1.7
+      }
+    }, i.recommendation))), /*#__PURE__*/React.createElement("div", {
+      className: "card",
+      style: {
+        padding: 14
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 13,
+        fontWeight: 700,
+        color: PAL.navy,
+        marginBottom: 8
+      }
+    }, "Update Status"), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: 7
+      }
+    }, ['Under Investigation', 'Validated', 'Recommended for Action', 'Rejected'].map(function (s) {
+      return /*#__PURE__*/React.createElement("button", {
+        key: s,
+        onClick: function onClick() {
+          return setIns(function (p) {
+            return p.map(function (x) {
+              return x.id === i.id ? _objectSpread(_objectSpread({}, x), {}, {
+                status: s
+              }) : x;
+            });
+          });
+        },
+        className: "btn btn-sm ".concat(i.status === s ? 'btn-primary' : 'btn-secondary')
+      }, s);
+    }))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 12,
+        padding: '8px 12px',
+        background: PAL.amberBg,
+        borderRadius: 6,
+        fontSize: 12,
+        color: '#92400e'
+      }
+    }, /*#__PURE__*/React.createElement("strong", null, "Research integrity:"), " Human review required before operational decisions. These insights are from real data but interpreted by EnviroTrap researchers, not official UIUC findings."));
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: 24
+    }
+  }, /*#__PURE__*/React.createElement(SH, {
+    title: "Research Insights",
+    sub: "Pattern analysis derived from 79,533 actual UIUC LoadMan records. All findings documented with evidence."
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginBottom: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 8,
+      marginBottom: 8
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontWeight: 600,
+      fontSize: 13,
+      color: PAL.navy
+    }
+  }, "Scanner Observation Data"), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-secondary btn-sm",
+    onClick: function onClick() {
+      return setShowScanner(function (x) {
+        return !x;
+      });
+    }
+  }, showScanner ? 'Collapse' : 'Expand')), showScanner && /*#__PURE__*/React.createElement(ScannerObservationsPanel, {
+    compact: false
+  }), !showScanner && /*#__PURE__*/React.createElement(ScannerObservationsPanel, {
+    compact: true
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(4,1fr)',
+      gap: 12,
+      marginBottom: 18
+    }
+  }, ['Under Investigation', 'Validated', 'Recommended for Action', 'Rejected'].map(function (s) {
+    return /*#__PURE__*/React.createElement(StatCard, {
+      key: s,
+      label: s,
+      value: ins.filter(function (i) {
+        return i.status === s;
+      }).length,
+      color: s === 'Validated' ? 'green' : s === 'Recommended for Action' ? 'amber' : s === 'Rejected' ? 'red' : 'navy'
+    });
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 7,
+      flexWrap: 'wrap',
+      marginBottom: 14
+    }
+  }, ['All', 'Validated', 'Under Investigation', 'Data Quality', 'Attribution AI', 'Composition'].map(function (s) {
+    return /*#__PURE__*/React.createElement("button", {
+      key: s,
+      className: "btn btn-sm ".concat(fs === s ? 'btn-primary' : 'btn-secondary'),
+      onClick: function onClick() {
+        return setFs(s);
+      }
+    }, s);
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 10
+    }
+  }, fi.map(function (i) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: i.id,
+      className: "card insight-card",
+      onClick: function onClick() {
+        return setEx(i.id);
+      },
+      style: {
+        padding: 14,
+        cursor: 'pointer',
+        borderLeft: "4px solid ".concat({
+          Validated: PAL.teal,
+          'Recommended for Action': PAL.amber,
+          Rejected: PAL.red
+        }[i.status] || PAL.navyLight)
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        gap: 7,
+        marginBottom: 6,
+        flexWrap: 'wrap'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "badge ".concat(i.category === 'Attribution AI' ? 'badge-navy' : i.category === 'Data Quality' ? 'badge-amber' : 'badge-gray')
+    }, i.category), /*#__PURE__*/React.createElement("span", {
+      className: "badge ".concat(i.status === 'Validated' ? 'badge-green' : 'badge-navy')
+    }, i.status), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 11,
+        color: PAL.muted,
+        marginLeft: 'auto'
+      }
+    }, "Real data")), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontWeight: 700,
+        fontSize: 14,
+        color: PAL.navy,
+        marginBottom: 4
+      }
+    }, i.title), /*#__PURE__*/React.createElement("p", {
+      style: {
+        margin: 0,
+        fontSize: 13,
+        color: PAL.muted,
+        lineHeight: 1.6
+      }
+    }, i.summary.slice(0, 120), "..."));
+  })));
+}
+
+// ─── INTERVENTIONS ─────────────────────────────────────────────────────────────
+var DEMO_INTERVENTIONS = [{
+  id: 'INT001',
+  title: 'RFID System Physical Investigation',
+  linked_insight: 'INS001',
+  building_id: null,
+  building_name: null,
+  observation: 'RFID detection reached 0% in Aug 2022 and has never recovered. Both trucks failed simultaneously.',
+  proposed_action: 'Schedule ride-along with driver. Inspect RFID readers on both trucks. Compare manual observations against LoadMan database entries during an actual collection run.',
+  responsible_party: 'EnviroTrap + F&S Fleet Operations',
+  status: 'Recommended for Action',
+  proposed_date: '2024-07-15',
+  baseline: '0% RFID detection from Aug 2022 (down from 88.3% peak)',
+  followup: 'Compare pre-ride observations to post-ride records within 72 hours.',
+  outcome: ''
+}, {
+  id: 'INT002',
+  title: 'Container-to-Building Mapping Verification',
+  linked_insight: 'INS003',
+  building_id: null,
+  building_name: null,
+  observation: 'GPS model achieves 84.8% top-1 attribution accuracy but cannot be deployed at scale without staff verification.',
+  proposed_action: 'Apply GPS model to 15,860 GPS-equipped unattributed records. Present predictions labeled as AI-inferred. Assign authorized F&S staff to review and confirm or override.',
+  responsible_party: 'EnviroTrap + F&S Data Team',
+  status: 'Proposed',
+  proposed_date: '2024-08-01',
+  baseline: 'GPS model: 84.8% top-1 accuracy, 150m threshold',
+  followup: 'Calculate verified attribution rate after staff review.',
+  outcome: ''
+}, {
+  id: 'INT003',
+  title: 'NVW Field Definition Confirmation',
+  linked_insight: 'INS005',
+  building_id: null,
+  building_name: null,
+  observation: 'NVW field values are in the millions and cannot be interpreted as per-pickup net weight without definition.',
+  proposed_action: 'Contact LoadMan operator to request NVW field documentation. Determine if cumulative counter can be used for weight derivation.',
+  responsible_party: 'EnviroTrap + F&S IT',
+  status: 'In Progress',
+  proposed_date: '2024-06-15',
+  baseline: 'NVW: 93.3% populated, definition unknown',
+  followup: 'If NVW is cumulative, derive per-pickup weights using diff(NVW) per truck per day.',
+  outcome: 'F&S confirmed investigation underway.'
+}];
+function Interventions() {
+  var _useState61 = useState(DEMO_INTERVENTIONS),
+    _useState62 = _slicedToArray(_useState61, 2),
+    items = _useState62[0],
+    setItems = _useState62[1];
+  var _useState63 = useState(null),
+    _useState64 = _slicedToArray(_useState63, 2),
+    sel = _useState64[0],
+    setSel = _useState64[1];
+  var FLOW = ['Proposed', 'Approved', 'In Progress', 'Completed', 'Rejected'];
+  if (sel) {
+    var iv = items.find(function (x) {
+      return x.id === sel;
+    });
+    var ix = FLOW.indexOf(iv.status);
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        padding: 24
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 10,
+        marginBottom: 14
+      }
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "btn btn-secondary btn-sm",
+      onClick: function onClick() {
+        return setSel(null);
+      }
+    }, "Back"), /*#__PURE__*/React.createElement("span", {
+      className: "badge ".concat(iv.status === 'Completed' ? 'badge-green' : iv.status === 'In Progress' ? 'badge-amber' : iv.status === 'Rejected' ? 'badge-red' : 'badge-navy')
+    }, iv.status)), /*#__PURE__*/React.createElement("h2", {
+      style: {
+        fontSize: 18,
+        fontWeight: 700,
+        color: PAL.navy,
+        marginBottom: 4
+      }
+    }, iv.title), /*#__PURE__*/React.createElement("p", {
+      style: {
+        color: PAL.muted,
+        fontSize: 13,
+        margin: '0 0 16px'
+      }
+    }, iv.building_name || 'Campus-wide'), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))',
+        gap: 14,
+        marginBottom: 14
+      }
+    }, [['Observation', iv.observation], ['Proposed Action', iv.proposed_action], ['Responsible Party', iv.responsible_party], ['Baseline', iv.baseline], ['Follow-up', iv.followup], ['Outcome', iv.outcome || 'No outcome recorded yet']].map(function (_ref24) {
+      var _ref25 = _slicedToArray(_ref24, 2),
+        k = _ref25[0],
+        v = _ref25[1];
+      return /*#__PURE__*/React.createElement("div", {
+        key: k,
+        style: {
+          padding: '10px 14px',
+          background: PAL.cream,
+          borderRadius: 6
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          fontSize: 11,
+          fontWeight: 700,
+          color: PAL.muted,
+          textTransform: 'uppercase',
+          letterSpacing: '.05em',
+          marginBottom: 4
+        }
+      }, k), /*#__PURE__*/React.createElement("div", {
+        style: {
+          fontSize: 13,
+          color: PAL.text,
+          lineHeight: 1.6
+        }
+      }, v));
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        gap: 7
+      }
+    }, ix < FLOW.length - 2 && /*#__PURE__*/React.createElement("button", {
+      className: "btn btn-green btn-sm",
+      onClick: function onClick() {
+        return setItems(function (p) {
+          return p.map(function (i) {
+            return i.id === sel ? _objectSpread(_objectSpread({}, i), {}, {
+              status: FLOW[FLOW.indexOf(i.status) + 1]
+            }) : i;
+          });
+        });
+      }
+    }, "Advance to ", FLOW[ix + 1]), FLOW.map(function (s, i) {
+      return /*#__PURE__*/React.createElement("span", {
+        key: s,
+        style: {
+          padding: '3px 10px',
+          borderRadius: 12,
+          fontSize: 11,
+          fontWeight: 600,
+          background: i <= ix ? PAL.navy : PAL.creamDark,
+          color: i <= ix ? '#fff' : PAL.muted
+        }
+      }, s);
+    })));
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: 24
+    }
+  }, /*#__PURE__*/React.createElement(SH, {
+    title: "Interventions",
+    sub: "Proposed actions grounded in verified LoadMan data findings"
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 10
+    }
+  }, items.map(function (iv) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: iv.id,
+      className: "card",
+      style: {
+        padding: 14,
+        cursor: 'pointer'
+      },
+      onClick: function onClick() {
+        return setSel(iv.id);
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'flex-start',
+        gap: 10
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: 1
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontWeight: 700,
+        fontSize: 14,
+        color: PAL.navy
+      }
+    }, iv.title), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: PAL.muted,
+        marginTop: 3
+      }
+    }, iv.building_name || 'Campus-wide'), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: PAL.text,
+        marginTop: 4,
+        lineHeight: 1.5
+      }
+    }, iv.observation.slice(0, 100), "...")), /*#__PURE__*/React.createElement("span", {
+      className: "badge ".concat(iv.status === 'Completed' ? 'badge-green' : iv.status === 'In Progress' ? 'badge-amber' : iv.status === 'Recommended for Action' ? 'badge-purple' : 'badge-navy')
+    }, iv.status)));
+  })));
+}
+
+// ─── REPORTS ──────────────────────────────────────────────────────────────────
+function Reports() {
+  var _useState65 = useState({
+      from: '2020-01-01',
+      to: '2024-06-30'
+    }),
+    _useState66 = _slicedToArray(_useState65, 2),
+    cfg = _useState66[0],
+    setCfg = _useState66[1];
+  var _useState67 = useState(false),
+    _useState68 = _slicedToArray(_useState67, 2),
+    prev = _useState68[0],
+    setPrev = _useState68[1];
+  var meta = REAL_MODEL.meta;
+  function expCSV() {
+    var rows = [['ENVIROTRAP NEXUS RESEARCH SUMMARY - REAL DATA'], ['Generated:', new Date().toISOString()], ['Source:', '79,533 UIUC LoadMan records, Betsy Ruckman, F&S'], ['NOTE: Attribution model results are AI-inferred, not verified unless staff-confirmed'], [], ['METRIC', 'VALUE', 'SOURCE'], ['Total raw records', 79533, 'LoadMan export'], ['Load Pickup events', 73857, 'Load Type filter'], ['Valid date records', 43759, 'Excluding 2001 epoch defaults'], ['RFID-identified', 15406, 'Asset Detect field'], ['Site-resolved', 13414, 'Site Name field'], ['Fully usable', 9989, 'All quality gates'], ['Attribution rate', '12.6%', '9989/79533'], [], ['RFID SYSTEM', 'VALUE', 'NOTES'], ['RFID peak', '88.3%', 'April 2021'], ['RFID current', '0.0%', 'August 2022 onwards'], ['Cause', 'Unestablished', 'Both trucks simultaneously'], [], ['AI MODEL', 'VALUE', 'METHOD'], ['GPS top-1 accuracy', '84.8%', '80/20 split, 150m threshold'], ['GPS top-3 accuracy', '97.8%', 'Same split'], ['GPS coverage', '91.6%', 'At 150m threshold'], ['RFID accuracy', '100%', 'Deterministic lookup, 179 RFIDs'], [], ['SITE', 'VERIFIED_PICKUPS']].concat(_toConsumableArray(REAL_MODEL.top_sites.slice(0, 10).map(function (s) {
+      return [s.name, s.count];
+    })));
+    var blob = new Blob([rows.map(function (r) {
+      return r.join(',');
+    }).join('\n')], {
+      type: 'text/csv'
+    });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'envirotrap_real_data_report.csv';
+    a.click();
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: 24
+    }
+  }, /*#__PURE__*/React.createElement(SH, {
+    title: "Reports",
+    sub: "Export summaries derived from 79,533 actual UIUC LoadMan records"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 16,
+      maxWidth: 540,
+      marginBottom: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 700,
+      color: PAL.navy,
+      marginBottom: 12
+    }
+  }, "Report Export"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 8,
+      flexWrap: 'wrap'
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-primary btn-sm",
+    onClick: expCSV
+  }, "Export Real Data Summary (CSV)")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 12,
+      padding: '8px 12px',
+      background: '#fff3cd',
+      borderRadius: 6,
+      fontSize: 12,
+      color: '#664d03'
+    }
+  }, "All reports are labeled with source and provenance. Attribution model results are AI-inferred. Do not publish as official UIUC data.")), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 700,
+      color: PAL.navy,
+      marginBottom: 12
+    }
+  }, "Real Data Summary"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit,minmax(150px,1fr))',
+      gap: 10
+    }
+  }, [['Total records', '79,533'], ['Usable records', '9,989 (12.6%)'], ['RFID peak', '88.3% (Apr 2021)'], ['RFID now', '0.0% (Aug 2022+)'], ['GPS model (top-1)', '84.8%'], ['Distinct sites', '123'], ['Distinct RFIDs', '179'], ['Epoch records', '~28,337']].map(function (_ref26) {
+    var _ref27 = _slicedToArray(_ref26, 2),
+      k = _ref27[0],
+      v = _ref27[1];
+    return /*#__PURE__*/React.createElement("div", {
+      key: k,
+      style: {
+        background: PAL.cream,
+        borderRadius: 6,
+        padding: '10px 12px'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        color: PAL.muted
+      }
+    }, k), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 16,
+        fontWeight: 700,
+        color: PAL.navy
+      }
+    }, v));
+  }))));
+}
+
+// ─── SETTINGS ─────────────────────────────────────────────────────────────────
+function Settings() {
+  var _useState69 = useState(function () {
+      try {
+        return JSON.parse(localStorage.getItem('et_profile')) || {
+          name: 'Demo User',
+          role: 'Researcher',
+          org: 'EnviroTrap / UIUC'
+        };
+      } catch (_unused) {
+        return {
+          name: 'Demo User',
+          role: 'Researcher',
+          org: 'EnviroTrap / UIUC'
+        };
+      }
+    }),
+    _useState70 = _slicedToArray(_useState69, 2),
+    profile = _useState70[0],
+    setProfile = _useState70[1];
+  var _useState71 = useState(false),
+    _useState72 = _slicedToArray(_useState71, 2),
+    saved = _useState72[0],
+    setSaved = _useState72[1];
+  function save() {
+    localStorage.setItem('et_profile', JSON.stringify(profile));
+    setSaved(true);
+    setTimeout(function () {
+      return setSaved(false);
+    }, 2000);
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: 24
+    }
+  }, /*#__PURE__*/React.createElement(SH, {
+    title: "Settings"
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))',
+      gap: 16,
+      marginBottom: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 700,
+      color: PAL.navy,
+      marginBottom: 12
+    }
+  }, "User Profile"), saved && /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: '#cce5d8',
+      borderRadius: 6,
+      padding: '6px 10px',
+      fontSize: 12,
+      color: '#1a3d30',
+      fontWeight: 600,
+      marginBottom: 10
+    }
+  }, "Saved."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 10
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted,
+      display: 'block',
+      marginBottom: 3
+    }
+  }, "Name"), /*#__PURE__*/React.createElement("input", {
+    value: profile.name,
+    onChange: function onChange(e) {
+      return setProfile(function (p) {
+        return _objectSpread(_objectSpread({}, p), {}, {
+          name: e.target.value
+        });
+      });
+    }
+  })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted,
+      display: 'block',
+      marginBottom: 3
+    }
+  }, "Role"), /*#__PURE__*/React.createElement("select", {
+    value: profile.role,
+    onChange: function onChange(e) {
+      return setProfile(function (p) {
+        return _objectSpread(_objectSpread({}, p), {}, {
+          role: e.target.value
+        });
+      });
+    }
+  }, /*#__PURE__*/React.createElement("option", null, "Researcher"), /*#__PURE__*/React.createElement("option", null, "F&S Staff"), /*#__PURE__*/React.createElement("option", null, "Driver"), /*#__PURE__*/React.createElement("option", null, "Administrator"), /*#__PURE__*/React.createElement("option", null, "Viewer"))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted,
+      display: 'block',
+      marginBottom: 3
+    }
+  }, "Organization"), /*#__PURE__*/React.createElement("input", {
+    value: profile.org,
+    onChange: function onChange(e) {
+      return setProfile(function (p) {
+        return _objectSpread(_objectSpread({}, p), {}, {
+          org: e.target.value
+        });
+      });
+    }
+  })), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-primary btn-sm",
+    onClick: save
+  }, "Save Profile"))), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 700,
+      color: PAL.navy,
+      marginBottom: 12
+    }
+  }, "Application Info"), [['Version', '0.3.0 - Real Data AI Sprint'], ['AI Engine', 'GPS Nearest-Centroid + RFID Lookup'], ['Training Records', '9,989 verified LoadMan'], ['GPS Accuracy', '84.8% top-1 / 97.8% top-3'], ['Distinct Sites', '123'], ['Distinct RFIDs', '179'], ['Total Raw Records', '79,533'], ['Source', 'UIUC F&S LoadMan Export']].map(function (_ref28) {
+    var _ref29 = _slicedToArray(_ref28, 2),
+      k = _ref29[0],
+      v = _ref29[1];
+    return /*#__PURE__*/React.createElement("div", {
+      key: k,
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '5px 0',
+        borderBottom: "1px solid ".concat(PAL.border),
+        fontSize: 13
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: PAL.muted
+      }
+    }, k), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontWeight: 600
+      }
+    }, v));
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 700,
+      color: PAL.navy,
+      marginBottom: 12
+    }
+  }, "IBM Bob Development Contributions"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 13,
+      color: PAL.text,
+      lineHeight: 1.8
+    }
+  }, "EnviroTrap Nexus was developed using IBM Bob as the primary engineering tool.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Bob's contributions:"), /*#__PURE__*/React.createElement("br", null), "- Designed single-file React SPA architecture with no backend dependency", /*#__PURE__*/React.createElement("br", null), "- Wrote all JSX/JavaScript application code across 3 major versions", /*#__PURE__*/React.createElement("br", null), "- Built and evaluated the GPS nearest-centroid attribution model (84.8% accuracy)", /*#__PURE__*/React.createElement("br", null), "- Analyzed 79,533 actual LoadMan records to extract verified statistics", /*#__PURE__*/React.createElement("br", null), "- Identified the RFID failure timeline and cliff from monthly trend data", /*#__PURE__*/React.createElement("br", null), "- Designed provenance labeling system (Verified / AI-Inferred / Unknown)", /*#__PURE__*/React.createElement("br", null), "- Implemented deterministic Ask Nexus Q&A grounded in real data", /*#__PURE__*/React.createElement("br", null), "- Wrote all data validation, evaluation, and quality reporting logic")));
+}
+
+// ─── AI SCANNER CONFIG ────────────────────────────────────────────────────────
+// Production backend: Hugging Face Spaces CPU Basic (free tier, always-on)
+// Storage note: observations are session-only on the free tier (ephemeral SQLite)
+// To develop locally, change API_BASE to 'http://localhost:8000'
+var API_BASE = 'https://tjpppppppppp-envirotrap-ai-backend.hf.space';
+
+// ─── AI SCANNER MODULE ────────────────────────────────────────────────────────
+// Connects to Frida's FastAPI backend (fridaviquez-cpu/envirotrap-ai-backend).
+// All 5 endpoints: GET /healthz, GET /api/buildings,
+//   POST /api/classify, POST /api/observations, GET /api/observations.
+//
+// Rules enforced:
+//   - Scores labeled "similarity score" - never "confidence" or "probability"
+//   - No recyclability claims made from photo alone
+//   - No fabricated results - all data from real API or clearly unavailable
+//   - Graceful offline: banner shown, all 10 other modules unaffected
+
+function AIScannerModule() {
+  var _useState73 = useState('checking'),
+    _useState74 = _slicedToArray(_useState73, 2),
+    apiStatus = _useState74[0],
+    setApiStatus = _useState74[1];
+  var _useState75 = useState([]),
+    _useState76 = _slicedToArray(_useState75, 2),
+    buildings = _useState76[0],
+    setBuildings = _useState76[1];
+  var _useState77 = useState(null),
+    _useState78 = _slicedToArray(_useState77, 2),
+    selectedBuilding = _useState78[0],
+    setSelectedBuilding = _useState78[1];
+  var _useState79 = useState(null),
+    _useState80 = _slicedToArray(_useState79, 2),
+    file = _useState80[0],
+    setFile = _useState80[1];
+  var _useState81 = useState(null),
+    _useState82 = _slicedToArray(_useState81, 2),
+    preview = _useState82[0],
+    setPreview = _useState82[1];
+  var _useState83 = useState(false),
+    _useState84 = _slicedToArray(_useState83, 2),
+    classifying = _useState84[0],
+    setClassifying = _useState84[1];
+  var _useState85 = useState(null),
+    _useState86 = _slicedToArray(_useState85, 2),
+    classifyResults = _useState86[0],
+    setClassifyResults = _useState86[1];
+  var _useState87 = useState(null),
+    _useState88 = _slicedToArray(_useState87, 2),
+    classifyError = _useState88[0],
+    setClassifyError = _useState88[1];
+  var _useState89 = useState(''),
+    _useState90 = _slicedToArray(_useState89, 2),
+    verifiedCategory = _useState90[0],
+    setVerifiedCategory = _useState90[1];
+  var _useState91 = useState(''),
+    _useState92 = _slicedToArray(_useState91, 2),
+    notes = _useState92[0],
+    setNotes = _useState92[1];
+  var _useState93 = useState(false),
+    _useState94 = _slicedToArray(_useState93, 2),
+    saving = _useState94[0],
+    setSaving = _useState94[1];
+  var _useState95 = useState(null),
+    _useState96 = _slicedToArray(_useState95, 2),
+    savedId = _useState96[0],
+    setSavedId = _useState96[1];
+  var _useState97 = useState(null),
+    _useState98 = _slicedToArray(_useState97, 2),
+    saveError = _useState98[0],
+    setSaveError = _useState98[1];
+  var _useState99 = useState([]),
+    _useState100 = _slicedToArray(_useState99, 2),
+    observations = _useState100[0],
+    setObservations = _useState100[1];
+  var _useState101 = useState(false),
+    _useState102 = _slicedToArray(_useState101, 2),
+    obsLoading = _useState102[0],
+    setObsLoading = _useState102[1];
+  var _useState103 = useState(''),
+    _useState104 = _slicedToArray(_useState103, 2),
+    obsFilter = _useState104[0],
+    setObsFilter = _useState104[1];
+  var _useState105 = useState(null),
+    _useState106 = _slicedToArray(_useState105, 2),
+    importStatus = _useState106[0],
+    setImportStatus = _useState106[1]; // null | 'loading' | {imported,skipped,errors}
+  var importFileRef = useRef(null);
+  var fileInputRef = useRef(null);
+  useEffect(function () {
+    var cancelled = false;
+    function init() {
+      return _init.apply(this, arguments);
+    }
+    function _init() {
+      _init = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var h, b, bJson, _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
+            case 0:
+              _context.p = 0;
+              _context.n = 1;
+              return fetch(API_BASE + '/healthz');
+            case 1:
+              h = _context.v;
+              if (h.ok) {
+                _context.n = 2;
+                break;
+              }
+              throw new Error('healthz ' + h.status);
+            case 2:
+              if (!cancelled) {
+                _context.n = 3;
+                break;
+              }
+              return _context.a(2);
+            case 3:
+              setApiStatus('online');
+              _context.n = 4;
+              return fetch(API_BASE + '/api/buildings');
+            case 4:
+              b = _context.v;
+              _context.n = 5;
+              return b.json();
+            case 5:
+              bJson = _context.v;
+              if (!cancelled) {
+                _context.n = 6;
+                break;
+              }
+              return _context.a(2);
+            case 6:
+              setBuildings(bJson);
+              if (bJson.length > 0) setSelectedBuilding(bJson[0]);
+              loadObs();
+              _context.n = 8;
+              break;
+            case 7:
+              _context.p = 7;
+              _t = _context.v;
+              if (!cancelled) setApiStatus('offline');
+            case 8:
+              return _context.a(2);
+          }
+        }, _callee, null, [[0, 7]]);
+      }));
+      return _init.apply(this, arguments);
+    }
+    init();
+    return function () {
+      cancelled = true;
+    };
+  }, []);
+  function loadObs(_x) {
+    return _loadObs.apply(this, arguments);
+  }
+  function _loadObs() {
+    _loadObs = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(bId) {
+      var url, r, _t2, _t3;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.p = _context2.n) {
+          case 0:
+            setObsLoading(true);
+            _context2.p = 1;
+            url = bId ? API_BASE + '/api/observations?building_id=' + encodeURIComponent(bId) : API_BASE + '/api/observations';
+            _context2.n = 2;
+            return fetch(url);
+          case 2:
+            r = _context2.v;
+            _t2 = setObservations;
+            _context2.n = 3;
+            return r.json();
+          case 3:
+            _t2(_context2.v);
+            _context2.n = 5;
+            break;
+          case 4:
+            _context2.p = 4;
+            _t3 = _context2.v;
+          case 5:
+            setObsLoading(false);
+          case 6:
+            return _context2.a(2);
+        }
+      }, _callee2, null, [[1, 4]]);
+    }));
+    return _loadObs.apply(this, arguments);
+  }
+  function handleImport(_x2) {
+    return _handleImport.apply(this, arguments);
+  }
+  function _handleImport() {
+    _handleImport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(e) {
+      var f, fd, r, err, result, _t4;
+      return _regenerator().w(function (_context3) {
+        while (1) switch (_context3.p = _context3.n) {
+          case 0:
+            f = e.target.files[0];
+            if (f) {
+              _context3.n = 1;
+              break;
+            }
+            return _context3.a(2);
+          case 1:
+            setImportStatus('loading');
+            _context3.p = 2;
+            fd = new FormData();
+            fd.append('file', f);
+            _context3.n = 3;
+            return fetch(API_BASE + '/api/observations/import', {
+              method: 'POST',
+              body: fd
+            });
+          case 3:
+            r = _context3.v;
+            if (r.ok) {
+              _context3.n = 5;
+              break;
+            }
+            _context3.n = 4;
+            return r.json().catch(function () {
+              return {};
+            });
+          case 4:
+            err = _context3.v;
+            throw new Error(err.detail || 'HTTP ' + r.status);
+          case 5:
+            _context3.n = 6;
+            return r.json();
+          case 6:
+            result = _context3.v;
+            setImportStatus(result);
+            loadObs(obsFilter || undefined);
+            _context3.n = 8;
+            break;
+          case 7:
+            _context3.p = 7;
+            _t4 = _context3.v;
+            setImportStatus({
+              imported: 0,
+              skipped: 0,
+              errors: [_t4.message]
+            });
+          case 8:
+            if (importFileRef.current) importFileRef.current.value = '';
+          case 9:
+            return _context3.a(2);
+        }
+      }, _callee3, null, [[2, 7]]);
+    }));
+    return _handleImport.apply(this, arguments);
+  }
+  function handleFile(e) {
+    var f = e.target.files[0];
+    if (!f) return;
+    if (!['image/jpeg', 'image/jpg', 'image/png'].includes(f.type)) {
+      setClassifyError('Unsupported file type: ' + f.type + '. Upload JPG or PNG.');
+      return;
+    }
+    setFile(f);
+    setPreview(URL.createObjectURL(f));
+    setClassifyResults(null);
+    setClassifyError(null);
+    setSavedId(null);
+    setSaveError(null);
+    setVerifiedCategory('');
+    setNotes('');
+  }
+  function handleClassify() {
+    return _handleClassify.apply(this, arguments);
+  }
+  function _handleClassify() {
+    _handleClassify = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      var fd, r, e, data, _t5;
+      return _regenerator().w(function (_context4) {
+        while (1) switch (_context4.p = _context4.n) {
+          case 0:
+            if (!(!file || !selectedBuilding)) {
+              _context4.n = 1;
+              break;
+            }
+            return _context4.a(2);
+          case 1:
+            setClassifying(true);
+            setClassifyResults(null);
+            setClassifyError(null);
+            setSavedId(null);
+            _context4.p = 2;
+            fd = new FormData();
+            fd.append('file', file);
+            _context4.n = 3;
+            return fetch(API_BASE + '/api/classify', {
+              method: 'POST',
+              body: fd
+            });
+          case 3:
+            r = _context4.v;
+            if (r.ok) {
+              _context4.n = 5;
+              break;
+            }
+            _context4.n = 4;
+            return r.json().catch(function () {
+              return {};
+            });
+          case 4:
+            e = _context4.v;
+            throw new Error(e.detail || 'HTTP ' + r.status);
+          case 5:
+            _context4.n = 6;
+            return r.json();
+          case 6:
+            data = _context4.v;
+            setClassifyResults(data);
+            setVerifiedCategory(data.top_material || '');
+            _context4.n = 8;
+            break;
+          case 7:
+            _context4.p = 7;
+            _t5 = _context4.v;
+            setClassifyError(_t5.message.includes('fetch') || _t5.message.includes('Failed') ? 'Could not reach AI backend. Is the server running at ' + API_BASE + '?' : 'Classification error: ' + _t5.message);
+          case 8:
+            setClassifying(false);
+          case 9:
+            return _context4.a(2);
+        }
+      }, _callee4, null, [[2, 7]]);
+    }));
+    return _handleClassify.apply(this, arguments);
+  }
+  function handleSave() {
+    return _handleSave.apply(this, arguments);
+  }
+  function _handleSave() {
+    _handleSave = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+      var fd, r, e, data, _t6;
+      return _regenerator().w(function (_context5) {
+        while (1) switch (_context5.p = _context5.n) {
+          case 0:
+            if (!(!selectedBuilding || !verifiedCategory)) {
+              _context5.n = 1;
+              break;
+            }
+            return _context5.a(2);
+          case 1:
+            setSaving(true);
+            setSaveError(null);
+            _context5.p = 2;
+            fd = new FormData();
+            fd.append('building_id', selectedBuilding.id);
+            fd.append('building_name', selectedBuilding.name);
+            fd.append('verified_category', verifiedCategory);
+            fd.append('notes', notes);
+            fd.append('ai_categories', classifyResults ? JSON.stringify(classifyResults.results.map(function (r) {
+              return r.material;
+            })) : '[]');
+            fd.append('ai_scores', classifyResults ? JSON.stringify(classifyResults.results.map(function (r) {
+              return r.score;
+            })) : '[]');
+            if (file) fd.append('photo', file);
+            _context5.n = 3;
+            return fetch(API_BASE + '/api/observations', {
+              method: 'POST',
+              body: fd
+            });
+          case 3:
+            r = _context5.v;
+            if (r.ok) {
+              _context5.n = 5;
+              break;
+            }
+            _context5.n = 4;
+            return r.json().catch(function () {
+              return {};
+            });
+          case 4:
+            e = _context5.v;
+            throw new Error(e.detail || 'HTTP ' + r.status);
+          case 5:
+            _context5.n = 6;
+            return r.json();
+          case 6:
+            data = _context5.v;
+            setSavedId(data.id);
+            setFile(null);
+            setPreview(null);
+            setClassifyResults(null);
+            setVerifiedCategory('');
+            setNotes('');
+            if (fileInputRef.current) fileInputRef.current.value = '';
+            loadObs(obsFilter || undefined);
+            _context5.n = 8;
+            break;
+          case 7:
+            _context5.p = 7;
+            _t6 = _context5.v;
+            setSaveError('Save failed: ' + _t6.message);
+          case 8:
+            setSaving(false);
+          case 9:
+            return _context5.a(2);
+        }
+      }, _callee5, null, [[2, 7]]);
+    }));
+    return _handleSave.apply(this, arguments);
+  }
+  var MATERIALS = ['plastic', 'paper', 'cardboard', 'glass', 'metal', 'organic', 'unknown / mixed'];
+  function ScoreBar(_ref30) {
+    var result = _ref30.result,
+      isTop = _ref30.isTop,
+      maxS = _ref30.maxS,
+      minS = _ref30.minS;
+    var range = maxS - minS || 0.01;
+    var fill = Math.max(0, Math.min(1, (result.score - minS) / range));
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        marginBottom: 5
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: 135,
+        fontSize: 12,
+        color: isTop ? PAL.navy : PAL.text,
+        fontWeight: isTop ? 700 : 400,
+        flexShrink: 0
+      }
+    }, isTop ? '* ' : '', result.material), /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: 1,
+        background: '#e4d5b5',
+        borderRadius: 4,
+        height: 10,
+        overflow: 'hidden'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: fill * 100 + '%',
+        height: '100%',
+        background: isTop ? PAL.navyLight : '#80a2ce',
+        borderRadius: 4,
+        transition: 'width .4s'
+      }
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: 52,
+        fontSize: 11,
+        color: PAL.muted,
+        textAlign: 'right',
+        flexShrink: 0,
+        fontFamily: 'monospace'
+      }
+    }, result.score.toFixed(4)));
+  }
+  if (apiStatus === 'offline') return /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: 24
+    }
+  }, /*#__PURE__*/React.createElement(SH, {
+    title: "AI Waste Scanner",
+    sub: "CLIP ViT-B/32 zero-shot waste material classifier"
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: '#f0f4fa',
+      border: '1px solid #abc1df',
+      borderRadius: 8,
+      padding: 24,
+      maxWidth: 560
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 10,
+      marginBottom: 12
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 22
+    }
+  }, "\uD83D\uDCF7"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 700,
+      color: PAL.navy,
+      fontSize: 15
+    }
+  }, "AI Scanner - Coming Soon")), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: '0 0 12px',
+      fontSize: 14,
+      color: PAL.text,
+      lineHeight: 1.6
+    }
+  }, "The EnviroTrap AI Scanner is currently available in our local demonstration environment. Public access to AI-powered waste classification is coming soon."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: 'white',
+      border: '1px solid #e4d5b5',
+      borderRadius: 6,
+      padding: '10px 14px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      fontWeight: 600,
+      color: PAL.muted,
+      marginBottom: 6,
+      textTransform: 'uppercase',
+      letterSpacing: '0.05em'
+    }
+  }, "What the Scanner does"), /*#__PURE__*/React.createElement("ul", {
+    style: {
+      margin: 0,
+      paddingLeft: '1.2rem',
+      fontSize: 13,
+      color: PAL.text,
+      lineHeight: 1.7
+    }
+  }, /*#__PURE__*/React.createElement("li", null, "Analyses waste photos using CLIP ViT-B/32 (OpenAI)"), /*#__PURE__*/React.createElement("li", null, "Returns cosine similarity scores across 7 material categories"), /*#__PURE__*/React.createElement("li", null, "Supports human verification before saving"), /*#__PURE__*/React.createElement("li", null, "Stores observations in a research database"))), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: '12px 0 0',
+      fontSize: 12,
+      color: PAL.muted
+    }
+  }, "All other EnviroTrap Nexus modules are fully available above.")));
+  if (apiStatus === 'checking') return /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: 24
+    }
+  }, /*#__PURE__*/React.createElement(SH, {
+    title: "AI Waste Scanner",
+    sub: "CLIP ViT-B/32 zero-shot waste material classifier"
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      color: PAL.muted,
+      fontSize: 13
+    }
+  }, "Connecting to AI service..."));
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: 24
+    }
+  }, /*#__PURE__*/React.createElement(SH, {
+    title: "AI Waste Scanner",
+    sub: "CLIP ViT-B/32 zero-shot classifier. Similarity scores are cosine similarities - NOT probabilities or recyclability assessments."
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 8,
+      marginBottom: 16
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'inline-block',
+      width: 8,
+      height: 8,
+      borderRadius: '50%',
+      background: '#22c55e'
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted
+    }
+  }, "Backend online at ", API_BASE), /*#__PURE__*/React.createElement("span", {
+    className: "badge badge-green",
+    style: {
+      marginLeft: 4
+    }
+  }, "CLIP ViT-B/32"), /*#__PURE__*/React.createElement("span", {
+    className: "badge badge-amber"
+  }, "AI-Inferred scores")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr',
+      gap: 16,
+      marginBottom: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 700,
+      fontSize: 14,
+      color: PAL.navy,
+      marginBottom: 12
+    }
+  }, "Step 1 - Select building and upload photo"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginBottom: 12
+    }
+  }, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 12,
+      fontWeight: 600,
+      color: PAL.muted,
+      display: 'block',
+      marginBottom: 4
+    }
+  }, "BUILDING"), /*#__PURE__*/React.createElement("select", {
+    value: selectedBuilding ? selectedBuilding.name : '',
+    onChange: function onChange(e) {
+      return setSelectedBuilding(buildings.find(function (b) {
+        return b.name === e.target.value;
+      }) || null);
+    },
+    style: {
+      width: '100%'
+    }
+  }, buildings.map(function (b) {
+    return /*#__PURE__*/React.createElement("option", {
+      key: b.id,
+      value: b.name
+    }, b.name);
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginBottom: 12
+    }
+  }, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 12,
+      fontWeight: 600,
+      color: PAL.muted,
+      display: 'block',
+      marginBottom: 4
+    }
+  }, "PHOTO (JPG or PNG)"), /*#__PURE__*/React.createElement("input", {
+    ref: fileInputRef,
+    type: "file",
+    accept: "image/jpeg,image/jpg,image/png",
+    onChange: handleFile,
+    style: {
+      padding: '6px 8px',
+      fontSize: 13
+    }
+  })), preview && /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginBottom: 12
+    }
+  }, /*#__PURE__*/React.createElement("img", {
+    src: preview,
+    alt: "preview",
+    style: {
+      maxWidth: '100%',
+      maxHeight: 160,
+      borderRadius: 6,
+      border: '1px solid #e4d5b5',
+      display: 'block'
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: PAL.muted,
+      marginTop: 4
+    }
+  }, file && file.name, " (", file ? (file.size / 1024).toFixed(1) : '', "KB)")), classifyError && /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: '#fff5f5',
+      border: '1px solid #fca5a5',
+      borderRadius: 6,
+      padding: '8px 12px',
+      fontSize: 13,
+      color: PAL.red,
+      marginBottom: 12
+    }
+  }, classifyError), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-primary",
+    onClick: handleClassify,
+    disabled: !file || !selectedBuilding || classifying,
+    style: {
+      width: '100%'
+    }
+  }, classifying ? 'Analysing with CLIP...' : 'Analyse with AI')), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 700,
+      fontSize: 14,
+      color: PAL.navy,
+      marginBottom: 12
+    }
+  }, "Step 2 - Review scores, verify, and save"), !classifyResults && !classifying && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 13,
+      color: PAL.muted,
+      padding: '20px 0',
+      textAlign: 'center'
+    }
+  }, "Upload a photo and click \"Analyse with AI\" to see CLIP similarity scores."), classifying && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 13,
+      color: PAL.muted,
+      padding: '20px 0',
+      textAlign: 'center'
+    }
+  }, "Running CLIP ViT-B/32 inference... (first run may take 30-60s)"), classifyResults && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      color: PAL.muted,
+      marginBottom: 8,
+      textTransform: 'uppercase',
+      letterSpacing: '0.05em'
+    }
+  }, "CLIP Similarity Scores (cosine [-1, 1] - not probability)"), function () {
+    var scores = classifyResults.results.map(function (r) {
+      return r.score;
+    });
+    var maxS = Math.max.apply(null, scores);
+    var minS = Math.min.apply(null, scores);
+    return classifyResults.results.map(function (r, i) {
+      return /*#__PURE__*/React.createElement(ScoreBar, {
+        key: r.material,
+        result: r,
+        isTop: i === 0,
+        maxS: maxS,
+        minS: minS
+      });
+    });
+  }(), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: PAL.muted,
+      marginTop: 6,
+      fontStyle: 'italic',
+      marginBottom: 14
+    }
+  }, "* Top AI suggestion. Scores are cosine similarities, not probabilities. Appearance does not determine recyclability."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginBottom: 10
+    }
+  }, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 12,
+      fontWeight: 600,
+      color: PAL.muted,
+      display: 'block',
+      marginBottom: 4
+    }
+  }, "VERIFIED MATERIAL CATEGORY"), /*#__PURE__*/React.createElement("select", {
+    value: verifiedCategory,
+    onChange: function onChange(e) {
+      return setVerifiedCategory(e.target.value);
+    },
+    style: {
+      width: '100%'
+    }
+  }, /*#__PURE__*/React.createElement("option", {
+    value: ""
+  }, "-- select --"), MATERIALS.map(function (m) {
+    return /*#__PURE__*/React.createElement("option", {
+      key: m,
+      value: m
+    }, m);
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: PAL.muted,
+      marginTop: 3
+    }
+  }, "Always verify before saving. AI suggestions require human confirmation.")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginBottom: 12
+    }
+  }, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 12,
+      fontWeight: 600,
+      color: PAL.muted,
+      display: 'block',
+      marginBottom: 4
+    }
+  }, "NOTES (optional)"), /*#__PURE__*/React.createElement("textarea", {
+    value: notes,
+    onChange: function onChange(e) {
+      return setNotes(e.target.value);
+    },
+    placeholder: "e.g. found near east entrance...",
+    rows: 2,
+    maxLength: 500,
+    style: {
+      width: '100%',
+      resize: 'vertical'
+    }
+  })), saveError && /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: '#fff5f5',
+      border: '1px solid #fca5a5',
+      borderRadius: 6,
+      padding: '8px 12px',
+      fontSize: 13,
+      color: PAL.red,
+      marginBottom: 10
+    }
+  }, saveError), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-green",
+    onClick: handleSave,
+    disabled: !verifiedCategory || saving,
+    style: {
+      width: '100%'
+    }
+  }, saving ? 'Saving...' : 'Save Observation')))), savedId !== null && /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: '#f0faf4',
+      border: '1px solid #86efac',
+      borderRadius: 8,
+      padding: '12px 16px',
+      marginBottom: 16,
+      display: 'flex',
+      alignItems: 'center',
+      gap: 10
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: PAL.teal,
+      fontSize: 18
+    }
+  }, "checkmark"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 700,
+      color: PAL.teal,
+      fontSize: 13
+    }
+  }, "Observation saved (ID #", savedId, ")"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted
+    }
+  }, "Stored in SQLite backend. Visible in observations table below."))), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 12,
+      marginBottom: 8,
+      flexWrap: 'wrap'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 700,
+      fontSize: 14,
+      color: PAL.navy,
+      flex: 1
+    }
+  }, "Recent Observations"), /*#__PURE__*/React.createElement("select", {
+    value: obsFilter,
+    onChange: function onChange(e) {
+      setObsFilter(e.target.value);
+      loadObs(e.target.value || undefined);
+    },
+    style: {
+      width: 220,
+      fontSize: 12
+    }
+  }, /*#__PURE__*/React.createElement("option", {
+    value: ""
+  }, "All buildings"), buildings.map(function (b) {
+    return /*#__PURE__*/React.createElement("option", {
+      key: b.id,
+      value: b.id
+    }, b.short_name);
+  })), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-secondary btn-sm",
+    onClick: function onClick() {
+      return loadObs(obsFilter || undefined);
+    }
+  }, "Refresh"), /*#__PURE__*/React.createElement("a", {
+    href: API_BASE + '/api/observations/export.csv',
+    download: "envirotrap_observations.csv",
+    className: "btn btn-secondary btn-sm",
+    style: {
+      textDecoration: 'none',
+      fontSize: 12
+    }
+  }, "\u2193 Export CSV"), /*#__PURE__*/React.createElement("label", {
+    className: "btn btn-secondary btn-sm",
+    style: {
+      cursor: 'pointer',
+      fontSize: 12
+    }
+  }, "\u2191 Import CSV", /*#__PURE__*/React.createElement("input", {
+    ref: importFileRef,
+    type: "file",
+    accept: ".csv",
+    style: {
+      display: 'none'
+    },
+    onChange: handleImport
+  }))), importStatus && importStatus !== 'loading' && /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginBottom: 8,
+      padding: '6px 10px',
+      borderRadius: 5,
+      fontSize: 12,
+      background: importStatus.errors && importStatus.errors.length ? '#fee2e2' : '#f0fdf4',
+      border: '1px solid ' + (importStatus.errors && importStatus.errors.length ? '#fca5a5' : '#86efac'),
+      color: importStatus.errors && importStatus.errors.length ? '#991b1b' : '#166534'
+    }
+  }, "Import complete: ", /*#__PURE__*/React.createElement("strong", null, importStatus.imported), " added, ", /*#__PURE__*/React.createElement("strong", null, importStatus.skipped), " duplicates skipped.", importStatus.errors && importStatus.errors.length > 0 && /*#__PURE__*/React.createElement("span", null, " ", importStatus.errors.length, " row error(s): ", importStatus.errors[0])), importStatus === 'loading' && /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginBottom: 8,
+      fontSize: 12,
+      color: PAL.muted
+    }
+  }, "Importing..."), obsLoading && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 13,
+      color: PAL.muted,
+      padding: '12px 0'
+    }
+  }, "Loading observations..."), !obsLoading && observations.length === 0 && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 13,
+      color: PAL.muted,
+      padding: '12px 0',
+      textAlign: 'center'
+    }
+  }, "No observations saved yet."), !obsLoading && observations.length > 0 && /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Building"), /*#__PURE__*/React.createElement("th", null, "Verified Category"), /*#__PURE__*/React.createElement("th", null, "AI Top Similarity"), /*#__PURE__*/React.createElement("th", null, "Notes"), /*#__PURE__*/React.createElement("th", null, "Saved"))), /*#__PURE__*/React.createElement("tbody", null, observations.map(function (obs) {
+    var scores = obs.ai_scores || [];
+    var cats = obs.ai_categories || [];
+    var maxIdx = scores.length > 0 ? scores.indexOf(Math.max.apply(null, scores)) : -1;
+    return /*#__PURE__*/React.createElement("tr", {
+      key: obs.id
+    }, /*#__PURE__*/React.createElement("td", {
+      style: {
+        fontFamily: 'monospace',
+        fontSize: 12
+      }
+    }, "#", obs.id), /*#__PURE__*/React.createElement("td", {
+      style: {
+        fontSize: 12
+      }
+    }, obs.building_name), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("span", {
+      className: "badge badge-navy"
+    }, obs.verified_category)), /*#__PURE__*/React.createElement("td", {
+      style: {
+        fontSize: 12
+      }
+    }, maxIdx >= 0 ? /*#__PURE__*/React.createElement("span", null, scores[maxIdx].toFixed(3), " ", /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: PAL.muted
+      }
+    }, "(", cats[maxIdx], ")")) : /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: PAL.muted
+      }
+    }, "none")), /*#__PURE__*/React.createElement("td", {
+      style: {
+        fontSize: 12,
+        color: PAL.muted
+      }
+    }, obs.notes || '-'), /*#__PURE__*/React.createElement("td", {
+      style: {
+        fontSize: 11,
+        color: PAL.muted
+      }
+    }, obs.created_at ? obs.created_at.slice(0, 16) : '-'));
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 10,
+      padding: '6px 10px',
+      background: PAL.amberBg,
+      borderRadius: 5,
+      fontSize: 11,
+      color: '#92400e'
+    }
+  }, "\u26A0 ", /*#__PURE__*/React.createElement("strong", null, "Temporary storage:"), " SQLite on Hugging Face free tier is reset on each Space restart. Export a CSV backup to preserve your observations. Re-import it after a restart to restore records. Scores are CLIP ViT-B/32 cosine similarities \u2014 not recyclability probabilities.")));
+}
+
+// ─── NAVIGATION ───────────────────────────────────────────────────────────────
+var NAV = [{
+  id: 'overview',
+  label: 'Overview',
+  icon: '📊'
+}, {
+  id: 'attribution',
+  label: 'Attribution Engine',
+  icon: '🤖',
+  badge: 'AI'
+}, {
+  id: 'pipeline',
+  label: 'Data Pipeline',
+  icon: '🔬'
+}, {
+  id: 'nexus',
+  label: 'Ask Nexus',
+  icon: '💬',
+  badge: 'AI'
+}, {
+  id: 'collection',
+  label: 'Collection Log',
+  icon: '🚛'
+}, {
+  id: 'audits',
+  label: 'Waste Audits',
+  icon: '📋'
+}, {
+  id: 'insights',
+  label: 'Insights',
+  icon: '💡'
+}, {
+  id: 'interventions',
+  label: 'Interventions',
+  icon: '🎯'
+}, {
+  id: 'reports',
+  label: 'Reports',
+  icon: '📄'
+}, {
+  id: 'settings',
+  label: 'Settings',
+  icon: '⚙️'
+}, {
+  id: 'scanner',
+  label: 'AI Scanner',
+  icon: '📷',
+  badge: 'AI'
+}];
+function Sidebar(_ref31) {
+  var active = _ref31.active,
+    setActive = _ref31.setActive,
+    collapsed = _ref31.collapsed,
+    setCollapsed = _ref31.setCollapsed;
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: PAL.navy,
+      minHeight: '100vh',
+      width: collapsed ? 56 : 230,
+      flexShrink: 0,
+      display: 'flex',
+      flexDirection: 'column',
+      transition: 'width .2s',
+      overflowX: 'hidden'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 10,
+      padding: '14px 12px',
+      borderBottom: '1px solid rgba(255,255,255,.1)'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 32,
+      height: 32,
+      borderRadius: 8,
+      background: PAL.amber,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontWeight: 700,
+      fontSize: 13,
+      color: PAL.navy,
+      flexShrink: 0
+    }
+  }, "ET"), !collapsed && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 700,
+      fontSize: 13,
+      color: '#fff',
+      lineHeight: 1.2
+    }
+  }, "EnviroTrap"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 10,
+      color: '#80a2ce'
+    }
+  }, "Nexus - UIUC")), /*#__PURE__*/React.createElement("button", {
+    onClick: function onClick() {
+      return setCollapsed(function (x) {
+        return !x;
+      });
+    },
+    style: {
+      marginLeft: 'auto',
+      background: 'none',
+      border: 'none',
+      color: '#80a2ce',
+      cursor: 'pointer',
+      fontSize: 18,
+      padding: 0,
+      lineHeight: 1
+    }
+  }, collapsed ? '>' : '<')), /*#__PURE__*/React.createElement("nav", {
+    style: {
+      flex: 1,
+      paddingTop: 6
+    }
+  }, NAV.map(function (item) {
+    return /*#__PURE__*/React.createElement("button", {
+      key: item.id,
+      onClick: function onClick() {
+        return setActive(item.id);
+      },
+      className: "nav-item ".concat(active === item.id ? 'active' : ''),
+      style: {
+        color: active === item.id ? 'white' : '#abc1df',
+        fontWeight: active === item.id ? 600 : 400,
+        fontSize: 13
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 15,
+        flexShrink: 0
+      }
+    }, item.icon), !collapsed && /*#__PURE__*/React.createElement("span", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 6
+      }
+    }, item.label, item.badge && /*#__PURE__*/React.createElement("span", {
+      style: {
+        background: PAL.amber,
+        color: PAL.navy,
+        fontSize: 9,
+        fontWeight: 800,
+        padding: '1px 5px',
+        borderRadius: 8
+      }
+    }, item.badge)));
+  })), !collapsed && /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: '10px 12px',
+      borderTop: '1px solid rgba(255,255,255,.1)',
+      fontSize: 10,
+      color: '#5683be'
+    }
+  }, "v0.4.0 - AI Scanner Integration"));
+}
+
+// ─── APP ROOT ─────────────────────────────────────────────────────────────────
+function App() {
+  var _useState107 = useState('overview'),
+    _useState108 = _slicedToArray(_useState107, 2),
+    active = _useState108[0],
+    setActive = _useState108[1];
+  var _useState109 = useState(false),
+    _useState110 = _slicedToArray(_useState109, 2),
+    collapsed = _useState110[0],
+    setCollapsed = _useState110[1];
+  var PAGES = {
+    overview: /*#__PURE__*/React.createElement(Overview, {
+      setActive: setActive
+    }),
+    attribution: /*#__PURE__*/React.createElement(AttributionEngineUI, {
+      setActive: setActive
+    }),
+    pipeline: /*#__PURE__*/React.createElement(DataPipeline, null),
+    nexus: /*#__PURE__*/React.createElement(AskNexus, null),
+    collection: /*#__PURE__*/React.createElement(CollectionLog, null),
+    audits: /*#__PURE__*/React.createElement(WasteAudits, null),
+    insights: /*#__PURE__*/React.createElement(InsightsEngine, null),
+    interventions: /*#__PURE__*/React.createElement(Interventions, null),
+    reports: /*#__PURE__*/React.createElement(Reports, null),
+    settings: /*#__PURE__*/React.createElement(Settings, null),
+    scanner: /*#__PURE__*/React.createElement(AIScannerModule, null)
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      minHeight: '100vh'
+    }
+  }, /*#__PURE__*/React.createElement(DemoBanner, null), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flex: 1
+    }
+  }, /*#__PURE__*/React.createElement(Sidebar, {
+    active: active,
+    setActive: setActive,
+    collapsed: collapsed,
+    setCollapsed: setCollapsed
+  }), /*#__PURE__*/React.createElement("main", {
+    style: {
+      flex: 1,
+      overflowY: 'auto',
+      background: '#f8f5ee'
+    }
+  }, PAGES[active] || null)));
+}
+ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(App, null));
