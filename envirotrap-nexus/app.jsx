@@ -207,12 +207,17 @@ const DEMO_BUILDINGS = Object.entries(REAL_MODEL.site_centroids).slice(0, 20).ma
         name.includes('DINING') || name.includes('COMMONS') ? 'Dining' : 'Academic'
 }));
 
-const ROUTE_DEFS = [
-  { id:'RA', label:'Route A: North Campus', buildings:DEMO_BUILDINGS.slice(0,5).map(b=>b.id), containers:['Front Load-Landfill-8','Front Load-Cardboard-8'], days:[1,3,5], startHour:6, endHour:10 },
-  { id:'RB', label:'Route B: Engineering / Ag', buildings:DEMO_BUILDINGS.slice(5,10).map(b=>b.id), containers:['Front Load-Landfill-6','Front Load-Paper-2'], days:[2,4], startHour:7, endHour:11 },
-  { id:'RC', label:'Route C: Residential East', buildings:DEMO_BUILDINGS.slice(10,15).map(b=>b.id), containers:['Front Load-Landfill-6','Front Load-Cardboard-6'], days:[1,2,3,4,5], startHour:5, endHour:9 },
-  { id:'RD', label:'Route D: Research / Vet Med', buildings:DEMO_BUILDINGS.slice(15,20).map(b=>b.id), containers:['Front Load-Landfill-8','Front Load-Landfill-2'], days:[1,3,5], startHour:8, endHour:12 },
+// Real F&S route assignments — populate from Betsy's data when available.
+const REAL_ROUTES = [];
+// Synthetic demo fallback — NOT actual F&S route assignments.
+const DEMO_ROUTE_DEFS = [
+  { id:'RA', label:'Route A: North Campus (DEMO)', buildings:DEMO_BUILDINGS.slice(0,5).map(b=>b.id), containers:['Front Load-Landfill-8','Front Load-Cardboard-8'], days:[1,3,5], startHour:6, endHour:10 },
+  { id:'RB', label:'Route B: Engineering / Ag (DEMO)', buildings:DEMO_BUILDINGS.slice(5,10).map(b=>b.id), containers:['Front Load-Landfill-6','Front Load-Paper-2'], days:[2,4], startHour:7, endHour:11 },
+  { id:'RC', label:'Route C: Residential East (DEMO)', buildings:DEMO_BUILDINGS.slice(10,15).map(b=>b.id), containers:['Front Load-Landfill-6','Front Load-Cardboard-6'], days:[1,2,3,4,5], startHour:5, endHour:9 },
+  { id:'RD', label:'Route D: Research / Vet Med (DEMO)', buildings:DEMO_BUILDINGS.slice(15,20).map(b=>b.id), containers:['Front Load-Landfill-8','Front Load-Landfill-2'], days:[1,3,5], startHour:8, endHour:12 },
 ];
+const ROUTE_DEFS = REAL_ROUTES.length > 0 ? REAL_ROUTES : DEMO_ROUTE_DEFS;
+const USING_REAL_ROUTES = REAL_ROUTES.length > 0;
 
 // ─── SHARED COMPONENTS ────────────────────────────────────────────────────────
 function DemoBanner() {
@@ -307,6 +312,47 @@ function ConfidenceMeter({ score, label }) {
         <div style={{ width:`${score*100}%`, height:'100%', background:color, borderRadius:3, transition:'width .3s' }} />
       </div>
       <span style={{ fontSize:11, color, fontWeight:600 }}>{label}</span>
+    </div>
+  );
+}
+
+// ─── RATE KPI TILES ──────────────────────────────────────────────────────────
+// Contamination rate = weight of items in wrong stream ÷ total audited stream weight.
+// Displayed only when found_in_stream, correct_stream, and weight_verified=true are
+// all present on at least one audit. Never inferred from CLIP labels.
+function RateKpiTiles() {
+  const verifiedAudits = DEMO_AUDITS.filter(a =>
+    a.found_in_stream && a.correct_stream && a.weight_verified && a.sample_weight_lbs
+  );
+  let contamRate = null;
+  if (verifiedAudits.length > 0) {
+    let misplacedWeight = 0, totalWeight = 0;
+    for (const a of verifiedAudits) {
+      const w = parseFloat(a.sample_weight_lbs) || 0;
+      totalWeight += w;
+      if (a.found_in_stream !== a.correct_stream) misplacedWeight += w;
+    }
+    if (totalWeight > 0) contamRate = (misplacedWeight / totalWeight * 100).toFixed(1);
+  }
+  const tiles = [
+    { label:'Diversion Rate', value:'—', reason:'Requires verified weights for recycling, compost, and landfill streams from the same period and scope.', live:false },
+    { label:'Recycling Rate', value:'—', reason:'Requires verified recycling and landfill stream weights for the same scope.', live:false },
+    { label:'Contamination Rate',
+      value: contamRate !== null ? `${contamRate}%` : '—',
+      reason: contamRate !== null
+        ? `Misplaced material weight ÷ total audited stream weight across ${verifiedAudits.length} verified audit(s). Auditor-determined stream classification only — not from CLIP labels.`
+        : 'Requires waste audit(s) with found_in_stream, correct_stream, and verified sample weight. Not inferred from LoadMan or CLIP.',
+      live: contamRate !== null },
+  ];
+  return (
+    <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:10, marginTop:14 }}>
+      {tiles.map(({ label, value, reason, live }) => (
+        <div key={label} style={{ border:`1px ${live?'solid':'dashed'} ${live?PAL.teal:PAL.border}`, borderRadius:8, padding:'10px 12px', background:live?'#f0fdf4':PAL.cream }}>
+          <div style={{ fontSize:22, fontWeight:700, color:live?PAL.teal:PAL.muted }}>{value}</div>
+          <div style={{ fontSize:12, fontWeight:700, color:PAL.navy, marginBottom:4 }}>{label}</div>
+          <div style={{ fontSize:11, color:PAL.muted, lineHeight:1.5 }}>{reason}</div>
+        </div>
+      ))}
     </div>
   );
 }
@@ -1173,18 +1219,39 @@ function AskNexus() {
 }
 
 // ─── COLLECTION LOG ───────────────────────────────────────────────────────────
+const CL_STORAGE_KEY = 'envirotrap_nexus_collection_log_v1';
+function loadStoredLogs() { try { const r=localStorage.getItem(CL_STORAGE_KEY); return r?JSON.parse(r):[]; } catch { return []; } }
+function saveLogsToStorage(ls) { try { localStorage.setItem(CL_STORAGE_KEY,JSON.stringify(ls)); } catch {} }
+
 function CollectionLog() {
   const now = new Date();
   const dow = now.getDay();
   const hour = now.getHours();
   const timeStr = `${String(hour).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
 
-  const [form, setForm] = useState({ route_id:'', building_id:'', container:'', time:timeStr, gross:'', tare:'', stream:'', notes:'', flags:[] });
-  const [logs, setLogs] = useState([]);
+  const [form, setForm] = useState({ route_id:'', building_id:'', truck_id:'', container:'', time:timeStr, gross:'', tare:'', stream:'', notes:'', flags:[] });
+  const [logs, setLogs] = useState(() => loadStoredLogs());
   const [errors, setErrors] = useState({});
   const [ok, setOk] = useState(false);
   const [duplicate, setDuplicate] = useState(false);
   const [weightWarn, setWeightWarn] = useState(null);
+  const [correcting, setCorrecting] = useState(null);
+  const [correctionNote, setCorrectionNote] = useState('');
+
+  function exportLogCsv() {
+    const header = ['id','date','time','route','truck_id','building','container','stream','net_lbs','flags','notes','corrections'];
+    const dataRows = logs.map(function(l) {
+      return [l.id, l.date, l.time, l.route, l.truck_id||'', l.building, l.container, l.stream, l.net,
+        (l.flags||[]).join('; '), l.notes||'', (l.corrections||[]).map(function(c){return c.note;}).join('; ')];
+    });
+    var csv = [header].concat(dataRows).map(function(r){
+      return r.map(function(c){ return JSON.stringify(c == null ? '' : String(c)); }).join(',');
+    }).join('\n');
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv'}));
+    a.download = 'collection-log-' + new Date().toISOString().slice(0,10) + '.csv';
+    a.click();
+  }
 
   const suggestedRoutes = ROUTE_DEFS.filter(r=>r.days.includes(dow) && hour>=r.startHour && hour<=r.endHour);
   const selectedRoute = ROUTE_DEFS.find(r=>r.id===form.route_id);
@@ -1230,9 +1297,10 @@ function CollectionLog() {
     if (Object.keys(e).length>0) { setErrors(e); return; }
     const route=ROUTE_DEFS.find(r=>r.id===form.route_id);
     const bld=DEMO_BUILDINGS.find(b=>b.id===form.building_id);
-    setLogs(p=>[{ id:`COL${Date.now()}`, date:new Date().toISOString().slice(0,10), time:form.time, route:route?.label, building:bld?.name, container:form.container, stream:form.stream, net:net||'Not recorded', flags:form.flags, notes:form.notes },...p]);
+    const newEntry={ id:`COL${Date.now()}`, date:new Date().toISOString().slice(0,10), time:form.time, route:route?.label||form.route_id||'Unknown', building:bld?.name||form.building_id||'Unknown', truck_id:form.truck_id.trim()||null, container:form.container, stream:form.stream, net:net||'Not recorded', flags:form.flags, notes:form.notes, corrections:[], source:'driver_entry' };
+    setLogs(p=>{ const updated=[newEntry,...p]; saveLogsToStorage(updated); return updated; });
     setOk(true);
-    setTimeout(()=>{ setOk(false); setForm({ route_id:'', building_id:'', container:'', time:new Date().toTimeString().slice(0,5), gross:'', tare:'', stream:'', notes:'', flags:[] }); setErrors({}); },2500);
+    setTimeout(()=>{ setOk(false); setForm({ route_id:'', building_id:'', truck_id:'', container:'', time:new Date().toTimeString().slice(0,5), gross:'', tare:'', stream:'', notes:'', flags:[] }); setErrors({}); },2500);
   }
 
   return (
@@ -1270,6 +1338,12 @@ function CollectionLog() {
             </select>
             {errors.route_id && <div style={{ color:PAL.red, fontSize:12, marginTop:3 }}>{errors.route_id}</div>}
             {selectedRoute && <div style={{ fontSize:12, color:PAL.muted, marginTop:3 }}>Typical time: {selectedRoute.startHour}:00-{selectedRoute.endHour}:00. Buildings on this route pre-loaded below.</div>}
+            {!USING_REAL_ROUTES && <div style={{ fontSize:11, color:PAL.amberDark, marginTop:3 }}>⚠ Demo route — not an actual F&S assignment.</div>}
+          </div>
+          <div>
+            <label style={{ fontSize:13, fontWeight:600, color:PAL.navy, display:'block', marginBottom:4 }}>Truck ID</label>
+            <input value={form.truck_id} onChange={e=>up('truck_id',e.target.value)} placeholder={USING_REAL_ROUTES ? 'e.g., T-14' : 'Enter when F&S provides truck IDs'} maxLength={40} />
+            <div style={{ fontSize:11, color:PAL.muted, marginTop:2 }}>Optional until F&S route assignments are configured.</div>
           </div>
           <div>
             <label style={{ fontSize:13, fontWeight:600, color:PAL.navy, display:'block', marginBottom:4 }}>Building <span style={{ color:PAL.red }}>*</span>{form.route_id&&<span style={{ fontSize:11, color:PAL.teal, fontWeight:400, marginLeft:6 }}>Filtered to route</span>}</label>
@@ -1337,19 +1411,42 @@ function CollectionLog() {
         Building names from real UIUC site names in LoadMan data. This interface is not connected to LoadMan or existing university systems.
       </div>
 
-      {logs.length>0 && (
+      {logs.length > 0 && (
         <div style={{ marginTop:16 }}>
-          <div style={{ fontSize:14, fontWeight:700, color:PAL.navy, marginBottom:10 }}>Session Log ({logs.length})</div>
+          <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:8, marginBottom:8 }}>
+            <div style={{ fontSize:14, fontWeight:700, color:PAL.navy }}>Logged Entries ({logs.length})</div>
+            <div style={{ display:'flex', gap:8 }}>
+              <button className="btn btn-secondary btn-sm" onClick={exportLogCsv}>Export CSV</button>
+              <button className="btn btn-secondary btn-sm" style={{ color:PAL.red }} onClick={()=>{ if(window.confirm('Clear all entries?')){ setLogs([]); saveLogsToStorage([]); } }}>Clear log</button>
+            </div>
+          </div>
+          <div style={{ fontSize:11, color:PAL.amberDark, marginBottom:8, padding:'6px 10px', background:'#fffbeb', borderRadius:5, border:`1px solid ${PAL.amber}` }}>
+            ⚠ Device-local prototype storage only. Entries are saved in this browser only — not shared with other devices, users, or university systems. Export CSV regularly to preserve records.
+          </div>
           {logs.map(l=>(
             <div key={l.id} className="card" style={{ padding:12, marginBottom:8 }}>
               <div style={{ display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:8 }}>
                 <div>
-                  <div style={{ fontWeight:700, fontSize:13 }}>{l.building}</div>
-                  <div style={{ fontSize:12, color:PAL.muted }}>{l.date} at {l.time} - {l.route} - Net: {l.net} lbs</div>
+                  <div style={{ fontWeight:700, fontSize:13 }}>{l.building}{l.truck_id&&<span style={{ fontSize:11, color:PAL.muted, fontWeight:400, marginLeft:8 }}>Truck: {l.truck_id}</span>}</div>
+                  <div style={{ fontSize:12, color:PAL.muted }}>{l.date} at {l.time} · {l.route} · Net: {l.net} lbs</div>
+                  {(l.corrections||[]).length>0&&<div style={{ fontSize:11, color:PAL.amberDark, marginTop:3 }}>Corrections: {l.corrections.map(c=>`${c.at}: ${c.note}`).join(' | ')}</div>}
                 </div>
-                <Badge cls={`badge ${l.stream==='Cardboard'||l.stream==='Paper'?'badge-navy':'badge-gray'}`}>{l.stream}</Badge>
+                <div style={{ display:'flex', gap:6, alignItems:'flex-start' }}>
+                  <Badge cls={`badge ${l.stream==='Cardboard'||l.stream==='Paper'?'badge-navy':'badge-gray'}`}>{l.stream}</Badge>
+                  <button className="btn btn-secondary btn-sm" style={{ fontSize:11, padding:'2px 8px' }} onClick={()=>{setCorrecting(correcting===l.id?null:l.id);setCorrectionNote('');}}>+ Note</button>
+                </div>
               </div>
-              {l.flags.length>0&&<div style={{ marginTop:6, display:'flex', gap:5 }}>{l.flags.map(f=>(<span key={f} className="badge badge-amber">{f}</span>))}</div>}
+              {(l.flags||[]).length>0&&<div style={{ marginTop:6, display:'flex', gap:5 }}>{l.flags.map(f=>(<span key={f} className="badge badge-amber">{f}</span>))}</div>}
+              {correcting===l.id&&(
+                <div style={{ marginTop:8, display:'flex', gap:8 }}>
+                  <input style={{ flex:1, fontSize:12 }} placeholder="Correction or additional note..." value={correctionNote} onChange={e=>setCorrectionNote(e.target.value)} maxLength={300} />
+                  <button className="btn btn-primary btn-sm" onClick={()=>{
+                    if(!correctionNote.trim())return;
+                    setLogs(p=>{const updated=p.map(x=>x.id===l.id?{...x,corrections:[...(x.corrections||[]),{at:new Date().toISOString().slice(0,16),note:correctionNote.trim()}]}:x);saveLogsToStorage(updated);return updated;});
+                    setCorrecting(null);setCorrectionNote('');
+                  }}>Save</button>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -1360,10 +1457,10 @@ function CollectionLog() {
 
 // ─── WASTE AUDITS ─────────────────────────────────────────────────────────────
 const DEMO_AUDITS = [
-  { id:'AUD001', title:'Illini Union General Waste Audit', building_id:'B001', building_name:'ORCHARD DOWNS APARTMENTS', date:'2024-03-15', auditors:['Tajuan Williams','Sarah Chen'], status:'Completed', sample_weight_lbs:87.3, stream:'Landfill', materials:[{name:'Paper',weight:12.4},{name:'Plastics',weight:9.1},{name:'Food Waste',weight:18.2},{name:'Paper Towels',weight:19.2},{name:'Other',weight:28.4}], notes:'High paper towel fraction. Cross-contamination from adjacent recycling bins observed.' },
-  { id:'AUD002', title:'CRCE Recycling Stream Audit', building_id:'B003', building_name:'VET MED BASIC SCIENCES BUILDING', date:'2024-02-10', auditors:['Sarah Chen'], status:'Completed', sample_weight_lbs:41.6, stream:'Cardboard', materials:[{name:'Cardboard',weight:22.1},{name:'Paper',weight:11.3},{name:'Food Waste',weight:4.0},{name:'Metals',weight:4.2}], notes:'Food waste contamination at 9.7% of sample.' },
-  { id:'AUD003', title:'Ikenberry Post-Lunch Compost', building_id:'B006', building_name:'STUDENT DINING AND RESIDENTIAL PROGRAMS', date:'2024-01-22', auditors:['Tajuan Williams'], status:'Under Review', sample_weight_lbs:112.4, stream:'Landfill', materials:[{name:'Food Waste',weight:98.1},{name:'Paper',weight:8.2},{name:'Plastics',weight:6.1}], notes:'Single data point. Unusually high volume.' },
-  { id:'AUD004', title:'Vet Med Lab Recycling Pilot', building_id:'B002', building_name:'VET MED BASIC SCIENCES BUILDING', date:'2024-04-18', auditors:['Sarah Chen','Marcus Lee'], status:'In Progress', sample_weight_lbs:67.8, stream:'Cardboard', materials:[{name:'Cardboard',weight:28.4},{name:'Paper',weight:12.1},{name:'Plastics',weight:20.4},{name:'Metals',weight:6.9}], notes:'Plastics higher than expected - lab consumables suspected.' },
+  { id:'AUD001', title:'Illini Union General Waste Audit', building_id:'B001', building_name:'ORCHARD DOWNS APARTMENTS', date:'2024-03-15', auditors:['Tajuan Williams','Sarah Chen'], status:'Completed', sample_weight_lbs:87.3, stream:'Landfill', materials:[{name:'Paper',weight:12.4},{name:'Plastics',weight:9.1},{name:'Food Waste',weight:18.2},{name:'Paper Towels',weight:19.2},{name:'Other',weight:28.4}], notes:'High paper towel fraction. Cross-contamination from adjacent recycling bins observed.', found_in_stream:null, correct_stream:null, weight_verified:false, recyclable_in_local_program:null, reusable:null, rego_audit_id:null },
+  { id:'AUD002', title:'CRCE Recycling Stream Audit', building_id:'B003', building_name:'VET MED BASIC SCIENCES BUILDING', date:'2024-02-10', auditors:['Sarah Chen'], status:'Completed', sample_weight_lbs:41.6, stream:'Cardboard', materials:[{name:'Cardboard',weight:22.1},{name:'Paper',weight:11.3},{name:'Food Waste',weight:4.0},{name:'Metals',weight:4.2}], notes:'Food waste contamination at 9.7% of sample.', found_in_stream:'Cardboard', correct_stream:'Cardboard', weight_verified:true, recyclable_in_local_program:null, reusable:null, rego_audit_id:null },
+  { id:'AUD003', title:'Ikenberry Post-Lunch Compost', building_id:'B006', building_name:'STUDENT DINING AND RESIDENTIAL PROGRAMS', date:'2024-01-22', auditors:['Tajuan Williams'], status:'Under Review', sample_weight_lbs:112.4, stream:'Landfill', materials:[{name:'Food Waste',weight:98.1},{name:'Paper',weight:8.2},{name:'Plastics',weight:6.1}], notes:'Single data point. Unusually high volume.', found_in_stream:null, correct_stream:null, weight_verified:false, recyclable_in_local_program:null, reusable:null, rego_audit_id:null },
+  { id:'AUD004', title:'Vet Med Lab Recycling Pilot', building_id:'B002', building_name:'VET MED BASIC SCIENCES BUILDING', date:'2024-04-18', auditors:['Sarah Chen','Marcus Lee'], status:'In Progress', sample_weight_lbs:67.8, stream:'Cardboard', materials:[{name:'Cardboard',weight:28.4},{name:'Paper',weight:12.1},{name:'Plastics',weight:20.4},{name:'Metals',weight:6.9}], notes:'Plastics higher than expected - lab consumables suspected.', found_in_stream:null, correct_stream:null, weight_verified:false, recyclable_in_local_program:null, reusable:null, rego_audit_id:null },
 ];
 
 function WasteAudits() {
@@ -1392,11 +1489,27 @@ function WasteAudits() {
         <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))', gap:14, marginBottom:14 }}>
           <div className="card" style={{ padding:14 }}>
             <div style={{ fontSize:13, fontWeight:700, color:PAL.navy, marginBottom:8 }}>Details</div>
-            {[['Building',audit.building_name],['Date',audit.date],['Stream',audit.stream],['Auditors',audit.auditors.join(', ')],['Sample Weight',audit.sample_weight_lbs?`${audit.sample_weight_lbs} lbs`:'Not recorded']].map(([k,v])=>(
+            {[
+              ['Building', audit.building_name],
+              ['Date', audit.date],
+              ['Found in stream', audit.found_in_stream || 'Not recorded'],
+              ['Correct stream', audit.correct_stream || 'Not determined'],
+              ['Auditors', audit.auditors.join(', ')],
+              ['Sample weight', audit.sample_weight_lbs ? `${audit.sample_weight_lbs} lbs` : 'Not recorded'],
+              ['Weight verified', audit.weight_verified ? '✓ Yes' : 'No'],
+              ['Rego Audit ID', audit.rego_audit_id || '—'],
+            ].map(([k,v])=>(
               <div key={k} style={{ display:'flex', justifyContent:'space-between', padding:'5px 0', borderBottom:`1px solid ${PAL.border}`, fontSize:13 }}>
-                <span style={{ color:PAL.muted }}>{k}</span><span style={{ fontWeight:600 }}>{v||'N/A'}</span>
+                <span style={{ color:PAL.muted }}>{k}</span>
+                <span style={{ fontWeight:600, color: k==='Found in stream' && audit.correct_stream && audit.found_in_stream && audit.found_in_stream!==audit.correct_stream ? PAL.red : 'inherit' }}>{v||'N/A'}</span>
               </div>
             ))}
+            {audit.found_in_stream && audit.correct_stream && audit.found_in_stream !== audit.correct_stream && (
+              <div style={{ marginTop:8, padding:'6px 10px', background:'#fef2f2', borderRadius:5, fontSize:12, color:PAL.red, border:'1px solid #fca5a5' }}>
+                Misplaced material: found in <strong>{audit.found_in_stream}</strong>, should be <strong>{audit.correct_stream}</strong>.
+                {audit.weight_verified && audit.sample_weight_lbs ? ` Contamination contribution: ${audit.sample_weight_lbs} lbs.` : ' Weight not verified — excluded from rate calculation.'}
+              </div>
+            )}
             {audit.notes&&<p style={{ margin:'10px 0 0', fontSize:12, lineHeight:1.6 }}>{audit.notes}</p>}
           </div>
           {pie.length>0&&(
@@ -2198,6 +2311,109 @@ function AIScannerModule() {
   );
 }
 
+// ─── BUILDING DASHBOARD ──────────────────────────────────────────────────────
+function BuildingDashboard() {
+  const [query, setQuery] = useState('');
+  const [selected, setSelected] = useState(null);
+  const ALL_BUILDINGS = Object.entries(REAL_MODEL.site_centroids).map(([name]) => name);
+  const topSiteMap = Object.fromEntries(REAL_MODEL.top_sites.map(s => [s.name, s.count]));
+  const filtered = query.trim().length < 2
+    ? ALL_BUILDINGS.slice(0, 30)
+    : ALL_BUILDINGS.filter(b => b.toLowerCase().includes(query.toLowerCase()));
+
+  if (selected) {
+    const rfidCount = topSiteMap[selected] ?? null;
+    const auditList = DEMO_AUDITS.filter(a => a.building_name === selected);
+    const verAudits = auditList.filter(a => a.found_in_stream && a.correct_stream && a.weight_verified && a.sample_weight_lbs);
+    let contamRate = null;
+    if (verAudits.length > 0) {
+      let mis = 0, tot = 0;
+      for (const a of verAudits) { const w = parseFloat(a.sample_weight_lbs)||0; tot += w; if (a.found_in_stream !== a.correct_stream) mis += w; }
+      if (tot > 0) contamRate = (mis / tot * 100).toFixed(1);
+    }
+    const ConfTag = ({ level }) => {
+      const cfg = { verified:{bg:'#d1fae5',color:'#065f46',label:'Verified'}, historical:{bg:'#fef3c7',color:'#92400e',label:'Historical — unverified attribution'}, unavailable:{bg:'#f3f4f6',color:'#6b7280',label:'Unavailable'} }[level] || {bg:'#f3f4f6',color:'#6b7280',label:level};
+      return <span style={{ fontSize:10, fontWeight:700, padding:'2px 7px', borderRadius:10, background:cfg.bg, color:cfg.color, marginLeft:6 }}>{cfg.label}</span>;
+    };
+    return (
+      <div style={{ padding:24 }}>
+        <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:16 }}>
+          <button className="btn btn-secondary btn-sm" onClick={()=>setSelected(null)}>← All Buildings</button>
+          <h2 style={{ margin:0, fontSize:16, fontWeight:700, color:PAL.navy }}>{selected}</h2>
+        </div>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(220px,1fr))', gap:14 }}>
+          <div className="card" style={{ padding:14 }}>
+            <div style={{ fontSize:12, color:PAL.muted, marginBottom:4 }}>LoadMan pickups (RFID-identified)</div>
+            <div style={{ fontSize:28, fontWeight:700, color:rfidCount ? PAL.navy : PAL.muted }}>{rfidCount != null ? rfidCount.toLocaleString() : '—'}</div>
+            <ConfTag level={rfidCount != null ? 'historical' : 'unavailable'} />
+            {rfidCount != null && <div style={{ fontSize:11, color:PAL.muted, marginTop:6 }}>From 9,989 RFID-identified records. Attribution inferred from container RFID — not confirmed by F&S staff.</div>}
+          </div>
+          <div className="card" style={{ padding:14 }}>
+            <div style={{ fontSize:12, color:PAL.muted, marginBottom:4 }}>Waste generation</div>
+            <div style={{ fontSize:28, fontWeight:700, color:PAL.muted }}>—</div>
+            <ConfTag level="unavailable" />
+            <div style={{ fontSize:11, color:PAL.muted, marginTop:6 }}>Requires verified collection records with per-building weights.</div>
+          </div>
+          <div className="card" style={{ padding:14 }}>
+            <div style={{ fontSize:12, color:PAL.muted, marginBottom:4 }}>Contamination rate</div>
+            <div style={{ fontSize:28, fontWeight:700, color:contamRate ? PAL.teal : PAL.muted }}>{contamRate ? `${contamRate}%` : '—'}</div>
+            <ConfTag level={contamRate ? 'verified' : 'unavailable'} />
+            {contamRate && <div style={{ fontSize:11, color:PAL.muted, marginTop:6 }}>Misplaced weight ÷ total audited stream weight. {verAudits.length} verified audit(s). Auditor-determined — not from CLIP.</div>}
+            {!contamRate && <div style={{ fontSize:11, color:PAL.muted, marginTop:6 }}>Requires audit with found_in_stream, correct_stream, and verified weight.</div>}
+          </div>
+          <div className="card" style={{ padding:14 }}>
+            <div style={{ fontSize:12, color:PAL.muted, marginBottom:4 }}>Diversion / Recycling rate</div>
+            <div style={{ fontSize:28, fontWeight:700, color:PAL.muted }}>—</div>
+            <ConfTag level="unavailable" />
+            <div style={{ fontSize:11, color:PAL.muted, marginTop:6 }}>Requires verified stream weights from collection records.</div>
+          </div>
+        </div>
+        {auditList.length > 0 && (
+          <div style={{ marginTop:16 }}>
+            <div style={{ fontSize:14, fontWeight:700, color:PAL.navy, marginBottom:10 }}>Waste Audits ({auditList.length})</div>
+            {auditList.map(a => (
+              <div key={a.id} className="card" style={{ padding:12, marginBottom:8, fontSize:13 }}>
+                <div style={{ fontWeight:700 }}>{a.title}</div>
+                <div style={{ color:PAL.muted, fontSize:12 }}>{a.date} · {a.stream} · {a.auditors.join(', ')}</div>
+                {a.notes && <div style={{ fontSize:12, marginTop:4 }}>{a.notes}</div>}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ padding:24 }}>
+      <SH title="Buildings" sub="Search for a building to view available waste data. LoadMan attribution is historical and unverified." />
+      <div style={{ background:'#fffbeb', border:`1px solid ${PAL.amber}`, borderRadius:7, padding:'10px 14px', marginBottom:16, fontSize:12, color:PAL.text, lineHeight:1.6 }}>
+        <strong style={{ color:PAL.amberDark }}>Data provenance:</strong> Building names are real UIUC campus sites.
+        Pickup counts are from RFID-matched LoadMan records — building attribution was inferred from container tags, not confirmed by F&S staff.
+        Metrics shown only when source data exists. Rate KPIs require verified collection or audit records.
+      </div>
+      <input style={{ width:'100%', marginBottom:14, fontSize:14 }} placeholder="Search by building name…" value={query} onChange={e=>setQuery(e.target.value)} />
+      <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(260px,1fr))', gap:10 }}>
+        {filtered.map(name => {
+          const count = topSiteMap[name];
+          const hasAudit = DEMO_AUDITS.some(a => a.building_name === name);
+          return (
+            <button key={name} className="card" style={{ padding:12, textAlign:'left', cursor:'pointer', background:PAL.white, border:`1px solid ${PAL.border}` }} onClick={()=>setSelected(name)}>
+              <div style={{ fontWeight:600, fontSize:13, color:PAL.navy, marginBottom:4 }}>{name}</div>
+              <div style={{ fontSize:11, color:PAL.muted }}>
+                {count != null ? <span style={{ color:PAL.text }}>Pickups: {count.toLocaleString()} <span style={{ fontSize:10, background:'#fef3c7', color:'#92400e', padding:'1px 5px', borderRadius:8, fontWeight:700 }}>HIST</span></span> : <span>No RFID pickups in top-20</span>}
+                {hasAudit && <span style={{ marginLeft:8, color:PAL.teal, fontWeight:600 }}>✓ Audited</span>}
+              </div>
+            </button>
+          );
+        })}
+      </div>
+      {filtered.length === 0 && query.trim().length >= 2 && <div style={{ fontSize:13, color:PAL.muted, padding:16 }}>No buildings match "{query}".</div>}
+      {query.trim().length < 2 && <div style={{ fontSize:12, color:PAL.muted, marginTop:8 }}>Showing first 30 of {ALL_BUILDINGS.length} buildings. Search to narrow results.</div>}
+    </div>
+  );
+}
+
 // ─── NAVIGATION ───────────────────────────────────────────────────────────────
 const NAV = [
   { id:'overview', label:'Overview', icon:'📊' },
@@ -2205,6 +2421,7 @@ const NAV = [
   { id:'pipeline', label:'Data Pipeline', icon:'🔬' },
   { id:'nexus', label:'Ask Nexus', icon:'💬', badge:'AI' },
   { id:'collection', label:'Collection Log', icon:'🚛' },
+  { id:'buildings', label:'Buildings', icon:'🏢' },
   { id:'audits', label:'Waste Audits', icon:'📋' },
   { id:'insights', label:'Insights', icon:'💡' },
   { id:'interventions', label:'Interventions', icon:'🎯' },
@@ -2231,7 +2448,7 @@ function Sidebar({ active, setActive, collapsed, setCollapsed }) {
           </button>
         ))}
       </nav>
-      {!collapsed&&<div style={{ padding:'10px 12px', borderTop:'1px solid rgba(255,255,255,.1)', fontSize:10, color:'#5683be' }}>v0.4.0 - AI Scanner Integration</div>}
+      {!collapsed&&<div style={{ padding:'10px 12px', borderTop:'1px solid rgba(255,255,255,.1)', fontSize:10, color:'#5683be' }}>v0.5.0 - Phase 1 Operations</div>}
     </div>
   );
 }
@@ -2247,6 +2464,7 @@ function App() {
     pipeline: <DataPipeline />,
     nexus: <AskNexus />,
     collection: <CollectionLog />,
+    buildings: <BuildingDashboard />,
     audits: <WasteAudits />,
     insights: <InsightsEngine />,
     interventions: <Interventions />,
