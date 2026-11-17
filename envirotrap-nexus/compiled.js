@@ -1,51 +1,33 @@
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var r, e, o = "function" == typeof Symbol ? Symbol : {}, n = o.iterator || "@@iterator", a = o.toStringTag || "@@toStringTag"; function i(o, n, a, i) { var u = n && n.prototype instanceof Generator ? n : Generator, f = Object.create(u.prototype); return _regeneratorDefine2(f, "_invoke", function (t, o, n) { var a, i, u, f = 0, p = n || [], y = !1, G = { p: 0, n: 0, v: r, a: l, f: l.bind(r, 4), d: function d(t, e) { return a = t, i = 0, u = r, G.n = e, c; } }; function l(t, o) { for (i = t, u = o, e = 0; !y && f && !n && e < p.length; e++) { var n, a = p[e], l = G.p, F = a[2]; t > 3 ? (n = F === o) && (u = a[(i = a[4]) ? 5 : (i = 3, 3)], a[4] = a[5] = r) : a[0] <= l && ((n = t < 2 && l < a[1]) ? (i = 0, G.v = o, G.n = a[1]) : l < F && (n = t < 3 || a[0] > o || o > F) && (a[4] = t, a[5] = o, G.n = F, i = 0)); } if (n || t > 1) return c; throw y = !0, o; } return function (n, p, F) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && l(p, F), i = p, u = F; (e = i < 2 ? r : u) || !y;) { a || (i ? (i > 1 && (G.n = i < 3 ? -1 : u), l(i, u)) : G.v = u); try { if (f = 2, a) { if (i || (n = "next"), e = a[n]) { if (!(e = e.call(a, u))) throw TypeError("iterator result is not an object"); if (!e.done) return e; u = e.value, i < 2 && (i = 0); } else 1 === i && (e = a.return) && e.call(a), i < 2 && (u = TypeError("The iterator does not provide a '" + n + "' method"), i = 1); a = r; } else if ((e = (y = G.n < 0) ? u : t.call(o, G)) !== c) break; } catch (t) { a = r, i = 1, u = t; } finally { f = 1; } } return { value: e, done: y }; }; }(o, a, i), !0), f; } var c = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} e = Object.getPrototypeOf; var u = [][n] ? e(e([][n]())) : (_regeneratorDefine2(e = {}, n, function () { return this; }), e), f = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(u); function p(r) { return Object.setPrototypeOf ? Object.setPrototypeOf(r, GeneratorFunctionPrototype) : (r.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(r, a, "GeneratorFunction")), r.prototype = Object.create(f), r; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(f, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, a, "GeneratorFunction"), _regeneratorDefine2(f), _regeneratorDefine2(f, a, "Generator"), _regeneratorDefine2(f, n, function () { return this; }), _regeneratorDefine2(f, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: p }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function _toConsumableArray(a) { return _arrayWithoutHoles(a) || _iterableToArray(a) || _unsupportedIterableToArray(a) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _iterableToArray(r) { var e = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (Array.isArray(r) && (null == e || e === ("undefined" != typeof Symbol && [][Symbol.iterator]) || e === []["@@iterator"])) return r; if (null != e) { for (var t, o = [], a = e.call(r); !(t = a.next()).done;) o.push(t.value); return o; } }
-function _arrayWithoutHoles(a) { if (Array.isArray(a)) return _arrayLikeToArray(a); }
-function _createForOfIteratorHelper(e, t) { var _n = "undefined" != typeof Symbol && e[Symbol.iterator] || e["@@iterator"]; if (!_n) { if (Array.isArray(e) || (_n = _unsupportedIterableToArray(e)) || t && e && "number" == typeof e.length) { _n && (e = _n); var o = 0, F = function F() {}; return { s: F, n: function n() { return o >= e.length ? { done: !0 } : { done: !1, value: e[o++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var a, u, i = !0; return { s: function s() { _n = _n.call(e); }, n: function n() { i = !0; var r = _n.next(); return r.done ? { done: !0 } : { value: r.value, done: i = !1 }; }, e: function e(r) { a = !0, u = r; }, f: function f() { try { i || null == _n.return || _n.return(); } finally { if (a) throw u; } } }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(r) { for (var t = 1; t < arguments.length; t++) { var o = null != arguments[t] ? arguments[t] : {}; t % 2 ? ownKeys(Object(o), !0).forEach(function (t) { _defineProperty(r, t, o[t]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(r, Object.getOwnPropertyDescriptors(o)) : ownKeys(Object(o)).forEach(function (e) { Object.defineProperty(r, e, Object.getOwnPropertyDescriptor(o, e)); }); } return r; }
-function _defineProperty(r, t, o) { return (t = _toPropertyKey(t)) in r ? Object.defineProperty(r, t, { value: o, enumerable: !0, configurable: !0, writable: !0 }) : r[t] = o, r; }
-function _toPropertyKey(r) { var o = _toPrimitive(r, "string"); return "symbol" == _typeof(o) ? o : o + ""; }
-function _toPrimitive(t, e) { if ("object" != _typeof(t) || !t) return t; var r; if ("undefined" != typeof Symbol && void 0 !== (r = t[Symbol.toPrimitive])) { var i = r.call(t, e || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === e ? String : Number)(t); }
-function _slicedToArray(e, i) { return _iterableToArrayLimit(e, i) || _unsupportedIterableToArray(e, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(t, e) { if (t) { if ("string" == typeof t) return _arrayLikeToArray(t, e); var o = {}.toString.call(t).slice(8, -1); return "Object" === o && t.constructor && (o = t.constructor.name), "Map" === o || "Set" === o ? Array.from(t) : "Arguments" === o || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(o) ? _arrayLikeToArray(t, e) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function _iterableToArrayLimit(r, t) { var e = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (Array.isArray(r) && (null == e || e === ("undefined" != typeof Symbol && [][Symbol.iterator]) || e === []["@@iterator"])) return r; if (null != e) { var l, n, i, a, u = [], o = !0, f = !1; try { if (i = (e = e.call(r)).next, 0 === t) { if (Object(e) !== e) return; o = !1; } else for (; !(o = (l = i.call(e)).done) && (u.push(l.value), u.length !== t); o = !0); } catch (r) { f = !0, n = r; } finally { try { if (!o && null != e.return && (a = e.return(), Object(a) !== a)) return; } finally { if (f) throw n; } } return u; } }
 // EnviroTrap Nexus v0.3.0 - IBM AI for Good Challenge
 // Real Attribution Engine built from 79,533 actual UIUC LoadMan records
 // GPS nearest-centroid: 84.8% top-1 / 97.8% top-3 (held-out 20% test set)
 // RFID lookup: 179 container-to-building mappings, 100% accuracy when RFID present
 // Source: UIUC_LoadMan_Consolidated_Dataset.xlsx, Betsy Ruckman, F&S, UIUC
 
-var _React = React,
-  useState = _React.useState,
-  useMemo = _React.useMemo,
-  useEffect = _React.useEffect,
-  useRef = _React.useRef;
-var _Recharts = Recharts,
-  BarChart = _Recharts.BarChart,
-  Bar = _Recharts.Bar,
-  PieChart = _Recharts.PieChart,
-  Pie = _Recharts.Pie,
-  Cell = _Recharts.Cell,
-  AreaChart = _Recharts.AreaChart,
-  Area = _Recharts.Area,
-  XAxis = _Recharts.XAxis,
-  YAxis = _Recharts.YAxis,
-  CartesianGrid = _Recharts.CartesianGrid,
-  Tooltip = _Recharts.Tooltip,
-  Legend = _Recharts.Legend,
-  ResponsiveContainer = _Recharts.ResponsiveContainer;
+const {
+  useState,
+  useMemo,
+  useEffect,
+  useRef
+} = React;
+const {
+  BarChart,
+  Bar,
+  PieChart,
+  Pie,
+  Cell,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer
+} = Recharts;
 
 // ─── PALETTE ──────────────────────────────────────────────────────────────────
-var PAL = {
+const PAL = {
   navy: '#1e3a5f',
   navyMid: '#2d5a8e',
   navyLight: '#3b6fae',
@@ -76,12 +58,12 @@ var PAL = {
     'Unknown': '#9ca3af'
   }
 };
-var MC = ['#1e3a5f', '#2d6a4f', '#3b6fae', '#e9a825', '#66b089', '#c4a360', '#80a2ce', '#a87214'];
+const MC = ['#1e3a5f', '#2d6a4f', '#3b6fae', '#e9a825', '#66b089', '#c4a360', '#80a2ce', '#a87214'];
 
 // ─── REAL MODEL DATA ─────────────────────────────────────────────────────────
 // Derived from 9,989 verified LoadMan records. NOT synthetic.
 // See UIUC_LoadMan_Consolidated_Dataset.xlsx for full provenance.
-var REAL_MODEL = {
+const REAL_MODEL = {
   "rfid_to_site": {
     "0105670000000000000015C6": "VET MED BASIC SCIENCES BUILDING",
     "0105670000000000000015EA": "VETERINARY RES FARM-CLINICAL RES BARN",
@@ -1354,64 +1336,58 @@ var REAL_MODEL = {
 
 // ─── HAVERSINE (runs in browser) ─────────────────────────────────────────────
 function haversineM(lat1, lon1, lat2, lon2) {
-  var R = 6371000;
-  var f1 = lat1 * Math.PI / 180,
+  const R = 6371000;
+  const f1 = lat1 * Math.PI / 180,
     f2 = lat2 * Math.PI / 180;
-  var df = (lat2 - lat1) * Math.PI / 180;
-  var dl = (lon2 - lon1) * Math.PI / 180;
-  var a = Math.pow(Math.sin(df / 2), 2) + Math.cos(f1) * Math.cos(f2) * Math.pow(Math.sin(dl / 2), 2);
+  const df = (lat2 - lat1) * Math.PI / 180;
+  const dl = (lon2 - lon1) * Math.PI / 180;
+  const a = Math.sin(df / 2) ** 2 + Math.cos(f1) * Math.cos(f2) * Math.sin(dl / 2) ** 2;
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 function parseCoord(val) {
   if (!val) return null;
-  var s = String(val).replace(/[°NSEW\s]/g, '').trim();
-  var n = parseFloat(s);
+  const s = String(val).replace(/[°NSEW\s]/g, '').trim();
+  const n = parseFloat(s);
   return isNaN(n) ? null : n;
 }
 
 // ─── ATTRIBUTION ENGINE ───────────────────────────────────────────────────────
 // Three-tier system: RFID lookup → GPS nearest-centroid → abstain
 // Provenance of every prediction is preserved and surfaced to users
-var AttributionEngine = {
+const AttributionEngine = {
   // Tier 1: RFID lookup (100% accuracy in training data, all 179 RFIDs map to exactly 1 site)
-  byRFID: function byRFID(rfid) {
+  byRFID(rfid) {
     if (!rfid || !rfid.trim()) return null;
-    var site = REAL_MODEL.rfid_to_site[rfid.trim()];
+    const site = REAL_MODEL.rfid_to_site[rfid.trim()];
     if (!site) return null;
     return {
-      site: site,
+      site,
       method: 'rfid_lookup',
       confidence: 1.0,
       confidence_label: 'Verified',
       tier: 1,
-      evidence: "RFID ".concat(rfid, " maps exclusively to ").concat(site, " in 179-container lookup table (100% accuracy in training data)")
+      evidence: `RFID ${rfid} maps exclusively to ${site} in 179-container lookup table (100% accuracy in training data)`
     };
   },
   // Tier 2: GPS nearest centroid (84.8% top-1, 97.8% top-3 at 150m threshold)
-  byGPS: function byGPS(lat, lon) {
-    var _top3$, _top3$2;
-    var threshold_m = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 150;
+  byGPS(lat, lon, threshold_m = 150) {
     if (lat == null || lon == null) return null;
-    var centroids = REAL_MODEL.site_centroids;
-    var best = null,
+    const centroids = REAL_MODEL.site_centroids;
+    let best = null,
       bestDist = Infinity,
       second = Infinity;
-    var top3 = [];
-    for (var _i = 0, _Object$entries = Object.entries(centroids); _i < _Object$entries.length; _i++) {
-      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
-        site = _Object$entries$_i[0],
-        _Object$entries$_i$ = _Object$entries$_i[1],
-        clat = _Object$entries$_i$.lat,
-        clon = _Object$entries$_i$.lon;
-      var d = haversineM(lat, lon, clat, clon);
+    const top3 = [];
+    for (const [site, {
+      lat: clat,
+      lon: clon
+    }] of Object.entries(centroids)) {
+      const d = haversineM(lat, lon, clat, clon);
       top3.push({
-        site: site,
-        d: d
+        site,
+        d
       });
     }
-    top3.sort(function (a, b) {
-      return a.d - b.d;
-    });
+    top3.sort((a, b) => a.d - b.d);
     if (!top3.length) return null;
     best = top3[0];
     if (best.d > threshold_m) {
@@ -1421,15 +1397,15 @@ var AttributionEngine = {
         confidence: 0,
         confidence_label: 'Abstain',
         tier: 3,
-        evidence: "GPS ".concat(lat.toFixed(4), ", ").concat(lon.toFixed(4), " is ").concat(Math.round(best.d), "m from nearest known site (").concat(best.site, "). Threshold: ").concat(threshold_m, "m. Abstaining."),
+        evidence: `GPS ${lat.toFixed(4)}, ${lon.toFixed(4)} is ${Math.round(best.d)}m from nearest known site (${best.site}). Threshold: ${threshold_m}m. Abstaining.`,
         top3: top3.slice(0, 3)
       };
     }
     // Confidence: based on distance and gap to second-nearest
-    var gap = top3.length > 1 ? top3[1].d - top3[0].d : Infinity;
-    var spread = REAL_MODEL.site_spread[best.site] || 50;
-    var conf_label = 'High';
-    var conf_score = 1.0;
+    const gap = top3.length > 1 ? top3[1].d - top3[0].d : Infinity;
+    const spread = REAL_MODEL.site_spread[best.site] || 50;
+    let conf_label = 'High';
+    let conf_score = 1.0;
     if (best.d > 100 || gap < 30) {
       conf_label = 'Medium';
       conf_score = 0.7;
@@ -1446,15 +1422,15 @@ var AttributionEngine = {
       tier: 2,
       distance_m: Math.round(best.d),
       gap_to_second_m: Math.round(Math.min(gap, 9999)),
-      evidence: "GPS ".concat(lat.toFixed(4), ", ").concat(lon.toFixed(4), " is ").concat(Math.round(best.d), "m from ").concat(best.site, " centroid. Second-closest is ").concat(Math.round(((_top3$ = top3[1]) === null || _top3$ === void 0 ? void 0 : _top3$.d) || 0), "m (").concat(((_top3$2 = top3[1]) === null || _top3$2 === void 0 ? void 0 : _top3$2.site) || 'N/A', "). Model: 84.8% top-1 accuracy."),
+      evidence: `GPS ${lat.toFixed(4)}, ${lon.toFixed(4)} is ${Math.round(best.d)}m from ${best.site} centroid. Second-closest is ${Math.round(top3[1]?.d || 0)}m (${top3[1]?.site || 'N/A'}). Model: 84.8% top-1 accuracy.`,
       top3: top3.slice(0, 3)
     };
   },
   // Main entry point
-  predict: function predict(rfid, lat, lon) {
-    var r = this.byRFID(rfid);
+  predict(rfid, lat, lon) {
+    const r = this.byRFID(rfid);
     if (r) return r;
-    var g = this.byGPS(lat, lon);
+    const g = this.byGPS(lat, lon);
     if (g) return g;
     return {
       site: null,
@@ -1466,13 +1442,11 @@ var AttributionEngine = {
     };
   },
   // Batch prediction on demo records for display
-  predictAll: function predictAll(records) {
-    var _this = this;
-    return records.map(function (r) {
-      return _objectSpread(_objectSpread({}, r), {}, {
-        _prediction: _this.predict(r.rfid || null, r.lat || null, r.lon || null)
-      });
-    });
+  predictAll(records) {
+    return records.map(r => ({
+      ...r,
+      _prediction: this.predict(r.rfid || null, r.lat || null, r.lon || null)
+    }));
   }
 };
 
@@ -1480,38 +1454,37 @@ var AttributionEngine = {
 // These simulate the 70,000+ records that lack RFID.
 // GPS coords are sampled near real campus locations with realistic noise.
 function makeSimulatedUnattributed() {
-  var sites = Object.entries(REAL_MODEL.site_centroids);
-  var serviceTypes = ['Front Load-Landfill-6', 'Front Load-Landfill-8', 'Front Load-Cardboard-8', 'Front Load-Landfill-2', 'Front Load-Cardboard-6', 'Front Load-Paper-2'];
-  var months = ['2023-01', '2023-03', '2023-07', '2023-08', '2023-09', '2023-10', '2024-01', '2024-02', '2024-03'];
-  var records = [];
-  var id = 1;
+  const sites = Object.entries(REAL_MODEL.site_centroids);
+  const serviceTypes = ['Front Load-Landfill-6', 'Front Load-Landfill-8', 'Front Load-Cardboard-8', 'Front Load-Landfill-2', 'Front Load-Cardboard-6', 'Front Load-Paper-2'];
+  const months = ['2023-01', '2023-03', '2023-07', '2023-08', '2023-09', '2023-10', '2024-01', '2024-02', '2024-03'];
+  const records = [];
+  let id = 1;
   // Seed-like approach for reproducibility
-  var seed = 42;
-  var sr = function sr() {
+  let seed = 42;
+  const sr = () => {
     seed = seed * 1103515245 + 12345 & 0x7fffffff;
     return seed / 0x7fffffff;
   };
-  for (var i = 0; i < 120; i++) {
-    var siteIdx = Math.floor(sr() * sites.length);
-    var _sites$siteIdx = _slicedToArray(sites[siteIdx], 2),
-      trueSite = _sites$siteIdx[0],
-      _sites$siteIdx$ = _sites$siteIdx[1],
-      clat = _sites$siteIdx$.lat,
-      clon = _sites$siteIdx$.lon;
+  for (let i = 0; i < 120; i++) {
+    const siteIdx = Math.floor(sr() * sites.length);
+    const [trueSite, {
+      lat: clat,
+      lon: clon
+    }] = sites[siteIdx];
     // Add GPS noise (0-80m radius, simulating truck stopping nearby)
-    var noiseM = sr() * 80;
-    var angle = sr() * 2 * Math.PI;
-    var dLat = noiseM / 111111 * Math.cos(angle);
-    var dLon = noiseM / (111111 * Math.cos(clat * Math.PI / 180)) * Math.sin(angle);
-    var hasGPS = sr() > 0.3; // 70% have GPS (reflects 40% overall but higher in recent records)
-    var hasRFID = false; // These are the unattributed ones
-    var st = serviceTypes[Math.floor(sr() * serviceTypes.length)];
-    var month = months[Math.floor(sr() * months.length)];
-    var day = 1 + Math.floor(sr() * 28);
-    var load = Math.floor(sr() * 300) + 20;
+    const noiseM = sr() * 80;
+    const angle = sr() * 2 * Math.PI;
+    const dLat = noiseM / 111111 * Math.cos(angle);
+    const dLon = noiseM / (111111 * Math.cos(clat * Math.PI / 180)) * Math.sin(angle);
+    const hasGPS = sr() > 0.3; // 70% have GPS (reflects 40% overall but higher in recent records)
+    const hasRFID = false; // These are the unattributed ones
+    const st = serviceTypes[Math.floor(sr() * serviceTypes.length)];
+    const month = months[Math.floor(sr() * months.length)];
+    const day = 1 + Math.floor(sr() * 28);
+    const load = Math.floor(sr() * 300) + 20;
     records.push({
-      id: "SIM-".concat(String(id++).padStart(4, '0')),
-      date: "".concat(month, "-").concat(String(day).padStart(2, '0')),
+      id: `SIM-${String(id++).padStart(4, '0')}`,
+      date: `${month}-${String(day).padStart(2, '0')}`,
       true_site: trueSite,
       // Hidden ground truth (for evaluation display)
       rfid: null,
@@ -1530,84 +1503,65 @@ function makeSimulatedUnattributed() {
 
 // RFID-verified records (simulating the 9,989 usable records)
 function makeVerifiedRecords() {
-  var rfid_entries = Object.entries(REAL_MODEL.rfid_to_site).slice(0, 30);
-  var records = [];
-  var id = 1;
-  var seed = 99;
-  var sr = function sr() {
+  const rfid_entries = Object.entries(REAL_MODEL.rfid_to_site).slice(0, 30);
+  const records = [];
+  let id = 1;
+  let seed = 99;
+  const sr = () => {
     seed = seed * 1103515245 + 12345 & 0x7fffffff;
     return seed / 0x7fffffff;
   };
-  var _iterator = _createForOfIteratorHelper(rfid_entries),
-    _step;
-  try {
-    for (_iterator.s(); !(_step = _iterator.n()).done;) {
-      var _step$value = _slicedToArray(_step.value, 2),
-        rfid = _step$value[0],
-        site = _step$value[1];
-      var centroid = REAL_MODEL.site_centroids[site];
-      if (!centroid) continue;
-      var n = Math.floor(sr() * 8) + 2; // 2-10 records per RFID
-      for (var j = 0; j < n; j++) {
-        var noiseM = sr() * 30;
-        var angle = sr() * 2 * Math.PI;
-        var dLat = noiseM / 111111 * Math.cos(angle);
-        var dLon = noiseM / (111111 * Math.cos(centroid.lat * Math.PI / 180)) * Math.sin(angle);
-        var year = sr() > 0.5 ? 2020 : 2021;
-        var month = 1 + Math.floor(sr() * 6);
-        var load = Math.floor(sr() * 300) + 20;
-        var serviceTypes = ['Front Load-Landfill-6', 'Front Load-Landfill-8', 'Front Load-Cardboard-8', 'Front Load-Paper-2'];
-        var st = serviceTypes[Math.floor(sr() * serviceTypes.length)];
-        records.push({
-          id: "VER-".concat(String(id++).padStart(4, '0')),
-          date: "".concat(year, "-").concat(String(month).padStart(2, '0'), "-").concat(String(1 + Math.floor(sr() * 28)).padStart(2, '0')),
-          site_name: site,
-          rfid: rfid,
-          lat: parseFloat((centroid.lat + dLat).toFixed(6)),
-          lon: parseFloat((centroid.lon + dLon).toFixed(6)),
-          has_gps: true,
-          service_type: st,
-          load_weight: load,
-          stream: st.includes('Cardboard') ? 'Cardboard' : st.includes('Paper') ? 'Paper' : 'Landfill',
-          truck: sr() > 0.5 ? '31272-11' : 'New Truck',
-          provenance: 'verified'
-        });
-      }
+  for (const [rfid, site] of rfid_entries) {
+    const centroid = REAL_MODEL.site_centroids[site];
+    if (!centroid) continue;
+    const n = Math.floor(sr() * 8) + 2; // 2-10 records per RFID
+    for (let j = 0; j < n; j++) {
+      const noiseM = sr() * 30;
+      const angle = sr() * 2 * Math.PI;
+      const dLat = noiseM / 111111 * Math.cos(angle);
+      const dLon = noiseM / (111111 * Math.cos(centroid.lat * Math.PI / 180)) * Math.sin(angle);
+      const year = sr() > 0.5 ? 2020 : 2021;
+      const month = 1 + Math.floor(sr() * 6);
+      const load = Math.floor(sr() * 300) + 20;
+      const serviceTypes = ['Front Load-Landfill-6', 'Front Load-Landfill-8', 'Front Load-Cardboard-8', 'Front Load-Paper-2'];
+      const st = serviceTypes[Math.floor(sr() * serviceTypes.length)];
+      records.push({
+        id: `VER-${String(id++).padStart(4, '0')}`,
+        date: `${year}-${String(month).padStart(2, '0')}-${String(1 + Math.floor(sr() * 28)).padStart(2, '0')}`,
+        site_name: site,
+        rfid,
+        lat: parseFloat((centroid.lat + dLat).toFixed(6)),
+        lon: parseFloat((centroid.lon + dLon).toFixed(6)),
+        has_gps: true,
+        service_type: st,
+        load_weight: load,
+        stream: st.includes('Cardboard') ? 'Cardboard' : st.includes('Paper') ? 'Paper' : 'Landfill',
+        truck: sr() > 0.5 ? '31272-11' : 'New Truck',
+        provenance: 'verified'
+      });
     }
-  } catch (err) {
-    _iterator.e(err);
-  } finally {
-    _iterator.f();
   }
   return records;
 }
-var UNATTRIBUTED_RECORDS = makeSimulatedUnattributed();
-var VERIFIED_RECORDS = makeVerifiedRecords();
+const UNATTRIBUTED_RECORDS = makeSimulatedUnattributed();
+const VERIFIED_RECORDS = makeVerifiedRecords();
 
 // Demo buildings for Collection Log / Audits (using real site names from model)
-var DEMO_BUILDINGS = Object.entries(REAL_MODEL.site_centroids).slice(0, 20).map(function (_ref, i) {
-  var _ref2 = _slicedToArray(_ref, 2),
-    name = _ref2[0],
-    _ref2$ = _ref2[1],
-    lat = _ref2$.lat,
-    lon = _ref2$.lon;
-  return {
-    id: "B".concat(String(i + 1).padStart(3, '0')),
-    name: name,
-    lat: lat,
-    lon: lon,
-    abbr: name.split(' ').map(function (w) {
-      return w[0];
-    }).join('').slice(0, 4).toUpperCase(),
-    type: name.includes('HALL') || name.includes('RESIDENCE') || name.includes('APARTMENTS') ? 'Residential' : name.includes('LAB') || name.includes('SCIENCE') ? 'Laboratory' : name.includes('DINING') || name.includes('COMMONS') ? 'Dining' : 'Academic'
-  };
-});
-var ROUTE_DEFS = [{
+const DEMO_BUILDINGS = Object.entries(REAL_MODEL.site_centroids).slice(0, 20).map(([name, {
+  lat,
+  lon
+}], i) => ({
+  id: `B${String(i + 1).padStart(3, '0')}`,
+  name,
+  lat,
+  lon,
+  abbr: name.split(' ').map(w => w[0]).join('').slice(0, 4).toUpperCase(),
+  type: name.includes('HALL') || name.includes('RESIDENCE') || name.includes('APARTMENTS') ? 'Residential' : name.includes('LAB') || name.includes('SCIENCE') ? 'Laboratory' : name.includes('DINING') || name.includes('COMMONS') ? 'Dining' : 'Academic'
+}));
+const ROUTE_DEFS = [{
   id: 'RA',
   label: 'Route A: North Campus',
-  buildings: DEMO_BUILDINGS.slice(0, 5).map(function (b) {
-    return b.id;
-  }),
+  buildings: DEMO_BUILDINGS.slice(0, 5).map(b => b.id),
   containers: ['Front Load-Landfill-8', 'Front Load-Cardboard-8'],
   days: [1, 3, 5],
   startHour: 6,
@@ -1615,9 +1569,7 @@ var ROUTE_DEFS = [{
 }, {
   id: 'RB',
   label: 'Route B: Engineering / Ag',
-  buildings: DEMO_BUILDINGS.slice(5, 10).map(function (b) {
-    return b.id;
-  }),
+  buildings: DEMO_BUILDINGS.slice(5, 10).map(b => b.id),
   containers: ['Front Load-Landfill-6', 'Front Load-Paper-2'],
   days: [2, 4],
   startHour: 7,
@@ -1625,9 +1577,7 @@ var ROUTE_DEFS = [{
 }, {
   id: 'RC',
   label: 'Route C: Residential East',
-  buildings: DEMO_BUILDINGS.slice(10, 15).map(function (b) {
-    return b.id;
-  }),
+  buildings: DEMO_BUILDINGS.slice(10, 15).map(b => b.id),
   containers: ['Front Load-Landfill-6', 'Front Load-Cardboard-6'],
   days: [1, 2, 3, 4, 5],
   startHour: 5,
@@ -1635,9 +1585,7 @@ var ROUTE_DEFS = [{
 }, {
   id: 'RD',
   label: 'Route D: Research / Vet Med',
-  buildings: DEMO_BUILDINGS.slice(15, 20).map(function (b) {
-    return b.id;
-  }),
+  buildings: DEMO_BUILDINGS.slice(15, 20).map(b => b.id),
   containers: ['Front Load-Landfill-8', 'Front Load-Landfill-2'],
   days: [1, 3, 5],
   startHour: 8,
@@ -1659,17 +1607,19 @@ function DemoBanner() {
     }
   }, "DEMO DATA - NOT ACTUAL UIUC OPERATIONAL RECORDS \xA0|\xA0 Attribution model trained on real LoadMan data");
 }
-function Badge(_ref3) {
-  var cls = _ref3.cls,
-    children = _ref3.children;
+function Badge({
+  cls,
+  children
+}) {
   return /*#__PURE__*/React.createElement("span", {
-    className: "badge ".concat(cls || 'badge-gray')
+    className: `badge ${cls || 'badge-gray'}`
   }, children);
 }
-function SH(_ref4) {
-  var title = _ref4.title,
-    sub = _ref4.sub,
-    action = _ref4.action;
+function SH({
+  title,
+  sub,
+  action
+}) {
   return /*#__PURE__*/React.createElement("div", {
     style: {
       marginBottom: 20
@@ -1688,7 +1638,7 @@ function SH(_ref4) {
       fontSize: 20,
       fontWeight: 700,
       color: PAL.navy,
-      borderBottom: "2px solid ".concat(PAL.border),
+      borderBottom: `2px solid ${PAL.border}`,
       paddingBottom: 10,
       flex: 1
     }
@@ -1700,14 +1650,15 @@ function SH(_ref4) {
     }
   }, sub));
 }
-function StatCard(_ref5) {
-  var label = _ref5.label,
-    value = _ref5.value,
-    sub = _ref5.sub,
-    color = _ref5.color,
-    onClick = _ref5.onClick,
-    linkLabel = _ref5.linkLabel;
-  var colors = {
+function StatCard({
+  label,
+  value,
+  sub,
+  color,
+  onClick,
+  linkLabel
+}) {
+  const colors = {
     navy: PAL.navy,
     green: PAL.teal,
     amber: PAL.amber,
@@ -1715,19 +1666,19 @@ function StatCard(_ref5) {
     blue: PAL.navyLight,
     purple: PAL.purple
   };
-  var c = colors[color] || PAL.navy;
+  const c = colors[color] || PAL.navy;
   return /*#__PURE__*/React.createElement("div", {
     className: "stat-card",
     onClick: onClick,
     style: {
-      borderLeft: "4px solid ".concat(c),
+      borderLeft: `4px solid ${c}`,
       cursor: onClick ? 'pointer' : 'default',
       transition: 'box-shadow .15s'
     },
-    onMouseEnter: function onMouseEnter(e) {
+    onMouseEnter: e => {
       if (onClick) e.currentTarget.style.boxShadow = '0 2px 10px rgba(0,0,0,0.12)';
     },
-    onMouseLeave: function onMouseLeave(e) {
+    onMouseLeave: e => {
       e.currentTarget.style.boxShadow = 'none';
     }
   }, /*#__PURE__*/React.createElement("div", {
@@ -1761,11 +1712,12 @@ function StatCard(_ref5) {
     }
   }, linkLabel, " +"));
 }
-function QBar(_ref6) {
-  var label = _ref6.label,
-    value = _ref6.value,
-    pct = _ref6.pct,
-    color = _ref6.color;
+function QBar({
+  label,
+  value,
+  pct,
+  color
+}) {
   return /*#__PURE__*/React.createElement("div", {
     style: {
       marginBottom: 10
@@ -1794,17 +1746,18 @@ function QBar(_ref6) {
   }, /*#__PURE__*/React.createElement("div", {
     className: "progress-fill",
     style: {
-      width: "".concat(Math.min(100, pct), "%"),
+      width: `${Math.min(100, pct)}%`,
       background: color || PAL.navyLight
     }
   })));
 }
-function Modal(_ref7) {
-  var open = _ref7.open,
-    onClose = _ref7.onClose,
-    title = _ref7.title,
-    children = _ref7.children,
-    maxWidth = _ref7.maxWidth;
+function Modal({
+  open,
+  onClose,
+  title,
+  children,
+  maxWidth
+}) {
   if (!open) return null;
   return /*#__PURE__*/React.createElement("div", {
     className: "modal-overlay",
@@ -1814,9 +1767,7 @@ function Modal(_ref7) {
     style: {
       maxWidth: maxWidth || 620
     },
-    onClick: function onClick(e) {
-      return e.stopPropagation();
-    }
+    onClick: e => e.stopPropagation()
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
@@ -1840,10 +1791,11 @@ function Modal(_ref7) {
       cursor: 'pointer',
       color: PAL.muted
     }
-  }, "\xD7")), children));
+  }, "×")), children));
 }
-function FieldError(_ref8) {
-  var msg = _ref8.msg;
+function FieldError({
+  msg
+}) {
   if (!msg) return null;
   return /*#__PURE__*/React.createElement("div", {
     style: {
@@ -1853,10 +1805,11 @@ function FieldError(_ref8) {
     }
   }, msg);
 }
-function ProvenancePill(_ref9) {
-  var type = _ref9.type,
-    size = _ref9.size;
-  var configs = {
+function ProvenancePill({
+  type,
+  size
+}) {
+  const configs = {
     verified: {
       bg: '#dcfce7',
       color: '#166534',
@@ -1878,24 +1831,25 @@ function ProvenancePill(_ref9) {
       label: 'Simulated'
     }
   };
-  var cfg = configs[type] || configs.unknown;
-  var fontSize = size === 'sm' ? 10 : 11;
+  const cfg = configs[type] || configs.unknown;
+  const fontSize = size === 'sm' ? 10 : 11;
   return /*#__PURE__*/React.createElement("span", {
     style: {
       background: cfg.bg,
       color: cfg.color,
-      padding: "1px ".concat(size === 'sm' ? 6 : 8, "px"),
+      padding: `1px ${size === 'sm' ? 6 : 8}px`,
       borderRadius: 12,
-      fontSize: fontSize,
+      fontSize,
       fontWeight: 700,
       letterSpacing: '.03em'
     }
   }, cfg.label);
 }
-function ConfidenceMeter(_ref0) {
-  var score = _ref0.score,
-    label = _ref0.label;
-  var color = score >= 0.8 ? PAL.teal : score >= 0.5 ? PAL.amber : PAL.red;
+function ConfidenceMeter({
+  score,
+  label
+}) {
+  const color = score >= 0.8 ? PAL.teal : score >= 0.5 ? PAL.amber : PAL.red;
   return /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
@@ -1911,7 +1865,7 @@ function ConfidenceMeter(_ref0) {
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      width: "".concat(score * 100, "%"),
+      width: `${score * 100}%`,
       height: '100%',
       background: color,
       borderRadius: 3,
@@ -1920,7 +1874,7 @@ function ConfidenceMeter(_ref0) {
   })), /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 11,
-      color: color,
+      color,
       fontWeight: 600
     }
   }, label));
@@ -1935,52 +1889,32 @@ function ConfidenceMeter(_ref0) {
 // Never combined with LoadMan weights or operational totals.
 // All numbers are from actual saved observations only.
 
-function ScannerObservationsPanel(_ref1) {
-  var building = _ref1.building,
-    compact = _ref1.compact;
-  var _useState = useState(null),
-    _useState2 = _slicedToArray(_useState, 2),
-    obs = _useState2[0],
-    setObs = _useState2[1]; // null=loading, []=empty, [...]= data
-  var _useState3 = useState(false),
-    _useState4 = _slicedToArray(_useState3, 2),
-    err = _useState4[0],
-    setErr = _useState4[1];
-  var _useState5 = useState(building || ''),
-    _useState6 = _slicedToArray(_useState5, 2),
-    bldgFilter = _useState6[0],
-    setBldgFilter = _useState6[1];
-  var _useState7 = useState(''),
-    _useState8 = _slicedToArray(_useState7, 2),
-    matFilter = _useState8[0],
-    setMatFilter = _useState8[1];
-  var _useState9 = useState([]),
-    _useState0 = _slicedToArray(_useState9, 2),
-    buildings = _useState0[0],
-    setBuildings = _useState0[1];
-  useEffect(function () {
-    var cancelled = false;
+function ScannerObservationsPanel({
+  building,
+  compact
+}) {
+  const [obs, setObs] = useState(null); // null=loading, []=empty, [...]= data
+  const [err, setErr] = useState(false);
+  const [bldgFilter, setBldgFilter] = useState(building || '');
+  const [matFilter, setMatFilter] = useState('');
+  const [buildings, setBuildings] = useState([]);
+  useEffect(() => {
+    let cancelled = false;
     // Load building list for filter dropdown (best-effort)
-    fetch(API_BASE + '/api/buildings').then(function (r) {
-      return r.json();
-    }).then(function (d) {
+    fetch(API_BASE + '/api/buildings').then(r => r.json()).then(d => {
       if (!cancelled) setBuildings(d);
-    }).catch(function () {});
+    }).catch(() => {});
     loadObs(bldgFilter);
-    return function () {
+    return () => {
       cancelled = true;
     };
   }, []);
   function loadObs(bId) {
-    var url = bId ? API_BASE + '/api/observations?building_id=' + encodeURIComponent(bId) : API_BASE + '/api/observations';
-    fetch(url).then(function (r) {
+    const url = bId ? API_BASE + '/api/observations?building_id=' + encodeURIComponent(bId) : API_BASE + '/api/observations';
+    fetch(url).then(r => {
       if (!r.ok) throw new Error('status ' + r.status);
       return r.json();
-    }).then(function (d) {
-      return setObs(d);
-    }).catch(function () {
-      return setErr(true);
-    });
+    }).then(d => setObs(d)).catch(() => setErr(true));
   }
 
   // Backend unreachable: render nothing silently (don't break host module)
@@ -1994,19 +1928,15 @@ function ScannerObservationsPanel(_ref1) {
     }
   }, "Loading scanner observations...");
   // Filter by material client-side
-  var filtered = matFilter ? obs.filter(function (o) {
-    return o.verified_category === matFilter;
-  }) : obs;
+  const filtered = matFilter ? obs.filter(o => o.verified_category === matFilter) : obs;
   // Material distribution from filtered set
-  var matCounts = {};
-  filtered.forEach(function (o) {
+  const matCounts = {};
+  filtered.forEach(o => {
     matCounts[o.verified_category] = (matCounts[o.verified_category] || 0) + 1;
   });
-  var matList = Object.entries(matCounts).sort(function (a, b) {
-    return b[1] - a[1];
-  });
-  var MATERIALS = ['plastic', 'paper', 'cardboard', 'glass', 'metal', 'organic', 'unknown / mixed'];
-  var MC_SCAN = ['#3b6fae', '#2d6a4f', '#e9a825', '#c47c2b', '#7c5cd8', '#dc5a4a', '#9ca3af'];
+  const matList = Object.entries(matCounts).sort((a, b) => b[1] - a[1]);
+  const MATERIALS = ['plastic', 'paper', 'cardboard', 'glass', 'metal', 'organic', 'unknown / mixed'];
+  const MC_SCAN = ['#3b6fae', '#2d6a4f', '#e9a825', '#c47c2b', '#7c5cd8', '#dc5a4a', '#9ca3af'];
   if (compact) {
     // Compact mode: single-line summary for Overview and Insights
     if (obs.length === 0) return /*#__PURE__*/React.createElement("div", {
@@ -2057,21 +1987,16 @@ function ScannerObservationsPanel(_ref1) {
         flexWrap: 'wrap',
         gap: 5
       }
-    }, matList.map(function (_ref10) {
-      var _ref11 = _slicedToArray(_ref10, 2),
-        mat = _ref11[0],
-        cnt = _ref11[1];
-      return /*#__PURE__*/React.createElement("span", {
-        key: mat,
-        style: {
-          background: '#e8edf5',
-          borderRadius: 4,
-          padding: '2px 8px',
-          fontSize: 11,
-          color: PAL.navy
-        }
-      }, mat, " ", /*#__PURE__*/React.createElement("strong", null, cnt));
-    })));
+    }, matList.map(([mat, cnt]) => /*#__PURE__*/React.createElement("span", {
+      key: mat,
+      style: {
+        background: '#e8edf5',
+        borderRadius: 4,
+        padding: '2px 8px',
+        fontSize: 11,
+        color: PAL.navy
+      }
+    }, mat, " ", /*#__PURE__*/React.createElement("strong", null, cnt)))));
   }
 
   // Full mode: table with filters
@@ -2093,7 +2018,7 @@ function ScannerObservationsPanel(_ref1) {
     }
   }, "Human-verified CLIP classifications. Not combined with operational waste weights."), /*#__PURE__*/React.createElement("select", {
     value: bldgFilter,
-    onChange: function onChange(e) {
+    onChange: e => {
       setBldgFilter(e.target.value);
       loadObs(e.target.value);
     },
@@ -2103,28 +2028,22 @@ function ScannerObservationsPanel(_ref1) {
     }
   }, /*#__PURE__*/React.createElement("option", {
     value: ""
-  }, "All buildings"), buildings.map(function (b) {
-    return /*#__PURE__*/React.createElement("option", {
-      key: b.id,
-      value: b.id
-    }, b.short_name);
-  })), /*#__PURE__*/React.createElement("select", {
+  }, "All buildings"), buildings.map(b => /*#__PURE__*/React.createElement("option", {
+    key: b.id,
+    value: b.id
+  }, b.short_name))), /*#__PURE__*/React.createElement("select", {
     value: matFilter,
-    onChange: function onChange(e) {
-      return setMatFilter(e.target.value);
-    },
+    onChange: e => setMatFilter(e.target.value),
     style: {
       width: 160,
       fontSize: 12
     }
   }, /*#__PURE__*/React.createElement("option", {
     value: ""
-  }, "All materials"), MATERIALS.map(function (m) {
-    return /*#__PURE__*/React.createElement("option", {
-      key: m,
-      value: m
-    }, m);
-  })), /*#__PURE__*/React.createElement("a", {
+  }, "All materials"), MATERIALS.map(m => /*#__PURE__*/React.createElement("option", {
+    key: m,
+    value: m
+  }, m))), /*#__PURE__*/React.createElement("a", {
     href: API_BASE + '/api/observations/export.csv',
     download: "envirotrap_observations.csv",
     className: "btn btn-secondary btn-sm",
@@ -2132,7 +2051,7 @@ function ScannerObservationsPanel(_ref1) {
       textDecoration: 'none',
       fontSize: 12
     }
-  }, "\u2193 Export CSV")), /*#__PURE__*/React.createElement("div", {
+  }, "↓ Export CSV")), /*#__PURE__*/React.createElement("div", {
     style: {
       padding: '5px 10px',
       background: '#fef9ec',
@@ -2142,7 +2061,7 @@ function ScannerObservationsPanel(_ref1) {
       color: '#92400e',
       marginBottom: 10
     }
-  }, "\u26A0 SQLite storage on Hugging Face free tier is ", /*#__PURE__*/React.createElement("strong", null, "temporary"), " \u2014 observations are lost when the Space restarts. Export a CSV backup before closing a session and re-import it afterwards to preserve your records."), obs.length === 0 ? /*#__PURE__*/React.createElement("div", {
+  }, "⚠ SQLite storage on Hugging Face free tier is ", /*#__PURE__*/React.createElement("strong", null, "temporary"), " — observations are lost when the Space restarts. Export a CSV backup before closing a session and re-import it afterwards to preserve your records."), obs.length === 0 ? /*#__PURE__*/React.createElement("div", {
     style: {
       padding: '16px',
       textAlign: 'center',
@@ -2168,51 +2087,46 @@ function ScannerObservationsPanel(_ref1) {
       textTransform: 'uppercase',
       letterSpacing: '.05em'
     }
-  }, "Material distribution (", filtered.length, " observation", filtered.length !== 1 ? 's' : '', ")"), matList.map(function (_ref12, i) {
-    var _ref13 = _slicedToArray(_ref12, 2),
-      mat = _ref13[0],
-      cnt = _ref13[1];
-    return /*#__PURE__*/React.createElement("div", {
-      key: mat,
-      style: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: 8,
-        marginBottom: 5
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        width: 120,
-        fontSize: 12,
-        color: PAL.text
-      }
-    }, mat), /*#__PURE__*/React.createElement("div", {
-      style: {
-        flex: 1,
-        background: '#e4d5b5',
-        borderRadius: 4,
-        height: 8
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        width: cnt / filtered.length * 100 + '%',
-        height: '100%',
-        background: MC_SCAN[i % MC_SCAN.length],
-        borderRadius: 4
-      }
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        width: 28,
-        fontSize: 11,
-        color: PAL.muted,
-        textAlign: 'right'
-      }
-    }, cnt));
-  })), /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Building"), /*#__PURE__*/React.createElement("th", null, "Verified Category"), /*#__PURE__*/React.createElement("th", null, "AI Top Score"), /*#__PURE__*/React.createElement("th", null, "Notes"), /*#__PURE__*/React.createElement("th", null, "Saved"))), /*#__PURE__*/React.createElement("tbody", null, filtered.slice(0, 5).map(function (o) {
-    var scores = o.ai_scores || [],
+  }, "Material distribution (", filtered.length, " observation", filtered.length !== 1 ? 's' : '', ")"), matList.map(([mat, cnt], i) => /*#__PURE__*/React.createElement("div", {
+    key: mat,
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 8,
+      marginBottom: 5
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 120,
+      fontSize: 12,
+      color: PAL.text
+    }
+  }, mat), /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      background: '#e4d5b5',
+      borderRadius: 4,
+      height: 8
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: cnt / filtered.length * 100 + '%',
+      height: '100%',
+      background: MC_SCAN[i % MC_SCAN.length],
+      borderRadius: 4
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 28,
+      fontSize: 11,
+      color: PAL.muted,
+      textAlign: 'right'
+    }
+  }, cnt)))), /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Building"), /*#__PURE__*/React.createElement("th", null, "Verified Category"), /*#__PURE__*/React.createElement("th", null, "AI Top Score"), /*#__PURE__*/React.createElement("th", null, "Notes"), /*#__PURE__*/React.createElement("th", null, "Saved"))), /*#__PURE__*/React.createElement("tbody", null, filtered.slice(0, 5).map(o => {
+    const scores = o.ai_scores || [],
       cats = o.ai_categories || [];
-    var mx = scores.length > 0 ? Math.max.apply(null, scores) : null;
-    var mxi = mx !== null ? scores.indexOf(mx) : -1;
+    const mx = scores.length > 0 ? Math.max.apply(null, scores) : null;
+    const mxi = mx !== null ? scores.indexOf(mx) : -1;
     return /*#__PURE__*/React.createElement("tr", {
       key: o.id
     }, /*#__PURE__*/React.createElement("td", {
@@ -2253,33 +2167,26 @@ function ScannerObservationsPanel(_ref1) {
     }
   }, "Showing 5 of ", filtered.length, ". Use AI Scanner for full view.")));
 }
-function Overview(_ref14) {
-  var setActive = _ref14.setActive;
-  var _useState1 = useState('month'),
-    _useState10 = _slicedToArray(_useState1, 2),
-    timePeriod = _useState10[0],
-    setTimePeriod = _useState10[1];
-  var trend = REAL_MODEL.trend;
-  var meta = REAL_MODEL.meta;
-  var funnel = REAL_MODEL.funnel;
+function Overview({
+  setActive
+}) {
+  const [timePeriod, setTimePeriod] = useState('month');
+  const trend = REAL_MODEL.trend;
+  const meta = REAL_MODEL.meta;
+  const funnel = REAL_MODEL.funnel;
 
   // Time period aggregation of trend data
-  var trendData = useMemo(function () {
-    if (timePeriod === 'month') return trend.map(function (t) {
-      return {
-        period: t.month,
-        pickups: t.pickups,
-        rfid_rate: t.rfid_rate
-      };
-    });
+  const trendData = useMemo(() => {
+    if (timePeriod === 'month') return trend.map(t => ({
+      period: t.month,
+      pickups: t.pickups,
+      rfid_rate: t.rfid_rate
+    }));
     // Quarterly grouping
-    var quarters = {};
-    trend.forEach(function (t) {
-      var _t$month$split = t.month.split('-'),
-        _t$month$split2 = _slicedToArray(_t$month$split, 2),
-        y = _t$month$split2[0],
-        m = _t$month$split2[1];
-      var q = "".concat(y, "-Q").concat(Math.ceil(parseInt(m) / 3));
+    const quarters = {};
+    trend.forEach(t => {
+      const [y, m] = t.month.split('-');
+      const q = `${y}-Q${Math.ceil(parseInt(m) / 3)}`;
       if (!quarters[q]) quarters[q] = {
         period: q,
         pickups: 0,
@@ -2290,15 +2197,13 @@ function Overview(_ref14) {
       quarters[q].rfid_rate_sum += t.rfid_rate;
       quarters[q].n++;
     });
-    return Object.values(quarters).map(function (q) {
-      return {
-        period: q.period,
-        pickups: q.pickups,
-        rfid_rate: +(q.rfid_rate_sum / q.n).toFixed(1)
-      };
-    });
+    return Object.values(quarters).map(q => ({
+      period: q.period,
+      pickups: q.pickups,
+      rfid_rate: +(q.rfid_rate_sum / q.n).toFixed(1)
+    }));
   }, [timePeriod]);
-  var topSites = REAL_MODEL.top_sites.slice(0, 8);
+  const topSites = REAL_MODEL.top_sites.slice(0, 8);
   return /*#__PURE__*/React.createElement("div", {
     style: {
       padding: 24
@@ -2313,8 +2218,8 @@ function Overview(_ref14) {
     className: "card",
     style: {
       padding: 14,
-      marginBottom: 20,
-      borderLeft: "4px solid ".concat(PAL.teal),
+      marginBottom: 12,
+      borderLeft: `4px solid ${PAL.teal}`,
       background: '#f0fdf4'
     }
   }, /*#__PURE__*/React.createElement("div", {
@@ -2334,6 +2239,30 @@ function Overview(_ref14) {
       lineHeight: 1.7
     }
   }, "EnviroTrap analyzed ", /*#__PURE__*/React.createElement("strong", null, "79,533"), " UIUC LoadMan truck-weight records exported for Betsy Ruckman, Zero Waste Coordinator. Of these, ", /*#__PURE__*/React.createElement("strong", null, "9,989 (12.6%)"), " pass all quality gates and have building attribution. The remaining 87.4% have verifiable reasons: ", /*#__PURE__*/React.createElement("strong", null, "28,337"), " have epoch-default timestamps (2001), the RFID system failed completely after October 2021, and downstream records lack container identity.")), /*#__PURE__*/React.createElement("div", {
+    className: "card",
+    style: {
+      padding: 12,
+      marginBottom: 20,
+      borderLeft: `4px solid ${PAL.amber}`,
+      background: '#fffbeb'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      fontWeight: 700,
+      color: PAL.amberDark,
+      marginBottom: 4,
+      textTransform: 'uppercase',
+      letterSpacing: '.05em'
+    }
+  }, "Historical Data — Building Attribution Unverified"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: 0,
+      fontSize: 12,
+      color: PAL.text,
+      lineHeight: 1.6
+    }
+  }, "Building names in these records were inferred from RFID container tags and GPS coordinates — they have ", /*#__PURE__*/React.createElement("strong", null, "not"), " been confirmed by F&S staff. The 9,989 usable records represent RFID-matched pickups only; the 70,000+ unattributed records have no building identity. ", /*#__PURE__*/React.createElement("strong", null, "Do not use these figures as verified per-building waste generation data."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))',
@@ -2345,45 +2274,35 @@ function Overview(_ref14) {
     value: "79,533",
     sub: "All exported records, unmodified",
     color: "navy",
-    onClick: function onClick() {
-      return setActive('pipeline');
-    },
+    onClick: () => setActive('pipeline'),
     linkLabel: "View data pipeline"
   }), /*#__PURE__*/React.createElement(StatCard, {
     label: "Fully Usable Records",
     value: "9,989",
     sub: "12.6% - RFID + site + valid weights",
     color: "green",
-    onClick: function onClick() {
-      return setActive('attribution');
-    },
+    onClick: () => setActive('attribution'),
     linkLabel: "View attribution"
   }), /*#__PURE__*/React.createElement(StatCard, {
     label: "RFID Peak Rate",
     value: "88.3%",
     sub: "April 2021 - now 0% from Aug 2022",
     color: "amber",
-    onClick: function onClick() {
-      return setActive('pipeline');
-    },
+    onClick: () => setActive('pipeline'),
     linkLabel: "Investigate"
   }), /*#__PURE__*/React.createElement(StatCard, {
     label: "Attribution AI Model",
     value: "84.8%",
     sub: "Top-1 GPS accuracy (150m threshold)",
     color: "blue",
-    onClick: function onClick() {
-      return setActive('attribution');
-    },
+    onClick: () => setActive('attribution'),
     linkLabel: "View model details"
   }), /*#__PURE__*/React.createElement(StatCard, {
     label: "Distinct Sites",
     value: "123",
     sub: "Campus buildings with verified pickups",
     color: "green",
-    onClick: function onClick() {
-      return setActive('attribution');
-    },
+    onClick: () => setActive('attribution'),
     linkLabel: "Explore sites"
   })), /*#__PURE__*/React.createElement("div", {
     className: "card",
@@ -2416,25 +2335,21 @@ function Overview(_ref14) {
       display: 'flex',
       gap: 6
     }
-  }, ['month', 'quarter'].map(function (p) {
-    return /*#__PURE__*/React.createElement("button", {
-      key: p,
-      onClick: function onClick() {
-        return setTimePeriod(p);
-      },
-      style: {
-        padding: '5px 12px',
-        borderRadius: 5,
-        border: "1px solid ".concat(timePeriod === p ? PAL.navy : PAL.border),
-        background: timePeriod === p ? PAL.navy : PAL.white,
-        color: timePeriod === p ? PAL.white : PAL.navy,
-        cursor: 'pointer',
-        fontSize: 12,
-        fontWeight: 600,
-        textTransform: 'capitalize'
-      }
-    }, p);
-  }))), /*#__PURE__*/React.createElement(ResponsiveContainer, {
+  }, ['month', 'quarter'].map(p => /*#__PURE__*/React.createElement("button", {
+    key: p,
+    onClick: () => setTimePeriod(p),
+    style: {
+      padding: '5px 12px',
+      borderRadius: 5,
+      border: `1px solid ${timePeriod === p ? PAL.navy : PAL.border}`,
+      background: timePeriod === p ? PAL.navy : PAL.white,
+      color: timePeriod === p ? PAL.white : PAL.navy,
+      cursor: 'pointer',
+      fontSize: 12,
+      fontWeight: 600,
+      textTransform: 'capitalize'
+    }
+  }, p)))), /*#__PURE__*/React.createElement(ResponsiveContainer, {
     width: "100%",
     height: 200
   }, /*#__PURE__*/React.createElement(BarChart, {
@@ -2465,13 +2380,9 @@ function Overview(_ref14) {
       fontSize: 10
     },
     domain: [0, 100],
-    tickFormatter: function tickFormatter(v) {
-      return "".concat(v, "%");
-    }
+    tickFormatter: v => `${v}%`
   }), /*#__PURE__*/React.createElement(Tooltip, {
-    formatter: function formatter(v, n) {
-      return [n === 'pickups' ? v.toLocaleString() : "".concat(v, "%"), n === 'pickups' ? 'Pickups' : 'RFID Rate'];
-    }
+    formatter: (v, n) => [n === 'pickups' ? v.toLocaleString() : `${v}%`, n === 'pickups' ? 'Pickups' : 'RFID Rate']
   }), /*#__PURE__*/React.createElement(Legend, null), /*#__PURE__*/React.createElement(Bar, {
     yAxisId: "left",
     dataKey: "pickups",
@@ -2510,55 +2421,53 @@ function Overview(_ref14) {
       color: PAL.muted,
       marginBottom: 12
     }
-  }, "Records surviving each successive quality gate"), funnel.map(function (gate, i) {
-    return /*#__PURE__*/React.createElement("div", {
-      key: i,
-      style: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: 12,
-        marginBottom: 8
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontSize: 11,
-        color: PAL.muted,
-        minWidth: 16
-      }
-    }, gate.gate), /*#__PURE__*/React.createElement("div", {
-      style: {
-        flex: 1
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        fontSize: 12,
-        marginBottom: 3
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: gate.gate === 3 ? PAL.red : PAL.text,
-        fontWeight: gate.gate === 3 ? 700 : 400
-      }
-    }, gate.label), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontWeight: 700,
-        color: PAL.navy
-      }
-    }, gate.n.toLocaleString(), " (", (gate.pct * 100).toFixed(1), "%)")), /*#__PURE__*/React.createElement("div", {
-      className: "progress-bar",
-      style: {
-        height: 6
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "progress-fill",
-      style: {
-        width: "".concat(gate.pct * 100, "%"),
-        background: gate.gate === 3 ? PAL.red : gate.gate === 0 ? PAL.navyLight : gate.gate <= 2 ? PAL.amber : PAL.teal
-      }
-    }))));
-  }), /*#__PURE__*/React.createElement("div", {
+  }, "Records surviving each successive quality gate"), funnel.map((gate, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 12,
+      marginBottom: 8
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: PAL.muted,
+      minWidth: 16
+    }
+  }, gate.gate), /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      fontSize: 12,
+      marginBottom: 3
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: gate.gate === 3 ? PAL.red : PAL.text,
+      fontWeight: gate.gate === 3 ? 700 : 400
+    }
+  }, gate.label), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontWeight: 700,
+      color: PAL.navy
+    }
+  }, gate.n.toLocaleString(), " (", (gate.pct * 100).toFixed(1), "%)")), /*#__PURE__*/React.createElement("div", {
+    className: "progress-bar",
+    style: {
+      height: 6
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "progress-fill",
+    style: {
+      width: `${gate.pct * 100}%`,
+      background: gate.gate === 3 ? PAL.red : gate.gate === 0 ? PAL.navyLight : gate.gate <= 2 ? PAL.amber : PAL.teal
+    }
+  }))))), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 8,
       fontSize: 12,
@@ -2593,12 +2502,10 @@ function Overview(_ref14) {
     width: "100%",
     height: 220
   }, /*#__PURE__*/React.createElement(BarChart, {
-    data: topSites.map(function (s) {
-      return {
-        name: s.name.length > 20 ? s.name.slice(0, 18) + '...' : s.name,
-        count: s.count
-      };
-    }),
+    data: topSites.map(s => ({
+      name: s.name.length > 20 ? s.name.slice(0, 18) + '...' : s.name,
+      count: s.count
+    })),
     layout: "vertical",
     margin: {
       top: 0,
@@ -2622,9 +2529,7 @@ function Overview(_ref14) {
     },
     width: 130
   }), /*#__PURE__*/React.createElement(Tooltip, {
-    formatter: function formatter(v) {
-      return [v.toLocaleString() + ' pickups', 'Verified'];
-    }
+    formatter: v => [v.toLocaleString() + ' pickups', 'Verified']
   }), /*#__PURE__*/React.createElement(Bar, {
     dataKey: "count",
     fill: PAL.teal,
@@ -2653,48 +2558,90 @@ function Overview(_ref14) {
       color: PAL.muted,
       marginBottom: 12
     }
-  }, "From Service Type field - intended destination, not verified diversion"), function () {
-    var data = REAL_MODEL.service_types.slice(0, 5);
-    var total = data.reduce(function (s, d) {
-      return s + d.count;
-    }, 0);
-    return data.map(function (d, i) {
-      return /*#__PURE__*/React.createElement("div", {
-        key: d.name,
-        style: {
-          marginBottom: 10
-        }
-      }, /*#__PURE__*/React.createElement("div", {
-        style: {
-          display: 'flex',
-          justifyContent: 'space-between',
-          fontSize: 12,
-          marginBottom: 3
-        }
-      }, /*#__PURE__*/React.createElement("span", null, d.name), /*#__PURE__*/React.createElement("span", {
-        style: {
-          fontWeight: 600
-        }
-      }, d.count.toLocaleString(), " (", (d.count / 9989 * 100).toFixed(1), "%)")), /*#__PURE__*/React.createElement("div", {
-        className: "progress-bar",
-        style: {
-          height: 6
-        }
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "progress-fill",
-        style: {
-          width: "".concat(d.count / data[0].count * 100, "%"),
-          background: MC[i]
-        }
-      })));
-    });
-  }(), /*#__PURE__*/React.createElement("div", {
+  }, "From Service Type field - intended destination, not verified diversion"), (() => {
+    const data = REAL_MODEL.service_types.slice(0, 5);
+    const total = data.reduce((s, d) => s + d.count, 0);
+    return data.map((d, i) => /*#__PURE__*/React.createElement("div", {
+      key: d.name,
+      style: {
+        marginBottom: 10
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        fontSize: 12,
+        marginBottom: 3
+      }
+    }, /*#__PURE__*/React.createElement("span", null, d.name), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontWeight: 600
+      }
+    }, d.count.toLocaleString(), " (", (d.count / 9989 * 100).toFixed(1), "%)")), /*#__PURE__*/React.createElement("div", {
+      className: "progress-bar",
+      style: {
+        height: 6
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "progress-fill",
+      style: {
+        width: `${d.count / data[0].count * 100}%`,
+        background: MC[i]
+      }
+    }))));
+  })(), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 8,
       fontSize: 11,
       color: PAL.muted
     }
-  }, "Stream labels = intended destination at collection. Downstream verification required for diversion rate."))), /*#__PURE__*/React.createElement("div", {
+  }, "Stream labels = intended destination at collection. Downstream verification required for diversion rate."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(3,1fr)',
+      gap: 10,
+      marginTop: 14
+    }
+  }, [{
+    label: 'Diversion Rate',
+    reason: 'Requires verified weights for recycling, compost, and landfill streams from the same period and scope.'
+  }, {
+    label: 'Recycling Rate',
+    reason: 'Requires verified recycling and landfill stream weights for the same scope.'
+  }, {
+    label: 'Contamination Rate',
+    reason: 'Requires a waste audit with per-item stream classification. Not inferred from LoadMan service-type labels.'
+  }].map(({
+    label,
+    reason
+  }) => /*#__PURE__*/React.createElement("div", {
+    key: label,
+    style: {
+      border: `1px dashed ${PAL.border}`,
+      borderRadius: 8,
+      padding: '10px 12px',
+      background: PAL.cream
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 22,
+      fontWeight: 700,
+      color: PAL.muted
+    }
+  }, "—"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      fontWeight: 700,
+      color: PAL.navy,
+      marginBottom: 4
+    }
+  }, label), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: PAL.muted,
+      lineHeight: 1.5
+    }
+  }, reason)))))), /*#__PURE__*/React.createElement("div", {
     className: "card",
     style: {
       padding: 14,
@@ -2713,72 +2660,40 @@ function Overview(_ref14) {
 }
 
 // ─── ATTRIBUTION ENGINE UI ────────────────────────────────────────────────────
-function AttributionEngineUI(_ref15) {
-  var setActive = _ref15.setActive;
-  var _useState11 = useState(null),
-    _useState12 = _slicedToArray(_useState11, 2),
-    demoRecords = _useState12[0],
-    setDemoRecords = _useState12[1];
-  var _useState13 = useState(null),
-    _useState14 = _slicedToArray(_useState13, 2),
-    selectedRecord = _useState14[0],
-    setSelectedRecord = _useState14[1];
-  var _useState15 = useState('all'),
-    _useState16 = _slicedToArray(_useState15, 2),
-    filterConf = _useState16[0],
-    setFilterConf = _useState16[1];
-  var _useState17 = useState(false),
-    _useState18 = _slicedToArray(_useState17, 2),
-    showMethodology = _useState18[0],
-    setShowMethodology = _useState18[1];
-  var _useState19 = useState({}),
-    _useState20 = _slicedToArray(_useState19, 2),
-    staffReview = _useState20[0],
-    setStaffReview = _useState20[1]; // Record ID -> staff override
-  var _useState21 = useState(null),
-    _useState22 = _slicedToArray(_useState21, 2),
-    reviewForm = _useState22[0],
-    setReviewForm = _useState22[1];
-  useEffect(function () {
+function AttributionEngineUI({
+  setActive
+}) {
+  const [demoRecords, setDemoRecords] = useState(null);
+  const [selectedRecord, setSelectedRecord] = useState(null);
+  const [filterConf, setFilterConf] = useState('all');
+  const [showMethodology, setShowMethodology] = useState(false);
+  const [staffReview, setStaffReview] = useState({}); // Record ID -> staff override
+  const [reviewForm, setReviewForm] = useState(null);
+  useEffect(() => {
     // Run attribution engine on simulated unattributed records
-    var predictions = UNATTRIBUTED_RECORDS.map(function (r) {
-      return _objectSpread(_objectSpread({}, r), {}, {
-        _pred: AttributionEngine.predict(r.rfid, r.lat, r.lon)
-      });
-    });
+    const predictions = UNATTRIBUTED_RECORDS.map(r => ({
+      ...r,
+      _pred: AttributionEngine.predict(r.rfid, r.lat, r.lon)
+    }));
     setDemoRecords(predictions);
   }, []);
-  var meta = REAL_MODEL.meta;
-  var filtered = useMemo(function () {
+  const meta = REAL_MODEL.meta;
+  const filtered = useMemo(() => {
     if (!demoRecords) return [];
     if (filterConf === 'all') return demoRecords;
-    if (filterConf === 'high') return demoRecords.filter(function (r) {
-      return r._pred.confidence >= 0.8;
-    });
-    if (filterConf === 'medium') return demoRecords.filter(function (r) {
-      return r._pred.confidence >= 0.5 && r._pred.confidence < 0.8;
-    });
-    if (filterConf === 'low') return demoRecords.filter(function (r) {
-      return r._pred.confidence > 0 && r._pred.confidence < 0.5;
-    });
-    if (filterConf === 'abstain') return demoRecords.filter(function (r) {
-      return r._pred.confidence === 0;
-    });
+    if (filterConf === 'high') return demoRecords.filter(r => r._pred.confidence >= 0.8);
+    if (filterConf === 'medium') return demoRecords.filter(r => r._pred.confidence >= 0.5 && r._pred.confidence < 0.8);
+    if (filterConf === 'low') return demoRecords.filter(r => r._pred.confidence > 0 && r._pred.confidence < 0.5);
+    if (filterConf === 'abstain') return demoRecords.filter(r => r._pred.confidence === 0);
     return demoRecords;
   }, [demoRecords, filterConf]);
 
   // Accuracy against hidden ground truth
-  var accuracy = useMemo(function () {
+  const accuracy = useMemo(() => {
     if (!demoRecords) return null;
-    var withPred = demoRecords.filter(function (r) {
-      return r._pred.site;
-    });
-    var correct = withPred.filter(function (r) {
-      return r._pred.site === r.true_site;
-    });
-    var abstained = demoRecords.filter(function (r) {
-      return !r._pred.site;
-    });
+    const withPred = demoRecords.filter(r => r._pred.site);
+    const correct = withPred.filter(r => r._pred.site === r.true_site);
+    const abstained = demoRecords.filter(r => !r._pred.site);
     return {
       total: demoRecords.length,
       predicted: withPred.length,
@@ -2799,7 +2714,7 @@ function AttributionEngineUI(_ref15) {
     }
   }, /*#__PURE__*/React.createElement(SH, {
     title: "Attribution Engine",
-    sub: "AI-powered building attribution for unidentified waste records. Three-tier: RFID lookup \u2192 GPS nearest-centroid \u2192 abstain.",
+    sub: "AI-powered building attribution for unidentified waste records. Three-tier: RFID lookup → GPS nearest-centroid → abstain.",
     action: /*#__PURE__*/React.createElement(Badge, {
       cls: "badge-navy"
     }, "Real Model")
@@ -2812,23 +2727,23 @@ function AttributionEngineUI(_ref15) {
     }
   }, /*#__PURE__*/React.createElement(StatCard, {
     label: "GPS Top-1 Accuracy",
-    value: "".concat(meta.gps_top1_acc, "%"),
-    sub: "At ".concat(meta.threshold_m, "m threshold, ").concat(meta.threshold_coverage_pct, "% coverage"),
+    value: `${meta.gps_top1_acc}%`,
+    sub: `At ${meta.threshold_m}m threshold, ${meta.threshold_coverage_pct}% coverage`,
     color: "green"
   }), /*#__PURE__*/React.createElement(StatCard, {
     label: "GPS Top-3 Accuracy",
-    value: "".concat(meta.gps_top3_acc, "%"),
+    value: `${meta.gps_top3_acc}%`,
     sub: "Within top 3 candidates",
     color: "green"
   }), /*#__PURE__*/React.createElement(StatCard, {
     label: "RFID Accuracy",
-    value: "".concat(meta.rfid_acc, "%"),
-    sub: "".concat(meta.distinct_rfids, " distinct containers, all exclusive"),
+    value: `${meta.rfid_acc}%`,
+    sub: `${meta.distinct_rfids} distinct containers, all exclusive`,
     color: "green"
   }), /*#__PURE__*/React.createElement(StatCard, {
     label: "Training Records",
     value: meta.usable_records.toLocaleString(),
-    sub: "".concat(meta.distinct_sites, " distinct campus sites"),
+    sub: `${meta.distinct_sites} distinct campus sites`,
     color: "blue"
   }), /*#__PURE__*/React.createElement(StatCard, {
     label: "Validation Method",
@@ -2854,14 +2769,10 @@ function AttributionEngineUI(_ref15) {
       color: PAL.navy
     }
   }, "Model Architecture and Methodology"), /*#__PURE__*/React.createElement("button", {
-    onClick: function onClick() {
-      return setShowMethodology(function (x) {
-        return !x;
-      });
-    },
+    onClick: () => setShowMethodology(x => !x),
     style: {
       background: 'none',
-      border: "1px solid ".concat(PAL.border),
+      border: `1px solid ${PAL.border}`,
       borderRadius: 5,
       padding: '4px 10px',
       cursor: 'pointer',
@@ -2881,7 +2792,7 @@ function AttributionEngineUI(_ref15) {
       padding: 14,
       marginBottom: 16,
       background: '#eff6ff',
-      borderLeft: "4px solid ".concat(PAL.navyLight)
+      borderLeft: `4px solid ${PAL.navyLight}`
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -2941,27 +2852,20 @@ function AttributionEngineUI(_ref15) {
       fontSize: 12,
       color: PAL.muted
     }
-  }, "Filter by confidence:"), [['all', 'All'], ['high', 'High'], ['medium', 'Medium'], ['low', 'Low'], ['abstain', 'Abstain']].map(function (_ref16) {
-    var _ref17 = _slicedToArray(_ref16, 2),
-      v = _ref17[0],
-      l = _ref17[1];
-    return /*#__PURE__*/React.createElement("button", {
-      key: v,
-      onClick: function onClick() {
-        return setFilterConf(v);
-      },
-      style: {
-        padding: '4px 12px',
-        borderRadius: 12,
-        border: "1px solid ".concat(filterConf === v ? PAL.navy : PAL.border),
-        background: filterConf === v ? PAL.navy : PAL.white,
-        color: filterConf === v ? PAL.white : PAL.text,
-        cursor: 'pointer',
-        fontSize: 12,
-        fontWeight: filterConf === v ? 600 : 400
-      }
-    }, l);
-  }), /*#__PURE__*/React.createElement("span", {
+  }, "Filter by confidence:"), [['all', 'All'], ['high', 'High'], ['medium', 'Medium'], ['low', 'Low'], ['abstain', 'Abstain']].map(([v, l]) => /*#__PURE__*/React.createElement("button", {
+    key: v,
+    onClick: () => setFilterConf(v),
+    style: {
+      padding: '4px 12px',
+      borderRadius: 12,
+      border: `1px solid ${filterConf === v ? PAL.navy : PAL.border}`,
+      background: filterConf === v ? PAL.navy : PAL.white,
+      color: filterConf === v ? PAL.white : PAL.text,
+      cursor: 'pointer',
+      fontSize: 12,
+      fontWeight: filterConf === v ? 600 : 400
+    }
+  }, l)), /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 12,
       color: PAL.muted,
@@ -2976,14 +2880,12 @@ function AttributionEngineUI(_ref15) {
     style: {
       overflowX: 'auto'
     }
-  }, /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, ['Record', 'Date', 'Has GPS', 'Predicted Building', 'Confidence', 'Method', 'Correct?', 'Staff Review'].map(function (h) {
-    return /*#__PURE__*/React.createElement("th", {
-      key: h
-    }, h);
-  }))), /*#__PURE__*/React.createElement("tbody", null, filtered.slice(0, 50).map(function (r) {
-    var pred = r._pred;
-    var override = staffReview[r.id];
-    var isCorrect = pred.site ? pred.site === r.true_site : null;
+  }, /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, ['Record', 'Date', 'Has GPS', 'Predicted Building', 'Confidence', 'Method', 'Correct?', 'Staff Review'].map(h => /*#__PURE__*/React.createElement("th", {
+    key: h
+  }, h)))), /*#__PURE__*/React.createElement("tbody", null, filtered.slice(0, 50).map(r => {
+    const pred = r._pred;
+    const override = staffReview[r.id];
+    const isCorrect = pred.site ? pred.site === r.true_site : null;
     return /*#__PURE__*/React.createElement("tr", {
       key: r.id,
       style: {
@@ -3002,11 +2904,11 @@ function AttributionEngineUI(_ref15) {
       style: {
         color: PAL.teal
       }
-    }, "\u2713") : /*#__PURE__*/React.createElement("span", {
+    }, "✓") : /*#__PURE__*/React.createElement("span", {
       style: {
         color: PAL.muted
       }
-    }, "\u2013")), /*#__PURE__*/React.createElement("td", null, override ? /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(ProvenancePill, {
+    }, "–")), /*#__PURE__*/React.createElement("td", null, override ? /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(ProvenancePill, {
       type: "verified",
       size: "sm"
     }), /*#__PURE__*/React.createElement("span", {
@@ -3042,28 +2944,26 @@ function AttributionEngineUI(_ref15) {
         color: PAL.teal,
         fontWeight: 700
       }
-    }, "\u2713") : /*#__PURE__*/React.createElement("span", {
+    }, "✓") : /*#__PURE__*/React.createElement("span", {
       style: {
         color: PAL.red,
         fontWeight: 700,
         fontSize: 10
       }
-    }, "\u2717 (", r.true_site.slice(0, 15), "...)") : /*#__PURE__*/React.createElement("span", {
+    }, "✗ (", r.true_site.slice(0, 15), "...)") : /*#__PURE__*/React.createElement("span", {
       style: {
         color: PAL.muted
       }
-    }, "\u2013")), /*#__PURE__*/React.createElement("td", null, !override && pred.site && pred.tier === 2 && /*#__PURE__*/React.createElement("button", {
-      onClick: function onClick() {
-        return setReviewForm({
-          id: r.id,
-          predicted: pred.site,
-          top3: pred.top3 || []
-        });
-      },
+    }, "–")), /*#__PURE__*/React.createElement("td", null, !override && pred.site && pred.tier === 2 && /*#__PURE__*/React.createElement("button", {
+      onClick: () => setReviewForm({
+        id: r.id,
+        predicted: pred.site,
+        top3: pred.top3 || []
+      }),
       style: {
         padding: '2px 8px',
         borderRadius: 4,
-        border: "1px solid ".concat(PAL.border),
+        border: `1px solid ${PAL.border}`,
         background: PAL.white,
         cursor: 'pointer',
         fontSize: 11,
@@ -3075,7 +2975,7 @@ function AttributionEngineUI(_ref15) {
         color: PAL.teal,
         fontWeight: 600
       }
-    }, "Confirmed \u2713")));
+    }, "Confirmed ✓")));
   }))), filtered.length > 50 && /*#__PURE__*/React.createElement("div", {
     style: {
       padding: '8px 14px',
@@ -3084,9 +2984,7 @@ function AttributionEngineUI(_ref15) {
     }
   }, "Showing first 50 of ", filtered.length, " records"))), reviewForm && /*#__PURE__*/React.createElement(Modal, {
     open: !!reviewForm,
-    onClose: function onClose() {
-      return setReviewForm(null);
-    },
+    onClose: () => setReviewForm(null),
     title: "Staff Attribution Review",
     maxWidth: 500
   }, /*#__PURE__*/React.createElement("div", {
@@ -3101,38 +2999,37 @@ function AttributionEngineUI(_ref15) {
       color: PAL.navy,
       marginBottom: 8
     }
-  }, "Top 3 Candidates"), reviewForm.top3.map(function (c, i) {
-    return /*#__PURE__*/React.createElement("button", {
-      key: i,
-      onClick: function onClick() {
-        setStaffReview(function (s) {
-          return _objectSpread(_objectSpread({}, s), {}, _defineProperty({}, reviewForm.id, c.site));
-        });
-        setReviewForm(null);
-      },
-      style: {
-        display: 'block',
-        width: '100%',
-        textAlign: 'left',
-        padding: '8px 12px',
-        marginBottom: 6,
-        borderRadius: 6,
-        border: "1px solid ".concat(i === 0 ? PAL.navyLight : PAL.border),
-        background: i === 0 ? '#eff6ff' : PAL.white,
-        cursor: 'pointer',
-        fontSize: 13
-      }
-    }, /*#__PURE__*/React.createElement("strong", null, "#", i + 1, ":"), " ", c.site, " ", /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: PAL.muted
-      }
-    }, "(", Math.round(c.d), "m away)"), i === 0 && /*#__PURE__*/React.createElement(Badge, {
-      cls: "badge-navy",
-      style: {
-        marginLeft: 8
-      }
-    }, "AI Top Pick"));
-  }), /*#__PURE__*/React.createElement("div", {
+  }, "Top 3 Candidates"), reviewForm.top3.map((c, i) => /*#__PURE__*/React.createElement("button", {
+    key: i,
+    onClick: () => {
+      setStaffReview(s => ({
+        ...s,
+        [reviewForm.id]: c.site
+      }));
+      setReviewForm(null);
+    },
+    style: {
+      display: 'block',
+      width: '100%',
+      textAlign: 'left',
+      padding: '8px 12px',
+      marginBottom: 6,
+      borderRadius: 6,
+      border: `1px solid ${i === 0 ? PAL.navyLight : PAL.border}`,
+      background: i === 0 ? '#eff6ff' : PAL.white,
+      cursor: 'pointer',
+      fontSize: 13
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "#", i + 1, ":"), " ", c.site, " ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: PAL.muted
+    }
+  }, "(", Math.round(c.d), "m away)"), i === 0 && /*#__PURE__*/React.createElement(Badge, {
+    cls: "badge-navy",
+    style: {
+      marginLeft: 8
+    }
+  }, "AI Top Pick"))), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 12,
       padding: '8px 12px',
@@ -3142,9 +3039,7 @@ function AttributionEngineUI(_ref15) {
       color: '#92400e'
     }
   }, "Confirming a building attribution marks this record as staff-verified. The original AI prediction is preserved for audit."), /*#__PURE__*/React.createElement("button", {
-    onClick: function onClick() {
-      return setReviewForm(null);
-    },
+    onClick: () => setReviewForm(null),
     className: "btn btn-secondary btn-sm",
     style: {
       marginTop: 10
@@ -3154,24 +3049,18 @@ function AttributionEngineUI(_ref15) {
 
 // ─── DATA PIPELINE ────────────────────────────────────────────────────────────
 function DataPipeline() {
-  var meta = REAL_MODEL.meta;
-  var trend = REAL_MODEL.trend;
-  var funnel = REAL_MODEL.funnel;
+  const meta = REAL_MODEL.meta;
+  const trend = REAL_MODEL.trend;
+  const funnel = REAL_MODEL.funnel;
 
   // Find the RFID cliff precisely
-  var rfidByMonth = trend.map(function (t) {
-    return {
-      month: t.month,
-      rfid_rate: t.rfid_rate,
-      status: t.status
-    };
-  });
-  var lastWorking = rfidByMonth.filter(function (t) {
-    return t.rfid_rate > 0;
-  }).slice(-1)[0];
-  var firstFailed = rfidByMonth.filter(function (t) {
-    return t.status === 'Container ID failed';
-  })[0];
+  const rfidByMonth = trend.map(t => ({
+    month: t.month,
+    rfid_rate: t.rfid_rate,
+    status: t.status
+  }));
+  const lastWorking = rfidByMonth.filter(t => t.rfid_rate > 0).slice(-1)[0];
+  const firstFailed = rfidByMonth.filter(t => t.status === 'Container ID failed')[0];
   return /*#__PURE__*/React.createElement("div", {
     style: {
       padding: 24
@@ -3185,7 +3074,7 @@ function DataPipeline() {
       padding: 14,
       marginBottom: 16,
       background: '#f0fdf4',
-      borderLeft: "4px solid ".concat(PAL.teal)
+      borderLeft: `4px solid ${PAL.teal}`
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -3201,28 +3090,23 @@ function DataPipeline() {
       gap: 8,
       fontSize: 13
     }
-  }, [['Source file', 'LoadData - All Columns - 9-15 17:16:30.csv (LoadMan portal export)'], ['Recipient', 'Betsy Ruckman, Zero Waste Coordinator, UIUC Facilities & Services'], ['Records exported', '79,533 rows x 53 columns'], ['Date range', '2001-01-01 through 2025-08-30'], ['Trucks', 'New Truck; 31272-11; small number unspecified'], ['Encoding', 'Windows-1252 (not UTF-8)']].map(function (_ref18) {
-    var _ref19 = _slicedToArray(_ref18, 2),
-      k = _ref19[0],
-      v = _ref19[1];
-    return /*#__PURE__*/React.createElement("div", {
-      key: k,
-      style: {
-        padding: '6px 0',
-        borderBottom: "1px solid ".concat(PAL.border)
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontSize: 11,
-        color: PAL.muted
-      }
-    }, k), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontSize: 12,
-        color: PAL.text
-      }
-    }, v));
-  }))), /*#__PURE__*/React.createElement("div", {
+  }, [['Source file', 'LoadData - All Columns - 9-15 17:16:30.csv (LoadMan portal export)'], ['Recipient', 'Betsy Ruckman, Zero Waste Coordinator, UIUC Facilities & Services'], ['Records exported', '79,533 rows x 53 columns'], ['Date range', '2001-01-01 through 2025-08-30'], ['Trucks', 'New Truck; 31272-11; small number unspecified'], ['Encoding', 'Windows-1252 (not UTF-8)']].map(([k, v]) => /*#__PURE__*/React.createElement("div", {
+    key: k,
+    style: {
+      padding: '6px 0',
+      borderBottom: `1px solid ${PAL.border}`
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: PAL.muted
+    }
+  }, k), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: PAL.text
+    }
+  }, v))))), /*#__PURE__*/React.createElement("div", {
     className: "card",
     style: {
       padding: 16,
@@ -3235,28 +3119,26 @@ function DataPipeline() {
       color: PAL.navy,
       marginBottom: 12
     }
-  }, "Validity Funnel - All 79,533 Records"), /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Gate"), /*#__PURE__*/React.createElement("th", null, "Records"), /*#__PURE__*/React.createElement("th", null, "% of All"), /*#__PURE__*/React.createElement("th", null, "What This Tests"))), /*#__PURE__*/React.createElement("tbody", null, funnel.map(function (g) {
-    return /*#__PURE__*/React.createElement("tr", {
-      key: g.gate,
-      style: {
-        background: g.gate === 3 ? '#fef2f2' : g.gate === 7 ? '#f0fdf4' : 'inherit'
-      }
-    }, /*#__PURE__*/React.createElement("td", {
-      style: {
-        fontWeight: 600,
-        color: g.gate === 3 ? PAL.red : g.gate === 7 ? PAL.teal : PAL.text
-      }
-    }, g.label), /*#__PURE__*/React.createElement("td", {
-      style: {
-        fontWeight: 700
-      }
-    }, g.n.toLocaleString()), /*#__PURE__*/React.createElement("td", null, (g.pct * 100).toFixed(1), "%"), /*#__PURE__*/React.createElement("td", {
-      style: {
-        fontSize: 12,
-        color: PAL.muted
-      }
-    }, ['All rows in portal export', 'Excludes meter power events, asset deliveries, missed loads', 'Excludes 2001/2002 device-clock defaults (31,725 records)', 'THE FAILURE POINT - missing container RFID identity', 'Container maps to known campus site', 'Gross weight > 0 captured', 'Tare weight > 0 captured (net weight computable)', 'Weights inside physically credible bounds'][g.gate]));
-  })))), /*#__PURE__*/React.createElement("div", {
+  }, "Validity Funnel - All 79,533 Records"), /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Gate"), /*#__PURE__*/React.createElement("th", null, "Records"), /*#__PURE__*/React.createElement("th", null, "% of All"), /*#__PURE__*/React.createElement("th", null, "What This Tests"))), /*#__PURE__*/React.createElement("tbody", null, funnel.map(g => /*#__PURE__*/React.createElement("tr", {
+    key: g.gate,
+    style: {
+      background: g.gate === 3 ? '#fef2f2' : g.gate === 7 ? '#f0fdf4' : 'inherit'
+    }
+  }, /*#__PURE__*/React.createElement("td", {
+    style: {
+      fontWeight: 600,
+      color: g.gate === 3 ? PAL.red : g.gate === 7 ? PAL.teal : PAL.text
+    }
+  }, g.label), /*#__PURE__*/React.createElement("td", {
+    style: {
+      fontWeight: 700
+    }
+  }, g.n.toLocaleString()), /*#__PURE__*/React.createElement("td", null, (g.pct * 100).toFixed(1), "%"), /*#__PURE__*/React.createElement("td", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted
+    }
+  }, ['All rows in portal export', 'Excludes meter power events, asset deliveries, missed loads', 'Excludes 2001/2002 device-clock defaults (31,725 records)', 'THE FAILURE POINT - missing container RFID identity', 'Container maps to known campus site', 'Gross weight > 0 captured', 'Tare weight > 0 captured (net weight computable)', 'Weights inside physically credible bounds'][g.gate])))))), /*#__PURE__*/React.createElement("div", {
     className: "card",
     style: {
       padding: 16,
@@ -3289,12 +3171,12 @@ function DataPipeline() {
     color: PAL.teal
   }, {
     label: 'Last Working Month',
-    value: (lastWorking === null || lastWorking === void 0 ? void 0 : lastWorking.month) || 'Oct 2021',
-    note: "".concat((lastWorking === null || lastWorking === void 0 ? void 0 : lastWorking.rfid_rate) || 58.6, "% rate"),
+    value: lastWorking?.month || 'Oct 2021',
+    note: `${lastWorking?.rfid_rate || 58.6}% rate`,
     color: PAL.amber
   }, {
     label: 'First 0% Month',
-    value: (firstFailed === null || firstFailed === void 0 ? void 0 : firstFailed.month) || 'Aug 2022',
+    value: firstFailed?.month || 'Aug 2022',
     note: '0.0% detection',
     color: PAL.red
   }, {
@@ -3302,33 +3184,31 @@ function DataPipeline() {
     value: 'Failed together',
     note: 'System-level cause suspected',
     color: PAL.navy
-  }].map(function (s) {
-    return /*#__PURE__*/React.createElement("div", {
-      key: s.label,
-      className: "stat-card",
-      style: {
-        borderLeft: "4px solid ".concat(s.color)
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontSize: 11,
-        color: PAL.muted,
-        textTransform: 'uppercase',
-        letterSpacing: '.05em'
-      }
-    }, s.label), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontSize: 20,
-        fontWeight: 700,
-        color: s.color
-      }
-    }, s.value), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontSize: 12,
-        color: PAL.muted
-      }
-    }, s.note));
-  })), /*#__PURE__*/React.createElement("div", {
+  }].map(s => /*#__PURE__*/React.createElement("div", {
+    key: s.label,
+    className: "stat-card",
+    style: {
+      borderLeft: `4px solid ${s.color}`
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: PAL.muted,
+      textTransform: 'uppercase',
+      letterSpacing: '.05em'
+    }
+  }, s.label), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 20,
+      fontWeight: 700,
+      color: s.color
+    }
+  }, s.value), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted
+    }
+  }, s.note)))), /*#__PURE__*/React.createElement("div", {
     style: {
       padding: '10px 14px',
       background: '#fff3cd',
@@ -3395,65 +3275,61 @@ function DataPipeline() {
     pct: 93.3,
     note: '93.3% - values in millions, definition unconfirmed',
     color: PAL.amber
-  }].map(function (f) {
-    return /*#__PURE__*/React.createElement("div", {
-      key: f.field
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        fontSize: 12,
-        marginBottom: 3
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontWeight: 600,
-        color: PAL.text
-      }
-    }, f.field), /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: f.color,
-        fontWeight: 700
-      }
-    }, f.pct, "%")), /*#__PURE__*/React.createElement("div", {
-      className: "progress-bar",
-      style: {
-        height: 5,
-        marginBottom: 3
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "progress-fill",
-      style: {
-        width: "".concat(f.pct, "%"),
-        background: f.color
-      }
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontSize: 11,
-        color: PAL.muted
-      }
-    }, f.note));
-  }))));
+  }].map(f => /*#__PURE__*/React.createElement("div", {
+    key: f.field
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      fontSize: 12,
+      marginBottom: 3
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontWeight: 600,
+      color: PAL.text
+    }
+  }, f.field), /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: f.color,
+      fontWeight: 700
+    }
+  }, f.pct, "%")), /*#__PURE__*/React.createElement("div", {
+    className: "progress-bar",
+    style: {
+      height: 5,
+      marginBottom: 3
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "progress-fill",
+    style: {
+      width: `${f.pct}%`,
+      background: f.color
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: PAL.muted
+    }
+  }, f.note))))));
 }
 
 // ─── ASK NEXUS ────────────────────────────────────────────────────────────────
 // Grounded in real LoadMan statistics. All numbers are from verified data.
-var NexusAI = {
-  answer: function answer(question) {
-    var q = question.toLowerCase().trim();
-    var meta = REAL_MODEL.meta;
-    var trend = REAL_MODEL.trend;
+const NexusAI = {
+  answer(question) {
+    const q = question.toLowerCase().trim();
+    const meta = REAL_MODEL.meta;
+    const trend = REAL_MODEL.trend;
 
     // Top buildings
     if (q.includes('building') && (q.includes('most') || q.includes('top') || q.includes('highest'))) {
-      var top = REAL_MODEL.top_sites.slice(0, 5);
-      var list = top.map(function (s, i) {
-        return "".concat(i + 1, ". ").concat(s.name, ": ").concat(s.count.toLocaleString(), " verified pickups");
-      }).join('\n');
+      const top = REAL_MODEL.top_sites.slice(0, 5);
+      const list = top.map((s, i) => `${i + 1}. ${s.name}: ${s.count.toLocaleString()} verified pickups`).join('\n');
       return {
         type: 'calculated',
-        answer: "Based on ".concat(meta.usable_records.toLocaleString(), " verified LoadMan records (RFID-identified):\n\n").concat(list),
-        note: "These are the ".concat(meta.distinct_sites, " buildings with verified RFID pickup records. The remaining ").concat((79533 - meta.usable_records).toLocaleString(), " records lack building attribution."),
+        answer: `Based on ${meta.usable_records.toLocaleString()} verified LoadMan records (RFID-identified):\n\n${list}`,
+        note: `These are the ${meta.distinct_sites} buildings with verified RFID pickup records. The remaining ${(79533 - meta.usable_records).toLocaleString()} records lack building attribution.`,
         records_used: meta.usable_records,
         total_records: meta.total_raw_records
       };
@@ -3463,7 +3339,7 @@ var NexusAI = {
     if (q.includes('attribution') || q.includes('12.6') || q.includes('87.4')) {
       return {
         type: 'observed',
-        answer: "Of 79,533 total LoadMan records:\n- 9,989 (12.6%) pass all quality gates and have building attribution\n- 87.4% lack building attribution for verified reasons:\n  \u2022 31,725 records: epoch-default timestamp (Jan 1, 2001)\n  \u2022 ~28,000+ records: RFID system failure after Oct 2021\n  \u2022 Remaining: load type not \"Load Pickup\", missing RFID, or weight issues",
+        answer: `Of 79,533 total LoadMan records:\n- 9,989 (12.6%) pass all quality gates and have building attribution\n- 87.4% lack building attribution for verified reasons:\n  • 31,725 records: epoch-default timestamp (Jan 1, 2001)\n  • ~28,000+ records: RFID system failure after Oct 2021\n  • Remaining: load type not "Load Pickup", missing RFID, or weight issues`,
         note: 'Source: UIUC_LoadMan_Consolidated_Dataset.xlsx, analyzed for Betsy Ruckman, F&S.',
         records_used: 79533,
         total_records: 79533
@@ -3472,14 +3348,10 @@ var NexusAI = {
 
     // RFID failure
     if (q.includes('rfid') || q.includes('failure') || q.includes('cliff') || q.includes('stopped')) {
-      var peak = trend.filter(function (t) {
-        return t.rfid_rate > 0;
-      }).sort(function (a, b) {
-        return b.rfid_rate - a.rfid_rate;
-      })[0];
+      const peak = trend.filter(t => t.rfid_rate > 0).sort((a, b) => b.rfid_rate - a.rfid_rate)[0];
       return {
         type: 'observed',
-        answer: "RFID container detection failure timeline:\n- Dec 2019: 0% (pre-operational)\n- 2020: Gradual ramp from 3.3% to 69%\n- ".concat(peak.month, ": PEAK at ").concat(peak.rfid_rate, "% (").concat(peak.pickups.toLocaleString(), " pickups)\n- Aug-Oct 2021: Degraded to ~58-62%\n- Nov 2021 - Jul 2022: Gap in data\n- Aug 2022: 0% - never recovered\n\nBoth trucks failed simultaneously, indicating a system-level cause. Weights continued to be recorded - the data exists, container identity does not."),
+        answer: `RFID container detection failure timeline:\n- Dec 2019: 0% (pre-operational)\n- 2020: Gradual ramp from 3.3% to 69%\n- ${peak.month}: PEAK at ${peak.rfid_rate}% (${peak.pickups.toLocaleString()} pickups)\n- Aug-Oct 2021: Degraded to ~58-62%\n- Nov 2021 - Jul 2022: Gap in data\n- Aug 2022: 0% - never recovered\n\nBoth trucks failed simultaneously, indicating a system-level cause. Weights continued to be recorded - the data exists, container identity does not.`,
         note: 'CAUSE NOT ESTABLISHED from data alone. Physical investigation of vehicles and service records required.',
         records_used: 43759,
         total_records: 79533
@@ -3490,7 +3362,7 @@ var NexusAI = {
     if (q.includes('model') || q.includes('accuracy') || q.includes('gps') || q.includes('prediction') || q.includes('attribution engine')) {
       return {
         type: 'calculated',
-        answer: "Attribution Engine performance (held-out 20% test set):\n\nTier 1 - RFID Lookup:\n  Accuracy: 100% (deterministic)\n  Coverage: depends on RFID presence (currently 0% in post-Oct 2021 data)\n  Distinct RFIDs: 179 (all exclusive 1-to-1 building mapping)\n\nTier 2 - GPS Nearest-Centroid:\n  Top-1 accuracy: 84.8%\n  Top-3 accuracy: 97.8%\n  Coverage at 150m threshold: 91.6%\n  Training data: 123 building centroids from 9,989 labeled records\n\nTier 3 - Abstain:\n  Used when: no RFID and no GPS, or GPS >150m from any known centroid",
+        answer: `Attribution Engine performance (held-out 20% test set):\n\nTier 1 - RFID Lookup:\n  Accuracy: 100% (deterministic)\n  Coverage: depends on RFID presence (currently 0% in post-Oct 2021 data)\n  Distinct RFIDs: 179 (all exclusive 1-to-1 building mapping)\n\nTier 2 - GPS Nearest-Centroid:\n  Top-1 accuracy: 84.8%\n  Top-3 accuracy: 97.8%\n  Coverage at 150m threshold: 91.6%\n  Training data: 123 building centroids from 9,989 labeled records\n\nTier 3 - Abstain:\n  Used when: no RFID and no GPS, or GPS >150m from any known centroid`,
         note: 'Validation: 80/20 random split of 9,989 labeled records. GPS model uses Haversine nearest-centroid. No features beyond GPS coordinates.',
         records_used: 9989,
         total_records: 9989
@@ -3499,12 +3371,10 @@ var NexusAI = {
 
     // Stream distribution
     if (q.includes('stream') || q.includes('landfill') || q.includes('cardboard') || q.includes('paper') || q.includes('recycling') || q.includes('diversion')) {
-      var lines = REAL_MODEL.service_types.map(function (s) {
-        return "".concat(s.name, ": ").concat(s.count.toLocaleString(), " records (").concat((s.count / 9989 * 100).toFixed(1), "%)");
-      }).join('\n');
+      const lines = REAL_MODEL.service_types.map(s => `${s.name}: ${s.count.toLocaleString()} records (${(s.count / 9989 * 100).toFixed(1)}%)`).join('\n');
       return {
         type: 'calculated',
-        answer: "Waste stream distribution from Service Type field (9,989 usable records):\n\n".concat(lines, "\n\nNote: \"Landfill\" = Front Load-Landfill containers. \"Cardboard\"/\"Paper\" = recycling streams."),
+        answer: `Waste stream distribution from Service Type field (9,989 usable records):\n\n${lines}\n\nNote: "Landfill" = Front Load-Landfill containers. "Cardboard"/"Paper" = recycling streams.`,
         note: "Stream labels = intended destination at collection. Downstream verification required for diversion rate calculation. Diversion rate cannot be reliably calculated from this dataset without confirmed downstream disposition data.",
         records_used: 9989,
         total_records: 9989
@@ -3515,7 +3385,7 @@ var NexusAI = {
     if (q.includes('total') && (q.includes('record') || q.includes('weight') || q.includes('pickup'))) {
       return {
         type: 'observed',
-        answer: "Total LoadMan records: 79,533\n\nBreakdown:\n- Load Pickup events: 73,857 (92.9%)\n- Other event types: 5,676 (7.1%)\n\n- With valid pickup date: 43,759 (55.0%)\n- With RFID identification: 15,406 (19.4%)\n- With site/building resolved: 13,414 (16.9%)\n- Fully usable (all gates): 9,989 (12.6%)\n\nWeight data: captured in usable records but net weight requires confirmed NVW field definition.",
+        answer: `Total LoadMan records: 79,533\n\nBreakdown:\n- Load Pickup events: 73,857 (92.9%)\n- Other event types: 5,676 (7.1%)\n\n- With valid pickup date: 43,759 (55.0%)\n- With RFID identification: 15,406 (19.4%)\n- With site/building resolved: 13,414 (16.9%)\n- Fully usable (all gates): 9,989 (12.6%)\n\nWeight data: captured in usable records but net weight requires confirmed NVW field definition.`,
         note: 'Source: 79,533 raw records. Validity funnel computed from UIUC_LoadMan_Consolidated_Dataset.xlsx.',
         records_used: 79533,
         total_records: 79533
@@ -3526,7 +3396,7 @@ var NexusAI = {
     if (q.includes('2001') || q.includes('epoch') || q.includes('timestamp') || q.includes('date')) {
       return {
         type: 'observed',
-        answer: "28,337 records carry a timestamp of January 1, 2001.\n\nThis is a device clock default - it indicates the LoadMan unit powered on without a time synchronization. These are not records from 2001.\n\nImpact: 28,337 records are excluded from the valid-date gate (Gate 2) of the validity funnel, reducing 73,857 Load Pickup events to 43,759 with valid dates.",
+        answer: `28,337 records carry a timestamp of January 1, 2001.\n\nThis is a device clock default - it indicates the LoadMan unit powered on without a time synchronization. These are not records from 2001.\n\nImpact: 28,337 records are excluded from the valid-date gate (Gate 2) of the validity funnel, reducing 73,857 Load Pickup events to 43,759 with valid dates.`,
         note: 'Source: Validity funnel, Gate 2. The 2001 dates are a hardware/software artifact, not actual pickup dates.',
         records_used: 73857,
         total_records: 79533
@@ -3537,7 +3407,7 @@ var NexusAI = {
     if (q.includes('missing') || q.includes('gap') || q.includes('quality') || q.includes('what do we need')) {
       return {
         type: 'methodology',
-        answer: "Key data gaps in the LoadMan dataset:\n\n1. RFID system failed after Oct 2021 - no container identity in 2022-2025 records\n2. 28,337 epoch-default timestamps (device clock not synced)\n3. GPS only 40.1% overall (99.7% in labeled records)\n4. NVW field definition unconfirmed (values in millions - not per-pickup weight)\n5. Capacity/Volume/Density fields present but all zero (unconfigured)\n6. Downstream disposition not recorded (diversion rate unverifiable)\n\nFor GPS attribution to work at scale:\n- Need to confirm GPS accuracy in unattributed 2022-2025 records\n- Need to confirm whether GPS coordinates exist for epoch-date records",
+        answer: `Key data gaps in the LoadMan dataset:\n\n1. RFID system failed after Oct 2021 - no container identity in 2022-2025 records\n2. 28,337 epoch-default timestamps (device clock not synced)\n3. GPS only 40.1% overall (99.7% in labeled records)\n4. NVW field definition unconfirmed (values in millions - not per-pickup weight)\n5. Capacity/Volume/Density fields present but all zero (unconfigured)\n6. Downstream disposition not recorded (diversion rate unverifiable)\n\nFor GPS attribution to work at scale:\n- Need to confirm GPS accuracy in unattributed 2022-2025 records\n- Need to confirm whether GPS coordinates exist for epoch-date records`,
         note: 'See Field Inventory in UIUC_LoadMan_Consolidated_Dataset.xlsx for complete column analysis.',
         records_used: 0,
         total_records: 79533
@@ -3548,7 +3418,7 @@ var NexusAI = {
     if (q.includes('orchard') || q.includes('top site')) {
       return {
         type: 'observed',
-        answer: "ORCHARD DOWNS APARTMENTS has the most verified pickup records:\n1,711 of 9,989 total (17.1% of usable records)\n\nThis is a large off-campus student housing complex. The high pickup count suggests frequent collection frequency or large container volumes.\n\nNote: GPS spread at Orchard Downs averages 227m - the pickup locations are distributed across the complex, which may reduce GPS prediction accuracy for nearby sites.",
+        answer: `ORCHARD DOWNS APARTMENTS has the most verified pickup records:\n1,711 of 9,989 total (17.1% of usable records)\n\nThis is a large off-campus student housing complex. The high pickup count suggests frequent collection frequency or large container volumes.\n\nNote: GPS spread at Orchard Downs averages 227m - the pickup locations are distributed across the complex, which may reduce GPS prediction accuracy for nearby sites.`,
         note: 'Source: 9,989 usable records from UIUC_LoadMan_Consolidated_Dataset.xlsx.',
         records_used: 1711,
         total_records: 9989
@@ -3559,7 +3429,7 @@ var NexusAI = {
     if (q.includes('betsy') || q.includes('f&s') || q.includes('facilities')) {
       return {
         type: 'observed',
-        answer: "The LoadMan dataset was exported for and prepared for Betsy Ruckman, Zero Waste Coordinator, UIUC Facilities & Services.\n\nBetsy's identified priorities:\n1. Collection Log: more automatic field population, route knowledge\n2. Waste Explorer: visual weight breakdown, diversion clarity\n3. Overview: headline metrics with drill-down capability\n\nEnviroTrap's recommended next step (from the data): A route ride-along to compare manual records against LoadMan data during an actual collection run. This would help validate whether the RFID failure is vehicle-side, reader-side, or service-side.",
+        answer: `The LoadMan dataset was exported for and prepared for Betsy Ruckman, Zero Waste Coordinator, UIUC Facilities & Services.\n\nBetsy's identified priorities:\n1. Collection Log: more automatic field population, route knowledge\n2. Waste Explorer: visual weight breakdown, diversion clarity\n3. Overview: headline metrics with drill-down capability\n\nEnviroTrap's recommended next step (from the data): A route ride-along to compare manual records against LoadMan data during an actual collection run. This would help validate whether the RFID failure is vehicle-side, reader-side, or service-side.`,
         note: "Betsy's feedback is treated as qualitative stakeholder input, not proof of institutional adoption or approved pilot.",
         records_used: 0,
         total_records: 0
@@ -3570,7 +3440,7 @@ var NexusAI = {
     if (q.includes('nvw') || q.includes('weight')) {
       return {
         type: 'observed',
-        answer: "The NVW (Net Vehicle Weight?) field:\n- Present in 93.3% of records (74,241 rows)\n- Values run into the millions - these are NOT per-pickup net weights\n- The field appears to be a cumulative or raw counter, not an individual load weight\n- EnviroTrap excluded NVW from the funnel pending confirmation of its definition\n\nWeight in usable records comes from: gross load weight - container tare weight.\nBoth must be > 0, which is satisfied in 9,998 \u2192 9,989 records.",
+        answer: `The NVW (Net Vehicle Weight?) field:\n- Present in 93.3% of records (74,241 rows)\n- Values run into the millions - these are NOT per-pickup net weights\n- The field appears to be a cumulative or raw counter, not an individual load weight\n- EnviroTrap excluded NVW from the funnel pending confirmation of its definition\n\nWeight in usable records comes from: gross load weight - container tare weight.\nBoth must be > 0, which is satisfied in 9,998 → 9,989 records.`,
         note: 'NVW definition must be confirmed with the LoadMan operator before using for weight calculations.',
         records_used: 0,
         total_records: 79533
@@ -3582,44 +3452,33 @@ var NexusAI = {
     };
   }
 };
-var NEXUS_SUGGESTIONS = ['Which buildings have the most verified pickup records?', 'What is the attribution rate and why?', 'What happened to the RFID system?', 'How accurate is the GPS attribution model?', 'What is the breakdown by waste stream?', 'How many total records are in the dataset?', 'What data gaps prevent a diversion rate calculation?', 'What are the 2001 timestamp records?', 'What is the NVW field?', "What are Betsy's priorities?"];
+const NEXUS_SUGGESTIONS = ['Which buildings have the most verified pickup records?', 'What is the attribution rate and why?', 'What happened to the RFID system?', 'How accurate is the GPS attribution model?', 'What is the breakdown by waste stream?', 'How many total records are in the dataset?', 'What data gaps prevent a diversion rate calculation?', 'What are the 2001 timestamp records?', 'What is the NVW field?', "What are Betsy's priorities?"];
 function AskNexus() {
-  var _useState23 = useState(''),
-    _useState24 = _slicedToArray(_useState23, 2),
-    query = _useState24[0],
-    setQuery = _useState24[1];
-  var _useState25 = useState([]),
-    _useState26 = _slicedToArray(_useState25, 2),
-    history = _useState26[0],
-    setHistory = _useState26[1];
-  var _useState27 = useState(false),
-    _useState28 = _slicedToArray(_useState27, 2),
-    loading = _useState28[0],
-    setLoading = _useState28[1];
+  const [query, setQuery] = useState('');
+  const [history, setHistory] = useState([]);
+  const [loading, setLoading] = useState(false);
   function ask(q) {
-    var question = (q || query).trim();
+    const question = (q || query).trim();
     if (!question) return;
     setLoading(true);
     setQuery('');
-    setTimeout(function () {
-      var result = NexusAI.answer(question);
-      setHistory(function (h) {
-        return [_objectSpread(_objectSpread({
-          id: Date.now(),
-          question: question
-        }, result), {}, {
-          timestamp: new Date().toLocaleTimeString()
-        })].concat(_toConsumableArray(h));
-      });
+    setTimeout(() => {
+      const result = NexusAI.answer(question);
+      setHistory(h => [{
+        id: Date.now(),
+        question,
+        ...result,
+        timestamp: new Date().toLocaleTimeString()
+      }, ...h]);
       setLoading(false);
     }, 350);
   }
-  var typeColors = {
+  const typeColors = {
     calculated: PAL.teal,
     observed: PAL.navyLight,
     methodology: PAL.muted
   };
-  var typeLabels = {
+  const typeLabels = {
     calculated: 'Calculated Finding',
     observed: 'Observed Fact',
     methodology: 'Methodology'
@@ -3639,7 +3498,7 @@ function AskNexus() {
       padding: 14,
       marginBottom: 16,
       background: '#eff6ff',
-      borderLeft: "4px solid ".concat(PAL.navyLight)
+      borderLeft: `4px solid ${PAL.navyLight}`
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -3668,10 +3527,8 @@ function AskNexus() {
     }
   }, /*#__PURE__*/React.createElement("input", {
     value: query,
-    onChange: function onChange(e) {
-      return setQuery(e.target.value);
-    },
-    onKeyDown: function onKeyDown(e) {
+    onChange: e => setQuery(e.target.value),
+    onKeyDown: e => {
       if (e.key === 'Enter' && query.trim()) ask();
     },
     placeholder: "Ask a question about UIUC campus waste data...",
@@ -3681,9 +3538,7 @@ function AskNexus() {
     }
   }), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-primary",
-    onClick: function onClick() {
-      return ask();
-    },
+    onClick: () => ask(),
     disabled: loading || !query.trim()
   }, loading ? 'Computing...' : 'Ask')), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -3701,23 +3556,19 @@ function AskNexus() {
       flexWrap: 'wrap',
       gap: 6
     }
-  }, NEXUS_SUGGESTIONS.map(function (s) {
-    return /*#__PURE__*/React.createElement("button", {
-      key: s,
-      onClick: function onClick() {
-        return ask(s);
-      },
-      style: {
-        padding: '4px 10px',
-        borderRadius: 12,
-        border: "1px solid ".concat(PAL.border),
-        background: PAL.white,
-        cursor: 'pointer',
-        fontSize: 11,
-        color: PAL.navy
-      }
-    }, s);
-  })))), loading && /*#__PURE__*/React.createElement("div", {
+  }, NEXUS_SUGGESTIONS.map(s => /*#__PURE__*/React.createElement("button", {
+    key: s,
+    onClick: () => ask(s),
+    style: {
+      padding: '4px 10px',
+      borderRadius: 12,
+      border: `1px solid ${PAL.border}`,
+      background: PAL.white,
+      cursor: 'pointer',
+      fontSize: 11,
+      color: PAL.navy
+    }
+  }, s))))), loading && /*#__PURE__*/React.createElement("div", {
     style: {
       textAlign: 'center',
       padding: 20,
@@ -3741,7 +3592,7 @@ function AskNexus() {
       fontSize: 24,
       marginBottom: 8
     }
-  }, "\u25EF"), /*#__PURE__*/React.createElement("div", {
+  }, "◯"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontWeight: 600
     }
@@ -3750,179 +3601,147 @@ function AskNexus() {
       fontSize: 13,
       marginTop: 4
     }
-  }, "All answers computed from 79,533 actual UIUC LoadMan records")), history.map(function (h) {
-    return /*#__PURE__*/React.createElement("div", {
-      key: h.id,
-      className: "card",
-      style: {
-        padding: 16
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        marginBottom: 10
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontSize: 14,
-        fontWeight: 700,
-        color: PAL.navy
-      }
-    }, "Q: ", h.question), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontSize: 11,
-        color: PAL.muted
-      }
-    }, h.timestamp)), h.type === 'unknown' ? /*#__PURE__*/React.createElement("div", {
-      style: {
-        background: PAL.cream,
-        borderRadius: 6,
-        padding: 12,
-        fontSize: 13,
-        color: PAL.muted
-      }
-    }, "Ask Nexus could not find a handler for this question. Try the suggested questions above. Supported topics: buildings, attribution rate, RFID failure, GPS model, streams, total records, data gaps, timestamps, NVW, stakeholders.") : /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
-      style: {
-        display: 'inline-block',
-        padding: '2px 8px',
-        borderRadius: 12,
-        fontSize: 11,
-        fontWeight: 700,
-        background: (typeColors[h.type] || PAL.muted) + '22',
-        color: typeColors[h.type] || PAL.muted,
-        marginBottom: 8
-      }
-    }, typeLabels[h.type] || h.type), /*#__PURE__*/React.createElement("pre", {
-      style: {
-        margin: '0 0 12px',
-        fontSize: 13,
-        lineHeight: 1.7,
-        fontFamily: 'inherit',
-        whiteSpace: 'pre-wrap',
-        color: PAL.text,
-        background: PAL.cream,
-        borderRadius: 6,
-        padding: 12
-      }
-    }, h.answer), h.note && /*#__PURE__*/React.createElement("div", {
-      style: {
-        background: PAL.amberBg,
-        border: "1px solid #fde68a",
-        borderRadius: 6,
-        padding: '8px 12px',
-        fontSize: 12,
-        color: '#92400e'
-      }
-    }, /*#__PURE__*/React.createElement("strong", null, "Source / Note:"), " ", h.note), h.records_used > 0 && /*#__PURE__*/React.createElement("div", {
-      style: {
-        marginTop: 6,
-        fontSize: 11,
-        color: PAL.muted
-      }
-    }, "Computed from ", h.records_used.toLocaleString(), " of ", h.total_records.toLocaleString(), " total records.")));
-  })));
+  }, "All answers computed from 79,533 actual UIUC LoadMan records")), history.map(h => /*#__PURE__*/React.createElement("div", {
+    key: h.id,
+    className: "card",
+    style: {
+      padding: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      marginBottom: 10
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 700,
+      color: PAL.navy
+    }
+  }, "Q: ", h.question), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      color: PAL.muted
+    }
+  }, h.timestamp)), h.type === 'unknown' ? /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: PAL.cream,
+      borderRadius: 6,
+      padding: 12,
+      fontSize: 13,
+      color: PAL.muted
+    }
+  }, "Ask Nexus could not find a handler for this question. Try the suggested questions above. Supported topics: buildings, attribution rate, RFID failure, GPS model, streams, total records, data gaps, timestamps, NVW, stakeholders.") : /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'inline-block',
+      padding: '2px 8px',
+      borderRadius: 12,
+      fontSize: 11,
+      fontWeight: 700,
+      background: (typeColors[h.type] || PAL.muted) + '22',
+      color: typeColors[h.type] || PAL.muted,
+      marginBottom: 8
+    }
+  }, typeLabels[h.type] || h.type), /*#__PURE__*/React.createElement("pre", {
+    style: {
+      margin: '0 0 12px',
+      fontSize: 13,
+      lineHeight: 1.7,
+      fontFamily: 'inherit',
+      whiteSpace: 'pre-wrap',
+      color: PAL.text,
+      background: PAL.cream,
+      borderRadius: 6,
+      padding: 12
+    }
+  }, h.answer), h.note && /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: PAL.amberBg,
+      border: `1px solid #fde68a`,
+      borderRadius: 6,
+      padding: '8px 12px',
+      fontSize: 12,
+      color: '#92400e'
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "Source / Note:"), " ", h.note), h.records_used > 0 && /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 6,
+      fontSize: 11,
+      color: PAL.muted
+    }
+  }, "Computed from ", h.records_used.toLocaleString(), " of ", h.total_records.toLocaleString(), " total records."))))));
 }
 
 // ─── COLLECTION LOG ───────────────────────────────────────────────────────────
 function CollectionLog() {
-  var now = new Date();
-  var dow = now.getDay();
-  var hour = now.getHours();
-  var timeStr = "".concat(String(hour).padStart(2, '0'), ":").concat(String(now.getMinutes()).padStart(2, '0'));
-  var _useState29 = useState({
-      route_id: '',
-      building_id: '',
-      container: '',
-      time: timeStr,
-      gross: '',
-      tare: '',
-      stream: '',
-      notes: '',
-      flags: []
-    }),
-    _useState30 = _slicedToArray(_useState29, 2),
-    form = _useState30[0],
-    setForm = _useState30[1];
-  var _useState31 = useState([]),
-    _useState32 = _slicedToArray(_useState31, 2),
-    logs = _useState32[0],
-    setLogs = _useState32[1];
-  var _useState33 = useState({}),
-    _useState34 = _slicedToArray(_useState33, 2),
-    errors = _useState34[0],
-    setErrors = _useState34[1];
-  var _useState35 = useState(false),
-    _useState36 = _slicedToArray(_useState35, 2),
-    ok = _useState36[0],
-    setOk = _useState36[1];
-  var _useState37 = useState(false),
-    _useState38 = _slicedToArray(_useState37, 2),
-    duplicate = _useState38[0],
-    setDuplicate = _useState38[1];
-  var _useState39 = useState(null),
-    _useState40 = _slicedToArray(_useState39, 2),
-    weightWarn = _useState40[0],
-    setWeightWarn = _useState40[1];
-  var suggestedRoutes = ROUTE_DEFS.filter(function (r) {
-    return r.days.includes(dow) && hour >= r.startHour && hour <= r.endHour;
+  const now = new Date();
+  const dow = now.getDay();
+  const hour = now.getHours();
+  const timeStr = `${String(hour).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+  const [form, setForm] = useState({
+    route_id: '',
+    building_id: '',
+    container: '',
+    time: timeStr,
+    gross: '',
+    tare: '',
+    stream: '',
+    notes: '',
+    flags: []
   });
-  var selectedRoute = ROUTE_DEFS.find(function (r) {
-    return r.id === form.route_id;
-  });
-  var availableBuildings = form.route_id ? DEMO_BUILDINGS.filter(function (b) {
-    return selectedRoute === null || selectedRoute === void 0 ? void 0 : selectedRoute.buildings.includes(b.id);
-  }) : DEMO_BUILDINGS;
-  var otherBuildings = form.route_id ? DEMO_BUILDINGS.filter(function (b) {
-    return !(selectedRoute !== null && selectedRoute !== void 0 && selectedRoute.buildings.includes(b.id));
-  }) : [];
-  var availableContainers = (selectedRoute === null || selectedRoute === void 0 ? void 0 : selectedRoute.containers) || ['Front Load-Landfill-6', 'Front Load-Landfill-8', 'Front Load-Cardboard-8', 'Front Load-Paper-2'];
-  var FLAGS = ['Container overfull', 'Access blocked', 'Contamination observed', 'Damaged container', 'Safety concern'];
-  var net = form.gross && form.tare ? (parseFloat(form.gross) - parseFloat(form.tare)).toFixed(1) : form.gross || '';
+  const [logs, setLogs] = useState([]);
+  const [errors, setErrors] = useState({});
+  const [ok, setOk] = useState(false);
+  const [duplicate, setDuplicate] = useState(false);
+  const [weightWarn, setWeightWarn] = useState(null);
+  const suggestedRoutes = ROUTE_DEFS.filter(r => r.days.includes(dow) && hour >= r.startHour && hour <= r.endHour);
+  const selectedRoute = ROUTE_DEFS.find(r => r.id === form.route_id);
+  const availableBuildings = form.route_id ? DEMO_BUILDINGS.filter(b => selectedRoute?.buildings.includes(b.id)) : DEMO_BUILDINGS;
+  const otherBuildings = form.route_id ? DEMO_BUILDINGS.filter(b => !selectedRoute?.buildings.includes(b.id)) : [];
+  const availableContainers = selectedRoute?.containers || ['Front Load-Landfill-6', 'Front Load-Landfill-8', 'Front Load-Cardboard-8', 'Front Load-Paper-2'];
+  const FLAGS = ['Container overfull', 'Access blocked', 'Contamination observed', 'Damaged container', 'Safety concern'];
+  const net = form.gross && form.tare ? (parseFloat(form.gross) - parseFloat(form.tare)).toFixed(1) : form.gross || '';
   function up(k, v) {
-    setErrors(function (e) {
-      return _objectSpread(_objectSpread({}, e), {}, _defineProperty({}, k, null));
-    });
-    var updated = _objectSpread(_objectSpread({}, form), {}, _defineProperty({}, k, v));
+    setErrors(e => ({
+      ...e,
+      [k]: null
+    }));
+    const updated = {
+      ...form,
+      [k]: v
+    };
     if (k === 'route_id') {
       updated.building_id = '';
       updated.container = '';
     }
     setForm(updated);
     if (k === 'gross' || k === 'tare') {
-      var n = parseFloat(updated.gross) || 0,
+      const n = parseFloat(updated.gross) || 0,
         t = parseFloat(updated.tare) || 0;
-      if (n > 0 && t >= n) setErrors(function (e) {
-        return _objectSpread(_objectSpread({}, e), {}, {
-          tare: 'Tare must be less than gross weight'
-        });
-      });
+      if (n > 0 && t >= n) setErrors(e => ({
+        ...e,
+        tare: 'Tare must be less than gross weight'
+      }));
     }
   }
-  useEffect(function () {
+  useEffect(() => {
     if (form.route_id && !form.container) {
-      var _ROUTE_DEFS$find;
-      var c = (_ROUTE_DEFS$find = ROUTE_DEFS.find(function (r) {
-        return r.id === form.route_id;
-      })) === null || _ROUTE_DEFS$find === void 0 ? void 0 : _ROUTE_DEFS$find.containers[0];
-      if (c) setForm(function (p) {
-        return _objectSpread(_objectSpread({}, p), {}, {
-          container: c
-        });
-      });
+      const c = ROUTE_DEFS.find(r => r.id === form.route_id)?.containers[0];
+      if (c) setForm(p => ({
+        ...p,
+        container: c
+      }));
     }
   }, [form.route_id]);
   function tf(f) {
-    setForm(function (p) {
-      return _objectSpread(_objectSpread({}, p), {}, {
-        flags: p.flags.includes(f) ? p.flags.filter(function (x) {
-          return x !== f;
-        }) : [].concat(_toConsumableArray(p.flags), [f])
-      });
-    });
+    setForm(p => ({
+      ...p,
+      flags: p.flags.includes(f) ? p.flags.filter(x => x !== f) : [...p.flags, f]
+    }));
   }
   function validate() {
-    var e = {};
+    const e = {};
     if (!form.route_id) e.route_id = 'Select a route';
     if (!form.building_id) e.building_id = 'Select a building';
     if (!form.stream) e.stream = 'Select a stream';
@@ -3931,33 +3750,27 @@ function CollectionLog() {
     return e;
   }
   function sub() {
-    var e = validate();
+    const e = validate();
     if (Object.keys(e).length > 0) {
       setErrors(e);
       return;
     }
-    var route = ROUTE_DEFS.find(function (r) {
-      return r.id === form.route_id;
-    });
-    var bld = DEMO_BUILDINGS.find(function (b) {
-      return b.id === form.building_id;
-    });
-    setLogs(function (p) {
-      return [{
-        id: "COL".concat(Date.now()),
-        date: new Date().toISOString().slice(0, 10),
-        time: form.time,
-        route: route === null || route === void 0 ? void 0 : route.label,
-        building: bld === null || bld === void 0 ? void 0 : bld.name,
-        container: form.container,
-        stream: form.stream,
-        net: net || 'Not recorded',
-        flags: form.flags,
-        notes: form.notes
-      }].concat(_toConsumableArray(p));
-    });
+    const route = ROUTE_DEFS.find(r => r.id === form.route_id);
+    const bld = DEMO_BUILDINGS.find(b => b.id === form.building_id);
+    setLogs(p => [{
+      id: `COL${Date.now()}`,
+      date: new Date().toISOString().slice(0, 10),
+      time: form.time,
+      route: route?.label,
+      building: bld?.name,
+      container: form.container,
+      stream: form.stream,
+      net: net || 'Not recorded',
+      flags: form.flags,
+      notes: form.notes
+    }, ...p]);
     setOk(true);
-    setTimeout(function () {
+    setTimeout(() => {
       setOk(false);
       setForm({
         route_id: '',
@@ -3981,7 +3794,7 @@ function CollectionLog() {
     }
   }, /*#__PURE__*/React.createElement(SH, {
     title: "Collection Log",
-    sub: "Driver interface - smart suggestions based on verified route schedules (demo data)"
+    sub: "Driver interface — demo routes shown below are synthetic examples, not actual F&S route assignments."
   }), ok && /*#__PURE__*/React.createElement("div", {
     style: {
       background: '#cce5d8',
@@ -3993,7 +3806,22 @@ function CollectionLog() {
       fontWeight: 600,
       marginBottom: 14
     }
-  }, "Pickup logged successfully"), suggestedRoutes.length > 0 && !form.route_id && /*#__PURE__*/React.createElement("div", {
+  }, "Pickup logged successfully"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: '#fffbeb',
+      border: `1px solid ${PAL.amber}`,
+      borderRadius: 8,
+      padding: 12,
+      marginBottom: 14,
+      fontSize: 12,
+      color: PAL.text,
+      lineHeight: 1.6
+    }
+  }, /*#__PURE__*/React.createElement("strong", {
+    style: {
+      color: PAL.amberDark
+    }
+  }, "Demo routes — not actual F&S route assignments."), ' ', "Route names, buildings, and schedules below are synthetic examples derived from real campus building names. Real F&S route and truck assignments have not been configured. When Betsy provides authorized route data, it will replace these examples. ", /*#__PURE__*/React.createElement("strong", null, "Do not submit entries from this form as operational records.")), suggestedRoutes.length > 0 && !form.route_id && /*#__PURE__*/React.createElement("div", {
     style: {
       background: '#eff6ff',
       border: '1px solid #bfdbfe',
@@ -4014,24 +3842,20 @@ function CollectionLog() {
       flexWrap: 'wrap',
       gap: 7
     }
-  }, suggestedRoutes.map(function (r) {
-    return /*#__PURE__*/React.createElement("button", {
-      key: r.id,
-      onClick: function onClick() {
-        return up('route_id', r.id);
-      },
-      style: {
-        padding: '5px 12px',
-        borderRadius: 5,
-        border: "1px solid ".concat(PAL.navyLight),
-        background: PAL.white,
-        color: PAL.navyLight,
-        cursor: 'pointer',
-        fontSize: 13,
-        fontWeight: 600
-      }
-    }, r.label);
-  }))), /*#__PURE__*/React.createElement("div", {
+  }, suggestedRoutes.map(r => /*#__PURE__*/React.createElement("button", {
+    key: r.id,
+    onClick: () => up('route_id', r.id),
+    style: {
+      padding: '5px 12px',
+      borderRadius: 5,
+      border: `1px solid ${PAL.navyLight}`,
+      background: PAL.white,
+      color: PAL.navyLight,
+      cursor: 'pointer',
+      fontSize: 13,
+      fontWeight: 600
+    }
+  }, r.label)))), /*#__PURE__*/React.createElement("div", {
     className: "card",
     style: {
       padding: 16
@@ -4056,20 +3880,16 @@ function CollectionLog() {
     }
   }, "*")), /*#__PURE__*/React.createElement("select", {
     value: form.route_id,
-    onChange: function onChange(e) {
-      return up('route_id', e.target.value);
-    },
+    onChange: e => up('route_id', e.target.value),
     style: {
-      border: "1px solid ".concat(errors.route_id ? PAL.red : PAL.border)
+      border: `1px solid ${errors.route_id ? PAL.red : PAL.border}`
     }
   }, /*#__PURE__*/React.createElement("option", {
     value: ""
-  }, "Select route..."), ROUTE_DEFS.map(function (r) {
-    return /*#__PURE__*/React.createElement("option", {
-      key: r.id,
-      value: r.id
-    }, r.label);
-  })), errors.route_id && /*#__PURE__*/React.createElement("div", {
+  }, "Select route..."), ROUTE_DEFS.map(r => /*#__PURE__*/React.createElement("option", {
+    key: r.id,
+    value: r.id
+  }, r.label))), errors.route_id && /*#__PURE__*/React.createElement("div", {
     style: {
       color: PAL.red,
       fontSize: 12,
@@ -4102,27 +3922,21 @@ function CollectionLog() {
     }
   }, "Filtered to route")), /*#__PURE__*/React.createElement("select", {
     value: form.building_id,
-    onChange: function onChange(e) {
-      return up('building_id', e.target.value);
-    },
+    onChange: e => up('building_id', e.target.value),
     style: {
-      border: "1px solid ".concat(errors.building_id ? PAL.red : PAL.border)
+      border: `1px solid ${errors.building_id ? PAL.red : PAL.border}`
     }
   }, /*#__PURE__*/React.createElement("option", {
     value: ""
-  }, "Select building..."), availableBuildings.map(function (b) {
-    return /*#__PURE__*/React.createElement("option", {
-      key: b.id,
-      value: b.id
-    }, b.name);
-  }), form.route_id && otherBuildings.length > 0 && /*#__PURE__*/React.createElement("option", {
+  }, "Select building..."), availableBuildings.map(b => /*#__PURE__*/React.createElement("option", {
+    key: b.id,
+    value: b.id
+  }, b.name)), form.route_id && otherBuildings.length > 0 && /*#__PURE__*/React.createElement("option", {
     disabled: true
-  }, "-- Other buildings (outside route) --"), form.route_id && otherBuildings.map(function (b) {
-    return /*#__PURE__*/React.createElement("option", {
-      key: b.id + '_',
-      value: b.id
-    }, b.name);
-  })), errors.building_id && /*#__PURE__*/React.createElement("div", {
+  }, "-- Other buildings (outside route) --"), form.route_id && otherBuildings.map(b => /*#__PURE__*/React.createElement("option", {
+    key: b.id + '_',
+    value: b.id
+  }, b.name))), errors.building_id && /*#__PURE__*/React.createElement("div", {
     style: {
       color: PAL.red,
       fontSize: 12,
@@ -4145,17 +3959,13 @@ function CollectionLog() {
     }
   }, "Pre-filled from route")), /*#__PURE__*/React.createElement("select", {
     value: form.container,
-    onChange: function onChange(e) {
-      return up('container', e.target.value);
-    }
+    onChange: e => up('container', e.target.value)
   }, /*#__PURE__*/React.createElement("option", {
     value: ""
-  }, "Select container..."), availableContainers.map(function (c) {
-    return /*#__PURE__*/React.createElement("option", {
-      key: c,
-      value: c
-    }, c);
-  }))), /*#__PURE__*/React.createElement("div", {
+  }, "Select container..."), availableContainers.map(c => /*#__PURE__*/React.createElement("option", {
+    key: c,
+    value: c
+  }, c)))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'grid',
       gridTemplateColumns: '1fr 1fr 1fr',
@@ -4176,9 +3986,7 @@ function CollectionLog() {
   }, "*")), /*#__PURE__*/React.createElement("input", {
     type: "time",
     value: form.time,
-    onChange: function onChange(e) {
-      return up('time', e.target.value);
-    },
+    onChange: e => up('time', e.target.value),
     style: {
       width: 'auto'
     }
@@ -4200,9 +4008,7 @@ function CollectionLog() {
     type: "number",
     min: "0",
     value: form.gross,
-    onChange: function onChange(e) {
-      return up('gross', e.target.value);
-    },
+    onChange: e => up('gross', e.target.value),
     placeholder: "Optional"
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
     style: {
@@ -4216,9 +4022,7 @@ function CollectionLog() {
     type: "number",
     min: "0",
     value: form.tare,
-    onChange: function onChange(e) {
-      return up('tare', e.target.value);
-    },
+    onChange: e => up('tare', e.target.value),
     placeholder: "Optional"
   }), errors.tare && /*#__PURE__*/React.createElement("div", {
     style: {
@@ -4251,24 +4055,20 @@ function CollectionLog() {
       flexWrap: 'wrap',
       gap: 7
     }
-  }, ['Landfill', 'Cardboard', 'Paper'].map(function (s) {
-    return /*#__PURE__*/React.createElement("button", {
-      key: s,
-      onClick: function onClick() {
-        return up('stream', s);
-      },
-      style: {
-        padding: '7px 14px',
-        borderRadius: 6,
-        border: "2px solid ".concat(form.stream === s ? PAL.navyLight : PAL.border),
-        background: form.stream === s ? PAL.navyLight : PAL.white,
-        color: form.stream === s ? '#fff' : PAL.text,
-        cursor: 'pointer',
-        fontSize: 13,
-        fontWeight: 600
-      }
-    }, s);
-  })), errors.stream && /*#__PURE__*/React.createElement("div", {
+  }, ['Landfill', 'Cardboard', 'Paper'].map(s => /*#__PURE__*/React.createElement("button", {
+    key: s,
+    onClick: () => up('stream', s),
+    style: {
+      padding: '7px 14px',
+      borderRadius: 6,
+      border: `2px solid ${form.stream === s ? PAL.navyLight : PAL.border}`,
+      background: form.stream === s ? PAL.navyLight : PAL.white,
+      color: form.stream === s ? '#fff' : PAL.text,
+      cursor: 'pointer',
+      fontSize: 13,
+      fontWeight: 600
+    }
+  }, s))), errors.stream && /*#__PURE__*/React.createElement("div", {
     style: {
       color: PAL.red,
       fontSize: 12,
@@ -4288,23 +4088,19 @@ function CollectionLog() {
       flexWrap: 'wrap',
       gap: 7
     }
-  }, FLAGS.map(function (f) {
-    return /*#__PURE__*/React.createElement("button", {
-      key: f,
-      onClick: function onClick() {
-        return tf(f);
-      },
-      style: {
-        padding: '5px 11px',
-        borderRadius: 5,
-        border: "1px solid ".concat(form.flags.includes(f) ? PAL.amber : PAL.border),
-        background: form.flags.includes(f) ? '#fef9ec' : PAL.white,
-        color: form.flags.includes(f) ? PAL.amberDark : PAL.text,
-        cursor: 'pointer',
-        fontSize: 12
-      }
-    }, f);
-  }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+  }, FLAGS.map(f => /*#__PURE__*/React.createElement("button", {
+    key: f,
+    onClick: () => tf(f),
+    style: {
+      padding: '5px 11px',
+      borderRadius: 5,
+      border: `1px solid ${form.flags.includes(f) ? PAL.amber : PAL.border}`,
+      background: form.flags.includes(f) ? '#fef9ec' : PAL.white,
+      color: form.flags.includes(f) ? PAL.amberDark : PAL.text,
+      cursor: 'pointer',
+      fontSize: 12
+    }
+  }, f)))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
     style: {
       fontSize: 13,
       fontWeight: 600,
@@ -4314,9 +4110,7 @@ function CollectionLog() {
     }
   }, "Notes"), /*#__PURE__*/React.createElement("textarea", {
     value: form.notes,
-    onChange: function onChange(e) {
-      return up('notes', e.target.value);
-    },
+    onChange: e => up('notes', e.target.value),
     rows: 2,
     placeholder: "Operational observations...",
     style: {
@@ -4339,7 +4133,7 @@ function CollectionLog() {
     }
   }, "Log Pickup"), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-secondary",
-    onClick: function onClick() {
+    onClick: () => {
       setForm({
         route_id: '',
         building_id: '',
@@ -4373,50 +4167,46 @@ function CollectionLog() {
       color: PAL.navy,
       marginBottom: 10
     }
-  }, "Session Log (", logs.length, ")"), logs.map(function (l) {
-    return /*#__PURE__*/React.createElement("div", {
-      key: l.id,
-      className: "card",
-      style: {
-        padding: 12,
-        marginBottom: 8
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        gap: 8
-      }
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontWeight: 700,
-        fontSize: 13
-      }
-    }, l.building), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontSize: 12,
-        color: PAL.muted
-      }
-    }, l.date, " at ", l.time, " - ", l.route, " - Net: ", l.net, " lbs")), /*#__PURE__*/React.createElement(Badge, {
-      cls: "badge ".concat(l.stream === 'Cardboard' || l.stream === 'Paper' ? 'badge-navy' : 'badge-gray')
-    }, l.stream)), l.flags.length > 0 && /*#__PURE__*/React.createElement("div", {
-      style: {
-        marginTop: 6,
-        display: 'flex',
-        gap: 5
-      }
-    }, l.flags.map(function (f) {
-      return /*#__PURE__*/React.createElement("span", {
-        key: f,
-        className: "badge badge-amber"
-      }, f);
-    })));
-  })));
+  }, "Session Log (", logs.length, ")"), logs.map(l => /*#__PURE__*/React.createElement("div", {
+    key: l.id,
+    className: "card",
+    style: {
+      padding: 12,
+      marginBottom: 8
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      flexWrap: 'wrap',
+      gap: 8
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 700,
+      fontSize: 13
+    }
+  }, l.building), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted
+    }
+  }, l.date, " at ", l.time, " - ", l.route, " - Net: ", l.net, " lbs")), /*#__PURE__*/React.createElement(Badge, {
+    cls: `badge ${l.stream === 'Cardboard' || l.stream === 'Paper' ? 'badge-navy' : 'badge-gray'}`
+  }, l.stream)), l.flags.length > 0 && /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 6,
+      display: 'flex',
+      gap: 5
+    }
+  }, l.flags.map(f => /*#__PURE__*/React.createElement("span", {
+    key: f,
+    className: "badge badge-amber"
+  }, f)))))));
 }
 
 // ─── WASTE AUDITS ─────────────────────────────────────────────────────────────
-var DEMO_AUDITS = [{
+const DEMO_AUDITS = [{
   id: 'AUD001',
   title: 'Illini Union General Waste Audit',
   building_id: 'B001',
@@ -4514,72 +4304,49 @@ var DEMO_AUDITS = [{
   notes: 'Plastics higher than expected - lab consumables suspected.'
 }];
 function WasteAudits() {
-  var _useState41 = useState(DEMO_AUDITS),
-    _useState42 = _slicedToArray(_useState41, 2),
-    audits = _useState42[0],
-    setAudits = _useState42[1];
-  var _useState43 = useState(null),
-    _useState44 = _slicedToArray(_useState43, 2),
-    sel = _useState44[0],
-    setSel = _useState44[1];
-  var _useState45 = useState(false),
-    _useState46 = _slicedToArray(_useState45, 2),
-    modal = _useState46[0],
-    setModal = _useState46[1];
-  var _useState47 = useState({
-      title: '',
-      building_id: '',
-      date: '',
-      stream: '',
-      auditors: '',
-      notes: ''
-    }),
-    _useState48 = _slicedToArray(_useState47, 2),
-    nA = _useState48[0],
-    setNA = _useState48[1];
-  var _useState49 = useState({}),
-    _useState50 = _slicedToArray(_useState49, 2),
-    errors = _useState50[0],
-    setErrors = _useState50[1];
-  var MC_local = ['#1e3a5f', '#2d6a4f', '#3b6fae', '#e9a825', '#66b089', '#c4a360'];
-  function AuditDetail(_ref20) {
-    var audit = _ref20.audit;
-    var _useState51 = useState(audit.materials.length > 0 ? audit.materials : [{
-        name: 'Paper',
-        weight: ''
-      }, {
-        name: 'Cardboard',
-        weight: ''
-      }, {
-        name: 'Plastics',
-        weight: ''
-      }, {
-        name: 'Metals',
-        weight: ''
-      }, {
-        name: 'Food Waste',
-        weight: ''
-      }, {
-        name: 'Paper Towels',
-        weight: ''
-      }, {
-        name: 'Other',
-        weight: ''
-      }]),
-      _useState52 = _slicedToArray(_useState51, 2),
-      mats = _useState52[0],
-      setMats = _useState52[1];
-    var total = mats.reduce(function (s, m) {
-      return s + (parseFloat(m.weight) || 0);
-    }, 0);
-    var pie = mats.filter(function (m) {
-      return parseFloat(m.weight) > 0;
-    }).map(function (m) {
-      return {
-        name: m.name,
-        value: parseFloat(m.weight)
-      };
-    });
+  const [audits, setAudits] = useState(DEMO_AUDITS);
+  const [sel, setSel] = useState(null);
+  const [modal, setModal] = useState(false);
+  const [nA, setNA] = useState({
+    title: '',
+    building_id: '',
+    date: '',
+    stream: '',
+    auditors: '',
+    notes: ''
+  });
+  const [errors, setErrors] = useState({});
+  const MC_local = ['#1e3a5f', '#2d6a4f', '#3b6fae', '#e9a825', '#66b089', '#c4a360'];
+  function AuditDetail({
+    audit
+  }) {
+    const [mats, setMats] = useState(audit.materials.length > 0 ? audit.materials : [{
+      name: 'Paper',
+      weight: ''
+    }, {
+      name: 'Cardboard',
+      weight: ''
+    }, {
+      name: 'Plastics',
+      weight: ''
+    }, {
+      name: 'Metals',
+      weight: ''
+    }, {
+      name: 'Food Waste',
+      weight: ''
+    }, {
+      name: 'Paper Towels',
+      weight: ''
+    }, {
+      name: 'Other',
+      weight: ''
+    }]);
+    const total = mats.reduce((s, m) => s + (parseFloat(m.weight) || 0), 0);
+    const pie = mats.filter(m => parseFloat(m.weight) > 0).map(m => ({
+      name: m.name,
+      value: parseFloat(m.weight)
+    }));
     return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
       style: {
         display: 'flex',
@@ -4589,9 +4356,7 @@ function WasteAudits() {
       }
     }, /*#__PURE__*/React.createElement("button", {
       className: "btn btn-secondary btn-sm",
-      onClick: function onClick() {
-        return setSel(null);
-      }
+      onClick: () => setSel(null)
     }, "Back"), /*#__PURE__*/React.createElement("h3", {
       style: {
         margin: 0,
@@ -4601,7 +4366,7 @@ function WasteAudits() {
         color: PAL.navy
       }
     }, audit.title), /*#__PURE__*/React.createElement("span", {
-      className: "badge ".concat(audit.status === 'Completed' ? 'badge-green' : audit.status === 'In Progress' ? 'badge-amber' : 'badge-gray')
+      className: `badge ${audit.status === 'Completed' ? 'badge-green' : audit.status === 'In Progress' ? 'badge-amber' : 'badge-gray'}`
     }, audit.status)), /*#__PURE__*/React.createElement("div", {
       style: {
         display: 'grid',
@@ -4621,29 +4386,24 @@ function WasteAudits() {
         color: PAL.navy,
         marginBottom: 8
       }
-    }, "Details"), [['Building', audit.building_name], ['Date', audit.date], ['Stream', audit.stream], ['Auditors', audit.auditors.join(', ')], ['Sample Weight', audit.sample_weight_lbs ? "".concat(audit.sample_weight_lbs, " lbs") : 'Not recorded']].map(function (_ref21) {
-      var _ref22 = _slicedToArray(_ref21, 2),
-        k = _ref22[0],
-        v = _ref22[1];
-      return /*#__PURE__*/React.createElement("div", {
-        key: k,
-        style: {
-          display: 'flex',
-          justifyContent: 'space-between',
-          padding: '5px 0',
-          borderBottom: "1px solid ".concat(PAL.border),
-          fontSize: 13
-        }
-      }, /*#__PURE__*/React.createElement("span", {
-        style: {
-          color: PAL.muted
-        }
-      }, k), /*#__PURE__*/React.createElement("span", {
-        style: {
-          fontWeight: 600
-        }
-      }, v || 'N/A'));
-    }), audit.notes && /*#__PURE__*/React.createElement("p", {
+    }, "Details"), [['Building', audit.building_name], ['Date', audit.date], ['Stream', audit.stream], ['Auditors', audit.auditors.join(', ')], ['Sample Weight', audit.sample_weight_lbs ? `${audit.sample_weight_lbs} lbs` : 'Not recorded']].map(([k, v]) => /*#__PURE__*/React.createElement("div", {
+      key: k,
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '5px 0',
+        borderBottom: `1px solid ${PAL.border}`,
+        fontSize: 13
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: PAL.muted
+      }
+    }, k), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontWeight: 600
+      }
+    }, v || 'N/A'))), audit.notes && /*#__PURE__*/React.createElement("p", {
       style: {
         margin: '10px 0 0',
         fontSize: 12,
@@ -4670,21 +4430,16 @@ function WasteAudits() {
       cy: "50%",
       outerRadius: 65,
       dataKey: "value",
-      label: function label(_ref23) {
-        var name = _ref23.name,
-          percent = _ref23.percent;
-        return "".concat(name.split(' ')[0], " ").concat((percent * 100).toFixed(0), "%");
-      },
+      label: ({
+        name,
+        percent
+      }) => `${name.split(' ')[0]} ${(percent * 100).toFixed(0)}%`,
       labelLine: false
-    }, pie.map(function (e, i) {
-      return /*#__PURE__*/React.createElement(Cell, {
-        key: i,
-        fill: MC_local[i % MC_local.length]
-      });
-    })), /*#__PURE__*/React.createElement(Tooltip, {
-      formatter: function formatter(v, n) {
-        return ["".concat(v, " lbs (").concat((v / total * 100).toFixed(1), "%)"), n];
-      }
+    }, pie.map((e, i) => /*#__PURE__*/React.createElement(Cell, {
+      key: i,
+      fill: MC_local[i % MC_local.length]
+    }))), /*#__PURE__*/React.createElement(Tooltip, {
+      formatter: (v, n) => [`${v} lbs (${(v / total * 100).toFixed(1)}%)`, n]
     }))))), /*#__PURE__*/React.createElement("div", {
       className: "card",
       style: {
@@ -4703,34 +4458,29 @@ function WasteAudits() {
         gridTemplateColumns: 'repeat(auto-fit,minmax(150px,1fr))',
         gap: 8
       }
-    }, mats.map(function (m, i) {
-      return /*#__PURE__*/React.createElement("div", {
-        key: m.name
-      }, /*#__PURE__*/React.createElement("label", {
-        style: {
-          fontSize: 12,
-          color: PAL.muted,
-          display: 'block',
-          marginBottom: 3
-        }
-      }, m.name), /*#__PURE__*/React.createElement("input", {
-        type: "number",
-        min: "0",
-        step: "0.1",
-        value: m.weight,
-        placeholder: "0.0",
-        onChange: function onChange(e) {
-          var v = parseFloat(e.target.value) || '';
-          setMats(function (p) {
-            return p.map(function (x, j) {
-              return j === i ? _objectSpread(_objectSpread({}, x), {}, {
-                weight: v
-              }) : x;
-            });
-          });
-        }
-      }));
-    })), total > 0 && /*#__PURE__*/React.createElement("div", {
+    }, mats.map((m, i) => /*#__PURE__*/React.createElement("div", {
+      key: m.name
+    }, /*#__PURE__*/React.createElement("label", {
+      style: {
+        fontSize: 12,
+        color: PAL.muted,
+        display: 'block',
+        marginBottom: 3
+      }
+    }, m.name), /*#__PURE__*/React.createElement("input", {
+      type: "number",
+      min: "0",
+      step: "0.1",
+      value: m.weight,
+      placeholder: "0.0",
+      onChange: e => {
+        const v = parseFloat(e.target.value) || '';
+        setMats(p => p.map((x, j) => j === i ? {
+          ...x,
+          weight: v
+        } : x));
+      }
+    })))), total > 0 && /*#__PURE__*/React.createElement("div", {
       style: {
         marginTop: 8,
         fontSize: 12,
@@ -4739,9 +4489,7 @@ function WasteAudits() {
     }, "Total entered: ", total.toFixed(1), " lbs")));
   }
   if (sel) {
-    var a = audits.find(function (x) {
-      return x.id === sel;
-    });
+    const a = audits.find(x => x.id === sel);
     return /*#__PURE__*/React.createElement("div", {
       style: {
         padding: 24
@@ -4751,7 +4499,7 @@ function WasteAudits() {
     }));
   }
   function create() {
-    var e = {};
+    const e = {};
     if (!nA.title.trim()) e.title = 'Required';
     if (!nA.building_id) e.building_id = 'Required';
     if (!nA.date) e.date = 'Required';
@@ -4759,26 +4507,20 @@ function WasteAudits() {
       setErrors(e);
       return;
     }
-    var b = DEMO_BUILDINGS.find(function (x) {
-      return x.id === nA.building_id;
-    });
-    setAudits(function (p) {
-      return [].concat(_toConsumableArray(p), [{
-        id: "AUD".concat(String(p.length + 1).padStart(3, '0')),
-        title: nA.title,
-        building_id: nA.building_id,
-        building_name: (b === null || b === void 0 ? void 0 : b.name) || '',
-        date: nA.date,
-        auditors: nA.auditors.split(',').map(function (x) {
-          return x.trim();
-        }).filter(Boolean),
-        status: 'Planned',
-        sample_weight_lbs: null,
-        stream: nA.stream || 'Landfill',
-        materials: [],
-        notes: nA.notes
-      }]);
-    });
+    const b = DEMO_BUILDINGS.find(x => x.id === nA.building_id);
+    setAudits(p => [...p, {
+      id: `AUD${String(p.length + 1).padStart(3, '0')}`,
+      title: nA.title,
+      building_id: nA.building_id,
+      building_name: b?.name || '',
+      date: nA.date,
+      auditors: nA.auditors.split(',').map(x => x.trim()).filter(Boolean),
+      status: 'Planned',
+      sample_weight_lbs: null,
+      stream: nA.stream || 'Landfill',
+      materials: [],
+      notes: nA.notes
+    }]);
     setModal(false);
     setNA({
       title: '',
@@ -4799,9 +4541,7 @@ function WasteAudits() {
     sub: "Plan and document physical waste composition audits",
     action: /*#__PURE__*/React.createElement("button", {
       className: "btn btn-primary btn-sm",
-      onClick: function onClick() {
-        return setModal(true);
-      }
+      onClick: () => setModal(true)
     }, "+ New Audit")
   }), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -4809,54 +4549,47 @@ function WasteAudits() {
       flexDirection: 'column',
       gap: 10
     }
-  }, audits.map(function (a) {
-    var _sort$;
-    return /*#__PURE__*/React.createElement("div", {
-      key: a.id,
-      className: "card",
-      style: {
-        padding: 14,
-        cursor: 'pointer'
-      },
-      onClick: function onClick() {
-        return setSel(a.id);
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: 10
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        flex: 1
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontWeight: 700,
-        fontSize: 14,
-        color: PAL.navy
-      }
-    }, a.title), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontSize: 12,
-        color: PAL.muted,
-        marginTop: 3
-      }
-    }, a.building_name, " - ", a.date, " - ", a.stream), a.materials.length > 0 && /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontSize: 12,
-        color: PAL.text,
-        marginTop: 3
-      }
-    }, "Top material: ", (_sort$ = _toConsumableArray(a.materials).sort(function (x, y) {
-      return y.weight - x.weight;
-    })[0]) === null || _sort$ === void 0 ? void 0 : _sort$.name)), /*#__PURE__*/React.createElement("span", {
-      className: "badge ".concat(a.status === 'Completed' ? 'badge-green' : a.status === 'In Progress' ? 'badge-amber' : a.status === 'Under Review' ? 'badge-navy' : 'badge-gray')
-    }, a.status)));
-  })), /*#__PURE__*/React.createElement(Modal, {
+  }, audits.map(a => /*#__PURE__*/React.createElement("div", {
+    key: a.id,
+    className: "card",
+    style: {
+      padding: 14,
+      cursor: 'pointer'
+    },
+    onClick: () => setSel(a.id)
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 10
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 700,
+      fontSize: 14,
+      color: PAL.navy
+    }
+  }, a.title), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted,
+      marginTop: 3
+    }
+  }, a.building_name, " - ", a.date, " - ", a.stream), a.materials.length > 0 && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: PAL.text,
+      marginTop: 3
+    }
+  }, "Top material: ", [...a.materials].sort((x, y) => y.weight - x.weight)[0]?.name)), /*#__PURE__*/React.createElement("span", {
+    className: `badge ${a.status === 'Completed' ? 'badge-green' : a.status === 'In Progress' ? 'badge-amber' : a.status === 'Under Review' ? 'badge-navy' : 'badge-gray'}`
+  }, a.status))))), /*#__PURE__*/React.createElement(Modal, {
     open: modal,
-    onClose: function onClose() {
+    onClose: () => {
       setModal(false);
       setErrors({});
     },
@@ -4881,17 +4614,15 @@ function WasteAudits() {
     }
   }, "*")), /*#__PURE__*/React.createElement("input", {
     value: nA.title,
-    onChange: function onChange(e) {
-      setErrors(function (x) {
-        return _objectSpread(_objectSpread({}, x), {}, {
-          title: null
-        });
-      });
-      setNA(function (p) {
-        return _objectSpread(_objectSpread({}, p), {}, {
-          title: e.target.value
-        });
-      });
+    onChange: e => {
+      setErrors(x => ({
+        ...x,
+        title: null
+      }));
+      setNA(p => ({
+        ...p,
+        title: e.target.value
+      }));
     },
     placeholder: "e.g., Orchard Downs Spring 2024"
   }), /*#__PURE__*/React.createElement(FieldError, {
@@ -4916,26 +4647,22 @@ function WasteAudits() {
     }
   }, "*")), /*#__PURE__*/React.createElement("select", {
     value: nA.building_id,
-    onChange: function onChange(e) {
-      setErrors(function (x) {
-        return _objectSpread(_objectSpread({}, x), {}, {
-          building_id: null
-        });
-      });
-      setNA(function (p) {
-        return _objectSpread(_objectSpread({}, p), {}, {
-          building_id: e.target.value
-        });
-      });
+    onChange: e => {
+      setErrors(x => ({
+        ...x,
+        building_id: null
+      }));
+      setNA(p => ({
+        ...p,
+        building_id: e.target.value
+      }));
     }
   }, /*#__PURE__*/React.createElement("option", {
     value: ""
-  }, "Select..."), DEMO_BUILDINGS.map(function (b) {
-    return /*#__PURE__*/React.createElement("option", {
-      key: b.id,
-      value: b.id
-    }, b.name.length > 35 ? b.name.slice(0, 33) + '...' : b.name);
-  })), /*#__PURE__*/React.createElement(FieldError, {
+  }, "Select..."), DEMO_BUILDINGS.map(b => /*#__PURE__*/React.createElement("option", {
+    key: b.id,
+    value: b.id
+  }, b.name.length > 35 ? b.name.slice(0, 33) + '...' : b.name))), /*#__PURE__*/React.createElement(FieldError, {
     msg: errors.building_id
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
     style: {
@@ -4952,17 +4679,15 @@ function WasteAudits() {
   }, "*")), /*#__PURE__*/React.createElement("input", {
     type: "date",
     value: nA.date,
-    onChange: function onChange(e) {
-      setErrors(function (x) {
-        return _objectSpread(_objectSpread({}, x), {}, {
-          date: null
-        });
-      });
-      setNA(function (p) {
-        return _objectSpread(_objectSpread({}, p), {}, {
-          date: e.target.value
-        });
-      });
+    onChange: e => {
+      setErrors(x => ({
+        ...x,
+        date: null
+      }));
+      setNA(p => ({
+        ...p,
+        date: e.target.value
+      }));
     }
   }), /*#__PURE__*/React.createElement(FieldError, {
     msg: errors.date
@@ -4982,13 +4707,10 @@ function WasteAudits() {
     }
   }, "Stream"), /*#__PURE__*/React.createElement("select", {
     value: nA.stream,
-    onChange: function onChange(e) {
-      return setNA(function (p) {
-        return _objectSpread(_objectSpread({}, p), {}, {
-          stream: e.target.value
-        });
-      });
-    }
+    onChange: e => setNA(p => ({
+      ...p,
+      stream: e.target.value
+    }))
   }, /*#__PURE__*/React.createElement("option", null, "Landfill"), /*#__PURE__*/React.createElement("option", null, "Cardboard"), /*#__PURE__*/React.createElement("option", null, "Paper"))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
     style: {
       fontSize: 13,
@@ -4999,13 +4721,10 @@ function WasteAudits() {
     }
   }, "Auditors"), /*#__PURE__*/React.createElement("input", {
     value: nA.auditors,
-    onChange: function onChange(e) {
-      return setNA(function (p) {
-        return _objectSpread(_objectSpread({}, p), {}, {
-          auditors: e.target.value
-        });
-      });
-    },
+    onChange: e => setNA(p => ({
+      ...p,
+      auditors: e.target.value
+    })),
     placeholder: "Name 1, Name 2"
   }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
     style: {
@@ -5017,13 +4736,10 @@ function WasteAudits() {
     }
   }, "Notes"), /*#__PURE__*/React.createElement("textarea", {
     value: nA.notes,
-    onChange: function onChange(e) {
-      return setNA(function (p) {
-        return _objectSpread(_objectSpread({}, p), {}, {
-          notes: e.target.value
-        });
-      });
-    },
+    onChange: e => setNA(p => ({
+      ...p,
+      notes: e.target.value
+    })),
     rows: 3,
     style: {
       fontFamily: 'inherit',
@@ -5036,7 +4752,7 @@ function WasteAudits() {
     }
   }, /*#__PURE__*/React.createElement("button", {
     className: "btn btn-secondary",
-    onClick: function onClick() {
+    onClick: () => {
       setModal(false);
       setErrors({});
     }
@@ -5069,7 +4785,7 @@ function WasteAudits() {
 }
 
 // ─── INSIGHTS ─────────────────────────────────────────────────────────────────
-var REAL_INSIGHTS = [{
+const REAL_INSIGHTS = [{
   id: 'INS001',
   title: 'RFID system failure after Oct 2021 is the primary attribution loss',
   status: 'Validated',
@@ -5125,29 +4841,13 @@ var REAL_INSIGHTS = [{
   recommendation: 'Build a building-adjacency map. For records near cluster of closely-spaced centroids, present top-3 candidates to authorized staff rather than a single prediction.'
 }];
 function InsightsEngine() {
-  var _useState53 = useState(REAL_INSIGHTS),
-    _useState54 = _slicedToArray(_useState53, 2),
-    ins = _useState54[0],
-    setIns = _useState54[1];
-  var _useState55 = useState('All'),
-    _useState56 = _slicedToArray(_useState55, 2),
-    fs = _useState56[0],
-    setFs = _useState56[1];
-  var _useState57 = useState(false),
-    _useState58 = _slicedToArray(_useState57, 2),
-    showScanner = _useState58[0],
-    setShowScanner = _useState58[1];
-  var _useState59 = useState(null),
-    _useState60 = _slicedToArray(_useState59, 2),
-    ex = _useState60[0],
-    setEx = _useState60[1];
-  var fi = fs === 'All' ? ins : ins.filter(function (i) {
-    return i.status === fs || i.category === fs;
-  });
+  const [ins, setIns] = useState(REAL_INSIGHTS);
+  const [fs, setFs] = useState('All');
+  const [showScanner, setShowScanner] = useState(false);
+  const [ex, setEx] = useState(null);
+  const fi = fs === 'All' ? ins : ins.filter(i => i.status === fs || i.category === fs);
   if (ex) {
-    var i = ins.find(function (x) {
-      return x.id === ex;
-    });
+    const i = ins.find(x => x.id === ex);
     return /*#__PURE__*/React.createElement("div", {
       style: {
         padding: 24
@@ -5161,15 +4861,13 @@ function InsightsEngine() {
       }
     }, /*#__PURE__*/React.createElement("button", {
       className: "btn btn-secondary btn-sm",
-      onClick: function onClick() {
-        return setEx(null);
-      }
+      onClick: () => setEx(null)
     }, "Back"), /*#__PURE__*/React.createElement("span", {
-      className: "badge ".concat(i.status === 'Validated' ? 'badge-green' : i.status === 'Recommended for Action' ? 'badge-amber' : 'badge-navy')
+      className: `badge ${i.status === 'Validated' ? 'badge-green' : i.status === 'Recommended for Action' ? 'badge-amber' : 'badge-navy'}`
     }, i.status), /*#__PURE__*/React.createElement("span", {
       className: "badge badge-gray"
     }, i.category), /*#__PURE__*/React.createElement("span", {
-      className: "badge ".concat(i.confidence === 'High' ? 'badge-green' : 'badge-amber')
+      className: `badge ${i.confidence === 'High' ? 'badge-green' : 'badge-amber'}`
     }, i.confidence)), /*#__PURE__*/React.createElement("h2", {
       style: {
         fontSize: 18,
@@ -5251,21 +4949,14 @@ function InsightsEngine() {
         flexWrap: 'wrap',
         gap: 7
       }
-    }, ['Under Investigation', 'Validated', 'Recommended for Action', 'Rejected'].map(function (s) {
-      return /*#__PURE__*/React.createElement("button", {
-        key: s,
-        onClick: function onClick() {
-          return setIns(function (p) {
-            return p.map(function (x) {
-              return x.id === i.id ? _objectSpread(_objectSpread({}, x), {}, {
-                status: s
-              }) : x;
-            });
-          });
-        },
-        className: "btn btn-sm ".concat(i.status === s ? 'btn-primary' : 'btn-secondary')
-      }, s);
-    }))), /*#__PURE__*/React.createElement("div", {
+    }, ['Under Investigation', 'Validated', 'Recommended for Action', 'Rejected'].map(s => /*#__PURE__*/React.createElement("button", {
+      key: s,
+      onClick: () => setIns(p => p.map(x => x.id === i.id ? {
+        ...x,
+        status: s
+      } : x)),
+      className: `btn btn-sm ${i.status === s ? 'btn-primary' : 'btn-secondary'}`
+    }, s)))), /*#__PURE__*/React.createElement("div", {
       style: {
         marginTop: 12,
         padding: '8px 12px',
@@ -5302,11 +4993,7 @@ function InsightsEngine() {
     }
   }, "Scanner Observation Data"), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-secondary btn-sm",
-    onClick: function onClick() {
-      return setShowScanner(function (x) {
-        return !x;
-      });
-    }
+    onClick: () => setShowScanner(x => !x)
   }, showScanner ? 'Collapse' : 'Expand')), showScanner && /*#__PURE__*/React.createElement(ScannerObservationsPanel, {
     compact: false
   }), !showScanner && /*#__PURE__*/React.createElement(ScannerObservationsPanel, {
@@ -5318,89 +5005,77 @@ function InsightsEngine() {
       gap: 12,
       marginBottom: 18
     }
-  }, ['Under Investigation', 'Validated', 'Recommended for Action', 'Rejected'].map(function (s) {
-    return /*#__PURE__*/React.createElement(StatCard, {
-      key: s,
-      label: s,
-      value: ins.filter(function (i) {
-        return i.status === s;
-      }).length,
-      color: s === 'Validated' ? 'green' : s === 'Recommended for Action' ? 'amber' : s === 'Rejected' ? 'red' : 'navy'
-    });
-  })), /*#__PURE__*/React.createElement("div", {
+  }, ['Under Investigation', 'Validated', 'Recommended for Action', 'Rejected'].map(s => /*#__PURE__*/React.createElement(StatCard, {
+    key: s,
+    label: s,
+    value: ins.filter(i => i.status === s).length,
+    color: s === 'Validated' ? 'green' : s === 'Recommended for Action' ? 'amber' : s === 'Rejected' ? 'red' : 'navy'
+  }))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
       gap: 7,
       flexWrap: 'wrap',
       marginBottom: 14
     }
-  }, ['All', 'Validated', 'Under Investigation', 'Data Quality', 'Attribution AI', 'Composition'].map(function (s) {
-    return /*#__PURE__*/React.createElement("button", {
-      key: s,
-      className: "btn btn-sm ".concat(fs === s ? 'btn-primary' : 'btn-secondary'),
-      onClick: function onClick() {
-        return setFs(s);
-      }
-    }, s);
-  })), /*#__PURE__*/React.createElement("div", {
+  }, ['All', 'Validated', 'Under Investigation', 'Data Quality', 'Attribution AI', 'Composition'].map(s => /*#__PURE__*/React.createElement("button", {
+    key: s,
+    className: `btn btn-sm ${fs === s ? 'btn-primary' : 'btn-secondary'}`,
+    onClick: () => setFs(s)
+  }, s))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
       flexDirection: 'column',
       gap: 10
     }
-  }, fi.map(function (i) {
-    return /*#__PURE__*/React.createElement("div", {
-      key: i.id,
-      className: "card insight-card",
-      onClick: function onClick() {
-        return setEx(i.id);
-      },
-      style: {
-        padding: 14,
-        cursor: 'pointer',
-        borderLeft: "4px solid ".concat({
-          Validated: PAL.teal,
-          'Recommended for Action': PAL.amber,
-          Rejected: PAL.red
-        }[i.status] || PAL.navyLight)
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'flex',
-        gap: 7,
-        marginBottom: 6,
-        flexWrap: 'wrap'
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "badge ".concat(i.category === 'Attribution AI' ? 'badge-navy' : i.category === 'Data Quality' ? 'badge-amber' : 'badge-gray')
-    }, i.category), /*#__PURE__*/React.createElement("span", {
-      className: "badge ".concat(i.status === 'Validated' ? 'badge-green' : 'badge-navy')
-    }, i.status), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontSize: 11,
-        color: PAL.muted,
-        marginLeft: 'auto'
-      }
-    }, "Real data")), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontWeight: 700,
-        fontSize: 14,
-        color: PAL.navy,
-        marginBottom: 4
-      }
-    }, i.title), /*#__PURE__*/React.createElement("p", {
-      style: {
-        margin: 0,
-        fontSize: 13,
-        color: PAL.muted,
-        lineHeight: 1.6
-      }
-    }, i.summary.slice(0, 120), "..."));
-  })));
+  }, fi.map(i => /*#__PURE__*/React.createElement("div", {
+    key: i.id,
+    className: "card insight-card",
+    onClick: () => setEx(i.id),
+    style: {
+      padding: 14,
+      cursor: 'pointer',
+      borderLeft: `4px solid ${{
+        Validated: PAL.teal,
+        'Recommended for Action': PAL.amber,
+        Rejected: PAL.red
+      }[i.status] || PAL.navyLight}`
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 7,
+      marginBottom: 6,
+      flexWrap: 'wrap'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    className: `badge ${i.category === 'Attribution AI' ? 'badge-navy' : i.category === 'Data Quality' ? 'badge-amber' : 'badge-gray'}`
+  }, i.category), /*#__PURE__*/React.createElement("span", {
+    className: `badge ${i.status === 'Validated' ? 'badge-green' : 'badge-navy'}`
+  }, i.status), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      color: PAL.muted,
+      marginLeft: 'auto'
+    }
+  }, "Real data")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 700,
+      fontSize: 14,
+      color: PAL.navy,
+      marginBottom: 4
+    }
+  }, i.title), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: 0,
+      fontSize: 13,
+      color: PAL.muted,
+      lineHeight: 1.6
+    }
+  }, i.summary.slice(0, 120), "...")))));
 }
 
 // ─── INTERVENTIONS ─────────────────────────────────────────────────────────────
-var DEMO_INTERVENTIONS = [{
+const DEMO_INTERVENTIONS = [{
   id: 'INT001',
   title: 'RFID System Physical Investigation',
   linked_insight: 'INS001',
@@ -5444,20 +5119,12 @@ var DEMO_INTERVENTIONS = [{
   outcome: 'F&S confirmed investigation underway.'
 }];
 function Interventions() {
-  var _useState61 = useState(DEMO_INTERVENTIONS),
-    _useState62 = _slicedToArray(_useState61, 2),
-    items = _useState62[0],
-    setItems = _useState62[1];
-  var _useState63 = useState(null),
-    _useState64 = _slicedToArray(_useState63, 2),
-    sel = _useState64[0],
-    setSel = _useState64[1];
-  var FLOW = ['Proposed', 'Approved', 'In Progress', 'Completed', 'Rejected'];
+  const [items, setItems] = useState(DEMO_INTERVENTIONS);
+  const [sel, setSel] = useState(null);
+  const FLOW = ['Proposed', 'Approved', 'In Progress', 'Completed', 'Rejected'];
   if (sel) {
-    var iv = items.find(function (x) {
-      return x.id === sel;
-    });
-    var ix = FLOW.indexOf(iv.status);
+    const iv = items.find(x => x.id === sel);
+    const ix = FLOW.indexOf(iv.status);
     return /*#__PURE__*/React.createElement("div", {
       style: {
         padding: 24
@@ -5471,11 +5138,9 @@ function Interventions() {
       }
     }, /*#__PURE__*/React.createElement("button", {
       className: "btn btn-secondary btn-sm",
-      onClick: function onClick() {
-        return setSel(null);
-      }
+      onClick: () => setSel(null)
     }, "Back"), /*#__PURE__*/React.createElement("span", {
-      className: "badge ".concat(iv.status === 'Completed' ? 'badge-green' : iv.status === 'In Progress' ? 'badge-amber' : iv.status === 'Rejected' ? 'badge-red' : 'badge-navy')
+      className: `badge ${iv.status === 'Completed' ? 'badge-green' : iv.status === 'In Progress' ? 'badge-amber' : iv.status === 'Rejected' ? 'badge-red' : 'badge-navy'}`
     }, iv.status)), /*#__PURE__*/React.createElement("h2", {
       style: {
         fontSize: 18,
@@ -5496,62 +5161,50 @@ function Interventions() {
         gap: 14,
         marginBottom: 14
       }
-    }, [['Observation', iv.observation], ['Proposed Action', iv.proposed_action], ['Responsible Party', iv.responsible_party], ['Baseline', iv.baseline], ['Follow-up', iv.followup], ['Outcome', iv.outcome || 'No outcome recorded yet']].map(function (_ref24) {
-      var _ref25 = _slicedToArray(_ref24, 2),
-        k = _ref25[0],
-        v = _ref25[1];
-      return /*#__PURE__*/React.createElement("div", {
-        key: k,
-        style: {
-          padding: '10px 14px',
-          background: PAL.cream,
-          borderRadius: 6
-        }
-      }, /*#__PURE__*/React.createElement("div", {
-        style: {
-          fontSize: 11,
-          fontWeight: 700,
-          color: PAL.muted,
-          textTransform: 'uppercase',
-          letterSpacing: '.05em',
-          marginBottom: 4
-        }
-      }, k), /*#__PURE__*/React.createElement("div", {
-        style: {
-          fontSize: 13,
-          color: PAL.text,
-          lineHeight: 1.6
-        }
-      }, v));
-    })), /*#__PURE__*/React.createElement("div", {
+    }, [['Observation', iv.observation], ['Proposed Action', iv.proposed_action], ['Responsible Party', iv.responsible_party], ['Baseline', iv.baseline], ['Follow-up', iv.followup], ['Outcome', iv.outcome || 'No outcome recorded yet']].map(([k, v]) => /*#__PURE__*/React.createElement("div", {
+      key: k,
+      style: {
+        padding: '10px 14px',
+        background: PAL.cream,
+        borderRadius: 6
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        fontWeight: 700,
+        color: PAL.muted,
+        textTransform: 'uppercase',
+        letterSpacing: '.05em',
+        marginBottom: 4
+      }
+    }, k), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 13,
+        color: PAL.text,
+        lineHeight: 1.6
+      }
+    }, v)))), /*#__PURE__*/React.createElement("div", {
       style: {
         display: 'flex',
         gap: 7
       }
     }, ix < FLOW.length - 2 && /*#__PURE__*/React.createElement("button", {
       className: "btn btn-green btn-sm",
-      onClick: function onClick() {
-        return setItems(function (p) {
-          return p.map(function (i) {
-            return i.id === sel ? _objectSpread(_objectSpread({}, i), {}, {
-              status: FLOW[FLOW.indexOf(i.status) + 1]
-            }) : i;
-          });
-        });
+      onClick: () => setItems(p => p.map(i => i.id === sel ? {
+        ...i,
+        status: FLOW[FLOW.indexOf(i.status) + 1]
+      } : i))
+    }, "Advance to ", FLOW[ix + 1]), FLOW.map((s, i) => /*#__PURE__*/React.createElement("span", {
+      key: s,
+      style: {
+        padding: '3px 10px',
+        borderRadius: 12,
+        fontSize: 11,
+        fontWeight: 600,
+        background: i <= ix ? PAL.navy : PAL.creamDark,
+        color: i <= ix ? '#fff' : PAL.muted
       }
-    }, "Advance to ", FLOW[ix + 1]), FLOW.map(function (s, i) {
-      return /*#__PURE__*/React.createElement("span", {
-        key: s,
-        style: {
-          padding: '3px 10px',
-          borderRadius: 12,
-          fontSize: 11,
-          fontWeight: 600,
-          background: i <= ix ? PAL.navy : PAL.creamDark,
-          color: i <= ix ? '#fff' : PAL.muted
-        }
-      }, s);
-    })));
+    }, s))));
   }
   return /*#__PURE__*/React.createElement("div", {
     style: {
@@ -5566,76 +5219,62 @@ function Interventions() {
       flexDirection: 'column',
       gap: 10
     }
-  }, items.map(function (iv) {
-    return /*#__PURE__*/React.createElement("div", {
-      key: iv.id,
-      className: "card",
-      style: {
-        padding: 14,
-        cursor: 'pointer'
-      },
-      onClick: function onClick() {
-        return setSel(iv.id);
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'flex',
-        alignItems: 'flex-start',
-        gap: 10
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        flex: 1
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontWeight: 700,
-        fontSize: 14,
-        color: PAL.navy
-      }
-    }, iv.title), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontSize: 12,
-        color: PAL.muted,
-        marginTop: 3
-      }
-    }, iv.building_name || 'Campus-wide'), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontSize: 12,
-        color: PAL.text,
-        marginTop: 4,
-        lineHeight: 1.5
-      }
-    }, iv.observation.slice(0, 100), "...")), /*#__PURE__*/React.createElement("span", {
-      className: "badge ".concat(iv.status === 'Completed' ? 'badge-green' : iv.status === 'In Progress' ? 'badge-amber' : iv.status === 'Recommended for Action' ? 'badge-purple' : 'badge-navy')
-    }, iv.status)));
-  })));
+  }, items.map(iv => /*#__PURE__*/React.createElement("div", {
+    key: iv.id,
+    className: "card",
+    style: {
+      padding: 14,
+      cursor: 'pointer'
+    },
+    onClick: () => setSel(iv.id)
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'flex-start',
+      gap: 10
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 700,
+      fontSize: 14,
+      color: PAL.navy
+    }
+  }, iv.title), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted,
+      marginTop: 3
+    }
+  }, iv.building_name || 'Campus-wide'), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: PAL.text,
+      marginTop: 4,
+      lineHeight: 1.5
+    }
+  }, iv.observation.slice(0, 100), "...")), /*#__PURE__*/React.createElement("span", {
+    className: `badge ${iv.status === 'Completed' ? 'badge-green' : iv.status === 'In Progress' ? 'badge-amber' : iv.status === 'Recommended for Action' ? 'badge-purple' : 'badge-navy'}`
+  }, iv.status))))));
 }
 
 // ─── REPORTS ──────────────────────────────────────────────────────────────────
 function Reports() {
-  var _useState65 = useState({
-      from: '2020-01-01',
-      to: '2024-06-30'
-    }),
-    _useState66 = _slicedToArray(_useState65, 2),
-    cfg = _useState66[0],
-    setCfg = _useState66[1];
-  var _useState67 = useState(false),
-    _useState68 = _slicedToArray(_useState67, 2),
-    prev = _useState68[0],
-    setPrev = _useState68[1];
-  var meta = REAL_MODEL.meta;
+  const [cfg, setCfg] = useState({
+    from: '2020-01-01',
+    to: '2024-06-30'
+  });
+  const [prev, setPrev] = useState(false);
+  const meta = REAL_MODEL.meta;
   function expCSV() {
-    var rows = [['ENVIROTRAP NEXUS RESEARCH SUMMARY - REAL DATA'], ['Generated:', new Date().toISOString()], ['Source:', '79,533 UIUC LoadMan records, Betsy Ruckman, F&S'], ['NOTE: Attribution model results are AI-inferred, not verified unless staff-confirmed'], [], ['METRIC', 'VALUE', 'SOURCE'], ['Total raw records', 79533, 'LoadMan export'], ['Load Pickup events', 73857, 'Load Type filter'], ['Valid date records', 43759, 'Excluding 2001 epoch defaults'], ['RFID-identified', 15406, 'Asset Detect field'], ['Site-resolved', 13414, 'Site Name field'], ['Fully usable', 9989, 'All quality gates'], ['Attribution rate', '12.6%', '9989/79533'], [], ['RFID SYSTEM', 'VALUE', 'NOTES'], ['RFID peak', '88.3%', 'April 2021'], ['RFID current', '0.0%', 'August 2022 onwards'], ['Cause', 'Unestablished', 'Both trucks simultaneously'], [], ['AI MODEL', 'VALUE', 'METHOD'], ['GPS top-1 accuracy', '84.8%', '80/20 split, 150m threshold'], ['GPS top-3 accuracy', '97.8%', 'Same split'], ['GPS coverage', '91.6%', 'At 150m threshold'], ['RFID accuracy', '100%', 'Deterministic lookup, 179 RFIDs'], [], ['SITE', 'VERIFIED_PICKUPS']].concat(_toConsumableArray(REAL_MODEL.top_sites.slice(0, 10).map(function (s) {
-      return [s.name, s.count];
-    })));
-    var blob = new Blob([rows.map(function (r) {
-      return r.join(',');
-    }).join('\n')], {
+    const rows = [['ENVIROTRAP NEXUS RESEARCH SUMMARY - REAL DATA'], ['Generated:', new Date().toISOString()], ['Source:', '79,533 UIUC LoadMan records, Betsy Ruckman, F&S'], ['NOTE: Attribution model results are AI-inferred, not verified unless staff-confirmed'], [], ['METRIC', 'VALUE', 'SOURCE'], ['Total raw records', 79533, 'LoadMan export'], ['Load Pickup events', 73857, 'Load Type filter'], ['Valid date records', 43759, 'Excluding 2001 epoch defaults'], ['RFID-identified', 15406, 'Asset Detect field'], ['Site-resolved', 13414, 'Site Name field'], ['Fully usable', 9989, 'All quality gates'], ['Attribution rate', '12.6%', '9989/79533'], [], ['RFID SYSTEM', 'VALUE', 'NOTES'], ['RFID peak', '88.3%', 'April 2021'], ['RFID current', '0.0%', 'August 2022 onwards'], ['Cause', 'Unestablished', 'Both trucks simultaneously'], [], ['AI MODEL', 'VALUE', 'METHOD'], ['GPS top-1 accuracy', '84.8%', '80/20 split, 150m threshold'], ['GPS top-3 accuracy', '97.8%', 'Same split'], ['GPS coverage', '91.6%', 'At 150m threshold'], ['RFID accuracy', '100%', 'Deterministic lookup, 179 RFIDs'], [], ['SITE', 'VERIFIED_PICKUPS'], ...REAL_MODEL.top_sites.slice(0, 10).map(s => [s.name, s.count])];
+    const blob = new Blob([rows.map(r => r.join(',')).join('\n')], {
       type: 'text/csv'
     });
-    var a = document.createElement('a');
+    const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'envirotrap_real_data_report.csv';
     a.click();
@@ -5697,62 +5336,49 @@ function Reports() {
       gridTemplateColumns: 'repeat(auto-fit,minmax(150px,1fr))',
       gap: 10
     }
-  }, [['Total records', '79,533'], ['Usable records', '9,989 (12.6%)'], ['RFID peak', '88.3% (Apr 2021)'], ['RFID now', '0.0% (Aug 2022+)'], ['GPS model (top-1)', '84.8%'], ['Distinct sites', '123'], ['Distinct RFIDs', '179'], ['Epoch records', '~28,337']].map(function (_ref26) {
-    var _ref27 = _slicedToArray(_ref26, 2),
-      k = _ref27[0],
-      v = _ref27[1];
-    return /*#__PURE__*/React.createElement("div", {
-      key: k,
-      style: {
-        background: PAL.cream,
-        borderRadius: 6,
-        padding: '10px 12px'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontSize: 11,
-        color: PAL.muted
-      }
-    }, k), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontSize: 16,
-        fontWeight: 700,
-        color: PAL.navy
-      }
-    }, v));
-  }))));
+  }, [['Total records', '79,533'], ['Usable records', '9,989 (12.6%)'], ['RFID peak', '88.3% (Apr 2021)'], ['RFID now', '0.0% (Aug 2022+)'], ['GPS model (top-1)', '84.8%'], ['Distinct sites', '123'], ['Distinct RFIDs', '179'], ['Epoch records', '~28,337']].map(([k, v]) => /*#__PURE__*/React.createElement("div", {
+    key: k,
+    style: {
+      background: PAL.cream,
+      borderRadius: 6,
+      padding: '10px 12px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: PAL.muted
+    }
+  }, k), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 16,
+      fontWeight: 700,
+      color: PAL.navy
+    }
+  }, v))))));
 }
 
 // ─── SETTINGS ─────────────────────────────────────────────────────────────────
 function Settings() {
-  var _useState69 = useState(function () {
-      try {
-        return JSON.parse(localStorage.getItem('et_profile')) || {
-          name: 'Demo User',
-          role: 'Researcher',
-          org: 'EnviroTrap / UIUC'
-        };
-      } catch (_unused) {
-        return {
-          name: 'Demo User',
-          role: 'Researcher',
-          org: 'EnviroTrap / UIUC'
-        };
-      }
-    }),
-    _useState70 = _slicedToArray(_useState69, 2),
-    profile = _useState70[0],
-    setProfile = _useState70[1];
-  var _useState71 = useState(false),
-    _useState72 = _slicedToArray(_useState71, 2),
-    saved = _useState72[0],
-    setSaved = _useState72[1];
+  const [profile, setProfile] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('et_profile')) || {
+        name: 'Demo User',
+        role: 'Researcher',
+        org: 'EnviroTrap / UIUC'
+      };
+    } catch {
+      return {
+        name: 'Demo User',
+        role: 'Researcher',
+        org: 'EnviroTrap / UIUC'
+      };
+    }
+  });
+  const [saved, setSaved] = useState(false);
   function save() {
     localStorage.setItem('et_profile', JSON.stringify(profile));
     setSaved(true);
-    setTimeout(function () {
-      return setSaved(false);
-    }, 2000);
+    setTimeout(() => setSaved(false), 2000);
   }
   return /*#__PURE__*/React.createElement("div", {
     style: {
@@ -5804,13 +5430,10 @@ function Settings() {
     }
   }, "Name"), /*#__PURE__*/React.createElement("input", {
     value: profile.name,
-    onChange: function onChange(e) {
-      return setProfile(function (p) {
-        return _objectSpread(_objectSpread({}, p), {}, {
-          name: e.target.value
-        });
-      });
-    }
+    onChange: e => setProfile(p => ({
+      ...p,
+      name: e.target.value
+    }))
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
     style: {
       fontSize: 12,
@@ -5820,13 +5443,10 @@ function Settings() {
     }
   }, "Role"), /*#__PURE__*/React.createElement("select", {
     value: profile.role,
-    onChange: function onChange(e) {
-      return setProfile(function (p) {
-        return _objectSpread(_objectSpread({}, p), {}, {
-          role: e.target.value
-        });
-      });
-    }
+    onChange: e => setProfile(p => ({
+      ...p,
+      role: e.target.value
+    }))
   }, /*#__PURE__*/React.createElement("option", null, "Researcher"), /*#__PURE__*/React.createElement("option", null, "F&S Staff"), /*#__PURE__*/React.createElement("option", null, "Driver"), /*#__PURE__*/React.createElement("option", null, "Administrator"), /*#__PURE__*/React.createElement("option", null, "Viewer"))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
     style: {
       fontSize: 12,
@@ -5836,13 +5456,10 @@ function Settings() {
     }
   }, "Organization"), /*#__PURE__*/React.createElement("input", {
     value: profile.org,
-    onChange: function onChange(e) {
-      return setProfile(function (p) {
-        return _objectSpread(_objectSpread({}, p), {}, {
-          org: e.target.value
-        });
-      });
-    }
+    onChange: e => setProfile(p => ({
+      ...p,
+      org: e.target.value
+    }))
   })), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-primary btn-sm",
     onClick: save
@@ -5858,29 +5475,24 @@ function Settings() {
       color: PAL.navy,
       marginBottom: 12
     }
-  }, "Application Info"), [['Version', '0.3.0 - Real Data AI Sprint'], ['AI Engine', 'GPS Nearest-Centroid + RFID Lookup'], ['Training Records', '9,989 verified LoadMan'], ['GPS Accuracy', '84.8% top-1 / 97.8% top-3'], ['Distinct Sites', '123'], ['Distinct RFIDs', '179'], ['Total Raw Records', '79,533'], ['Source', 'UIUC F&S LoadMan Export']].map(function (_ref28) {
-    var _ref29 = _slicedToArray(_ref28, 2),
-      k = _ref29[0],
-      v = _ref29[1];
-    return /*#__PURE__*/React.createElement("div", {
-      key: k,
-      style: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        padding: '5px 0',
-        borderBottom: "1px solid ".concat(PAL.border),
-        fontSize: 13
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: PAL.muted
-      }
-    }, k), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontWeight: 600
-      }
-    }, v));
-  }))), /*#__PURE__*/React.createElement("div", {
+  }, "Application Info"), [['Version', '0.3.0 - Real Data AI Sprint'], ['AI Engine', 'GPS Nearest-Centroid + RFID Lookup'], ['Training Records', '9,989 verified LoadMan'], ['GPS Accuracy', '84.8% top-1 / 97.8% top-3'], ['Distinct Sites', '123'], ['Distinct RFIDs', '179'], ['Total Raw Records', '79,533'], ['Source', 'UIUC F&S LoadMan Export']].map(([k, v]) => /*#__PURE__*/React.createElement("div", {
+    key: k,
+    style: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      padding: '5px 0',
+      borderBottom: `1px solid ${PAL.border}`,
+      fontSize: 13
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: PAL.muted
+    }
+  }, k), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontWeight: 600
+    }
+  }, v))))), /*#__PURE__*/React.createElement("div", {
     className: "card",
     style: {
       padding: 16
@@ -5905,7 +5517,7 @@ function Settings() {
 // Production backend: Hugging Face Spaces CPU Basic (free tier, always-on)
 // Storage note: observations are session-only on the free tier (ephemeral SQLite)
 // To develop locally, change API_BASE to 'http://localhost:8000'
-var API_BASE = 'https://tjpppppppppp-envirotrap-ai-backend.hf.space';
+const API_BASE = 'https://tjpppppppppp-envirotrap-ai-backend.hf.space';
 
 // ─── AI SCANNER MODULE ────────────────────────────────────────────────────────
 // Connects to Frida's FastAPI backend (fridaviquez-cpu/envirotrap-ai-backend).
@@ -5919,241 +5531,86 @@ var API_BASE = 'https://tjpppppppppp-envirotrap-ai-backend.hf.space';
 //   - Graceful offline: banner shown, all 10 other modules unaffected
 
 function AIScannerModule() {
-  var _useState73 = useState('checking'),
-    _useState74 = _slicedToArray(_useState73, 2),
-    apiStatus = _useState74[0],
-    setApiStatus = _useState74[1];
-  var _useState75 = useState([]),
-    _useState76 = _slicedToArray(_useState75, 2),
-    buildings = _useState76[0],
-    setBuildings = _useState76[1];
-  var _useState77 = useState(null),
-    _useState78 = _slicedToArray(_useState77, 2),
-    selectedBuilding = _useState78[0],
-    setSelectedBuilding = _useState78[1];
-  var _useState79 = useState(null),
-    _useState80 = _slicedToArray(_useState79, 2),
-    file = _useState80[0],
-    setFile = _useState80[1];
-  var _useState81 = useState(null),
-    _useState82 = _slicedToArray(_useState81, 2),
-    preview = _useState82[0],
-    setPreview = _useState82[1];
-  var _useState83 = useState(false),
-    _useState84 = _slicedToArray(_useState83, 2),
-    classifying = _useState84[0],
-    setClassifying = _useState84[1];
-  var _useState85 = useState(null),
-    _useState86 = _slicedToArray(_useState85, 2),
-    classifyResults = _useState86[0],
-    setClassifyResults = _useState86[1];
-  var _useState87 = useState(null),
-    _useState88 = _slicedToArray(_useState87, 2),
-    classifyError = _useState88[0],
-    setClassifyError = _useState88[1];
-  var _useState89 = useState(''),
-    _useState90 = _slicedToArray(_useState89, 2),
-    verifiedCategory = _useState90[0],
-    setVerifiedCategory = _useState90[1];
-  var _useState91 = useState(''),
-    _useState92 = _slicedToArray(_useState91, 2),
-    notes = _useState92[0],
-    setNotes = _useState92[1];
-  var _useState93 = useState(false),
-    _useState94 = _slicedToArray(_useState93, 2),
-    saving = _useState94[0],
-    setSaving = _useState94[1];
-  var _useState95 = useState(null),
-    _useState96 = _slicedToArray(_useState95, 2),
-    savedId = _useState96[0],
-    setSavedId = _useState96[1];
-  var _useState97 = useState(null),
-    _useState98 = _slicedToArray(_useState97, 2),
-    saveError = _useState98[0],
-    setSaveError = _useState98[1];
-  var _useState99 = useState([]),
-    _useState100 = _slicedToArray(_useState99, 2),
-    observations = _useState100[0],
-    setObservations = _useState100[1];
-  var _useState101 = useState(false),
-    _useState102 = _slicedToArray(_useState101, 2),
-    obsLoading = _useState102[0],
-    setObsLoading = _useState102[1];
-  var _useState103 = useState(''),
-    _useState104 = _slicedToArray(_useState103, 2),
-    obsFilter = _useState104[0],
-    setObsFilter = _useState104[1];
-  var _useState105 = useState(null),
-    _useState106 = _slicedToArray(_useState105, 2),
-    importStatus = _useState106[0],
-    setImportStatus = _useState106[1]; // null | 'loading' | {imported,skipped,errors}
-  var importFileRef = useRef(null);
-  var fileInputRef = useRef(null);
-  useEffect(function () {
-    var cancelled = false;
-    function init() {
-      return _init.apply(this, arguments);
-    }
-    function _init() {
-      _init = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var h, b, bJson, _t;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
-            case 0:
-              _context.p = 0;
-              _context.n = 1;
-              return fetch(API_BASE + '/healthz');
-            case 1:
-              h = _context.v;
-              if (h.ok) {
-                _context.n = 2;
-                break;
-              }
-              throw new Error('healthz ' + h.status);
-            case 2:
-              if (!cancelled) {
-                _context.n = 3;
-                break;
-              }
-              return _context.a(2);
-            case 3:
-              setApiStatus('online');
-              _context.n = 4;
-              return fetch(API_BASE + '/api/buildings');
-            case 4:
-              b = _context.v;
-              _context.n = 5;
-              return b.json();
-            case 5:
-              bJson = _context.v;
-              if (!cancelled) {
-                _context.n = 6;
-                break;
-              }
-              return _context.a(2);
-            case 6:
-              setBuildings(bJson);
-              if (bJson.length > 0) setSelectedBuilding(bJson[0]);
-              loadObs();
-              _context.n = 8;
-              break;
-            case 7:
-              _context.p = 7;
-              _t = _context.v;
-              if (!cancelled) setApiStatus('offline');
-            case 8:
-              return _context.a(2);
-          }
-        }, _callee, null, [[0, 7]]);
-      }));
-      return _init.apply(this, arguments);
+  const [apiStatus, setApiStatus] = useState('checking');
+  const [buildings, setBuildings] = useState([]);
+  const [selectedBuilding, setSelectedBuilding] = useState(null);
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [classifying, setClassifying] = useState(false);
+  const [classifyResults, setClassifyResults] = useState(null);
+  const [classifyError, setClassifyError] = useState(null);
+  const [verifiedCategory, setVerifiedCategory] = useState('');
+  const [notes, setNotes] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [savedId, setSavedId] = useState(null);
+  const [saveError, setSaveError] = useState(null);
+  const [observations, setObservations] = useState([]);
+  const [obsLoading, setObsLoading] = useState(false);
+  const [obsFilter, setObsFilter] = useState('');
+  const [importStatus, setImportStatus] = useState(null); // null | 'loading' | {imported,skipped,errors}
+  const importFileRef = useRef(null);
+  const fileInputRef = useRef(null);
+  useEffect(() => {
+    let cancelled = false;
+    async function init() {
+      try {
+        const h = await fetch(API_BASE + '/healthz');
+        if (!h.ok) throw new Error('healthz ' + h.status);
+        if (cancelled) return;
+        setApiStatus('online');
+        const b = await fetch(API_BASE + '/api/buildings');
+        const bJson = await b.json();
+        if (cancelled) return;
+        setBuildings(bJson);
+        if (bJson.length > 0) setSelectedBuilding(bJson[0]);
+        loadObs();
+      } catch (e) {
+        if (!cancelled) setApiStatus('offline');
+      }
     }
     init();
-    return function () {
+    return () => {
       cancelled = true;
     };
   }, []);
-  function loadObs(_x) {
-    return _loadObs.apply(this, arguments);
+  async function loadObs(bId) {
+    setObsLoading(true);
+    try {
+      const url = bId ? API_BASE + '/api/observations?building_id=' + encodeURIComponent(bId) : API_BASE + '/api/observations';
+      const r = await fetch(url);
+      setObservations(await r.json());
+    } catch (e) {/* silent */}
+    setObsLoading(false);
   }
-  function _loadObs() {
-    _loadObs = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(bId) {
-      var url, r, _t2, _t3;
-      return _regenerator().w(function (_context2) {
-        while (1) switch (_context2.p = _context2.n) {
-          case 0:
-            setObsLoading(true);
-            _context2.p = 1;
-            url = bId ? API_BASE + '/api/observations?building_id=' + encodeURIComponent(bId) : API_BASE + '/api/observations';
-            _context2.n = 2;
-            return fetch(url);
-          case 2:
-            r = _context2.v;
-            _t2 = setObservations;
-            _context2.n = 3;
-            return r.json();
-          case 3:
-            _t2(_context2.v);
-            _context2.n = 5;
-            break;
-          case 4:
-            _context2.p = 4;
-            _t3 = _context2.v;
-          case 5:
-            setObsLoading(false);
-          case 6:
-            return _context2.a(2);
-        }
-      }, _callee2, null, [[1, 4]]);
-    }));
-    return _loadObs.apply(this, arguments);
-  }
-  function handleImport(_x2) {
-    return _handleImport.apply(this, arguments);
-  }
-  function _handleImport() {
-    _handleImport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(e) {
-      var f, fd, r, err, result, _t4;
-      return _regenerator().w(function (_context3) {
-        while (1) switch (_context3.p = _context3.n) {
-          case 0:
-            f = e.target.files[0];
-            if (f) {
-              _context3.n = 1;
-              break;
-            }
-            return _context3.a(2);
-          case 1:
-            setImportStatus('loading');
-            _context3.p = 2;
-            fd = new FormData();
-            fd.append('file', f);
-            _context3.n = 3;
-            return fetch(API_BASE + '/api/observations/import', {
-              method: 'POST',
-              body: fd
-            });
-          case 3:
-            r = _context3.v;
-            if (r.ok) {
-              _context3.n = 5;
-              break;
-            }
-            _context3.n = 4;
-            return r.json().catch(function () {
-              return {};
-            });
-          case 4:
-            err = _context3.v;
-            throw new Error(err.detail || 'HTTP ' + r.status);
-          case 5:
-            _context3.n = 6;
-            return r.json();
-          case 6:
-            result = _context3.v;
-            setImportStatus(result);
-            loadObs(obsFilter || undefined);
-            _context3.n = 8;
-            break;
-          case 7:
-            _context3.p = 7;
-            _t4 = _context3.v;
-            setImportStatus({
-              imported: 0,
-              skipped: 0,
-              errors: [_t4.message]
-            });
-          case 8:
-            if (importFileRef.current) importFileRef.current.value = '';
-          case 9:
-            return _context3.a(2);
-        }
-      }, _callee3, null, [[2, 7]]);
-    }));
-    return _handleImport.apply(this, arguments);
+  async function handleImport(e) {
+    const f = e.target.files[0];
+    if (!f) return;
+    setImportStatus('loading');
+    try {
+      const fd = new FormData();
+      fd.append('file', f);
+      const r = await fetch(API_BASE + '/api/observations/import', {
+        method: 'POST',
+        body: fd
+      });
+      if (!r.ok) {
+        const err = await r.json().catch(() => ({}));
+        throw new Error(err.detail || 'HTTP ' + r.status);
+      }
+      const result = await r.json();
+      setImportStatus(result);
+      loadObs(obsFilter || undefined);
+    } catch (err) {
+      setImportStatus({
+        imported: 0,
+        skipped: 0,
+        errors: [err.message]
+      });
+    }
+    if (importFileRef.current) importFileRef.current.value = '';
   }
   function handleFile(e) {
-    var f = e.target.files[0];
+    const f = e.target.files[0];
     if (!f) return;
     if (!['image/jpeg', 'image/jpg', 'image/png'].includes(f.type)) {
       setClassifyError('Unsupported file type: ' + f.type + '. Upload JPG or PNG.');
@@ -6168,152 +5625,75 @@ function AIScannerModule() {
     setVerifiedCategory('');
     setNotes('');
   }
-  function handleClassify() {
-    return _handleClassify.apply(this, arguments);
+  async function handleClassify() {
+    if (!file || !selectedBuilding) return;
+    setClassifying(true);
+    setClassifyResults(null);
+    setClassifyError(null);
+    setSavedId(null);
+    try {
+      const fd = new FormData();
+      fd.append('file', file);
+      const r = await fetch(API_BASE + '/api/classify', {
+        method: 'POST',
+        body: fd
+      });
+      if (!r.ok) {
+        const e = await r.json().catch(() => ({}));
+        throw new Error(e.detail || 'HTTP ' + r.status);
+      }
+      const data = await r.json();
+      setClassifyResults(data);
+      setVerifiedCategory(data.top_material || '');
+    } catch (e) {
+      setClassifyError(e.message.includes('fetch') || e.message.includes('Failed') ? 'Could not reach AI backend. Is the server running at ' + API_BASE + '?' : 'Classification error: ' + e.message);
+    }
+    setClassifying(false);
   }
-  function _handleClassify() {
-    _handleClassify = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-      var fd, r, e, data, _t5;
-      return _regenerator().w(function (_context4) {
-        while (1) switch (_context4.p = _context4.n) {
-          case 0:
-            if (!(!file || !selectedBuilding)) {
-              _context4.n = 1;
-              break;
-            }
-            return _context4.a(2);
-          case 1:
-            setClassifying(true);
-            setClassifyResults(null);
-            setClassifyError(null);
-            setSavedId(null);
-            _context4.p = 2;
-            fd = new FormData();
-            fd.append('file', file);
-            _context4.n = 3;
-            return fetch(API_BASE + '/api/classify', {
-              method: 'POST',
-              body: fd
-            });
-          case 3:
-            r = _context4.v;
-            if (r.ok) {
-              _context4.n = 5;
-              break;
-            }
-            _context4.n = 4;
-            return r.json().catch(function () {
-              return {};
-            });
-          case 4:
-            e = _context4.v;
-            throw new Error(e.detail || 'HTTP ' + r.status);
-          case 5:
-            _context4.n = 6;
-            return r.json();
-          case 6:
-            data = _context4.v;
-            setClassifyResults(data);
-            setVerifiedCategory(data.top_material || '');
-            _context4.n = 8;
-            break;
-          case 7:
-            _context4.p = 7;
-            _t5 = _context4.v;
-            setClassifyError(_t5.message.includes('fetch') || _t5.message.includes('Failed') ? 'Could not reach AI backend. Is the server running at ' + API_BASE + '?' : 'Classification error: ' + _t5.message);
-          case 8:
-            setClassifying(false);
-          case 9:
-            return _context4.a(2);
-        }
-      }, _callee4, null, [[2, 7]]);
-    }));
-    return _handleClassify.apply(this, arguments);
+  async function handleSave() {
+    if (!selectedBuilding || !verifiedCategory) return;
+    setSaving(true);
+    setSaveError(null);
+    try {
+      const fd = new FormData();
+      fd.append('building_id', selectedBuilding.id);
+      fd.append('building_name', selectedBuilding.name);
+      fd.append('verified_category', verifiedCategory);
+      fd.append('notes', notes);
+      fd.append('ai_categories', classifyResults ? JSON.stringify(classifyResults.results.map(r => r.material)) : '[]');
+      fd.append('ai_scores', classifyResults ? JSON.stringify(classifyResults.results.map(r => r.score)) : '[]');
+      if (file) fd.append('photo', file);
+      const r = await fetch(API_BASE + '/api/observations', {
+        method: 'POST',
+        body: fd
+      });
+      if (!r.ok) {
+        const e = await r.json().catch(() => ({}));
+        throw new Error(e.detail || 'HTTP ' + r.status);
+      }
+      const data = await r.json();
+      setSavedId(data.id);
+      setFile(null);
+      setPreview(null);
+      setClassifyResults(null);
+      setVerifiedCategory('');
+      setNotes('');
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      loadObs(obsFilter || undefined);
+    } catch (e) {
+      setSaveError('Save failed: ' + e.message);
+    }
+    setSaving(false);
   }
-  function handleSave() {
-    return _handleSave.apply(this, arguments);
-  }
-  function _handleSave() {
-    _handleSave = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-      var fd, r, e, data, _t6;
-      return _regenerator().w(function (_context5) {
-        while (1) switch (_context5.p = _context5.n) {
-          case 0:
-            if (!(!selectedBuilding || !verifiedCategory)) {
-              _context5.n = 1;
-              break;
-            }
-            return _context5.a(2);
-          case 1:
-            setSaving(true);
-            setSaveError(null);
-            _context5.p = 2;
-            fd = new FormData();
-            fd.append('building_id', selectedBuilding.id);
-            fd.append('building_name', selectedBuilding.name);
-            fd.append('verified_category', verifiedCategory);
-            fd.append('notes', notes);
-            fd.append('ai_categories', classifyResults ? JSON.stringify(classifyResults.results.map(function (r) {
-              return r.material;
-            })) : '[]');
-            fd.append('ai_scores', classifyResults ? JSON.stringify(classifyResults.results.map(function (r) {
-              return r.score;
-            })) : '[]');
-            if (file) fd.append('photo', file);
-            _context5.n = 3;
-            return fetch(API_BASE + '/api/observations', {
-              method: 'POST',
-              body: fd
-            });
-          case 3:
-            r = _context5.v;
-            if (r.ok) {
-              _context5.n = 5;
-              break;
-            }
-            _context5.n = 4;
-            return r.json().catch(function () {
-              return {};
-            });
-          case 4:
-            e = _context5.v;
-            throw new Error(e.detail || 'HTTP ' + r.status);
-          case 5:
-            _context5.n = 6;
-            return r.json();
-          case 6:
-            data = _context5.v;
-            setSavedId(data.id);
-            setFile(null);
-            setPreview(null);
-            setClassifyResults(null);
-            setVerifiedCategory('');
-            setNotes('');
-            if (fileInputRef.current) fileInputRef.current.value = '';
-            loadObs(obsFilter || undefined);
-            _context5.n = 8;
-            break;
-          case 7:
-            _context5.p = 7;
-            _t6 = _context5.v;
-            setSaveError('Save failed: ' + _t6.message);
-          case 8:
-            setSaving(false);
-          case 9:
-            return _context5.a(2);
-        }
-      }, _callee5, null, [[2, 7]]);
-    }));
-    return _handleSave.apply(this, arguments);
-  }
-  var MATERIALS = ['plastic', 'paper', 'cardboard', 'glass', 'metal', 'organic', 'unknown / mixed'];
-  function ScoreBar(_ref30) {
-    var result = _ref30.result,
-      isTop = _ref30.isTop,
-      maxS = _ref30.maxS,
-      minS = _ref30.minS;
-    var range = maxS - minS || 0.01;
-    var fill = Math.max(0, Math.min(1, (result.score - minS) / range));
+  const MATERIALS = ['plastic', 'paper', 'cardboard', 'glass', 'metal', 'organic', 'unknown / mixed'];
+  function ScoreBar({
+    result,
+    isTop,
+    maxS,
+    minS
+  }) {
+    const range = maxS - minS || 0.01;
+    const fill = Math.max(0, Math.min(1, (result.score - minS) / range));
     return /*#__PURE__*/React.createElement("div", {
       style: {
         display: 'flex',
@@ -6382,7 +5762,7 @@ function AIScannerModule() {
     style: {
       fontSize: 22
     }
-  }, "\uD83D\uDCF7"), /*#__PURE__*/React.createElement("div", {
+  }, "📷"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontWeight: 700,
       color: PAL.navy,
@@ -6506,20 +5886,14 @@ function AIScannerModule() {
     }
   }, "BUILDING"), /*#__PURE__*/React.createElement("select", {
     value: selectedBuilding ? selectedBuilding.name : '',
-    onChange: function onChange(e) {
-      return setSelectedBuilding(buildings.find(function (b) {
-        return b.name === e.target.value;
-      }) || null);
-    },
+    onChange: e => setSelectedBuilding(buildings.find(b => b.name === e.target.value) || null),
     style: {
       width: '100%'
     }
-  }, buildings.map(function (b) {
-    return /*#__PURE__*/React.createElement("option", {
-      key: b.id,
-      value: b.name
-    }, b.name);
-  }))), /*#__PURE__*/React.createElement("div", {
+  }, buildings.map(b => /*#__PURE__*/React.createElement("option", {
+    key: b.id,
+    value: b.name
+  }, b.name)))), /*#__PURE__*/React.createElement("div", {
     style: {
       marginBottom: 12
     }
@@ -6612,22 +5986,18 @@ function AIScannerModule() {
       textTransform: 'uppercase',
       letterSpacing: '0.05em'
     }
-  }, "CLIP Similarity Scores (cosine [-1, 1] - not probability)"), function () {
-    var scores = classifyResults.results.map(function (r) {
-      return r.score;
-    });
-    var maxS = Math.max.apply(null, scores);
-    var minS = Math.min.apply(null, scores);
-    return classifyResults.results.map(function (r, i) {
-      return /*#__PURE__*/React.createElement(ScoreBar, {
-        key: r.material,
-        result: r,
-        isTop: i === 0,
-        maxS: maxS,
-        minS: minS
-      });
-    });
-  }(), /*#__PURE__*/React.createElement("div", {
+  }, "CLIP Similarity Scores (cosine [-1, 1] - not probability)"), (() => {
+    const scores = classifyResults.results.map(r => r.score);
+    const maxS = Math.max.apply(null, scores);
+    const minS = Math.min.apply(null, scores);
+    return classifyResults.results.map((r, i) => /*#__PURE__*/React.createElement(ScoreBar, {
+      key: r.material,
+      result: r,
+      isTop: i === 0,
+      maxS: maxS,
+      minS: minS
+    }));
+  })(), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 11,
       color: PAL.muted,
@@ -6649,20 +6019,16 @@ function AIScannerModule() {
     }
   }, "VERIFIED MATERIAL CATEGORY"), /*#__PURE__*/React.createElement("select", {
     value: verifiedCategory,
-    onChange: function onChange(e) {
-      return setVerifiedCategory(e.target.value);
-    },
+    onChange: e => setVerifiedCategory(e.target.value),
     style: {
       width: '100%'
     }
   }, /*#__PURE__*/React.createElement("option", {
     value: ""
-  }, "-- select --"), MATERIALS.map(function (m) {
-    return /*#__PURE__*/React.createElement("option", {
-      key: m,
-      value: m
-    }, m);
-  })), /*#__PURE__*/React.createElement("div", {
+  }, "-- select --"), MATERIALS.map(m => /*#__PURE__*/React.createElement("option", {
+    key: m,
+    value: m
+  }, m))), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 11,
       color: PAL.muted,
@@ -6682,9 +6048,7 @@ function AIScannerModule() {
     }
   }, "NOTES (optional)"), /*#__PURE__*/React.createElement("textarea", {
     value: notes,
-    onChange: function onChange(e) {
-      return setNotes(e.target.value);
-    },
+    onChange: e => setNotes(e.target.value),
     placeholder: "e.g. found near east entrance...",
     rows: 2,
     maxLength: 500,
@@ -6758,7 +6122,7 @@ function AIScannerModule() {
     }
   }, "Recent Observations"), /*#__PURE__*/React.createElement("select", {
     value: obsFilter,
-    onChange: function onChange(e) {
+    onChange: e => {
       setObsFilter(e.target.value);
       loadObs(e.target.value || undefined);
     },
@@ -6768,16 +6132,12 @@ function AIScannerModule() {
     }
   }, /*#__PURE__*/React.createElement("option", {
     value: ""
-  }, "All buildings"), buildings.map(function (b) {
-    return /*#__PURE__*/React.createElement("option", {
-      key: b.id,
-      value: b.id
-    }, b.short_name);
-  })), /*#__PURE__*/React.createElement("button", {
+  }, "All buildings"), buildings.map(b => /*#__PURE__*/React.createElement("option", {
+    key: b.id,
+    value: b.id
+  }, b.short_name))), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-secondary btn-sm",
-    onClick: function onClick() {
-      return loadObs(obsFilter || undefined);
-    }
+    onClick: () => loadObs(obsFilter || undefined)
   }, "Refresh"), /*#__PURE__*/React.createElement("a", {
     href: API_BASE + '/api/observations/export.csv',
     download: "envirotrap_observations.csv",
@@ -6786,13 +6146,13 @@ function AIScannerModule() {
       textDecoration: 'none',
       fontSize: 12
     }
-  }, "\u2193 Export CSV"), /*#__PURE__*/React.createElement("label", {
+  }, "↓ Export CSV"), /*#__PURE__*/React.createElement("label", {
     className: "btn btn-secondary btn-sm",
     style: {
       cursor: 'pointer',
       fontSize: 12
     }
-  }, "\u2191 Import CSV", /*#__PURE__*/React.createElement("input", {
+  }, "↑ Import CSV", /*#__PURE__*/React.createElement("input", {
     ref: importFileRef,
     type: "file",
     accept: ".csv",
@@ -6829,10 +6189,10 @@ function AIScannerModule() {
       padding: '12px 0',
       textAlign: 'center'
     }
-  }, "No observations saved yet."), !obsLoading && observations.length > 0 && /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Building"), /*#__PURE__*/React.createElement("th", null, "Verified Category"), /*#__PURE__*/React.createElement("th", null, "AI Top Similarity"), /*#__PURE__*/React.createElement("th", null, "Notes"), /*#__PURE__*/React.createElement("th", null, "Saved"))), /*#__PURE__*/React.createElement("tbody", null, observations.map(function (obs) {
-    var scores = obs.ai_scores || [];
-    var cats = obs.ai_categories || [];
-    var maxIdx = scores.length > 0 ? scores.indexOf(Math.max.apply(null, scores)) : -1;
+  }, "No observations saved yet."), !obsLoading && observations.length > 0 && /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Building"), /*#__PURE__*/React.createElement("th", null, "Verified Category"), /*#__PURE__*/React.createElement("th", null, "AI Top Similarity"), /*#__PURE__*/React.createElement("th", null, "Notes"), /*#__PURE__*/React.createElement("th", null, "Saved"))), /*#__PURE__*/React.createElement("tbody", null, observations.map(obs => {
+    const scores = obs.ai_scores || [];
+    const cats = obs.ai_categories || [];
+    const maxIdx = scores.length > 0 ? scores.indexOf(Math.max.apply(null, scores)) : -1;
     return /*#__PURE__*/React.createElement("tr", {
       key: obs.id
     }, /*#__PURE__*/React.createElement("td", {
@@ -6878,11 +6238,11 @@ function AIScannerModule() {
       fontSize: 11,
       color: '#92400e'
     }
-  }, "\u26A0 ", /*#__PURE__*/React.createElement("strong", null, "Temporary storage:"), " SQLite on Hugging Face free tier is reset on each Space restart. Export a CSV backup to preserve your observations. Re-import it after a restart to restore records. Scores are CLIP ViT-B/32 cosine similarities \u2014 not recyclability probabilities.")));
+  }, "⚠ ", /*#__PURE__*/React.createElement("strong", null, "Temporary storage:"), " SQLite on Hugging Face free tier is reset on each Space restart. Export a CSV backup to preserve your observations. Re-import it after a restart to restore records. Scores are CLIP ViT-B/32 cosine similarities — not recyclability probabilities.")));
 }
 
 // ─── NAVIGATION ───────────────────────────────────────────────────────────────
-var NAV = [{
+const NAV = [{
   id: 'overview',
   label: 'Overview',
   icon: '📊'
@@ -6930,11 +6290,12 @@ var NAV = [{
   icon: '📷',
   badge: 'AI'
 }];
-function Sidebar(_ref31) {
-  var active = _ref31.active,
-    setActive = _ref31.setActive,
-    collapsed = _ref31.collapsed,
-    setCollapsed = _ref31.setCollapsed;
+function Sidebar({
+  active,
+  setActive,
+  collapsed,
+  setCollapsed
+}) {
   return /*#__PURE__*/React.createElement("div", {
     style: {
       background: PAL.navy,
@@ -6981,11 +6342,7 @@ function Sidebar(_ref31) {
       color: '#80a2ce'
     }
   }, "Nexus - UIUC")), /*#__PURE__*/React.createElement("button", {
-    onClick: function onClick() {
-      return setCollapsed(function (x) {
-        return !x;
-      });
-    },
+    onClick: () => setCollapsed(x => !x),
     style: {
       marginLeft: 'auto',
       background: 'none',
@@ -7001,40 +6358,36 @@ function Sidebar(_ref31) {
       flex: 1,
       paddingTop: 6
     }
-  }, NAV.map(function (item) {
-    return /*#__PURE__*/React.createElement("button", {
-      key: item.id,
-      onClick: function onClick() {
-        return setActive(item.id);
-      },
-      className: "nav-item ".concat(active === item.id ? 'active' : ''),
-      style: {
-        color: active === item.id ? 'white' : '#abc1df',
-        fontWeight: active === item.id ? 600 : 400,
-        fontSize: 13
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontSize: 15,
-        flexShrink: 0
-      }
-    }, item.icon), !collapsed && /*#__PURE__*/React.createElement("span", {
-      style: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: 6
-      }
-    }, item.label, item.badge && /*#__PURE__*/React.createElement("span", {
-      style: {
-        background: PAL.amber,
-        color: PAL.navy,
-        fontSize: 9,
-        fontWeight: 800,
-        padding: '1px 5px',
-        borderRadius: 8
-      }
-    }, item.badge)));
-  })), !collapsed && /*#__PURE__*/React.createElement("div", {
+  }, NAV.map(item => /*#__PURE__*/React.createElement("button", {
+    key: item.id,
+    onClick: () => setActive(item.id),
+    className: `nav-item ${active === item.id ? 'active' : ''}`,
+    style: {
+      color: active === item.id ? 'white' : '#abc1df',
+      fontWeight: active === item.id ? 600 : 400,
+      fontSize: 13
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 15,
+      flexShrink: 0
+    }
+  }, item.icon), !collapsed && /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 6
+    }
+  }, item.label, item.badge && /*#__PURE__*/React.createElement("span", {
+    style: {
+      background: PAL.amber,
+      color: PAL.navy,
+      fontSize: 9,
+      fontWeight: 800,
+      padding: '1px 5px',
+      borderRadius: 8
+    }
+  }, item.badge))))), !collapsed && /*#__PURE__*/React.createElement("div", {
     style: {
       padding: '10px 12px',
       borderTop: '1px solid rgba(255,255,255,.1)',
@@ -7046,15 +6399,9 @@ function Sidebar(_ref31) {
 
 // ─── APP ROOT ─────────────────────────────────────────────────────────────────
 function App() {
-  var _useState107 = useState('overview'),
-    _useState108 = _slicedToArray(_useState107, 2),
-    active = _useState108[0],
-    setActive = _useState108[1];
-  var _useState109 = useState(false),
-    _useState110 = _slicedToArray(_useState109, 2),
-    collapsed = _useState110[0],
-    setCollapsed = _useState110[1];
-  var PAGES = {
+  const [active, setActive] = useState('overview');
+  const [collapsed, setCollapsed] = useState(false);
+  const PAGES = {
     overview: /*#__PURE__*/React.createElement(Overview, {
       setActive: setActive
     }),
