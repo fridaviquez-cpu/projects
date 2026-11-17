@@ -501,7 +501,7 @@ function Overview({ setActive }) {
         action={<Badge cls="badge-amber">Real Data + AI Model</Badge>} />
 
       {/* Verified data notice */}
-      <div className="card" style={{ padding:14, marginBottom:20, borderLeft:`4px solid ${PAL.teal}`, background:'#f0fdf4' }}>
+      <div className="card" style={{ padding:14, marginBottom:12, borderLeft:`4px solid ${PAL.teal}`, background:'#f0fdf4' }}>
         <div style={{ fontSize:12, fontWeight:700, color:PAL.teal, marginBottom:6, textTransform:'uppercase', letterSpacing:'.05em' }}>
           Verified Source Data
         </div>
@@ -510,6 +510,18 @@ function Overview({ setActive }) {
           Of these, <strong>9,989 (12.6%)</strong> pass all quality gates and have building attribution.
           The remaining 87.4% have verifiable reasons: <strong>28,337</strong> have epoch-default timestamps (2001),
           the RFID system failed completely after October 2021, and downstream records lack container identity.
+        </p>
+      </div>
+
+      {/* Attribution quality notice — Betsy feedback */}
+      <div className="card" style={{ padding:12, marginBottom:20, borderLeft:`4px solid ${PAL.amber}`, background:'#fffbeb' }}>
+        <div style={{ fontSize:12, fontWeight:700, color:PAL.amberDark, marginBottom:4, textTransform:'uppercase', letterSpacing:'.05em' }}>
+          Historical Data — Building Attribution Unverified
+        </div>
+        <p style={{ margin:0, fontSize:12, color:PAL.text, lineHeight:1.6 }}>
+          Building names in these records were inferred from RFID container tags and GPS coordinates — they have <strong>not</strong> been
+          confirmed by F&amp;S staff. The 9,989 usable records represent RFID-matched pickups only; the 70,000+ unattributed records
+          have no building identity. <strong>Do not use these figures as verified per-building waste generation data.</strong>
         </p>
       </div>
 
@@ -618,6 +630,20 @@ function Overview({ setActive }) {
           })()}
           <div style={{ marginTop:8, fontSize:11, color:PAL.muted }}>
             Stream labels = intended destination at collection. Downstream verification required for diversion rate.
+          </div>
+          {/* Rate KPI gates — Betsy feedback */}
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:10, marginTop:14 }}>
+            {[
+              { label:'Diversion Rate', reason:'Requires verified weights for recycling, compost, and landfill streams from the same period and scope.' },
+              { label:'Recycling Rate', reason:'Requires verified recycling and landfill stream weights for the same scope.' },
+              { label:'Contamination Rate', reason:'Requires a waste audit with per-item stream classification. Not inferred from LoadMan service-type labels.' },
+            ].map(({ label, reason }) => (
+              <div key={label} style={{ border:`1px dashed ${PAL.border}`, borderRadius:8, padding:'10px 12px', background:PAL.cream }}>
+                <div style={{ fontSize:22, fontWeight:700, color:PAL.muted }}>—</div>
+                <div style={{ fontSize:12, fontWeight:700, color:PAL.navy, marginBottom:4 }}>{label}</div>
+                <div style={{ fontSize:11, color:PAL.muted, lineHeight:1.5 }}>{reason}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -1211,9 +1237,17 @@ function CollectionLog() {
 
   return (
     <div style={{ padding:16, maxWidth:580, margin:'0 auto' }}>
-      <SH title="Collection Log" sub="Driver interface - smart suggestions based on verified route schedules (demo data)" />
+      <SH title="Collection Log" sub="Driver interface — demo routes shown below are synthetic examples, not actual F&S route assignments." />
 
       {ok && <div style={{ background:'#cce5d8', border:'1px solid #66b089', color:'#1a3d30', padding:14, borderRadius:8, textAlign:'center', fontWeight:600, marginBottom:14 }}>Pickup logged successfully</div>}
+
+      {/* Demo notice — Betsy feedback: routes not yet configured by F&S */}
+      <div style={{ background:'#fffbeb', border:`1px solid ${PAL.amber}`, borderRadius:8, padding:12, marginBottom:14, fontSize:12, color:PAL.text, lineHeight:1.6 }}>
+        <strong style={{ color:PAL.amberDark }}>Demo routes — not actual F&S route assignments.</strong>{' '}
+        Route names, buildings, and schedules below are synthetic examples derived from real campus building names.
+        Real F&S route and truck assignments have not been configured. When Betsy provides authorized route data,
+        it will replace these examples. <strong>Do not submit entries from this form as operational records.</strong>
+      </div>
 
       {suggestedRoutes.length>0 && !form.route_id && (
         <div style={{ background:'#eff6ff', border:'1px solid #bfdbfe', borderRadius:8, padding:12, marginBottom:14 }}>
