@@ -2415,47 +2415,88 @@ function BuildingDashboard() {
 }
 
 // ─── NAVIGATION ───────────────────────────────────────────────────────────────
-const NAV = [
-  { id:'overview', label:'Overview', icon:'📊' },
-  { id:'attribution', label:'Attribution Engine', icon:'🤖', badge:'AI' },
-  { id:'pipeline', label:'Data Pipeline', icon:'🔬' },
-  { id:'nexus', label:'Ask Nexus', icon:'💬', badge:'AI' },
+// Primary nav — always visible, F&S-first order
+const PRIMARY_NAV = [
   { id:'collection', label:'Collection Log', icon:'🚛' },
-  { id:'buildings', label:'Buildings', icon:'🏢' },
-  { id:'audits', label:'Waste Audits', icon:'📋' },
-  { id:'insights', label:'Insights', icon:'💡' },
-  { id:'interventions', label:'Interventions', icon:'🎯' },
-  { id:'reports', label:'Reports', icon:'📄' },
-  { id:'settings', label:'Settings', icon:'⚙️' },
-  { id:'scanner', label:'AI Scanner', icon:'📷', badge:'AI' },
+  { id:'buildings',  label:'Buildings',       icon:'🏢' },
+  { id:'nexus',      label:'Ask Nexus',        icon:'💬', badge:'AI' },
+  { id:'audits',     label:'Waste Audits',     icon:'📋' },
+  { id:'overview',   label:'Waste Explorer',   icon:'📊' },
+  { id:'insights',   label:'Insights',         icon:'💡' },
 ];
 
+// Secondary collapsible groups — all features remain fully accessible
+const SECONDARY_GROUPS = [
+  {
+    label: 'Data & Research',
+    items: [
+      { id:'pipeline',     label:'Data Pipeline',       icon:'🔬' },
+      { id:'attribution',  label:'Attribution Engine',  icon:'🤖', badge:'AI' },
+      { id:'reports',      label:'Reports',             icon:'📄' },
+      { id:'settings',     label:'Settings',            icon:'⚙️' },
+    ],
+  },
+  {
+    label: 'Tools',
+    items: [
+      { id:'scanner',       label:'AI Scanner',    icon:'📷', badge:'AI' },
+      { id:'interventions', label:'Interventions', icon:'🎯' },
+    ],
+  },
+];
+
+// Flat list used only by legacy references (none remaining, but kept for safety)
+const NAV = [...PRIMARY_NAV, ...SECONDARY_GROUPS.flatMap(g => g.items)];
+
+function NavItem({ item, active, setActive, collapsed }) {
+  return (
+    <button key={item.id} onClick={()=>setActive(item.id)}
+      className={'nav-item ' + (active===item.id?'active':'')}
+      style={{ color:active===item.id?'white':'#abc1df', fontWeight:active===item.id?600:400, fontSize:13 }}>
+      <span style={{ fontSize:15, flexShrink:0 }}>{item.icon}</span>
+      {!collapsed&&(<span style={{ display:'flex', alignItems:'center', gap:6 }}>{item.label}{item.badge&&<span style={{ background:PAL.amber, color:PAL.navy, fontSize:9, fontWeight:800, padding:'1px 5px', borderRadius:8 }}>{item.badge}</span>}</span>)}
+    </button>
+  );
+}
+
 function Sidebar({ active, setActive, collapsed, setCollapsed }) {
+  const [openGroups, setOpenGroups] = React.useState({});
+  function toggleGroup(label) { setOpenGroups(function(x){ var n=Object.assign({},x); n[label]=!n[label]; return n; }); }
   return (
     <div style={{ background:PAL.navy, minHeight:'100vh', width:collapsed?56:230, flexShrink:0, display:'flex', flexDirection:'column', transition:'width .2s', overflowX:'hidden' }}>
       <div style={{ display:'flex', alignItems:'center', gap:10, padding:'14px 12px', borderBottom:'1px solid rgba(255,255,255,.1)' }}>
         <div style={{ width:32, height:32, borderRadius:8, background:PAL.amber, display:'flex', alignItems:'center', justifyContent:'center', fontWeight:700, fontSize:13, color:PAL.navy, flexShrink:0 }}>ET</div>
-        {!collapsed&&(<div><div style={{ fontWeight:700, fontSize:13, color:'#fff', lineHeight:1.2 }}>EnviroTrap</div><div style={{ fontSize:10, color:'#80a2ce' }}>Nexus - UIUC</div></div>)}
+        {!collapsed&&(<div><div style={{ fontWeight:700, fontSize:13, color:'#fff', lineHeight:1.2 }}>EnviroTrap</div><div style={{ fontSize:10, color:'#80a2ce' }}>Nexus · UIUC F&S</div></div>)}
         <button onClick={()=>setCollapsed(x=>!x)} style={{ marginLeft:'auto', background:'none', border:'none', color:'#80a2ce', cursor:'pointer', fontSize:18, padding:0, lineHeight:1 }}>{collapsed?'>':'<'}</button>
       </div>
-      <nav style={{ flex:1, paddingTop:6 }}>
-        {NAV.map(item=>(
-          <button key={item.id} onClick={()=>setActive(item.id)}
-            className={`nav-item ${active===item.id?'active':''}`}
-            style={{ color:active===item.id?'white':'#abc1df', fontWeight:active===item.id?600:400, fontSize:13 }}>
-            <span style={{ fontSize:15, flexShrink:0 }}>{item.icon}</span>
-            {!collapsed&&(<span style={{ display:'flex', alignItems:'center', gap:6 }}>{item.label}{item.badge&&<span style={{ background:PAL.amber, color:PAL.navy, fontSize:9, fontWeight:800, padding:'1px 5px', borderRadius:8 }}>{item.badge}</span>}</span>)}
-          </button>
-        ))}
+      <nav style={{ flex:1, paddingTop:6, overflowY:'auto' }}>
+        {PRIMARY_NAV.map(function(item){ return <NavItem key={item.id} item={item} active={active} setActive={setActive} collapsed={collapsed} />; })}
+        {!collapsed && <div style={{ height:1, background:'rgba(255,255,255,.08)', margin:'6px 12px' }} />}
+        {SECONDARY_GROUPS.map(function(group){
+          var anyActive = group.items.some(function(i){ return i.id===active; });
+          var isOpen = openGroups[group.label] || anyActive;
+          return (
+            <div key={group.label}>
+              {!collapsed && (
+                <button onClick={function(){ toggleGroup(group.label); }}
+                  style={{ width:'100%', background:'none', border:'none', color:'#6b8bb5', fontSize:10, fontWeight:700, textTransform:'uppercase', letterSpacing:'.07em', padding:'5px 14px 3px', textAlign:'left', cursor:'pointer', display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+                  {group.label}
+                  <span style={{ fontSize:9 }}>{isOpen ? '▾' : '▸'}</span>
+                </button>
+              )}
+              {(isOpen || collapsed) && group.items.map(function(item){ return <NavItem key={item.id} item={item} active={active} setActive={setActive} collapsed={collapsed} />; })}
+            </div>
+          );
+        })}
       </nav>
-      {!collapsed&&<div style={{ padding:'10px 12px', borderTop:'1px solid rgba(255,255,255,.1)', fontSize:10, color:'#5683be' }}>v0.5.0 - Phase 1 Operations</div>}
+      {!collapsed&&<div style={{ padding:'10px 12px', borderTop:'1px solid rgba(255,255,255,.1)', fontSize:10, color:'#5683be' }}>v0.6.0 - Phase 2 Navigation</div>}
     </div>
   );
 }
 
 // ─── APP ROOT ─────────────────────────────────────────────────────────────────
 function App() {
-  const [active, setActive] = useState('overview');
+  const [active, setActive] = useState('collection');
   const [collapsed, setCollapsed] = useState(false);
 
   const PAGES = {
