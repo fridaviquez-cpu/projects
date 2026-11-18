@@ -2332,7 +2332,7 @@ function BuildingDashboard() {
       if (tot > 0) contamRate = (mis / tot * 100).toFixed(1);
     }
     const ConfTag = ({ level }) => {
-      const cfg = { verified:{bg:'#d1fae5',color:'#065f46',label:'Verified'}, historical:{bg:'#fef3c7',color:'#92400e',label:'Historical — unverified attribution'}, unavailable:{bg:'#f3f4f6',color:'#6b7280',label:'Unavailable'} }[level] || {bg:'#f3f4f6',color:'#6b7280',label:level};
+      const cfg = { verified:{bg:'#d1fae5',color:'#065f46',label:'Verified'}, audited:{bg:'#dbeafe',color:'#1e40af',label:'Audit-based — not operationally verified'}, historical:{bg:'#fef3c7',color:'#92400e',label:'Historical — unverified attribution'}, unavailable:{bg:'#f3f4f6',color:'#6b7280',label:'Unavailable'} }[level] || {bg:'#f3f4f6',color:'#6b7280',label:level};
       return <span style={{ fontSize:10, fontWeight:700, padding:'2px 7px', borderRadius:10, background:cfg.bg, color:cfg.color, marginLeft:6 }}>{cfg.label}</span>;
     };
     return (
@@ -2357,7 +2357,7 @@ function BuildingDashboard() {
           <div className="card" style={{ padding:14 }}>
             <div style={{ fontSize:12, color:PAL.muted, marginBottom:4 }}>Contamination rate</div>
             <div style={{ fontSize:28, fontWeight:700, color:contamRate ? PAL.teal : PAL.muted }}>{contamRate ? `${contamRate}%` : '—'}</div>
-            <ConfTag level={contamRate ? 'verified' : 'unavailable'} />
+            <ConfTag level={contamRate ? 'audited' : 'unavailable'} />
             {contamRate && <div style={{ fontSize:11, color:PAL.muted, marginTop:6 }}>Misplaced weight ÷ total audited stream weight. {verAudits.length} verified audit(s). Auditor-determined — not from CLIP.</div>}
             {!contamRate && <div style={{ fontSize:11, color:PAL.muted, marginTop:6 }}>Requires audit with found_in_stream, correct_stream, and verified weight.</div>}
           </div>

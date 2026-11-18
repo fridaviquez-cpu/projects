@@ -6557,6 +6557,11 @@ function BuildingDashboard() {
           color: '#065f46',
           label: 'Verified'
         },
+        audited: {
+          bg: '#dbeafe',
+          color: '#1e40af',
+          label: 'Audit-based — not operationally verified'
+        },
         historical: {
           bg: '#fef3c7',
           color: '#92400e',
@@ -6679,7 +6684,7 @@ function BuildingDashboard() {
         color: contamRate ? PAL.teal : PAL.muted
       }
     }, contamRate ? `${contamRate}%` : '—'), /*#__PURE__*/React.createElement(ConfTag, {
-      level: contamRate ? 'verified' : 'unavailable'
+      level: contamRate ? 'audited' : 'unavailable'
     }), contamRate && /*#__PURE__*/React.createElement("div", {
       style: {
         fontSize: 11,
