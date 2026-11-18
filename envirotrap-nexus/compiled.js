@@ -1558,9 +1558,13 @@ const DEMO_BUILDINGS = Object.entries(REAL_MODEL.site_centroids).slice(0, 20).ma
   abbr: name.split(' ').map(w => w[0]).join('').slice(0, 4).toUpperCase(),
   type: name.includes('HALL') || name.includes('RESIDENCE') || name.includes('APARTMENTS') ? 'Residential' : name.includes('LAB') || name.includes('SCIENCE') ? 'Laboratory' : name.includes('DINING') || name.includes('COMMONS') ? 'Dining' : 'Academic'
 }));
-const ROUTE_DEFS = [{
+
+// Real F&S route assignments — populate from Betsy's data when available.
+const REAL_ROUTES = [];
+// Synthetic demo fallback — NOT actual F&S route assignments.
+const DEMO_ROUTE_DEFS = [{
   id: 'RA',
-  label: 'Route A: North Campus',
+  label: 'Route A: North Campus (DEMO)',
   buildings: DEMO_BUILDINGS.slice(0, 5).map(b => b.id),
   containers: ['Front Load-Landfill-8', 'Front Load-Cardboard-8'],
   days: [1, 3, 5],
@@ -1568,7 +1572,7 @@ const ROUTE_DEFS = [{
   endHour: 10
 }, {
   id: 'RB',
-  label: 'Route B: Engineering / Ag',
+  label: 'Route B: Engineering / Ag (DEMO)',
   buildings: DEMO_BUILDINGS.slice(5, 10).map(b => b.id),
   containers: ['Front Load-Landfill-6', 'Front Load-Paper-2'],
   days: [2, 4],
@@ -1576,7 +1580,7 @@ const ROUTE_DEFS = [{
   endHour: 11
 }, {
   id: 'RC',
-  label: 'Route C: Residential East',
+  label: 'Route C: Residential East (DEMO)',
   buildings: DEMO_BUILDINGS.slice(10, 15).map(b => b.id),
   containers: ['Front Load-Landfill-6', 'Front Load-Cardboard-6'],
   days: [1, 2, 3, 4, 5],
@@ -1584,13 +1588,15 @@ const ROUTE_DEFS = [{
   endHour: 9
 }, {
   id: 'RD',
-  label: 'Route D: Research / Vet Med',
+  label: 'Route D: Research / Vet Med (DEMO)',
   buildings: DEMO_BUILDINGS.slice(15, 20).map(b => b.id),
   containers: ['Front Load-Landfill-8', 'Front Load-Landfill-2'],
   days: [1, 3, 5],
   startHour: 8,
   endHour: 12
 }];
+const ROUTE_DEFS = REAL_ROUTES.length > 0 ? REAL_ROUTES : DEMO_ROUTE_DEFS;
+const USING_REAL_ROUTES = REAL_ROUTES.length > 0;
 
 // ─── SHARED COMPONENTS ────────────────────────────────────────────────────────
 function DemoBanner() {
@@ -1878,6 +1884,81 @@ function ConfidenceMeter({
       fontWeight: 600
     }
   }, label));
+}
+
+// ─── RATE KPI TILES ──────────────────────────────────────────────────────────
+// Contamination rate = weight of items in wrong stream ÷ total audited stream weight.
+// Displayed only when found_in_stream, correct_stream, and weight_verified=true are
+// all present on at least one audit. Never inferred from CLIP labels.
+function RateKpiTiles() {
+  const verifiedAudits = DEMO_AUDITS.filter(a => a.found_in_stream && a.correct_stream && a.weight_verified && a.sample_weight_lbs);
+  let contamRate = null;
+  if (verifiedAudits.length > 0) {
+    let misplacedWeight = 0,
+      totalWeight = 0;
+    for (const a of verifiedAudits) {
+      const w = parseFloat(a.sample_weight_lbs) || 0;
+      totalWeight += w;
+      if (a.found_in_stream !== a.correct_stream) misplacedWeight += w;
+    }
+    if (totalWeight > 0) contamRate = (misplacedWeight / totalWeight * 100).toFixed(1);
+  }
+  const tiles = [{
+    label: 'Diversion Rate',
+    value: '—',
+    reason: 'Requires verified weights for recycling, compost, and landfill streams from the same period and scope.',
+    live: false
+  }, {
+    label: 'Recycling Rate',
+    value: '—',
+    reason: 'Requires verified recycling and landfill stream weights for the same scope.',
+    live: false
+  }, {
+    label: 'Contamination Rate',
+    value: contamRate !== null ? `${contamRate}%` : '—',
+    reason: contamRate !== null ? `Misplaced material weight ÷ total audited stream weight across ${verifiedAudits.length} verified audit(s). Auditor-determined stream classification only — not from CLIP labels.` : 'Requires waste audit(s) with found_in_stream, correct_stream, and verified sample weight. Not inferred from LoadMan or CLIP.',
+    live: contamRate !== null
+  }];
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(3,1fr)',
+      gap: 10,
+      marginTop: 14
+    }
+  }, tiles.map(({
+    label,
+    value,
+    reason,
+    live
+  }) => /*#__PURE__*/React.createElement("div", {
+    key: label,
+    style: {
+      border: `1px ${live ? 'solid' : 'dashed'} ${live ? PAL.teal : PAL.border}`,
+      borderRadius: 8,
+      padding: '10px 12px',
+      background: live ? '#f0fdf4' : PAL.cream
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 22,
+      fontWeight: 700,
+      color: live ? PAL.teal : PAL.muted
+    }
+  }, value), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      fontWeight: 700,
+      color: PAL.navy,
+      marginBottom: 4
+    }
+  }, label), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: PAL.muted,
+      lineHeight: 1.5
+    }
+  }, reason))));
 }
 
 // ─── OVERVIEW ─────────────────────────────────────────────────────────────────
@@ -3674,6 +3755,20 @@ function AskNexus() {
 }
 
 // ─── COLLECTION LOG ───────────────────────────────────────────────────────────
+const CL_STORAGE_KEY = 'envirotrap_nexus_collection_log_v1';
+function loadStoredLogs() {
+  try {
+    const r = localStorage.getItem(CL_STORAGE_KEY);
+    return r ? JSON.parse(r) : [];
+  } catch {
+    return [];
+  }
+}
+function saveLogsToStorage(ls) {
+  try {
+    localStorage.setItem(CL_STORAGE_KEY, JSON.stringify(ls));
+  } catch {}
+}
 function CollectionLog() {
   const now = new Date();
   const dow = now.getDay();
@@ -3682,6 +3777,7 @@ function CollectionLog() {
   const [form, setForm] = useState({
     route_id: '',
     building_id: '',
+    truck_id: '',
     container: '',
     time: timeStr,
     gross: '',
@@ -3690,11 +3786,32 @@ function CollectionLog() {
     notes: '',
     flags: []
   });
-  const [logs, setLogs] = useState([]);
+  const [logs, setLogs] = useState(() => loadStoredLogs());
   const [errors, setErrors] = useState({});
   const [ok, setOk] = useState(false);
   const [duplicate, setDuplicate] = useState(false);
   const [weightWarn, setWeightWarn] = useState(null);
+  const [correcting, setCorrecting] = useState(null);
+  const [correctionNote, setCorrectionNote] = useState('');
+  function exportLogCsv() {
+    const header = ['id', 'date', 'time', 'route', 'truck_id', 'building', 'container', 'stream', 'net_lbs', 'flags', 'notes', 'corrections'];
+    const dataRows = logs.map(function (l) {
+      return [l.id, l.date, l.time, l.route, l.truck_id || '', l.building, l.container, l.stream, l.net, (l.flags || []).join('; '), l.notes || '', (l.corrections || []).map(function (c) {
+        return c.note;
+      }).join('; ')];
+    });
+    var csv = [header].concat(dataRows).map(function (r) {
+      return r.map(function (c) {
+        return JSON.stringify(c == null ? '' : String(c));
+      }).join(',');
+    }).join('\n');
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([csv], {
+      type: 'text/csv'
+    }));
+    a.download = 'collection-log-' + new Date().toISOString().slice(0, 10) + '.csv';
+    a.click();
+  }
   const suggestedRoutes = ROUTE_DEFS.filter(r => r.days.includes(dow) && hour >= r.startHour && hour <= r.endHour);
   const selectedRoute = ROUTE_DEFS.find(r => r.id === form.route_id);
   const availableBuildings = form.route_id ? DEMO_BUILDINGS.filter(b => selectedRoute?.buildings.includes(b.id)) : DEMO_BUILDINGS;
@@ -3757,24 +3874,33 @@ function CollectionLog() {
     }
     const route = ROUTE_DEFS.find(r => r.id === form.route_id);
     const bld = DEMO_BUILDINGS.find(b => b.id === form.building_id);
-    setLogs(p => [{
+    const newEntry = {
       id: `COL${Date.now()}`,
       date: new Date().toISOString().slice(0, 10),
       time: form.time,
-      route: route?.label,
-      building: bld?.name,
+      route: route?.label || form.route_id || 'Unknown',
+      building: bld?.name || form.building_id || 'Unknown',
+      truck_id: form.truck_id.trim() || null,
       container: form.container,
       stream: form.stream,
       net: net || 'Not recorded',
       flags: form.flags,
-      notes: form.notes
-    }, ...p]);
+      notes: form.notes,
+      corrections: [],
+      source: 'driver_entry'
+    };
+    setLogs(p => {
+      const updated = [newEntry, ...p];
+      saveLogsToStorage(updated);
+      return updated;
+    });
     setOk(true);
     setTimeout(() => {
       setOk(false);
       setForm({
         route_id: '',
         building_id: '',
+        truck_id: '',
         container: '',
         time: new Date().toTimeString().slice(0, 5),
         gross: '',
@@ -3901,7 +4027,32 @@ function CollectionLog() {
       color: PAL.muted,
       marginTop: 3
     }
-  }, "Typical time: ", selectedRoute.startHour, ":00-", selectedRoute.endHour, ":00. Buildings on this route pre-loaded below.")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+  }, "Typical time: ", selectedRoute.startHour, ":00-", selectedRoute.endHour, ":00. Buildings on this route pre-loaded below."), !USING_REAL_ROUTES && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: PAL.amberDark,
+      marginTop: 3
+    }
+  }, "⚠ Demo route — not an actual F&S assignment.")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+    style: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: PAL.navy,
+      display: 'block',
+      marginBottom: 4
+    }
+  }, "Truck ID"), /*#__PURE__*/React.createElement("input", {
+    value: form.truck_id,
+    onChange: e => up('truck_id', e.target.value),
+    placeholder: USING_REAL_ROUTES ? 'e.g., T-14' : 'Enter when F&S provides truck IDs',
+    maxLength: 40
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: PAL.muted,
+      marginTop: 2
+    }
+  }, "Optional until F&S route assignments are configured.")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
     style: {
       fontSize: 13,
       fontWeight: 600,
@@ -4162,12 +4313,49 @@ function CollectionLog() {
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      flexWrap: 'wrap',
+      gap: 8,
+      marginBottom: 8
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
       fontSize: 14,
       fontWeight: 700,
-      color: PAL.navy,
-      marginBottom: 10
+      color: PAL.navy
     }
-  }, "Session Log (", logs.length, ")"), logs.map(l => /*#__PURE__*/React.createElement("div", {
+  }, "Logged Entries (", logs.length, ")"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 8
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-secondary btn-sm",
+    onClick: exportLogCsv
+  }, "Export CSV"), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-secondary btn-sm",
+    style: {
+      color: PAL.red
+    },
+    onClick: () => {
+      if (window.confirm('Clear all entries?')) {
+        setLogs([]);
+        saveLogsToStorage([]);
+      }
+    }
+  }, "Clear log"))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: PAL.amberDark,
+      marginBottom: 8,
+      padding: '6px 10px',
+      background: '#fffbeb',
+      borderRadius: 5,
+      border: `1px solid ${PAL.amber}`
+    }
+  }, "⚠ Device-local prototype storage only. Entries are saved in this browser only — not shared with other devices, users, or university systems. Export CSV regularly to preserve records."), logs.map(l => /*#__PURE__*/React.createElement("div", {
     key: l.id,
     className: "card",
     style: {
@@ -4186,14 +4374,43 @@ function CollectionLog() {
       fontWeight: 700,
       fontSize: 13
     }
-  }, l.building), /*#__PURE__*/React.createElement("div", {
+  }, l.building, l.truck_id && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      color: PAL.muted,
+      fontWeight: 400,
+      marginLeft: 8
+    }
+  }, "Truck: ", l.truck_id)), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 12,
       color: PAL.muted
     }
-  }, l.date, " at ", l.time, " - ", l.route, " - Net: ", l.net, " lbs")), /*#__PURE__*/React.createElement(Badge, {
+  }, l.date, " at ", l.time, " · ", l.route, " · Net: ", l.net, " lbs"), (l.corrections || []).length > 0 && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: PAL.amberDark,
+      marginTop: 3
+    }
+  }, "Corrections: ", l.corrections.map(c => `${c.at}: ${c.note}`).join(' | '))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 6,
+      alignItems: 'flex-start'
+    }
+  }, /*#__PURE__*/React.createElement(Badge, {
     cls: `badge ${l.stream === 'Cardboard' || l.stream === 'Paper' ? 'badge-navy' : 'badge-gray'}`
-  }, l.stream)), l.flags.length > 0 && /*#__PURE__*/React.createElement("div", {
+  }, l.stream), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-secondary btn-sm",
+    style: {
+      fontSize: 11,
+      padding: '2px 8px'
+    },
+    onClick: () => {
+      setCorrecting(correcting === l.id ? null : l.id);
+      setCorrectionNote('');
+    }
+  }, "+ Note"))), (l.flags || []).length > 0 && /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 6,
       display: 'flex',
@@ -4202,7 +4419,40 @@ function CollectionLog() {
   }, l.flags.map(f => /*#__PURE__*/React.createElement("span", {
     key: f,
     className: "badge badge-amber"
-  }, f)))))));
+  }, f))), correcting === l.id && /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 8,
+      display: 'flex',
+      gap: 8
+    }
+  }, /*#__PURE__*/React.createElement("input", {
+    style: {
+      flex: 1,
+      fontSize: 12
+    },
+    placeholder: "Correction or additional note...",
+    value: correctionNote,
+    onChange: e => setCorrectionNote(e.target.value),
+    maxLength: 300
+  }), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-primary btn-sm",
+    onClick: () => {
+      if (!correctionNote.trim()) return;
+      setLogs(p => {
+        const updated = p.map(x => x.id === l.id ? {
+          ...x,
+          corrections: [...(x.corrections || []), {
+            at: new Date().toISOString().slice(0, 16),
+            note: correctionNote.trim()
+          }]
+        } : x);
+        saveLogsToStorage(updated);
+        return updated;
+      });
+      setCorrecting(null);
+      setCorrectionNote('');
+    }
+  }, "Save"))))));
 }
 
 // ─── WASTE AUDITS ─────────────────────────────────────────────────────────────
@@ -4232,7 +4482,13 @@ const DEMO_AUDITS = [{
     name: 'Other',
     weight: 28.4
   }],
-  notes: 'High paper towel fraction. Cross-contamination from adjacent recycling bins observed.'
+  notes: 'High paper towel fraction. Cross-contamination from adjacent recycling bins observed.',
+  found_in_stream: null,
+  correct_stream: null,
+  weight_verified: false,
+  recyclable_in_local_program: null,
+  reusable: null,
+  rego_audit_id: null
 }, {
   id: 'AUD002',
   title: 'CRCE Recycling Stream Audit',
@@ -4256,7 +4512,13 @@ const DEMO_AUDITS = [{
     name: 'Metals',
     weight: 4.2
   }],
-  notes: 'Food waste contamination at 9.7% of sample.'
+  notes: 'Food waste contamination at 9.7% of sample.',
+  found_in_stream: 'Cardboard',
+  correct_stream: 'Cardboard',
+  weight_verified: true,
+  recyclable_in_local_program: null,
+  reusable: null,
+  rego_audit_id: null
 }, {
   id: 'AUD003',
   title: 'Ikenberry Post-Lunch Compost',
@@ -4277,7 +4539,13 @@ const DEMO_AUDITS = [{
     name: 'Plastics',
     weight: 6.1
   }],
-  notes: 'Single data point. Unusually high volume.'
+  notes: 'Single data point. Unusually high volume.',
+  found_in_stream: null,
+  correct_stream: null,
+  weight_verified: false,
+  recyclable_in_local_program: null,
+  reusable: null,
+  rego_audit_id: null
 }, {
   id: 'AUD004',
   title: 'Vet Med Lab Recycling Pilot',
@@ -4301,7 +4569,13 @@ const DEMO_AUDITS = [{
     name: 'Metals',
     weight: 6.9
   }],
-  notes: 'Plastics higher than expected - lab consumables suspected.'
+  notes: 'Plastics higher than expected - lab consumables suspected.',
+  found_in_stream: null,
+  correct_stream: null,
+  weight_verified: false,
+  recyclable_in_local_program: null,
+  reusable: null,
+  rego_audit_id: null
 }];
 function WasteAudits() {
   const [audits, setAudits] = useState(DEMO_AUDITS);
@@ -4386,7 +4660,7 @@ function WasteAudits() {
         color: PAL.navy,
         marginBottom: 8
       }
-    }, "Details"), [['Building', audit.building_name], ['Date', audit.date], ['Stream', audit.stream], ['Auditors', audit.auditors.join(', ')], ['Sample Weight', audit.sample_weight_lbs ? `${audit.sample_weight_lbs} lbs` : 'Not recorded']].map(([k, v]) => /*#__PURE__*/React.createElement("div", {
+    }, "Details"), [['Building', audit.building_name], ['Date', audit.date], ['Found in stream', audit.found_in_stream || 'Not recorded'], ['Correct stream', audit.correct_stream || 'Not determined'], ['Auditors', audit.auditors.join(', ')], ['Sample weight', audit.sample_weight_lbs ? `${audit.sample_weight_lbs} lbs` : 'Not recorded'], ['Weight verified', audit.weight_verified ? '✓ Yes' : 'No'], ['Rego Audit ID', audit.rego_audit_id || '—']].map(([k, v]) => /*#__PURE__*/React.createElement("div", {
       key: k,
       style: {
         display: 'flex',
@@ -4401,9 +4675,20 @@ function WasteAudits() {
       }
     }, k), /*#__PURE__*/React.createElement("span", {
       style: {
-        fontWeight: 600
+        fontWeight: 600,
+        color: k === 'Found in stream' && audit.correct_stream && audit.found_in_stream && audit.found_in_stream !== audit.correct_stream ? PAL.red : 'inherit'
       }
-    }, v || 'N/A'))), audit.notes && /*#__PURE__*/React.createElement("p", {
+    }, v || 'N/A'))), audit.found_in_stream && audit.correct_stream && audit.found_in_stream !== audit.correct_stream && /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 8,
+        padding: '6px 10px',
+        background: '#fef2f2',
+        borderRadius: 5,
+        fontSize: 12,
+        color: PAL.red,
+        border: '1px solid #fca5a5'
+      }
+    }, "Misplaced material: found in ", /*#__PURE__*/React.createElement("strong", null, audit.found_in_stream), ", should be ", /*#__PURE__*/React.createElement("strong", null, audit.correct_stream), ".", audit.weight_verified && audit.sample_weight_lbs ? ` Contamination contribution: ${audit.sample_weight_lbs} lbs.` : ' Weight not verified — excluded from rate calculation.'), audit.notes && /*#__PURE__*/React.createElement("p", {
       style: {
         margin: '10px 0 0',
         fontSize: 12,
@@ -6241,6 +6526,335 @@ function AIScannerModule() {
   }, "⚠ ", /*#__PURE__*/React.createElement("strong", null, "Temporary storage:"), " SQLite on Hugging Face free tier is reset on each Space restart. Export a CSV backup to preserve your observations. Re-import it after a restart to restore records. Scores are CLIP ViT-B/32 cosine similarities — not recyclability probabilities.")));
 }
 
+// ─── BUILDING DASHBOARD ──────────────────────────────────────────────────────
+function BuildingDashboard() {
+  const [query, setQuery] = useState('');
+  const [selected, setSelected] = useState(null);
+  const ALL_BUILDINGS = Object.entries(REAL_MODEL.site_centroids).map(([name]) => name);
+  const topSiteMap = Object.fromEntries(REAL_MODEL.top_sites.map(s => [s.name, s.count]));
+  const filtered = query.trim().length < 2 ? ALL_BUILDINGS.slice(0, 30) : ALL_BUILDINGS.filter(b => b.toLowerCase().includes(query.toLowerCase()));
+  if (selected) {
+    const rfidCount = topSiteMap[selected] ?? null;
+    const auditList = DEMO_AUDITS.filter(a => a.building_name === selected);
+    const verAudits = auditList.filter(a => a.found_in_stream && a.correct_stream && a.weight_verified && a.sample_weight_lbs);
+    let contamRate = null;
+    if (verAudits.length > 0) {
+      let mis = 0,
+        tot = 0;
+      for (const a of verAudits) {
+        const w = parseFloat(a.sample_weight_lbs) || 0;
+        tot += w;
+        if (a.found_in_stream !== a.correct_stream) mis += w;
+      }
+      if (tot > 0) contamRate = (mis / tot * 100).toFixed(1);
+    }
+    const ConfTag = ({
+      level
+    }) => {
+      const cfg = {
+        verified: {
+          bg: '#d1fae5',
+          color: '#065f46',
+          label: 'Verified'
+        },
+        audited: {
+          bg: '#dbeafe',
+          color: '#1e40af',
+          label: 'Audit-based — not operationally verified'
+        },
+        historical: {
+          bg: '#fef3c7',
+          color: '#92400e',
+          label: 'Historical — unverified attribution'
+        },
+        unavailable: {
+          bg: '#f3f4f6',
+          color: '#6b7280',
+          label: 'Unavailable'
+        }
+      }[level] || {
+        bg: '#f3f4f6',
+        color: '#6b7280',
+        label: level
+      };
+      return /*#__PURE__*/React.createElement("span", {
+        style: {
+          fontSize: 10,
+          fontWeight: 700,
+          padding: '2px 7px',
+          borderRadius: 10,
+          background: cfg.bg,
+          color: cfg.color,
+          marginLeft: 6
+        }
+      }, cfg.label);
+    };
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        padding: 24
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 10,
+        marginBottom: 16
+      }
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "btn btn-secondary btn-sm",
+      onClick: () => setSelected(null)
+    }, "← All Buildings"), /*#__PURE__*/React.createElement("h2", {
+      style: {
+        margin: 0,
+        fontSize: 16,
+        fontWeight: 700,
+        color: PAL.navy
+      }
+    }, selected)), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))',
+        gap: 14
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "card",
+      style: {
+        padding: 14
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: PAL.muted,
+        marginBottom: 4
+      }
+    }, "LoadMan pickups (RFID-identified)"), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 28,
+        fontWeight: 700,
+        color: rfidCount ? PAL.navy : PAL.muted
+      }
+    }, rfidCount != null ? rfidCount.toLocaleString() : '—'), /*#__PURE__*/React.createElement(ConfTag, {
+      level: rfidCount != null ? 'historical' : 'unavailable'
+    }), rfidCount != null && /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        color: PAL.muted,
+        marginTop: 6
+      }
+    }, "From 9,989 RFID-identified records. Attribution inferred from container RFID — not confirmed by F&S staff.")), /*#__PURE__*/React.createElement("div", {
+      className: "card",
+      style: {
+        padding: 14
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: PAL.muted,
+        marginBottom: 4
+      }
+    }, "Waste generation"), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 28,
+        fontWeight: 700,
+        color: PAL.muted
+      }
+    }, "—"), /*#__PURE__*/React.createElement(ConfTag, {
+      level: "unavailable"
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        color: PAL.muted,
+        marginTop: 6
+      }
+    }, "Requires verified collection records with per-building weights.")), /*#__PURE__*/React.createElement("div", {
+      className: "card",
+      style: {
+        padding: 14
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: PAL.muted,
+        marginBottom: 4
+      }
+    }, "Contamination rate"), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 28,
+        fontWeight: 700,
+        color: contamRate ? PAL.teal : PAL.muted
+      }
+    }, contamRate ? `${contamRate}%` : '—'), /*#__PURE__*/React.createElement(ConfTag, {
+      level: contamRate ? 'audited' : 'unavailable'
+    }), contamRate && /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        color: PAL.muted,
+        marginTop: 6
+      }
+    }, "Misplaced weight ÷ total audited stream weight. ", verAudits.length, " verified audit(s). Auditor-determined — not from CLIP."), !contamRate && /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        color: PAL.muted,
+        marginTop: 6
+      }
+    }, "Requires audit with found_in_stream, correct_stream, and verified weight.")), /*#__PURE__*/React.createElement("div", {
+      className: "card",
+      style: {
+        padding: 14
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: PAL.muted,
+        marginBottom: 4
+      }
+    }, "Diversion / Recycling rate"), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 28,
+        fontWeight: 700,
+        color: PAL.muted
+      }
+    }, "—"), /*#__PURE__*/React.createElement(ConfTag, {
+      level: "unavailable"
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        color: PAL.muted,
+        marginTop: 6
+      }
+    }, "Requires verified stream weights from collection records."))), auditList.length > 0 && /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 16
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 14,
+        fontWeight: 700,
+        color: PAL.navy,
+        marginBottom: 10
+      }
+    }, "Waste Audits (", auditList.length, ")"), auditList.map(a => /*#__PURE__*/React.createElement("div", {
+      key: a.id,
+      className: "card",
+      style: {
+        padding: 12,
+        marginBottom: 8,
+        fontSize: 13
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontWeight: 700
+      }
+    }, a.title), /*#__PURE__*/React.createElement("div", {
+      style: {
+        color: PAL.muted,
+        fontSize: 12
+      }
+    }, a.date, " · ", a.stream, " · ", a.auditors.join(', ')), a.notes && /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        marginTop: 4
+      }
+    }, a.notes)))));
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: 24
+    }
+  }, /*#__PURE__*/React.createElement(SH, {
+    title: "Buildings",
+    sub: "Search for a building to view available waste data. LoadMan attribution is historical and unverified."
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: '#fffbeb',
+      border: `1px solid ${PAL.amber}`,
+      borderRadius: 7,
+      padding: '10px 14px',
+      marginBottom: 16,
+      fontSize: 12,
+      color: PAL.text,
+      lineHeight: 1.6
+    }
+  }, /*#__PURE__*/React.createElement("strong", {
+    style: {
+      color: PAL.amberDark
+    }
+  }, "Data provenance:"), " Building names are real UIUC campus sites. Pickup counts are from RFID-matched LoadMan records — building attribution was inferred from container tags, not confirmed by F&S staff. Metrics shown only when source data exists. Rate KPIs require verified collection or audit records."), /*#__PURE__*/React.createElement("input", {
+    style: {
+      width: '100%',
+      marginBottom: 14,
+      fontSize: 14
+    },
+    placeholder: "Search by building name…",
+    value: query,
+    onChange: e => setQuery(e.target.value)
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))',
+      gap: 10
+    }
+  }, filtered.map(name => {
+    const count = topSiteMap[name];
+    const hasAudit = DEMO_AUDITS.some(a => a.building_name === name);
+    return /*#__PURE__*/React.createElement("button", {
+      key: name,
+      className: "card",
+      style: {
+        padding: 12,
+        textAlign: 'left',
+        cursor: 'pointer',
+        background: PAL.white,
+        border: `1px solid ${PAL.border}`
+      },
+      onClick: () => setSelected(name)
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontWeight: 600,
+        fontSize: 13,
+        color: PAL.navy,
+        marginBottom: 4
+      }
+    }, name), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        color: PAL.muted
+      }
+    }, count != null ? /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: PAL.text
+      }
+    }, "Pickups: ", count.toLocaleString(), " ", /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 10,
+        background: '#fef3c7',
+        color: '#92400e',
+        padding: '1px 5px',
+        borderRadius: 8,
+        fontWeight: 700
+      }
+    }, "HIST")) : /*#__PURE__*/React.createElement("span", null, "No RFID pickups in top-20"), hasAudit && /*#__PURE__*/React.createElement("span", {
+      style: {
+        marginLeft: 8,
+        color: PAL.teal,
+        fontWeight: 600
+      }
+    }, "✓ Audited")));
+  })), filtered.length === 0 && query.trim().length >= 2 && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 13,
+      color: PAL.muted,
+      padding: 16
+    }
+  }, "No buildings match \"", query, "\"."), query.trim().length < 2 && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: PAL.muted,
+      marginTop: 8
+    }
+  }, "Showing first 30 of ", ALL_BUILDINGS.length, " buildings. Search to narrow results."));
+}
+
 // ─── NAVIGATION ───────────────────────────────────────────────────────────────
 const NAV = [{
   id: 'overview',
@@ -6264,6 +6878,10 @@ const NAV = [{
   id: 'collection',
   label: 'Collection Log',
   icon: '🚛'
+}, {
+  id: 'buildings',
+  label: 'Buildings',
+  icon: '🏢'
 }, {
   id: 'audits',
   label: 'Waste Audits',
@@ -6394,7 +7012,7 @@ function Sidebar({
       fontSize: 10,
       color: '#5683be'
     }
-  }, "v0.4.0 - AI Scanner Integration"));
+  }, "v0.5.0 - Phase 1 Operations"));
 }
 
 // ─── APP ROOT ─────────────────────────────────────────────────────────────────
@@ -6411,6 +7029,7 @@ function App() {
     pipeline: /*#__PURE__*/React.createElement(DataPipeline, null),
     nexus: /*#__PURE__*/React.createElement(AskNexus, null),
     collection: /*#__PURE__*/React.createElement(CollectionLog, null),
+    buildings: /*#__PURE__*/React.createElement(BuildingDashboard, null),
     audits: /*#__PURE__*/React.createElement(WasteAudits, null),
     insights: /*#__PURE__*/React.createElement(InsightsEngine, null),
     interventions: /*#__PURE__*/React.createElement(Interventions, null),
