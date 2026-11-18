@@ -6866,11 +6866,6 @@ const PRIMARY_NAV = [{
   label: 'Buildings',
   icon: '🏢'
 }, {
-  id: 'nexus',
-  label: 'Ask Nexus',
-  icon: '💬',
-  badge: 'AI'
-}, {
   id: 'audits',
   label: 'Waste Audits',
   icon: '📋'
@@ -6882,6 +6877,11 @@ const PRIMARY_NAV = [{
   id: 'insights',
   label: 'Insights',
   icon: '💡'
+}, {
+  id: 'nexus',
+  label: 'Ask Nexus',
+  icon: '💬',
+  badge: 'AI'
 }];
 
 // Secondary collapsible groups — all features remain fully accessible

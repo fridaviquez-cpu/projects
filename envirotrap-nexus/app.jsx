@@ -2419,10 +2419,10 @@ function BuildingDashboard() {
 const PRIMARY_NAV = [
   { id:'collection', label:'Collection Log', icon:'🚛' },
   { id:'buildings',  label:'Buildings',       icon:'🏢' },
-  { id:'nexus',      label:'Ask Nexus',        icon:'💬', badge:'AI' },
   { id:'audits',     label:'Waste Audits',     icon:'📋' },
   { id:'overview',   label:'Waste Explorer',   icon:'📊' },
   { id:'insights',   label:'Insights',         icon:'💡' },
+  { id:'nexus',      label:'Ask Nexus',        icon:'💬', badge:'AI' },
 ];
 
 // Secondary collapsible groups — all features remain fully accessible
